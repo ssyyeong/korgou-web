@@ -1,26 +1,39 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from "react";
+import { Provider } from "react-redux";
+import store from "./redux/store/store";
+import AppRoutes from "./routes/routes";
+import "./App.css"; // CSS 추가
+import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-function App() {
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: "#3966AE",
+    },
+    secondary: {
+      main: "#282930",
+    },
+    grey: {
+      200: "#61636C",
+    },
+  },
+});
+
+const App = () => {
+  useEffect(() => {
+    const vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty("--vh", `${vh}px`);
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <ThemeProvider theme={theme}>
+      <Provider store={store}>
+        <div className="container">
+          <AppRoutes />
+        </div>
+      </Provider>
+    </ThemeProvider>
   );
-}
+};
 
 export default App;
