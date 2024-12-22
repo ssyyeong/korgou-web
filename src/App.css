@@ -9,7 +9,7 @@ body {
 
 #root {
   /* 모바일 화면 크기를 고정 */
-  width: 450px; /* iPhone 12와 같은 모바일 화면 너비 */
+  width: 360px; /* iPhone 12와 같은 모바일 화면 너비 */
   height: "100%"; /* iPhone 12와 같은 모바일 화면 높이 */
   min-height: 100vh;
   margin: 0 auto; /* 화면 중앙에 위치 */

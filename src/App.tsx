@@ -16,6 +16,9 @@ const theme = createTheme({
     grey: {
       200: "#61636C",
     },
+    info: {
+      main: "#B1B2B6",
+    },
   },
 });
 

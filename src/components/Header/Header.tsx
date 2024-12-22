@@ -18,7 +18,7 @@ const Header = (props: IHeaderProps) => {
 
   return (
     <Box
-      width={"450px"}
+      width={"360px"}
       bgcolor={"white"}
       display={"flex"}
       height={"10px"}

@@ -18,22 +18,75 @@ const Home = () => {
       <Box
         sx={{
           position: "relative", // 이미지 컨테이너를 relative로 설정
-          display: "inline-block",
+          display: "flex",
+          flexDirection: "column",
+          mx: "16px",
         }}
       >
-        <img src="/images/main/banner.svg" alt="logo" height={500} />
-        {/* <Button
-          variant="contained"
-          color="primary"
+        <img src="/images/main/banner.svg" alt="logo" width={360} />
+        <Box
           sx={{
-            position: "absolute", // 버튼 위치 절대값
-            left: "50%", // 왼쪽에서 50% 이동
-            bottom: 0, // 아래에서 50px
-            transform: "translate(-50%, -50%)", // 중앙 정렬
+            display: "flex",
+            flexDirection: "row",
+            position: "absolute",
+            bottom: "-5%",
+            gap: "5px",
+            width: "100%",
+            justifyContent: "center",
           }}
         >
-          클릭하세요
-        </Button>{" "} */}
+          <Box
+            sx={{
+              display: "flex",
+              backgroundColor: "#3966AE",
+              borderRadius: "8px",
+              border: "0.5px solid #fff",
+              width: "135px",
+              height: "48px",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <Typography
+              sx={{
+                fontSize: "16px",
+                fontWeight: 700,
+                color: "white",
+              }}
+            >
+              Go To Ship
+            </Typography>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              textAlign: "center",
+              backgroundColor: "#3966AE",
+              borderRadius: "8px",
+              border: "0.5px solid #fff",
+              width: "135px",
+              height: "48px",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <Typography
+              sx={{
+                fontSize: "16px",
+                fontWeight: 700,
+                color: "white",
+              }}
+            >
+              Buying it
+            </Typography>
+          </Box>
+          <img
+            src="/images/icon/side_bar/comment.svg"
+            alt="arrow"
+            width={"48px"}
+            height={"48px"}
+          />
+        </Box>
       </Box>
       <Box
         sx={{
@@ -50,11 +103,11 @@ const Home = () => {
         <img
           src="/images/main/box4.svg"
           alt="logo"
-          width={"450px"}
+          width={"360px"}
           height={700}
         />
-        <img src="/images/main/box5.svg" alt="logo" width={450} height={800} />
-        <img src="/images/main/box6.svg" alt="logo" width={450} height={800} />
+        <img src="/images/main/box5.svg" alt="logo" width={360} height={800} />
+        <img src="/images/main/box6.svg" alt="logo" width={360} height={800} />
       </Box>
     </Box>
   );

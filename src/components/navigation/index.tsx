@@ -37,7 +37,7 @@ const BottomNavBar = () => {
   };
 
   return (
-    <Box sx={{ width: "450px", position: "fixed", bottom: 0 }}>
+    <Box sx={{ width: "360px", position: "fixed", bottom: 0 }}>
       <Paper elevation={3}>
         <BottomNavigation
           value={value}

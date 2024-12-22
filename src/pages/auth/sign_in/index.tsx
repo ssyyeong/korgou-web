@@ -104,6 +104,7 @@ const SignIn = () => {
             width={"130px"}
             style={{ fontSize: "14px" }}
           />
+
           <Typography
             variant="body2"
             sx={{
@@ -112,6 +113,9 @@ const SignIn = () => {
               fontSize: "12px",
               fontWeight: 500,
               mt: 1,
+            }}
+            onClick={() => {
+              navigate("/find_pw");
             }}
           >
             FORGET_PASSWORD? {">"}
