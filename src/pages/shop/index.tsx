@@ -24,7 +24,7 @@ const Shop = () => {
           display: "inline-block",
         }}
       >
-        <img src="/images/main/banner.svg" alt="logo" height={500} />
+        <img src="/images/main/banner.svg" alt="logo" height={400} />
       </Box>
       <Box
         sx={{
@@ -76,6 +76,7 @@ const Shop = () => {
             flexDirection: "row",
             justifyContent: "space-between",
             alignItems: "center",
+            ml: "16px",
           }}
         >
           <Typography
@@ -85,7 +86,7 @@ const Shop = () => {
               fontWeight: 500,
             }}
           >
-            OEPN MARKET
+            OPEN MARKET
           </Typography>
           <KeyboardArrowRightIcon sx={{ color: "#B1B2B6", pr: "16px" }} />
         </Box>
@@ -103,25 +104,25 @@ const Shop = () => {
           <img
             src="/images/icon/market/market.svg"
             alt="logo"
-            width={80}
+            width={70}
             height={80}
           />
           <img
             src="/images/icon/market/market2.svg"
             alt="logo"
-            width={80}
+            width={70}
             height={80}
           />
           <img
             src="/images/icon/market/market2.svg"
             alt="logo"
-            width={80}
+            width={70}
             height={80}
           />
           <img
             src="/images/icon/market/market2.svg"
             alt="logo"
-            width={80}
+            width={70}
             height={80}
           />
         </Box>
@@ -143,6 +144,7 @@ const Shop = () => {
             flexDirection: "row",
             justifyContent: "space-between",
             alignItems: "center",
+            ml: "16px",
           }}
         >
           <Typography

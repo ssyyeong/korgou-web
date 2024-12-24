@@ -30,6 +30,7 @@ const BottomNavBar = () => {
       case 2:
         break;
       case 3:
+        navigate("/my_page");
         break;
       default:
         break;
