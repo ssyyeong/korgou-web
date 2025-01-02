@@ -17,8 +17,6 @@ const SignUpSuccess = ({ route }: any) => {
         alignItems: "center",
         height: "100vh",
         width: "100%",
-        boxSizing: "border-box",
-        padding: "0 16px",
       }}
     >
       {/* 상단 콘텐츠 */}
@@ -28,43 +26,44 @@ const SignUpSuccess = ({ route }: any) => {
           flexDirection: "column",
           alignItems: "center",
           justifyContent: "center",
-          marginTop: "20vh",
+          height: "100%",
         }}
       >
         {/* 로고 이미지 */}
         <img
           src="/images/logo/logo.svg" // 실제 이미지 경로에 맞게 수정
           alt="logo"
-          width={160}
-          height={60}
-          style={{ marginBottom: "24px" }}
+          width={117}
+          height={25}
+          style={{ marginBottom: "62px" }}
         />
 
         {/* 텍스트 콘텐츠 */}
         <Typography
           sx={{
-            fontSize: "20px",
+            fontSize: "24px",
             fontWeight: 700,
             color: "#FF4081", // 핑크색
-            marginBottom: "8px",
+            marginBottom: "30px",
           }}
         >
           환영합니다.
         </Typography>
         <Typography
           sx={{
-            fontSize: "16px",
-            fontWeight: 500,
-            marginBottom: "12px",
+            fontSize: "18px",
+            fontWeight: 700,
+            marginBottom: "10px",
+            color: "#282930",
           }}
         >
           가입이 완료 되었습니다.
         </Typography>
         <Typography
           sx={{
-            fontSize: "14px",
-            fontWeight: 400,
-            color: "#555",
+            fontSize: "16px",
+            fontWeight: 500,
+            color: "#282930",
           }}
         >
           ID : {id}
@@ -76,12 +75,13 @@ const SignUpSuccess = ({ route }: any) => {
         sx={{
           width: "100%",
           marginBottom: "32px",
+          display: "flex",
         }}
       >
         <OriginButton
           fullWidth
           variant="contained"
-          color="secondary"
+          color="#282930"
           onClick={() => {
             navigate("/"); // 홈화면으로 이동
           }}
@@ -92,7 +92,7 @@ const SignUpSuccess = ({ route }: any) => {
           }
           style={{
             padding: "16px 8px",
-            backgroundColor: "#282930", // 버튼 색상
+            backgroundColor: "#282930", // 버튼
           }}
         />
       </Box>
