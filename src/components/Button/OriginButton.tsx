@@ -50,6 +50,7 @@ const OriginButton = (props: OriginButtonProps) => {
         padding: props.disabledGutters ? "0px" : "17px 16px",
         ...props.style,
         backgroundColor: props.color,
+        height: "48px",
       }}
       disabled={props.disabled}
       {...props.muiButtonProps}

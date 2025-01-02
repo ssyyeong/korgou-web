@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useDispatch } from "react-redux";
 
 import {
@@ -18,6 +18,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 
 const Email = ({ route }: any) => {
   const location = useLocation();
+  const navigate = useNavigate();
+
   const {
     name = "",
     email = "",
@@ -30,7 +32,12 @@ const Email = ({ route }: any) => {
   } = location?.state || {};
 
   const [authNumber, setAuthNumber] = React.useState("");
-  const navigate = useNavigate();
+  const [newEmail, setNewEmail] = React.useState(email);
+  const [isModifyEmail, setIsModifyEmail] = React.useState(false);
+
+  useEffect(() => {
+    setNewEmail(email);
+  }, [email]);
 
   return (
     <Box
@@ -77,15 +84,59 @@ const Email = ({ route }: any) => {
           >
             아래 이메일로 인증번호가 발송되었습니다.
           </Typography>
-          <Typography
-            sx={{
-              fontSize: "16px",
-              fontWeight: 700,
-              mb: "13px",
-            }}
-          >
-            {email}
-          </Typography>
+          {!isModifyEmail ? (
+            <Typography
+              sx={{
+                fontSize: "16px",
+                fontWeight: 700,
+                mt: "23px",
+              }}
+            >
+              {newEmail}
+            </Typography>
+          ) : (
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                width: "100%",
+                mt: "23px",
+              }}
+            >
+              <TextField
+                variant="outlined"
+                placeholder="이메일"
+                value={newEmail}
+                onChange={(e) => {
+                  setNewEmail(e.target.value);
+                }}
+                sx={{
+                  width: "232px",
+                  fontSize: "16px",
+                  fontWeight: 500,
+                  "& .MuiInputBase-root": { height: "48px" },
+                }}
+              />
+              <Button
+                variant="contained"
+                color="secondary"
+                onClick={() => {
+                  setIsModifyEmail(false);
+                }}
+                sx={{
+                  color: "white",
+                  fontSize: "14px",
+                  fontWeight: 700,
+                  borderRadius: 0,
+                  width: "88px",
+                  height: "48px",
+                  ml: "8px",
+                }}
+              >
+                수정
+              </Button>
+            </Box>
+          )}
           <Box
             sx={{
               display: "flex",

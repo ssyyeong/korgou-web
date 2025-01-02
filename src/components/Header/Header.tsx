@@ -18,7 +18,7 @@ const Header = (props: IHeaderProps) => {
 
   return (
     <Box
-      width={"360px"}
+      width={"100%"}
       bgcolor={"white"}
       display={"flex"}
       height={"10px"}
@@ -28,15 +28,14 @@ const Header = (props: IHeaderProps) => {
       }}
       zIndex={1000}
     >
-      <Box display={"flex"} alignItems={"center"} pl={1} width={"20%"}>
+      <Box display={"flex"}>
         {props.back !== false && (
           <ArrowBackIosNewIcon
             sx={{
               cursor: "pointer",
               color: "#B1B2B6",
-              width: 20,
-              height: 20,
-              pl: 2,
+              width: "15px",
+              height: "15px",
             }}
             onClick={() => {
               navigate(-1);
@@ -46,11 +45,21 @@ const Header = (props: IHeaderProps) => {
       </Box>
       <Box
         display={"flex"}
-        alignItems={"center"}
-        width={"60%"}
-        justifyContent={"center"}
+        sx={{
+          width: "100%",
+          justifyContent: "center",
+        }}
       >
-        <Typography {...props?.styles}>{props.title}</Typography>
+        <Typography
+          {...props.styles}
+          sx={{
+            fontSize: "18px",
+            fontWeight: 700,
+            color: "#282930",
+          }}
+        >
+          {props.title}
+        </Typography>
       </Box>
     </Box>
   );

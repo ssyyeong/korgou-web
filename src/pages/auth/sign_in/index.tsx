@@ -8,6 +8,7 @@ import OriginButton from "../../../components/Button/OriginButton";
 import Input from "../../../components/Input";
 import SocialLogin from "../../../components/SocialLogin";
 import { useNavigate } from "react-router-dom";
+import BottomModal from "../../../components/Modal/BottomModal";
 
 const SignIn = () => {
   const dispatch = useDispatch();
@@ -15,9 +16,11 @@ const SignIn = () => {
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [isAutoLogin, setIsAutoLogin] = React.useState(false);
+  const [bottomModalOpen, setBottomModalOpen] = React.useState(false);
 
   const navigate = useNavigate();
 
+  // 로그인 버튼
   const handleLogin = (e: React.FormEvent) => {
     e.preventDefault();
 
@@ -26,10 +29,25 @@ const SignIn = () => {
     }
   };
 
+  // 엔터키 입력시 로그인
   const onKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter") {
       handleLogin(e);
     }
+  };
+
+  // 모달 닫기
+  const handleClose = (reason: any) => {
+    if (reason === "backdropClick") {
+      setBottomModalOpen(false);
+    }
+  };
+
+  const btnClick = () => {
+    setBottomModalOpen(false);
+    navigate("/find_pw/email", {
+      state: { email, title: "임시 비밀번호 입력" },
+    });
   };
 
   return (
@@ -47,9 +65,12 @@ const SignIn = () => {
       <img
         src="/images/logo/logo.svg"
         alt="logo"
-        width={160}
-        height={60}
-        style={{ margin: "auto", marginBottom: 41 }}
+        style={{
+          width: "117px",
+          height: "25px",
+          marginTop: "83px",
+          marginBottom: "41px",
+        }}
       />
       <Box
         sx={{
@@ -66,17 +87,28 @@ const SignIn = () => {
             setEmail(e.target.value);
           }}
           variant={"outlined"}
-          sx={{ mb: 2, bgcolor: "white" }}
+          sx={{
+            bgcolor: "white",
+            fontSize: "16px",
+            height: "48px",
+            mb: 2,
+          }}
           placeholder="이메일"
           onKeyDown={onKeyDown}
         />
+
         <TextField
           fullWidth
           value={password}
           type="password"
           onChange={(e) => setPassword(e.target.value)}
           variant={"outlined"}
-          sx={{ mb: 2, bgcolor: "white" }}
+          sx={{
+            bgcolor: "white",
+            fontSize: "16px",
+            height: "48px",
+            marginBottom: "20px",
+          }}
           placeholder="비밀번호"
           onKeyDown={onKeyDown}
         />
@@ -85,13 +117,19 @@ const SignIn = () => {
           variant="contained"
           color="primary"
           onClick={handleLogin}
-          contents={<Typography fontSize={16}>로그인</Typography>}
-          style={{ padding: "16px 8px", mb: 2 }}
+          contents={
+            <Typography fontSize={16} fontWeight={700}>
+              로그인
+            </Typography>
+          }
+          style={{ padding: "16px 8px", height: "48px" }}
         />
         <Box
           sx={{
             display: "flex",
             justifyContent: "space-between",
+            marginY: "20px",
+            alignItems: "center",
           }}
         >
           <Input
@@ -112,7 +150,6 @@ const SignIn = () => {
               cursor: "pointer",
               fontSize: "12px",
               fontWeight: 500,
-              mt: 1,
             }}
             onClick={() => {
               navigate("/find_pw");
@@ -121,7 +158,7 @@ const SignIn = () => {
             FORGET_PASSWORD? {">"}
           </Typography>
         </Box>
-        <Divider sx={{ mt: 2, mb: 2, color: "#ECECED" }} />
+        <Divider sx={{ color: "#ECECED" }} />
       </Box>
       <Box
         sx={{
@@ -129,7 +166,7 @@ const SignIn = () => {
           flexDirection: "column",
           width: "100%",
           alignItems: "center",
-          mt: 2,
+          marginTop: "20px",
         }}
       >
         <Typography
@@ -137,7 +174,7 @@ const SignIn = () => {
             color: "#41434E",
             fontSize: "14px",
             fontWeight: 500,
-            mb: 2,
+            marginBottom: "13px",
           }}
         >
           소셜로그인
@@ -146,7 +183,6 @@ const SignIn = () => {
           sx={{
             display: "flex",
             width: "100%",
-            gap: 2,
             justifyContent: "center",
           }}
         >
@@ -191,8 +227,8 @@ const SignIn = () => {
       <Divider
         sx={{
           width: "100%",
-          mt: 5,
           color: "secondary.dark",
+          marginY: "20px",
         }}
       />
       <OriginButton
@@ -207,19 +243,62 @@ const SignIn = () => {
             개인 회원가입
           </Typography>
         }
-        style={{ padding: "16px 8px", mb: 2 }}
+        style={{ height: "48px" }}
       />
       <OriginButton
         fullWidth
         variant="contained"
         color="#fff"
-        onClick={handleLogin}
+        onClick={() => navigate("/sign_up/company")}
         contents={
           <Typography fontSize={16} fontWeight={700} color="#61636C">
             기업 회원가입
           </Typography>
         }
-        style={{ padding: "16px 8px", mb: 2 }}
+        style={{ height: "48px", marginTop: "10px" }}
+      />
+      <BottomModal
+        title={
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <Typography
+              sx={{
+                fontSize: "20px",
+                fontWeight: 700,
+                color: "#282930",
+                marginBottom: "24px",
+              }}
+            >
+              KORGOU 기존고객 로그인 인증
+            </Typography>
+            <Typography
+              sx={{
+                fontSize: "14px",
+                fontWeight: 500,
+                color: "#282930",
+                textAlign: "center",
+              }}
+            >
+              기존 서비스에 가입하신 이메일로
+              <br />
+              임시 비밀번호를 전송해드릴게요. <br />
+              로그인 및 비밀번호 변경 후 계정 사용이 가능하십니다!
+            </Typography>
+          </Box>
+        }
+        btnText={"임시 비밀번호 발급받기"}
+        bottomModalOpen={bottomModalOpen}
+        setBottomModalOpen={() => {
+          setBottomModalOpen(true);
+        }}
+        handleClose={handleClose}
+        btnClick={btnClick}
       />
     </Box>
   );

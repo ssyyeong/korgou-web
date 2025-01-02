@@ -20,24 +20,19 @@ const PasswordSuccess = () => {
       }}
     >
       {/* 로고 */}
-      <Typography
-        sx={{
-          fontSize: "32px",
-          fontWeight: "bold",
-          color: "#3F6CBF",
-          marginBottom: "32px",
-        }}
-      >
-        Kor<span style={{ color: "#6E6E6E" }}>Gou</span>
-      </Typography>
+      <img
+        src="/images/logo/logo.svg"
+        alt="logo"
+        style={{ width: "117px", height: "25px", marginBottom: "96px" }}
+      />
 
       {/* 완료 메시지 */}
       <Typography
         sx={{
           fontSize: "18px",
-          fontWeight: 500,
-          color: "#333",
-          marginBottom: "48px",
+          fontWeight: 700,
+          color: "#282930",
+          marginBottom: "30px",
           textAlign: "center",
         }}
       >
@@ -54,13 +49,6 @@ const PasswordSuccess = () => {
             로그인 하기
           </Typography>
         }
-        style={{
-          backgroundColor: "#3F6CBF",
-          padding: "12px 0",
-          borderRadius: "4px",
-          width: "100%",
-          maxWidth: "300px",
-        }}
       />
     </Box>
   );

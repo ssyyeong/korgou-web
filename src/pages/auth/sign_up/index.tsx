@@ -1,21 +1,14 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 
-import {
-  AppBar,
-  Avatar,
-  Box,
-  Divider,
-  Icon,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { AppBar, Avatar, Box, Divider, Icon, Typography } from "@mui/material";
 
 import { loginSuccess } from "../../../redux/actions/authActions";
 import OriginButton from "../../../components/Button/OriginButton";
 import Input from "../../../components/Input";
 import SocialLogin from "../../../components/SocialLogin";
 import Header from "../../../components/Header/Header";
+import TextFieldCustom from "../../../components/TextField";
 
 import CheckIcon from "@mui/icons-material/Check";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
@@ -38,8 +31,13 @@ const SignUp = () => {
 
   const navigate = useNavigate();
 
+  const textStyle = {
+    fontSize: "14px",
+    fontWeight: 700,
+    mb: "8px",
+  };
+
   const nextPage = () => {
-    console.log("회원가입");
     navigate("/sign_up/email", {
       state: {
         name: name,
@@ -65,14 +63,7 @@ const SignUp = () => {
         flexDirection: "column",
       }}
     >
-      <Header
-        title={"회원가입"}
-        styles={{
-          fontSize: "15x",
-          fontWeight: 700,
-          color: "#282930",
-        }}
-      />
+      <Header title={"회원가입"} />
       <Box
         sx={{
           display: "flex",
@@ -81,86 +72,66 @@ const SignUp = () => {
           height: "100%",
         }}
       >
-        <Typography
-          sx={{
-            fontSize: "14px",
-            fontWeight: 700,
-            mb: "8px",
-          }}
-        >
-          이름
-        </Typography>
-        <TextField
+        <Typography sx={textStyle}>이름</Typography>
+        <TextFieldCustom
           fullWidth
           value={name}
           type="name"
           onChange={(e) => {
             setName(e.target.value);
           }}
-          variant={"outlined"}
-          sx={{ mb: 2, bgcolor: "white" }}
           placeholder="English Full-Name"
         />
-        <Typography
-          sx={{
-            fontSize: "14px",
-            fontWeight: 700,
-            mb: "8px",
-          }}
-        >
-          이메일
-        </Typography>
-        <TextField
+        <Typography sx={textStyle}>이메일</Typography>
+        <TextFieldCustom
           fullWidth
           value={email}
           type="email"
           onChange={(e) => {
             setEmail(e.target.value);
           }}
-          variant={"outlined"}
-          sx={{ mb: 2, bgcolor: "white" }}
           placeholder="E-mail"
         />
-        <Typography
-          sx={{
-            fontSize: "14px",
-            fontWeight: 700,
-            mb: "8px",
-          }}
-        >
-          비밀번호
-        </Typography>
-        <TextField
+        <Typography sx={textStyle}>비밀번호</Typography>
+        <TextFieldCustom
           fullWidth
           value={password}
           type="password"
           onChange={(e) => {
             setPassword(e.target.value);
           }}
-          variant={"outlined"}
-          sx={{ mb: 2, bgcolor: "white" }}
+          sx={{ mb: "10px" }}
           placeholder="영문,숫자 포함 7~16자를 입력해주세요."
+          error={password.length < 7 && password.length > 0}
+          helperText={
+            password.length < 7 && password.length > 0
+              ? "비밀번호는 영문,숫자 포함 7자 이상이어야 합니다."
+              : ""
+          }
         />
-        <TextField
+        <TextFieldCustom
           fullWidth
           value={passwordCheck}
           type="re-password"
           onChange={(e) => {
             setPasswordCheck(e.target.value);
           }}
-          variant={"outlined"}
-          sx={{ mb: 2, bgcolor: "white" }}
           placeholder="비밀번호를 한번 더 입력해 주세요."
+          error={passwordCheck !== password}
+          helperText={
+            passwordCheck !== password ? "비밀번호가 일치하지 않습니다." : ""
+          }
         />
+        <Typography sx={textStyle}>국가</Typography>
         <Input
           dataList={countryList}
           value={country}
           setValue={setCountry}
           type="select"
-          width={{ xs: "100%", md: "100%" }}
-          style={{ mb: 2, maxHeight: "50px" }}
+          style={{ mb: "20px", maxHeight: "48px" }}
         />
-        <TextField
+        <Typography sx={textStyle}>추천인 코드</Typography>
+        <TextFieldCustom
           fullWidth
           value={recommenderCode}
           type="recommenderCode"
@@ -176,8 +147,8 @@ const SignUp = () => {
             display: "flex",
             mb: 2,
             flexDirection: "column",
-            gap: "8px",
-            pl: "16px",
+            gap: "16px",
+            mt: "32px",
           }}
         >
           <Input
@@ -190,8 +161,7 @@ const SignUp = () => {
               setIsAgree3(!isAllAgree);
             }}
             label={"전체 동의"}
-            width={"130px"}
-            style={{ fontSize: "14px" }}
+            style={{ fontSize: "16px" }}
           />
           <Box
             sx={{
@@ -199,6 +169,7 @@ const SignUp = () => {
               flexDirection: "row",
               width: "100%",
               justifyContent: "space-between",
+              ml: "16px",
             }}
             onClick={() => {
               setIsAgree1(!isAgree1);
@@ -208,6 +179,7 @@ const SignUp = () => {
               sx={{
                 display: "flex",
                 flexDirection: "row",
+                gap: "4px",
               }}
             >
               <CheckIcon
@@ -223,8 +195,6 @@ const SignUp = () => {
                   cursor: "pointer",
                   fontSize: "14px",
                   fontWeight: 500,
-
-                  ml: 1,
                 }}
               >
                 (필수)
@@ -240,7 +210,7 @@ const SignUp = () => {
                 서비스 이용약관 동의
               </Typography>
             </Box>
-            <KeyboardArrowRightIcon sx={{ color: "#B1B2B6", pr: "16px" }} />
+            <KeyboardArrowRightIcon sx={{ color: "#B1B2B6", pr: "32px" }} />
           </Box>
           <Box
             sx={{
@@ -248,6 +218,7 @@ const SignUp = () => {
               flexDirection: "row",
               width: "100%",
               justifyContent: "space-between",
+              ml: "16px",
             }}
             onClick={() => {
               setIsAgree2(!isAgree2);
@@ -257,6 +228,7 @@ const SignUp = () => {
               sx={{
                 display: "flex",
                 flexDirection: "row",
+                gap: "4px",
               }}
             >
               <CheckIcon
@@ -272,8 +244,6 @@ const SignUp = () => {
                   cursor: "pointer",
                   fontSize: "14px",
                   fontWeight: 500,
-
-                  ml: 1,
                 }}
               >
                 (필수)
@@ -289,7 +259,7 @@ const SignUp = () => {
                 개인정보 수집 및 이용 동의{" "}
               </Typography>
             </Box>
-            <KeyboardArrowRightIcon sx={{ color: "#B1B2B6", pr: "16px" }} />
+            <KeyboardArrowRightIcon sx={{ color: "#B1B2B6", pr: "32px" }} />
           </Box>
           <Box
             sx={{
@@ -297,6 +267,7 @@ const SignUp = () => {
               flexDirection: "row",
               width: "100%",
               justifyContent: "space-between",
+              ml: "16px",
             }}
             onClick={() => {
               setIsAgree3(!isAgree3);
@@ -306,6 +277,7 @@ const SignUp = () => {
               sx={{
                 display: "flex",
                 flexDirection: "row",
+                gap: "4px",
               }}
             >
               <CheckIcon
@@ -321,8 +293,6 @@ const SignUp = () => {
                   cursor: "pointer",
                   fontSize: "14px",
                   fontWeight: 500,
-
-                  ml: 1,
                 }}
               >
                 (선택)
@@ -338,7 +308,7 @@ const SignUp = () => {
                 마케팅 정보 활용에 동의
               </Typography>
             </Box>
-            <KeyboardArrowRightIcon sx={{ color: "#B1B2B6", pr: "16px" }} />
+            <KeyboardArrowRightIcon sx={{ color: "#B1B2B6", pr: "32px" }} />
           </Box>
         </Box>
       </Box>
@@ -352,7 +322,7 @@ const SignUp = () => {
           nextPage();
         }}
         contents={<Typography fontSize={16}>확인</Typography>}
-        style={{ padding: "16px 8px", my: 2 }}
+        style={{ padding: "16px 8px", mt: "20px" }}
       />
     </Box>
   );

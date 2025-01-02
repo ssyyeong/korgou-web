@@ -19,14 +19,7 @@ const FindPw = () => {
         flexDirection: "column",
       }}
     >
-      <Header
-        title={"비밀번호 찾기"}
-        styles={{
-          fontSize: "15x",
-          fontWeight: 700,
-          color: "#282930",
-        }}
-      />
+      <Header title={"비밀번호 찾기"} />
       {/* 상단 콘텐츠 */}
       <Box
         sx={{
@@ -62,8 +55,8 @@ const FindPw = () => {
           fullWidth
           variant="contained"
           onClick={() => {
-            navigate("/auth/find_pw/email", {
-              state: { email },
+            navigate("/find_pw/email", {
+              state: { email, title: "이메일 인증" },
             });
           }}
           contents={

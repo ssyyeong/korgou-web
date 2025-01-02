@@ -15,12 +15,10 @@ import {
   Typography,
 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import UploadFileIcon from "@mui/icons-material/UploadFile";
 // import { ImageController } from '../../../controller/ImageController';
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import CloseIcon from "@mui/icons-material/Close";
-import dayjs from "dayjs";
 
 interface InputProps {
   type: string;
@@ -190,7 +188,7 @@ const Input = React.forwardRef(
             }}
             endAdornment={
               <InputAdornment position="end">
-                {(props.value == "" || props.value) && (
+                {(props.value === "" || props.value) && (
                   <Typography
                     mr={1}
                     onClick={() => {
@@ -229,6 +227,8 @@ const Input = React.forwardRef(
               display: "flex",
               py: 0.5,
               borderRadius: "10px",
+              backgroundColor:
+                props.label === "전체 동의" ? "#F8FAFC" : "white",
             }}
           >
             {typeof props.value === "boolean" ? (
@@ -240,6 +240,7 @@ const Input = React.forwardRef(
                     onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                       props.setValue(event.target.checked);
                     }}
+                    sx={{ ml: props.label === "전체 동의" ? "16px" : "0px" }}
                   />
                 }
                 sx={{
@@ -273,7 +274,7 @@ const Input = React.forwardRef(
                 fontSize: "14px",
                 fontWeight: 700,
                 borderRadius: 0,
-                width: "25%",
+                width: "88px",
                 height: "48px",
               }}
               variant="contained"
@@ -326,6 +327,7 @@ const Input = React.forwardRef(
                   visibility: "hidden",
                 },
                 width: "75%",
+                "& .MuiInputBase-root": { height: "48px" },
                 ...props.style,
               }}
             />

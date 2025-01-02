@@ -1,19 +1,12 @@
 import React from "react";
 import { useDispatch } from "react-redux";
 
-import {
-  AppBar,
-  Avatar,
-  Box,
-  Divider,
-  Icon,
-  TextField,
-  Typography,
-} from "@mui/material";
+import { AppBar, Avatar, Box, Divider, Icon, Typography } from "@mui/material";
 
 import OriginButton from "../../../../components/Button/OriginButton";
 import Input from "../../../../components/Input";
 import Header from "../../../../components/Header/Header";
+import TextFieldCustom from "../../../../components/TextField";
 
 import CheckIcon from "@mui/icons-material/Check";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
@@ -37,8 +30,26 @@ const SignUpCompany = () => {
   const [isAgree2, setIsAgree2] = React.useState(false);
 
   const productMethodList: string[] = ["위탁판매"];
-
   const productTypeList: string[] = ["국내 상품 유통"];
+
+  const textStyle = {
+    fontSize: "14px",
+    fontWeight: 700,
+    mb: "8px",
+  };
+
+  const essential = (
+    <Typography
+      sx={{
+        fontSize: "14px",
+        fontWeight: 700,
+        mb: "8px",
+        color: "#EB1F81",
+      }}
+    >
+      *
+    </Typography>
+  );
 
   const SignUp = () => {
     console.log("회원가입");
@@ -55,14 +66,7 @@ const SignUpCompany = () => {
         flexDirection: "column",
       }}
     >
-      <Header
-        title={"회원가입"}
-        styles={{
-          fontSize: "15x",
-          fontWeight: 700,
-          color: "#282930",
-        }}
-      />
+      <Header title={"기업 회원가입"} back={true} />
       <Box
         sx={{
           display: "flex",
@@ -78,25 +82,8 @@ const SignUpCompany = () => {
             gap: "1px",
           }}
         >
-          <Typography
-            sx={{
-              fontSize: "14px",
-              fontWeight: 700,
-              mb: "8px",
-            }}
-          >
-            이름
-          </Typography>
-          <Typography
-            sx={{
-              fontSize: "14px",
-              fontWeight: 700,
-              mb: "8px",
-              color: "#EB1F81",
-            }}
-          >
-            *
-          </Typography>
+          <Typography sx={textStyle}>이름</Typography>
+          {essential}
         </Box>
         <Box
           sx={{
@@ -105,26 +92,22 @@ const SignUpCompany = () => {
             gap: "8px",
           }}
         >
-          <TextField
+          <TextFieldCustom
             fullWidth
             value={lastName}
             type="name"
             onChange={(e) => {
               setLastName(e.target.value);
             }}
-            variant={"outlined"}
-            sx={{ mb: 2, bgcolor: "white" }}
             placeholder="이름(영문)"
           />
-          <TextField
+          <TextFieldCustom
             fullWidth
             value={firstName}
             type="name"
             onChange={(e) => {
               setFirstName(e.target.value);
             }}
-            variant={"outlined"}
-            sx={{ mb: 2, bgcolor: "white" }}
             placeholder="성(영문)"
           />
         </Box>
@@ -135,36 +118,17 @@ const SignUpCompany = () => {
             gap: "1px",
           }}
         >
-          <Typography
-            sx={{
-              fontSize: "14px",
-              fontWeight: 700,
-              mb: "8px",
-            }}
-          >
-            이메일
-          </Typography>
-          <Typography
-            sx={{
-              fontSize: "14px",
-              fontWeight: 700,
-              mb: "8px",
-              color: "#EB1F81",
-            }}
-          >
-            *
-          </Typography>
+          <Typography sx={textStyle}>이메일</Typography>
+          {essential}
         </Box>
 
-        <TextField
+        <TextFieldCustom
           fullWidth
           value={email}
           type="email"
           onChange={(e) => {
             setEmail(e.target.value);
           }}
-          variant={"outlined"}
-          sx={{ mb: 2, bgcolor: "white" }}
           placeholder="이메일을 입력해 주세요."
         />
         <Box
@@ -174,47 +138,38 @@ const SignUpCompany = () => {
             gap: "1px",
           }}
         >
-          <Typography
-            sx={{
-              fontSize: "14px",
-              fontWeight: 700,
-              mb: "8px",
-            }}
-          >
-            비밀번호
-          </Typography>
-          <Typography
-            sx={{
-              fontSize: "14px",
-              fontWeight: 700,
-              mb: "8px",
-              color: "#EB1F81",
-            }}
-          ></Typography>
+          <Typography sx={textStyle}>비밀번호</Typography>
+          {essential}
         </Box>
-        <TextField
+        <TextFieldCustom
           fullWidth
           value={password}
           type="password"
           onChange={(e) => {
             setPassword(e.target.value);
           }}
-          variant={"outlined"}
-          sx={{ mb: 2, bgcolor: "white" }}
+          sx={{ mb: "10px" }}
           placeholder="영문,숫자 포함 7~16자를 입력해주세요."
+          error={password.length < 7 && password.length > 0}
+          helperText={
+            password.length < 7 && password.length > 0
+              ? "비밀번호는 영문,숫자 포함 7자 이상이어야 합니다."
+              : ""
+          }
         />
-        <TextField
+        <TextFieldCustom
           fullWidth
           value={passwordCheck}
           type="re-password"
           onChange={(e) => {
             setPasswordCheck(e.target.value);
           }}
-          variant={"outlined"}
-          sx={{ mb: 2, bgcolor: "white" }}
           placeholder="비밀번호를 한번 더 입력해 주세요."
+          error={passwordCheck !== password}
+          helperText={
+            passwordCheck !== password ? "비밀번호가 일치하지 않습니다." : ""
+          }
         />
-
         <Box
           sx={{
             display: "flex",
@@ -222,36 +177,17 @@ const SignUpCompany = () => {
             gap: "1px",
           }}
         >
-          <Typography
-            sx={{
-              fontSize: "14px",
-              fontWeight: 700,
-              mb: "8px",
-            }}
-          >
-            브랜드 셀러명
-          </Typography>
-          <Typography
-            sx={{
-              fontSize: "14px",
-              fontWeight: 700,
-              mb: "8px",
-              color: "#EB1F81",
-            }}
-          >
-            *
-          </Typography>
+          <Typography sx={textStyle}>브랜드 셀러명</Typography>
+          {essential}
         </Box>
 
-        <TextField
+        <TextFieldCustom
           fullWidth
           value={sellerName}
           type="sellerName"
           onChange={(e) => {
             setSellerName(e.target.value);
           }}
-          variant={"outlined"}
-          sx={{ mb: 2, bgcolor: "white" }}
           placeholder="브랜드샐러명을 입력해 주세요."
         />
 
@@ -262,25 +198,8 @@ const SignUpCompany = () => {
             gap: "1px",
           }}
         >
-          <Typography
-            sx={{
-              fontSize: "14px",
-              fontWeight: 700,
-              mb: "8px",
-            }}
-          >
-            판매 방식
-          </Typography>
-          <Typography
-            sx={{
-              fontSize: "14px",
-              fontWeight: 700,
-              mb: "8px",
-              color: "#EB1F81",
-            }}
-          >
-            *
-          </Typography>
+          <Typography sx={textStyle}>판매 방식</Typography>
+          {essential}
         </Box>
 
         <Input
@@ -301,25 +220,8 @@ const SignUpCompany = () => {
             gap: "1px",
           }}
         >
-          <Typography
-            sx={{
-              fontSize: "14px",
-              fontWeight: 700,
-              mb: "8px",
-            }}
-          >
-            상품 종류
-          </Typography>
-          <Typography
-            sx={{
-              fontSize: "14px",
-              fontWeight: 700,
-              mb: "8px",
-              color: "#EB1F81",
-            }}
-          >
-            *
-          </Typography>
+          <Typography sx={textStyle}>상품 종류</Typography>
+          {essential}
         </Box>
 
         <Input
@@ -332,90 +234,44 @@ const SignUpCompany = () => {
           width={{ xs: "100%", md: "100%" }}
           style={{ mb: 2, maxHeight: "50px" }}
         />
-        <Typography
-          sx={{
-            fontSize: "14px",
-            fontWeight: 700,
-            mb: "8px",
-          }}
-        >
-          자사몰 URL
-        </Typography>
-        <TextField
+        <Typography sx={textStyle}>자사몰 URL</Typography>
+        <TextFieldCustom
           fullWidth
           value={url}
           type="url"
           onChange={(e) => {
             setUrl(e.target.value);
           }}
-          variant={"outlined"}
-          sx={{ mb: 2, bgcolor: "white" }}
           placeholder="자사몰 주소를 입력해주세요."
         />
-        <Typography
-          sx={{
-            fontSize: "14px",
-            fontWeight: 700,
-            mb: "8px",
-          }}
-        >
-          자사몰 URL
-        </Typography>
-        <TextField
+        <Typography sx={textStyle}>자사몰 URL</Typography>
+        <TextFieldCustom
           fullWidth
           value={channel}
           type="channel"
           onChange={(e) => {
             setChannel(e.target.value);
           }}
-          variant={"outlined"}
-          sx={{ mb: 2, bgcolor: "white" }}
           placeholder="ex.coupang"
         />
-        <Typography
-          sx={{
-            fontSize: "14px",
-            fontWeight: 700,
-            mb: "8px",
-          }}
-        >
-          회사/상품 소개서
-        </Typography>
+        <Typography sx={textStyle}>회사/상품 소개서</Typography>
         <Input
           value={introduceFile}
           setValue={(value: string) => {
             setIntroduceFile(value);
           }}
           type="fileinput"
-          width={{ xs: "100%", md: "100%" }}
-          style={{ mb: 2, maxHeight: "48px" }}
+          style={{ mb: "20px", maxHeight: "48px" }}
         />
         <Box
           sx={{
             display: "flex",
             flexDirection: "row",
-            gap: "1px",
+            gap: "8px",
           }}
         >
-          <Typography
-            sx={{
-              fontSize: "14px",
-              fontWeight: 700,
-              mb: "8px",
-            }}
-          >
-            사업자 등록증
-          </Typography>
-          <Typography
-            sx={{
-              fontSize: "14px",
-              fontWeight: 700,
-              mb: "8px",
-              color: "#EB1F81",
-            }}
-          >
-            *
-          </Typography>
+          <Typography sx={textStyle}>사업자 등록증</Typography>
+          {essential}
         </Box>
         <Input
           value={businessRegistrationFile}
@@ -424,15 +280,14 @@ const SignUpCompany = () => {
           }}
           type="fileinput"
           width={{ xs: "100%", md: "100%" }}
-          style={{ mb: 2, maxHeight: "48px" }}
+          style={{ maxHeight: "48px" }}
         />
         <Box
           sx={{
             display: "flex",
-            mb: 2,
             flexDirection: "column",
-            gap: "8px",
-            pl: "16px",
+            gap: "16px",
+            mt: "32px",
           }}
         >
           <Input
@@ -444,8 +299,7 @@ const SignUpCompany = () => {
               setIsAgree2(!isAllAgree);
             }}
             label={"전체 동의"}
-            width={"130px"}
-            style={{ fontSize: "14px" }}
+            style={{ fontSize: "16px" }}
           />
           <Box
             sx={{
@@ -453,6 +307,7 @@ const SignUpCompany = () => {
               flexDirection: "row",
               width: "100%",
               justifyContent: "space-between",
+              ml: "16px",
             }}
             onClick={() => {
               setIsAgree1(!isAgree1);
@@ -462,6 +317,7 @@ const SignUpCompany = () => {
               sx={{
                 display: "flex",
                 flexDirection: "row",
+                gap: "4px",
               }}
             >
               <CheckIcon
@@ -477,8 +333,6 @@ const SignUpCompany = () => {
                   cursor: "pointer",
                   fontSize: "14px",
                   fontWeight: 500,
-
-                  ml: 1,
                 }}
               >
                 (필수)
@@ -494,7 +348,7 @@ const SignUpCompany = () => {
                 서비스 이용약관 동의
               </Typography>
             </Box>
-            <KeyboardArrowRightIcon sx={{ color: "#B1B2B6", pr: "16px" }} />
+            <KeyboardArrowRightIcon sx={{ color: "#B1B2B6", pr: "32px" }} />
           </Box>
           <Box
             sx={{
@@ -502,6 +356,7 @@ const SignUpCompany = () => {
               flexDirection: "row",
               width: "100%",
               justifyContent: "space-between",
+              ml: "16px",
             }}
             onClick={() => {
               setIsAgree2(!isAgree2);
@@ -511,6 +366,7 @@ const SignUpCompany = () => {
               sx={{
                 display: "flex",
                 flexDirection: "row",
+                gap: "4px",
               }}
             >
               <CheckIcon
@@ -526,8 +382,6 @@ const SignUpCompany = () => {
                   cursor: "pointer",
                   fontSize: "14px",
                   fontWeight: 500,
-
-                  ml: 1,
                 }}
               >
                 (필수)
@@ -543,7 +397,7 @@ const SignUpCompany = () => {
                 개인정보 수집 및 이용 동의{" "}
               </Typography>
             </Box>
-            <KeyboardArrowRightIcon sx={{ color: "#B1B2B6", pr: "16px" }} />
+            <KeyboardArrowRightIcon sx={{ color: "#B1B2B6", pr: "32px" }} />
           </Box>
         </Box>
       </Box>
@@ -557,7 +411,7 @@ const SignUpCompany = () => {
           SignUp();
         }}
         contents={<Typography fontSize={16}>확인</Typography>}
-        style={{ padding: "16px 8px", my: 2 }}
+        style={{ padding: "16px 8px", mt: "20px" }}
       />
     </Box>
   );

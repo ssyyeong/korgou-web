@@ -1,13 +1,17 @@
 import React, { useState } from "react";
 import { Box, Typography, TextField } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import OriginButton from "../../../../components/Button/OriginButton";
 import Header from "../../../../components/Header/Header";
 
+// 비밀번호 변경 페이지
 const ChangePw = () => {
   const navigate = useNavigate();
   const [password, setPassword] = useState(""); // 이메일 입력 상태
   const [rePassword, setRePassword] = useState(""); // 이메일 입력 상태
+
+  const location = useLocation();
+  const { email = "" } = location?.state || {};
 
   const chagnePassword = () => {
     // 비밀번호 변경 api
@@ -24,14 +28,7 @@ const ChangePw = () => {
         flexDirection: "column",
       }}
     >
-      <Header
-        title={"비밀번호 변경"}
-        styles={{
-          fontSize: "15x",
-          fontWeight: 700,
-          color: "#282930",
-        }}
-      />
+      <Header title={"비밀번호 변경"} />
       {/* 상단 콘텐츠 */}
       <Box
         sx={{

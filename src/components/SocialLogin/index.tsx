@@ -29,6 +29,7 @@ const SocialLogin = (props: Props) => {
       sx={{
         borderRadius: "50px",
         cursor: "pointer",
+        marginRight: "21px",
       }}
     >
       {props.children}
