@@ -57,10 +57,10 @@ const TextFieldCustom = (props: ITextFieldCustomProps) => {
       multiline={props.multiline}
       rows={props.rows}
       sx={{
-        ...props.sx,
         mb: "20px",
         bgcolor: "white",
         "& .MuiInputBase-root": { height: "48px" },
+        ...props.sx,
       }}
     />
   );

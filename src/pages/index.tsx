@@ -142,7 +142,7 @@ const Home = () => {
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
-          marginTop: "20px",
+          marginTop: "40px",
         }}
       >
         <img src="/images/main/box.svg" alt="logo" width={360} height={434} />

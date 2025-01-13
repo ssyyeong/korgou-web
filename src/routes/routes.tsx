@@ -6,6 +6,11 @@ import {
 } from "react-router-dom";
 
 import Home from "../pages";
+
+import Service from "../pages/main/service";
+import Ship from "../pages/main/ship";
+import Buying from "../pages/main/buying";
+
 import SignIn from "../pages/auth/sign_in";
 import SignUp from "../pages/auth/sign_up";
 import SignUpCompany from "../pages/auth/sign_up/company";
@@ -33,6 +38,9 @@ const AppRoutes = () => (
   <Router>
     <Routes>
       <Route path="/" element={<Home />} />
+      <Route path="/ship" element={<Ship />} />
+      <Route path="/buying" element={<Buying />} />
+      <Route path="/service" element={<Service />} />
       <Route path="/shop" element={<Shop />} />
       <Route path="/my_page" element={<MyPage />} />
       <Route path="/sign_in" element={<SignIn />} />

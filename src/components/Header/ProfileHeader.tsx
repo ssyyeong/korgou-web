@@ -10,7 +10,6 @@ const ProfileHeader = () => {
         px: "16px",
         py: "12px",
         backgroundColor: "#3966AE",
-        borderRadius: "8px",
       }}
     >
       {/* 상단 프로필 정보 */}

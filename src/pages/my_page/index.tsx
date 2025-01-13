@@ -1,9 +1,9 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Box, IconButton, Typography } from "@mui/material";
 import ProfileHeader from "../../components/Header/ProfileHeader";
-import StatusSection from "../../components/StatusSection";
 
 import KeyboardArrowRightOutlinedIcon from "@mui/icons-material/KeyboardArrowRightOutlined";
+import { useNavigate } from "react-router-dom";
 
 const MyPage = () => {
   const list = [
@@ -38,9 +38,11 @@ const MyPage = () => {
       sx={{
         display: "flex",
         height: "100%",
-        width: "100%",
+        width: "360px",
         flexDirection: "column",
-        backgroundColor: "#3966AE",
+        backgroundColor: "white",
+        position: "absolute",
+        top: 0,
       }}
     >
       <ProfileHeader />

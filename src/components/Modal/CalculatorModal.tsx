@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import OriginButton from "../Button/OriginButton";
+import { useNavigate } from "react-router-dom";
 
 interface ICalculatorModalProps {
   calculatorModalOpen: boolean;
@@ -25,13 +26,15 @@ interface ICalculatorModalProps {
 }
 
 const CalculatorModal = (props: ICalculatorModalProps) => {
+  const navigator = useNavigate();
+
   return (
     <Modal open={props.calculatorModalOpen}>
       <Box
         sx={{
           position: "absolute",
           top: "50%",
-          left: "49.5%",
+          left: "50%",
           transform: "translate(-50%, -50%)",
           display: "flex",
           flexDirection: "column",
@@ -206,7 +209,9 @@ const CalculatorModal = (props: ICalculatorModalProps) => {
             fullWidth
             variant="contained"
             color="#3966AE"
-            onClick={() => {}}
+            onClick={() => {
+              navigator("/ship");
+            }}
             contents={
               <Typography fontSize={16} fontWeight={700}>
                 View More

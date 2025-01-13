@@ -4,19 +4,18 @@ import {
   Divider,
   FormControlLabel,
   IconButton,
-  MenuItem,
   Modal,
   Radio,
   RadioGroup,
-  Select,
-  TextField,
   ToggleButton,
   ToggleButtonGroup,
   Typography,
 } from "@mui/material";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
+
 import OriginButton from "../Button/OriginButton";
-import { CheckBox } from "@mui/icons-material";
+import TextFieldCustom from "../TextField";
+import { useNavigate } from "react-router-dom";
 
 interface IBuyingModalProps {
   buyingModalOpen: boolean;
@@ -41,13 +40,15 @@ interface IBuyingModalProps {
 }
 
 const BuyingModal = (props: IBuyingModalProps) => {
+  const navigator = useNavigate();
+
   return (
     <Modal open={props.buyingModalOpen}>
       <Box
         sx={{
           position: "absolute",
           top: "50%",
-          left: "49.5%",
+          left: "50%",
           transform: "translate(-50%, -50%)",
           display: "flex",
           flexDirection: "column",
@@ -159,54 +160,51 @@ const BuyingModal = (props: IBuyingModalProps) => {
             </ToggleButtonGroup>
           </Box>
 
-          <TextField
+          <TextFieldCustom
             fullWidth
             value={props.shoppingMallUrl}
             type="shoppingMallUrl"
+            sx={{
+              mb: "10px",
+            }}
             onChange={(e) => {
               props.setShoppingMallUrl(e.target.value);
             }}
-            variant={"outlined"}
-            sx={{
-              mb: 2,
-              bgcolor: "white",
-              height: "48px",
-            }}
             placeholder="쇼핑몰 url"
           />
-          <TextField
+          <TextFieldCustom
             fullWidth
             value={props.shoppingMallId}
             type="shoppingMallId"
+            sx={{
+              mb: "10px",
+            }}
             onChange={(e) => {
               props.setShoppingMallId(e.target.value);
             }}
-            variant={"outlined"}
-            sx={{ mb: 2, bgcolor: "white", height: "48px" }}
             placeholder="쇼핑몰 ID"
           />
-          <TextField
+          <TextFieldCustom
             fullWidth
             value={props.shoppingMallPw}
             type="shoppingMallPw"
+            sx={{
+              mb: "10px",
+            }}
             onChange={(e) => {
               props.setShoppingMallPw(e.target.value);
             }}
-            variant={"outlined"}
-            sx={{ mb: 2, bgcolor: "white", height: "48px" }}
             placeholder="쇼핑몰 PASS"
           />
           <Typography
             sx={{
               fontSize: "14px",
-              fontWeight: 500,
               color: "#61636C",
-              mb: "20px",
             }}
           >
             *쇼핑몰 접속{">"} 장바구니에 추가된 상품을 구매합니다.
           </Typography>
-          <Divider sx={{ mb: "20px", color: "#ECECED" }} />
+          <Divider sx={{ my: "20px", color: "#ECECED" }} />
           <Typography
             sx={{
               fontSize: "20px",
@@ -243,27 +241,26 @@ const BuyingModal = (props: IBuyingModalProps) => {
           >
             배송 요청사항
           </Typography>
-          <TextField
+          <TextFieldCustom
             fullWidth
             value={props.deliveryRequest}
             type="deliveryRequest"
             onChange={(e) => {
               props.setDeliveryRequest(e.target.value);
             }}
-            variant={"outlined"}
             multiline
             rows={5}
-            sx={{
-              bgcolor: "white",
-              mb: "20px",
-            }}
             placeholder="배송 요청사항을 입력해주세요."
+            sx={{
+              "& .MuiInputBase-root": { height: "160px" },
+            }}
           />
           <Typography
             sx={{
               fontSize: "20px",
               fontWeight: 700,
               color: "#282930",
+              mb: "4px",
             }}
           >
             품절 시 진행방식
@@ -278,12 +275,7 @@ const BuyingModal = (props: IBuyingModalProps) => {
           >
             *요청 상품 중 품절된 상품이 발생했을때, 결제 처리 방법
           </Typography>
-          <RadioGroup
-            row
-            aria-label="address"
-            name="row-radio-buttons-group"
-            sx={{ mb: "20px" }}
-          >
+          <RadioGroup row aria-label="address" name="row-radio-buttons-group">
             <FormControlLabel
               value={"품절 상품을 건너뛰고 나머지 상품들만 결제 진행"}
               control={<Radio style={{ color: "#282930" }} />}
@@ -299,7 +291,7 @@ const BuyingModal = (props: IBuyingModalProps) => {
               style={{ fontSize: "16px", color: "#282930" }}
             />
           </RadioGroup>
-          <Divider sx={{ mb: "20px", color: "#ECECED" }} />
+          <Divider sx={{ my: "20px", color: "#ECECED" }} />
           <FormControlLabel
             control={
               <Checkbox
@@ -338,7 +330,9 @@ const BuyingModal = (props: IBuyingModalProps) => {
             fullWidth
             variant="outlined"
             color="white"
-            onClick={() => {}}
+            onClick={() => {
+              navigator("/buying");
+            }}
             contents={
               <Typography fontSize={16} fontWeight={700}>
                 View More
