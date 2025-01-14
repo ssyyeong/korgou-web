@@ -23,12 +23,14 @@ import PasswordSuccess from "../pages/auth/find_pw/success";
 import BottomNavBar from "../components/\bnavigation";
 import MyPage from "../pages/my_page";
 import Shop from "../pages/shop";
+import Search from "../pages/search";
 
 // 조건부로 BottomNavBar를 렌더링하는 컴포넌트
 const ConditionalBottomNavBar = () => {
   const location = useLocation(); // 현재 경로 가져오기
   const showBottomNavBar =
     location.pathname === "/" ||
+    location.pathname === "/search" ||
     location.pathname === "/shop" ||
     location.pathname === "/my_page"; // "/" 경로에서만 true
   return showBottomNavBar ? <BottomNavBar /> : null; // 조건에 맞으면 렌더링
@@ -38,6 +40,7 @@ const AppRoutes = () => (
   <Router>
     <Routes>
       <Route path="/" element={<Home />} />
+      <Route path="/search" element={<Search />} />
       <Route path="/ship" element={<Ship />} />
       <Route path="/buying" element={<Buying />} />
       <Route path="/service" element={<Service />} />
