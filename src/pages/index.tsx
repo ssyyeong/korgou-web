@@ -15,6 +15,7 @@ import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import OriginButton from "../components/Button/OriginButton";
 import CalculatorModal from "../components/Modal/CalculatorModal";
 import BuyingModal from "../components/Modal/BuyingModal";
+import SocialLink from "../components/SocialLink";
 const Home = () => {
   // 계산기 모달
   const [calculatorModalOpen, setCalculatorModalOpen] = React.useState(false);
@@ -145,17 +146,12 @@ const Home = () => {
           marginTop: "40px",
         }}
       >
-        <img src="/images/main/box.svg" alt="logo" width={360} height={434} />
-        <img src="/images/main/box2.svg" alt="logo" width={360} height={474} />
-        <img src="/images/main/box3.svg" alt="logo" width={360} height={646} />
-        <img
-          src="/images/main/box4.svg"
-          alt="logo"
-          width={"360px"}
-          height={700}
-        />
-        <img src="/images/main/box5.svg" alt="logo" width={360} height={800} />
-        <img src="/images/main/box6.svg" alt="logo" width={360} height={800} />
+        <img src="/images/main/box.svg" alt="logo" />
+        <img src="/images/main/box2.svg" alt="logo" />
+        <img src="/images/main/box3.svg" alt="logo" />
+        <img src="/images/main/box4.svg" alt="logo" />
+        <SocialLink mt="50px" />
+        <img src="/images/main/box6.svg" alt="logo" />
       </Box>
       {/* 계산기 모달 */}
       <CalculatorModal

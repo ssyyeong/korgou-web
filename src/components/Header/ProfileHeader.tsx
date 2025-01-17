@@ -1,7 +1,10 @@
 import { Box, Typography, Divider } from "@mui/material";
 import KeyboardArrowRightOutlinedIcon from "@mui/icons-material/KeyboardArrowRightOutlined";
+import { useNavigate } from "react-router-dom";
 
 const ProfileHeader = () => {
+  const navigate = useNavigate();
+
   return (
     <Box
       sx={{
@@ -41,15 +44,17 @@ const ProfileHeader = () => {
                 lineHeight: "28px",
               }}
             >
-              SOMI KIM
+              influencer
             </Typography>
             <Typography
               sx={{
                 color: "#D9E2FF",
                 fontSize: "14px",
+                cursor: "pointer",
               }}
+              onClick={() => navigate("/my_page/membership")}
             >
-              influencer
+              SOMI KIM {">"}
             </Typography>
           </Box>
         </Box>
@@ -143,7 +148,19 @@ const ProfileHeader = () => {
             { label: "쿠폰", value: "1" },
             { label: "포인트", value: "5,000" },
           ].map((item, index) => (
-            <Box key={index} sx={{ textAlign: "center" }}>
+            <Box
+              key={index}
+              sx={{ textAlign: "center", cursor: "pointer" }}
+              onClick={
+                item.label === "발란스"
+                  ? () => navigate("/my_page/balance")
+                  : item.label === "쿠폰"
+                  ? () => navigate("/my_page/point")
+                  : item.label === "포인트"
+                  ? () => navigate("/my_page/point")
+                  : () => {}
+              }
+            >
               <Typography
                 sx={{
                   color: "#282930",

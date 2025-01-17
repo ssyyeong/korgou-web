@@ -33,6 +33,7 @@ const MainHeader = () => {
     fontSize: "14px",
     fontWeight: 700,
     color: "#282930",
+    cursor: "pointer",
   };
 
   const subLabelStyle = {
@@ -40,6 +41,7 @@ const MainHeader = () => {
     my: "10px",
     fontSize: "12px",
     color: "#282930",
+    cursor: "pointer",
   };
 
   const toggleDrawer = (open: boolean) => () => {
@@ -285,11 +287,39 @@ const MainHeader = () => {
                   width={24}
                   height={24}
                 />
-                <Typography sx={labelStyle}>Support</Typography>
+                <Typography
+                  sx={labelStyle}
+                  onClick={() => {
+                    navigate("/support");
+                  }}
+                >
+                  Support
+                </Typography>
               </Box>
-              <Typography sx={subLabelStyle}>FAQ</Typography>
-              <Typography sx={subLabelStyle}>Contact US</Typography>
-              <Typography sx={subLabelStyle}>Notice</Typography>
+              <Typography
+                sx={subLabelStyle}
+                onClick={() => {
+                  navigate("/support/faq");
+                }}
+              >
+                FAQ
+              </Typography>
+              <Typography
+                sx={subLabelStyle}
+                onClick={() => {
+                  navigate("/support/contact");
+                }}
+              >
+                Contact US
+              </Typography>
+              <Typography
+                sx={subLabelStyle}
+                onClick={() => {
+                  navigate("/support/notice");
+                }}
+              >
+                Notice
+              </Typography>
             </Box>
             <Box
               sx={{

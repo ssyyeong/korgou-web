@@ -1,5 +1,4 @@
-import { Box, IconButton, Modal, Dialog, Typography } from "@mui/material";
-import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
+import { Box, Modal, Typography } from "@mui/material";
 import OriginButton from "../Button/OriginButton";
 
 interface IBottomModalProps {

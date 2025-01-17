@@ -22,18 +22,22 @@ const BottomNavBar = () => {
 
   useEffect(() => {
     // 현재 경로에 따라 선택된 메뉴 변경
-    switch (location.pathname) {
-      case "/":
-        setValue(2);
+    console.log(location.pathname.split("/")[1]);
+    switch (location.pathname.split("/")[1]) {
+      case "search":
+        setValue(0);
         break;
-      case "/shop":
+      case "shop":
         setValue(1);
         break;
-      case "/my_page":
+      case "store":
+        setValue(3);
+        break;
+      case "my_page":
         setValue(4);
         break;
       default:
-        setValue(0);
+        setValue(2);
         break;
     }
   }, [location.pathname]);
@@ -43,6 +47,7 @@ const BottomNavBar = () => {
     // 경로 이동
     switch (newValue) {
       case 0:
+        navigate("/search");
         break;
       case 1:
         navigate("/shop");
@@ -51,6 +56,7 @@ const BottomNavBar = () => {
         navigate("/");
         break;
       case 3:
+        navigate("/store");
         break;
       case 4:
         navigate("/my_page");

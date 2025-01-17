@@ -7,10 +7,8 @@ import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 interface IHeaderProps {
   back?: boolean;
   title?: string;
-  adornment?: React.ReactNode;
   styles?: TypographyProps;
-  logout?: boolean;
-  backpath?: string;
+  icon?: any;
 }
 
 const Header = (props: IHeaderProps) => {
@@ -22,13 +20,13 @@ const Header = (props: IHeaderProps) => {
       bgcolor={"white"}
       display={"flex"}
       height={"10px"}
-      alignItems={"center"}
+      flexDirection={"row"}
       sx={{
-        paddingBlock: 4,
+        paddingBlock: 3,
       }}
       zIndex={1000}
     >
-      <Box display={"flex"}>
+      <Box display={"flex"} width={props.icon && "100%"}>
         {props.back !== false && (
           <ArrowBackIosNewIcon
             sx={{
@@ -46,8 +44,8 @@ const Header = (props: IHeaderProps) => {
       <Box
         display={"flex"}
         sx={{
-          width: "100%",
           justifyContent: "center",
+          width: "100%",
         }}
       >
         <Typography
@@ -61,6 +59,17 @@ const Header = (props: IHeaderProps) => {
           {props.title}
         </Typography>
       </Box>
+      {props.icon && (
+        <Box
+          display={"flex"}
+          sx={{
+            width: "100%",
+            justifyContent: "center",
+          }}
+        >
+          {props.icon}
+        </Box>
+      )}
     </Box>
   );
 };

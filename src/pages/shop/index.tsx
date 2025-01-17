@@ -1,4 +1,12 @@
-import { Box, Button, Chip, Typography } from "@mui/material";
+import {
+  Box,
+  Button,
+  Chip,
+  Divider,
+  Grid2,
+  IconButton,
+  Typography,
+} from "@mui/material";
 import React from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
@@ -6,8 +14,14 @@ import "slick-carousel/slick/slick-theme.css";
 
 import MainHeader from "../../components/Header/MainHeader";
 
+import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+
 import OriginButton from "../../components/Button/OriginButton";
+
+import reviewConfig from "../../configs/data/ReviewConfig";
+import SocialLink from "../../components/SocialLink";
+import { useNavigate } from "react-router-dom";
 
 const Shop = () => {
   const settings = {
@@ -21,7 +35,17 @@ const Shop = () => {
   const settings2 = {
     dots: true,
     infinite: true,
+    arrows: false,
     slidesToShow: 1, // 한 번에 한 슬라이드만 완전히 표시
+  };
+
+  const setting3 = {
+    dots: false,
+    arrows: false,
+    infinite: true,
+    slidesToShow: 1, // 한 번에 한 슬라이드만 완전히 표시
+    centerMode: true, // 슬라이더의 중앙 강조 모드
+    centerPadding: "10px", // 좌우에 보이는 이미지 크기
   };
 
   const images = [
@@ -35,6 +59,22 @@ const Shop = () => {
     "/images/main/attendance.svg",
     "/images/main/attendance.svg",
   ];
+
+  const images3 = [
+    "/images/shop/week.svg",
+    "/images/shop/week.svg",
+    "/images/shop/week.svg",
+  ];
+
+  const bestProduct = [
+    "/images/shop/product.svg",
+    "/images/shop/product2.svg",
+    "/images/shop/product3.svg",
+    "/images/shop/product4.svg",
+  ];
+
+  const navigate = useNavigate();
+  const containerRef = React.useRef<HTMLDivElement>(null);
 
   const benefit = ["쇼핑혜택", "쇼핑혜택", "쇼핑혜택"];
   const [benefitIndex, setBenefitIndex] = React.useState(0);
@@ -73,8 +113,8 @@ const Shop = () => {
                 alt="banner"
                 style={{
                   objectFit: "cover", // 이미지가 영역에 맞게 확대되거나 축소되어 잘림
-                  width: "100%",
-                  height: "350px",
+                  width: "280px",
+                  height: "365px",
                   borderRadius: "16px", // 이미지의 모서리를 둥글게 처리
                   boxShadow: "0 4px 8px rgba(0,0,0,0.2)", // 그림자 추가
                 }}
@@ -249,7 +289,34 @@ const Shop = () => {
         >
           NEW ARRIVAL
         </Typography>
-        <img src="/images/icon/hot_deal.svg" alt="logo" />
+        <Grid2 container rowSpacing={2} columnSpacing={2}>
+          {bestProduct.map((item, index) => (
+            <Grid2 key={index} size={6}>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  paddingBottom: index % 2 === 0 ? "16px" : "0",
+                  cursor: "pointer",
+                }}
+                onClick={() => {
+                  navigate("/shop/detail");
+                }}
+              >
+                <img
+                  src={item}
+                  alt="logo"
+                  width={"100%"}
+                  height={"100%"}
+                  style={{
+                    objectFit: "fill",
+                  }}
+                />
+              </Box>
+            </Grid2>
+          ))}
+        </Grid2>
         <OriginButton
           fullWidth
           variant="outlined"
@@ -269,7 +336,9 @@ const Shop = () => {
               MORE
             </Typography>
           }
-          onClick={() => {}}
+          onClick={() => {
+            navigate("/shop/best");
+          }}
         />
       </Box>
       {/* WEEKLY BEST */}
@@ -294,6 +363,33 @@ const Shop = () => {
         >
           WEEKLY BEST
         </Typography>
+        <Box
+          sx={{
+            width: "100%",
+            maxWidth: 600, // 슬라이더의 최대 너비
+          }}
+        >
+          <Slider {...setting3}>
+            {images3.map((src, index) => (
+              <Box
+                key={index}
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                <img
+                  src={src}
+                  alt="banner"
+                  style={{
+                    objectFit: "cover", // 이미지가 영역에 맞게 확대되거나 축소되어 잘림
+                  }}
+                />
+              </Box>
+            ))}
+          </Slider>
+        </Box>
       </Box>
       {/* BEST PRODUCT */}
       <Box
@@ -317,6 +413,34 @@ const Shop = () => {
         >
           BEST PRODUCT
         </Typography>
+        <Grid2 container rowSpacing={2} columnSpacing={2}>
+          {bestProduct.map((item, index) => (
+            <Grid2 key={index} size={6}>
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  justifyContent: "space-between",
+                  paddingBottom: index % 2 === 0 ? "16px" : "0",
+                  cursor: "pointer",
+                }}
+                onClick={() => {
+                  navigate("/shop/detail");
+                }}
+              >
+                <img
+                  src={item}
+                  alt="logo"
+                  width={"100%"}
+                  height={"100%"}
+                  style={{
+                    objectFit: "fill",
+                  }}
+                />
+              </Box>
+            </Grid2>
+          ))}
+        </Grid2>
         <OriginButton
           fullWidth
           variant="outlined"
@@ -336,7 +460,9 @@ const Shop = () => {
               MORE
             </Typography>
           }
-          onClick={() => {}}
+          onClick={() => {
+            navigate("/shop/best");
+          }}
         />
       </Box>
       {/* KORGOU BENEFIT */}
@@ -401,6 +527,9 @@ const Shop = () => {
                   justifyContent: "center",
                   alignItems: "center",
                 }}
+                onClick={() => {
+                  navigate("/shop/attendance");
+                }}
               >
                 <img
                   src={src}
@@ -445,6 +574,232 @@ const Shop = () => {
           혜택 한줄 내용
         </Typography>
       </Box>
+      {/* BEST REVIEW */}
+      <Box
+        sx={{
+          display: "flex",
+          width: "100%",
+          flexDirection: "column",
+          justifyContent: "center",
+          marginTop: "8px",
+          mb: "24px",
+          backgroundColor: "#F5F5F5",
+          padding: "16px",
+        }}
+      >
+        <Typography
+          sx={{
+            color: "#282930",
+            fontSize: "20px",
+            fontWeight: 700,
+          }}
+        >
+          BEST REVIEW
+        </Typography>
+        <Divider
+          sx={{
+            width: "100%",
+            color: "#ECECED",
+            mb: "16px",
+          }}
+        />
+        <Typography
+          sx={{
+            color: "#282930",
+            fontSize: "14px",
+            fontWeight: 700,
+            textAlign: "center",
+          }}
+        >
+          CUSTOMER REVIEW
+        </Typography>
+        <Box display="flex" justifyContent="center" alignContent="center">
+          <IconButton
+            sx={{
+              position: "relative",
+              left: "0",
+              top: -50,
+              "&:hover": {
+                backgroundColor: "transparent", // hover 시 배경색 제거
+              },
+            }}
+            onClick={() => {
+              containerRef?.current?.scrollBy({
+                left: -300,
+                behavior: "smooth",
+              });
+            }}
+          >
+            <KeyboardArrowLeftIcon />
+          </IconButton>
+          <Box
+            ref={containerRef}
+            style={{
+              overflowX: "auto",
+              display: "flex",
+            }}
+            sx={{
+              "&::-webkit-scrollbar": {
+                display: "none",
+              },
+            }}
+          >
+            <Box display="flex" width={"100%"}>
+              {reviewConfig.map((review) => {
+                return (
+                  <Box display={"flex"} minWidth={"300px"}>
+                    <Box
+                      display={"flex"}
+                      textAlign={"left"}
+                      flexDirection={"column"}
+                    >
+                      <img
+                        src={review.img}
+                        alt="logo"
+                        width={"260px"}
+                        height={"250px"}
+                        style={{
+                          objectFit: "fill",
+                        }}
+                      />
+                      <Typography
+                        sx={{
+                          wordBreak: "keep-all",
+                          fontSize: "16px",
+                          fontWeight: 700,
+                          mb: "8px",
+                        }}
+                      >
+                        {review.title}
+                      </Typography>
+                      <Typography
+                        sx={{
+                          wordBreak: "keep-all",
+                          fontSize: "14px",
+                        }}
+                      >
+                        {review.content}
+                      </Typography>
+                      <img
+                        src={"/images/main/review_link.svg"}
+                        alt="logo"
+                        width={"100%"}
+                        height={"86px"}
+                      />
+                    </Box>
+                  </Box>
+                );
+              })}
+            </Box>
+          </Box>
+          <IconButton
+            sx={{
+              position: "relative",
+              left: "0",
+              top: -50,
+              "&:hover": {
+                backgroundColor: "transparent", // hover 시 배경색 제거
+              },
+            }}
+            onClick={() => {
+              if (
+                containerRef?.current?.scrollLeft !==
+                (reviewConfig.length - 1) * 300
+              ) {
+                containerRef?.current?.scrollBy({
+                  left: 300,
+                  behavior: "smooth",
+                });
+              }
+            }}
+          >
+            <KeyboardArrowRightIcon />
+          </IconButton>
+        </Box>
+      </Box>
+      {/* LIVE SHOP */}
+      <Box
+        sx={{
+          display: "flex",
+          width: "100%",
+          flexDirection: "column",
+          justifyContent: "center",
+          mb: "24px",
+        }}
+      >
+        <Typography
+          sx={{
+            color: "#282930",
+            fontSize: "18px",
+            fontWeight: 700,
+            textAlign: "start",
+          }}
+        >
+          LIVE SHOP
+        </Typography>
+        <Divider
+          sx={{
+            width: "100%",
+            color: "#ECECED",
+            mb: "16px",
+          }}
+        />
+        <Box
+          sx={{
+            display: "flex",
+            border: "1px solid #282930",
+            borderRadius: "4px",
+            padding: "4px 8px ",
+            justifyContent: "center",
+            alignSelf: "center",
+            mb: "10px",
+          }}
+        >
+          <Typography
+            sx={{
+              color: "#282930",
+              fontSize: "14px",
+              fontWeight: 700,
+            }}
+          >
+            ON AIR
+          </Typography>
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            justifyContent: "center",
+            width: "100%",
+            minWidth: "300px",
+          }}
+        >
+          <img src={"/images/shop/live.svg"} alt="logo" />
+          <Typography
+            sx={{
+              wordBreak: "keep-all",
+              fontSize: "16px",
+              fontWeight: 700,
+              my: "8px",
+            }}
+          >
+            영상 제목
+          </Typography>
+          <Typography
+            sx={{
+              wordBreak: "keep-all",
+              fontSize: "14px",
+              mb: "16px",
+            }}
+          >
+            영상 소개
+          </Typography>
+          <img src={"/images/main/review_link.svg"} alt="logo" />
+        </Box>
+      </Box>
+      {/* SOCIAL LINKS */}
+      <SocialLink />
+      <img src="/images/main/box6.svg" alt="logo" />
     </Box>
   );
 };

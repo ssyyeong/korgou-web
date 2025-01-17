@@ -4,6 +4,7 @@ import ProfileHeader from "../../components/Header/ProfileHeader";
 
 import KeyboardArrowRightOutlinedIcon from "@mui/icons-material/KeyboardArrowRightOutlined";
 import { useNavigate } from "react-router-dom";
+import MainHeader from "../../components/Header/MainHeader";
 
 const MyPage = () => {
   const list = [
@@ -45,6 +46,7 @@ const MyPage = () => {
         top: 0,
       }}
     >
+      {/* <MainHeader /> */}
       <ProfileHeader />
 
       {list.map((item, index) => {

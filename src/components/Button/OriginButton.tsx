@@ -48,9 +48,11 @@ const OriginButton = (props: OriginButtonProps) => {
       onClick={props.onClick}
       sx={{
         padding: props.disabledGutters ? "0px" : "17px 16px",
+        height: "48px",
         ...props.style,
         backgroundColor: props.color,
-        height: "48px",
+        "&.MuiButton-root:hover": { bgcolor: props.color },
+        "&.MuiButton-root:active": { bgcolor: "transparent" },
       }}
       disabled={props.disabled}
       {...props.muiButtonProps}
