@@ -211,7 +211,9 @@ const ProfileHeader = () => {
               justifyContent: "space-between",
               borderRight: "1px solid #ECECED",
               padding: "8px",
+              cursor: "pointer",
             }}
+            onClick={() => navigate("/store")}
           >
             <Typography
               sx={{
@@ -252,7 +254,9 @@ const ProfileHeader = () => {
               alignItems: "center",
               justifyContent: "space-between",
               pl: "8px",
+              cursor: "pointer",
             }}
+            onClick={() => navigate("/my_page/delivery")}
           >
             <Typography
               sx={{
@@ -272,7 +276,7 @@ const ProfileHeader = () => {
                   fontSize: "16px",
                 }}
               >
-                3
+                0
               </Typography>
               <KeyboardArrowRightOutlinedIcon
                 sx={{
@@ -281,7 +285,7 @@ const ProfileHeader = () => {
                   color: "#B1B2B6",
                   alignSelf: "center",
                 }}
-              />{" "}
+              />
             </Box>
           </Box>
         </Box>
@@ -293,7 +297,9 @@ const ProfileHeader = () => {
             justifyContent: "space-between",
             py: "8px",
             pl: "8px",
+            cursor: "pointer",
           }}
+          onClick={() => navigate("/my_page/purchase")}
         >
           <Typography
             sx={{
@@ -313,7 +319,7 @@ const ProfileHeader = () => {
                 fontSize: "16px",
               }}
             >
-              3
+              1
             </Typography>
             <KeyboardArrowRightOutlinedIcon
               sx={{

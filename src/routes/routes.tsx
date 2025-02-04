@@ -38,6 +38,16 @@ import Point from "../pages/my_page/point";
 import Balance from "../pages/my_page/balance";
 import MemberShip from "../pages/my_page/membership";
 import MemberShipDetail from "../pages/my_page/membership/detail";
+import Setting from "../pages/my_page/setting";
+import Inquiry from "../pages/my_page/inquiry";
+import InquiryDetail from "../pages/my_page/inquiry/detail";
+import InquiryCreate from "../pages/my_page/inquiry/create";
+import Review from "../pages/my_page/review";
+import Cart from "../pages/my_page/cart";
+import Address from "../pages/my_page/address";
+import Package from "../pages/my_page/package";
+import Delivery from "../pages/my_page/delivery";
+import Purchase from "../pages/my_page/purchase";
 
 // 조건부로 BottomNavBar를 렌더링하는 컴포넌트
 const ConditionalBottomNavBar = () => {
@@ -77,6 +87,16 @@ const AppRoutes = () => (
       <Route path="/my_page/balance" element={<Balance />} />
       <Route path="/my_page/membership" element={<MemberShip />} />
       <Route path="/my_page/membership/detail" element={<MemberShipDetail />} />
+      <Route path="/my_page/setting" element={<Setting />} />
+      <Route path="/my_page/inquiry" element={<Inquiry />} />
+      <Route path="/my_page/inquiry/detail" element={<InquiryDetail />} />
+      <Route path="/my_page/inquiry/create" element={<InquiryCreate />} />
+      <Route path="/my_page/review" element={<Review />} />
+      <Route path="/my_page/cart" element={<Cart />} />
+      <Route path="/my_page/address" element={<Address />} />
+      <Route path="/my_page/package" element={<Package />} />
+      <Route path="/my_page/delivery" element={<Delivery />} />
+      <Route path="/my_page/purchase" element={<Purchase />} />
 
       {/* 로그인 관련 페이지 */}
       <Route path="/sign_in" element={<SignIn />} />

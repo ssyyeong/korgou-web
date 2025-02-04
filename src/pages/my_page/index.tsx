@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { Box, IconButton, Typography } from "@mui/material";
+import { Box, IconButton, Modal, Typography } from "@mui/material";
 import ProfileHeader from "../../components/Header/ProfileHeader";
 
 import KeyboardArrowRightOutlinedIcon from "@mui/icons-material/KeyboardArrowRightOutlined";
@@ -7,6 +7,9 @@ import { useNavigate } from "react-router-dom";
 import MainHeader from "../../components/Header/MainHeader";
 
 const MyPage = () => {
+  const [alarmModalOpen, setAlarmModalOpen] = React.useState(false);
+  const navigate = useNavigate();
+
   const list = [
     {
       path: "/images/icon/my_page/location.svg",
@@ -60,6 +63,10 @@ const MyPage = () => {
               py: "12px",
               px: "16px",
               borderBottom: "1px solid #E0E0E0",
+              cursor: "pointer",
+            }}
+            onClick={() => {
+              navigate(item.pathName);
             }}
           >
             <Box

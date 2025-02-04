@@ -44,7 +44,13 @@ const Detail = () => {
                 height={"24px"}
               />
             </IconButton>
-            <IconButton color="info" aria-label="cart">
+            <IconButton
+              color="info"
+              aria-label="cart"
+              onClick={() => {
+                navigate("/my_page/cart");
+              }}
+            >
               <ShoppingCartOutlinedIcon />
             </IconButton>
           </Box>
