@@ -5,7 +5,7 @@ import axios, { AxiosResponse } from "axios";
 const serverSettings: { config: { apiUrl: string } } = {
   config: {
     // 예: "localhost:4021" 또는 도메인명
-    apiUrl: "http://localhost:4021",
+    apiUrl: "http://3.38.183.251:4021",
   },
 };
 

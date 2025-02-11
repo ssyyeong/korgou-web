@@ -39,8 +39,6 @@ const SignIn = () => {
       };
 
       const response = await controller.signIn(data);
-      console.log(response.data.result.accessToken);
-
       if (response.data.status === 200) {
         await cookie.setItemInCookies(
           "ACCESS_TOKEN",
