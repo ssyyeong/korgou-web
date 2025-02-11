@@ -4,7 +4,7 @@ import axios, { AxiosResponse } from "axios";
 const serverSettings: { config: { apiUrl: string } } = {
   config: {
     // 예: "localhost:4021" 또는 도메인명
-    apiUrl: "http://localhost:4021",
+    apiUrl: "",
   },
 };
 
@@ -55,7 +55,8 @@ class AppMemberController {
     const response = await axios.post(url, params, {
       headers: {
         "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*",
+        "Access-Control-Allow-Origin": "*", // 또는 특정 도메인
+        "Access-Control-Allow-Headers": "Content-Type",
       },
     });
 
