@@ -52,7 +52,12 @@ class AppMemberController {
   async signIn(option: IControllerOptions): Promise<any> {
     const params = option;
     const url = `${this.apiUrl}${this.rootRoute}/${this.role}/${this.modelId}/sign_in/local`;
-    const response = await axios.post(url, params);
+    const response = await axios.post(url, params, {
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
+    });
 
     return response;
   }
