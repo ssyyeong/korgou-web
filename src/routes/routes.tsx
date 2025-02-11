@@ -51,13 +51,10 @@ import Package from "../pages/my_page/package";
 import Delivery from "../pages/my_page/delivery";
 import Purchase from "../pages/my_page/purchase";
 import BottomNavBar from "../components/\bnavigation";
-import { CookieManager } from "@leanoncompany/supporti-utility";
 
 // 로그인 여부를 체크하는 PrivateRoute 컴포넌트
 const PrivateRoute: React.FC = () => {
-  const cookie = new CookieManager();
-
-  const token = cookie.getItemInCookies("ACCESS_TOKEN"); // 로그인 상태 확인 (예시)
+  const token = localStorage.getItem("ACCESS_TOKEN"); // 로그인 상태 확인 (예시)
   const location = useLocation();
   return token ? (
     <Outlet />

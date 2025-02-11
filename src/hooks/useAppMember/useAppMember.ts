@@ -1,5 +1,3 @@
-import DefaultController from "@leanoncompany/supporti-ark-office-project/src/controller/default/DefaultController";
-import { CookieManager } from "@leanoncompany/supporti-utility";
 import { useEffect, useMemo, useState } from "react";
 import AppMemberController from "../../controller/AppMemberController";
 
@@ -37,8 +35,7 @@ const useAppMember = () => {
   const [memberType, setMemberType] = useState<string | undefined>(undefined);
 
   //* Cookie
-  const cookie = new CookieManager();
-  const accessToken = cookie.getItemInCookies("ACCESS_TOKEN");
+  const accessToken = localStorage.getItem("ACCESS_TOKEN");
   //* Hooks
   /**
    * 유저 아이디 가져오기

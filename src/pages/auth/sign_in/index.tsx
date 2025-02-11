@@ -10,11 +10,9 @@ import SocialLogin from "../../../components/SocialLogin";
 import { useNavigate } from "react-router-dom";
 import BottomModal from "../../../components/Modal/BottomModal";
 import AppMemberController from "../../../controller/AppMemberController";
-import { CookieManager } from "@leanoncompany/supporti-utility";
 
 const SignIn = () => {
   const dispatch = useDispatch();
-  const cookie = new CookieManager();
 
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
@@ -40,7 +38,7 @@ const SignIn = () => {
 
       const response = await controller.signIn(data);
       if (response.data.status === 200) {
-        await cookie.setItemInCookies(
+        await localStorage.setItem(
           "ACCESS_TOKEN",
           response.data.result.accessToken
         );
