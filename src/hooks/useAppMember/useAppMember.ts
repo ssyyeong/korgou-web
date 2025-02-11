@@ -36,6 +36,8 @@ const useAppMember = () => {
 
   //* Cookie
   const accessToken = localStorage.getItem("ACCESS_TOKEN");
+
+  const appMemberId = localStorage.getItem("APP_MEMBER_IDENTIFICATION_CODE");
   //* Hooks
   /**
    * 유저 아이디 가져오기
@@ -48,7 +50,7 @@ const useAppMember = () => {
       if (memberId !== undefined) return;
       controller
         .getProfile({
-          JWT_PARSED_DATA: accessToken,
+          APP_MEMBER_IDENTIFICATION_CODE: appMemberId,
         })
         .then((res) => {
           setMemberCode(res.data.result.APP_MEMBER_IDENTIFICATION_CODE);

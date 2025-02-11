@@ -37,10 +37,15 @@ const SignIn = () => {
       };
 
       const response = await controller.signIn(data);
+      console.log(response);
       if (response.data.status === 200) {
         await localStorage.setItem(
           "ACCESS_TOKEN",
-          response.data.result.accessToken
+          response.data.result.signInResult.accessToken
+        );
+        await localStorage.setItem(
+          "APP_MEMBER_IDENTIFICATION_CODE",
+          response.data.result.user.APP_MEMBER_IDENTIFICATION_CODE
         );
         navigate("/");
       }

@@ -363,6 +363,8 @@ const MainHeader = () => {
               }}
               onClick={async () => {
                 await localStorage.removeItem("ACCESS_TOKEN");
+                await localStorage.removeItem("APP_MEMBER_IDENTIFICATION_CODE");
+
                 navigate("/sign_in");
               }}
             >
