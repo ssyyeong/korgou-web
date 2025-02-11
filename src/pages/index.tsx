@@ -9,13 +9,15 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import MainHeader from "../components/Header/MainHeader";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import OriginButton from "../components/Button/OriginButton";
 import CalculatorModal from "../components/Modal/CalculatorModal";
 import BuyingModal from "../components/Modal/BuyingModal";
 import SocialLink from "../components/SocialLink";
+import { useAppMember } from "../hooks/useAppMember";
+
 const Home = () => {
   // 계산기 모달
   const [calculatorModalOpen, setCalculatorModalOpen] = React.useState(false);
@@ -90,7 +92,9 @@ const Home = () => {
               alignItems: "center",
               justifyContent: "center",
             }}
-            onClick={() => setCalculatorModalOpen(true)}
+            onClick={async () => {
+              setCalculatorModalOpen(true);
+            }}
           >
             <Typography
               sx={{

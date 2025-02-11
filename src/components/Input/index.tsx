@@ -19,6 +19,7 @@ import SearchIcon from "@mui/icons-material/Search";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import RemoveCircleIcon from "@mui/icons-material/RemoveCircle";
 import CloseIcon from "@mui/icons-material/Close";
+import ImageController from "../../controller/ImageController";
 
 interface InputProps {
   type: string;
@@ -59,7 +60,7 @@ const Input = React.forwardRef(
     const inputRef = React.useRef<HTMLInputElement>(null);
 
     //* Modules
-    // const imageController = new ImageController();
+    const imageController = new ImageController({});
     //* States
     const [addableData, setAddableData] = useState<string>("");
     const [yearPickerOpen, setYearPickerOpen] = useState<boolean>(false);
@@ -105,14 +106,16 @@ const Input = React.forwardRef(
       } else {
         const formData = new FormData();
         formData.append("file", files[0], files[0].name);
-        // imageController.uploadImage(formData, (res: any) => {
-        // 	props.fileTypeInputName
-        // 		? props.setValue({
-        // 				FILE_URL: res,
-        // 				FILE_NAME: files[0].name,
-        // 		  })
-        // 		: props.setValue(res);
-        // });
+        imageController.uploadImage(formData).then((res) => {
+          const imageUrl = res.data.result[0];
+
+          props.fileTypeInputName
+            ? props.setValue({
+                FILE_URL: imageUrl,
+                FILE_NAME: files[0].name,
+              })
+            : props.setValue(imageUrl);
+        });
 
         // props.setValue?.(files[0] || null);
 

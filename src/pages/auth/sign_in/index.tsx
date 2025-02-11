@@ -9,9 +9,12 @@ import Input from "../../../components/Input";
 import SocialLogin from "../../../components/SocialLogin";
 import { useNavigate } from "react-router-dom";
 import BottomModal from "../../../components/Modal/BottomModal";
+import AppMemberController from "../../../controller/AppMemberController";
+import { CookieManager } from "@leanoncompany/supporti-utility";
 
 const SignIn = () => {
   const dispatch = useDispatch();
+  const cookie = new CookieManager();
 
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
@@ -21,11 +24,30 @@ const SignIn = () => {
   const navigate = useNavigate();
 
   // 로그인 버튼
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    const controller = new AppMemberController({
+      modelName: "AppMember",
+      modelId: "app_member",
+    });
+
     if (email && password) {
-      dispatch(loginSuccess({ email, password }));
+      const data = {
+        EMAIL: email,
+        PASSWORD: password,
+      };
+
+      const response = await controller.signIn(data);
+      console.log(response.data.result.accessToken);
+
+      if (response.data.status === 200) {
+        await cookie.setItemInCookies(
+          "ACCESS_TOKEN",
+          response.data.result.accessToken
+        );
+        navigate("/");
+      }
     }
   };
 

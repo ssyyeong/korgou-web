@@ -5,10 +5,13 @@ import ProfileHeader from "../../components/Header/ProfileHeader";
 import KeyboardArrowRightOutlinedIcon from "@mui/icons-material/KeyboardArrowRightOutlined";
 import { useNavigate } from "react-router-dom";
 import MainHeader from "../../components/Header/MainHeader";
+import { useAppMember } from "../../hooks/useAppMember";
 
 const MyPage = () => {
   const [alarmModalOpen, setAlarmModalOpen] = React.useState(false);
   const navigate = useNavigate();
+
+  const { memberId, memberEmailId, memberName } = useAppMember();
 
   const list = [
     {
@@ -50,7 +53,11 @@ const MyPage = () => {
       }}
     >
       {/* <MainHeader /> */}
-      <ProfileHeader />
+      <ProfileHeader
+        memberId={memberId}
+        memberName={memberName}
+        memberEmailId={memberEmailId}
+      />
 
       {list.map((item, index) => {
         return (

@@ -2,7 +2,7 @@ import { Box, Typography, Divider } from "@mui/material";
 import KeyboardArrowRightOutlinedIcon from "@mui/icons-material/KeyboardArrowRightOutlined";
 import { useNavigate } from "react-router-dom";
 
-const ProfileHeader = () => {
+const ProfileHeader = (props: any) => {
   const navigate = useNavigate();
 
   return (
@@ -54,7 +54,7 @@ const ProfileHeader = () => {
               }}
               onClick={() => navigate("/my_page/membership")}
             >
-              SOMI KIM {">"}
+              {props.memberName} {">"}
             </Typography>
           </Box>
         </Box>
@@ -102,7 +102,7 @@ const ProfileHeader = () => {
               fontWeight: "bold",
             }}
           >
-            P1234567
+            {props.memberId}
           </Typography>
           <Typography
             sx={{
@@ -112,7 +112,7 @@ const ProfileHeader = () => {
               pt: "2px",
             }}
           >
-            kim@gmail.com
+            {props.memberEmailId}
           </Typography>
         </Box>
         <Divider sx={{ borderColor: "#ECECED", mb: "16px" }} />

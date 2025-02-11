@@ -16,6 +16,8 @@ import OriginButton from "../../../../components/Button/OriginButton";
 import Header from "../../../../components/Header/Header";
 import { useLocation, useNavigate } from "react-router-dom";
 
+import AppMemberController from "../../../../controller/AppMemberController";
+
 const Email = ({ route }: any) => {
   const location = useLocation();
   const navigate = useNavigate();
@@ -26,14 +28,61 @@ const Email = ({ route }: any) => {
     password = "",
     country = "",
     recommenderCode = "",
+    sellerName = "",
+    productMethod = "",
+    productType = "",
+    url = "",
+    channel = "",
+    introduceFile = "",
+    businessRegistrationFile = "",
     isAgree1 = false,
     isAgree2 = false,
     isAgree3 = false,
+    type = "",
   } = location?.state || {};
 
   const [authNumber, setAuthNumber] = React.useState("");
   const [newEmail, setNewEmail] = React.useState(email);
   const [isModifyEmail, setIsModifyEmail] = React.useState(false);
+
+  const signUp = async () => {
+    const controller = new AppMemberController({
+      modelName: "AppMember",
+      modelId: "app_member",
+    });
+
+    const memberId =
+      name.slice(0, 1).toUpperCase() + Math.floor(Math.random() * 1000000);
+
+    const data = {
+      APP_MEMBER_ID: memberId,
+      USER_NAME: name,
+      EMAIL: newEmail,
+      PASSWORD: password,
+      COUNTRY: country,
+      RECOMMEND_CODE: recommenderCode,
+      BRAND_NAME: sellerName,
+      SALE_METHOD: productMethod,
+      PRODUCT_TYPE: productType,
+      URL: url,
+      CHANNEL: channel,
+      INTRODUCE_FILE: JSON.stringify(introduceFile),
+      BUSINESS_REGISTRATION_FILE: JSON.stringify(businessRegistrationFile),
+      MEMBER_TYPE: type,
+      TERMS_YN: isAgree1 ? "Y" : "N",
+      PERSONAL_YN: isAgree2 ? "Y" : "N",
+      MARKETING_YN: isAgree3 ? "Y" : "N",
+    };
+
+    const response = await controller.signUp(data);
+    if (response.data.status === 200) {
+      navigate("/sign_up/success", {
+        state: {
+          id: response.data.result.user.APP_MEMBER_ID,
+        },
+      });
+    }
+  };
 
   useEffect(() => {
     setNewEmail(email);
@@ -214,7 +263,7 @@ const Email = ({ route }: any) => {
           variant="contained"
           color="primary"
           onClick={() => {
-            console.log("회원가입");
+            signUp();
           }}
           contents={<Typography fontSize={16}>확인</Typography>}
           style={{

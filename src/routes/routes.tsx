@@ -1,16 +1,19 @@
+import React from "react";
 import {
   BrowserRouter as Router,
   Routes,
   Route,
+  Navigate,
+  Outlet,
   useLocation,
+  useNavigate,
 } from "react-router-dom";
 
+// 페이지 컴포넌트들
 import Home from "../pages";
-
 import Service from "../pages/main/service";
 import Ship from "../pages/main/ship";
 import Buying from "../pages/main/buying";
-
 import SignIn from "../pages/auth/sign_in";
 import SignUp from "../pages/auth/sign_up";
 import SignUpCompany from "../pages/auth/sign_up/company";
@@ -20,7 +23,6 @@ import FindPwEmail from "../pages/auth/find_pw/email";
 import ChangePw from "../pages/auth/find_pw/change_pw";
 import SignUpSuccess from "../pages/auth/sign_up/success";
 import PasswordSuccess from "../pages/auth/find_pw/success";
-import BottomNavBar from "../components/\bnavigation";
 import MyPage from "../pages/my_page";
 import Shop from "../pages/shop";
 import Search from "../pages/search";
@@ -48,40 +50,68 @@ import Address from "../pages/my_page/address";
 import Package from "../pages/my_page/package";
 import Delivery from "../pages/my_page/delivery";
 import Purchase from "../pages/my_page/purchase";
+import BottomNavBar from "../components/\bnavigation";
+import { CookieManager } from "@leanoncompany/supporti-utility";
+
+// 로그인 여부를 체크하는 PrivateRoute 컴포넌트
+const PrivateRoute: React.FC = () => {
+  const cookie = new CookieManager();
+
+  const token = cookie.getItemInCookies("ACCESS_TOKEN"); // 로그인 상태 확인 (예시)
+  const location = useLocation();
+  return token ? (
+    <Outlet />
+  ) : (
+    <Navigate to="/sign_in" state={{ from: location }} replace />
+  );
+};
 
 // 조건부로 BottomNavBar를 렌더링하는 컴포넌트
 const ConditionalBottomNavBar = () => {
-  const location = useLocation(); // 현재 경로 가져오기
+  const location = useLocation();
   const showBottomNavBar =
     location.pathname !== "/sign_in" &&
-    location.pathname.startsWith("/sign_up") === false &&
-    location.pathname.startsWith("/find_pw") === false; // 조건 설정
-  return showBottomNavBar ? <BottomNavBar /> : null; // 조건에 맞으면 렌더링
+    !location.pathname.startsWith("/sign_up") &&
+    !location.pathname.startsWith("/find_pw");
+  return showBottomNavBar ? <BottomNavBar /> : null;
 };
 
 const AppRoutes = () => (
   <Router>
     <Routes>
-      <Route path="/" element={<Home />} />
-      {/* 메인 하위 페이지 */}
+      {/* Public Routes */}
+      {/* Protected Routes: 로그인 필요 */}
+      <Route element={<PrivateRoute />}>
+        <Route path="/" element={<Home />} />
+      </Route>
+
       <Route path="/search" element={<Search />} />
       <Route path="/store" element={<Store />} />
       <Route path="/ship" element={<Ship />} />
       <Route path="/buying" element={<Buying />} />
       <Route path="/service" element={<Service />} />
-      {/* 고객센터 페이지 */}
       <Route path="/support" element={<Support />} />
       <Route path="/support/contact" element={<Contacts />} />
       <Route path="/support/notice" element={<Notice />} />
       <Route path="/support/notice/detail" element={<NoticeDetail />} />
       <Route path="/support/faq" element={<Faq />} />
-      {/* shop  페이지 */}
       <Route path="/shop" element={<Shop />} />
       <Route path="/shop/best" element={<Best />} />
       <Route path="/shop/detail" element={<Detail />} />
       <Route path="/shop/attendance" element={<Attendance />} />
       <Route path="/shop/hot_deal" element={<HotDeal />} />
-      {/* 마이페이지  */}
+
+      {/* 인증 관련 Public Routes */}
+      <Route path="/sign_in" element={<SignIn />} />
+      <Route path="/sign_up" element={<SignUp />} />
+      <Route path="/sign_up/company" element={<SignUpCompany />} />
+      <Route path="/sign_up/email" element={<Email />} />
+      <Route path="/sign_up/success" element={<SignUpSuccess />} />
+      <Route path="/find_pw" element={<FindPw />} />
+      <Route path="/find_pw/email" element={<FindPwEmail />} />
+      <Route path="/find_pw/change_pw" element={<ChangePw />} />
+      <Route path="/find_pw/success" element={<PasswordSuccess />} />
+
       <Route path="/my_page" element={<MyPage />} />
       <Route path="/my_page/point" element={<Point />} />
       <Route path="/my_page/balance" element={<Balance />} />
@@ -97,17 +127,6 @@ const AppRoutes = () => (
       <Route path="/my_page/package" element={<Package />} />
       <Route path="/my_page/delivery" element={<Delivery />} />
       <Route path="/my_page/purchase" element={<Purchase />} />
-
-      {/* 로그인 관련 페이지 */}
-      <Route path="/sign_in" element={<SignIn />} />
-      <Route path="/sign_up" element={<SignUp />} />
-      <Route path="/sign_up/company" element={<SignUpCompany />} />
-      <Route path="/sign_up/email" element={<Email />} />
-      <Route path="/sign_up/success" element={<SignUpSuccess />} />
-      <Route path="/find_pw" element={<FindPw />} />
-      <Route path="/find_pw/email" element={<FindPwEmail />} />
-      <Route path="/find_pw/change_pw" element={<ChangePw />} />
-      <Route path="/find_pw/success" element={<PasswordSuccess />} />
     </Routes>
     <ConditionalBottomNavBar />
   </Router>

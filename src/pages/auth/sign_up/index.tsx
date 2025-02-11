@@ -48,6 +48,7 @@ const SignUp = () => {
         isAgree1: isAgree1,
         isAgree2: isAgree2,
         isAgree3: isAgree3,
+        type: "INDIVIDUAL",
       },
     });
   };
@@ -112,7 +113,7 @@ const SignUp = () => {
         <TextFieldCustom
           fullWidth
           value={passwordCheck}
-          type="re-password"
+          type="password"
           onChange={(e) => {
             setPasswordCheck(e.target.value);
           }}

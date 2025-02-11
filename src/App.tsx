@@ -4,6 +4,7 @@ import store from "./redux/store/store";
 import AppRoutes from "./routes/routes";
 import "./App.css"; // CSS 추가
 import { createTheme, ThemeProvider } from "@mui/material/styles";
+import { BrowserRouter, useNavigate } from "react-router-dom";
 
 const theme = createTheme({
   palette: {

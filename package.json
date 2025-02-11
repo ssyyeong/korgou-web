@@ -2,7 +2,16 @@
   "name": "korgou",
   "version": "0.1.0",
   "private": true,
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
   "dependencies": {
+    "@leanoncompany/supporti-ark-office-project": "^0.0.416",
+    "@leanoncompany/supporti-react-ui": "^0.0.1",
+    "@leanoncompany/supporti-utility": "^0.0.1",
     "@emotion/react": "^11.14.0",
     "@emotion/styled": "^11.14.0",
     "@mui/icons-material": "^6.2.0",
@@ -12,6 +21,7 @@
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
+    "@types/axios": "^0.14.4",
     "@types/jest": "^27.5.2",
     "@types/node": "^16.18.121",
     "@types/react": "^18.3.12",
@@ -31,12 +41,6 @@
     "slick-carousel": "^1.8.1",
     "typescript": "^4.9.5",
     "web-vitals": "^2.1.4"
-  },
-  "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [

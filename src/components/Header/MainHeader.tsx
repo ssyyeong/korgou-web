@@ -12,10 +12,12 @@ import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import LanguageOutlinedIcon from "@mui/icons-material/LanguageOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import { useNavigate } from "react-router-dom";
+import { CookieManager } from "@leanoncompany/supporti-utility";
 
 // 홈 화면 헤더
 const MainHeader = () => {
   const navigate = useNavigate();
+  const cookie = new CookieManager();
 
   const [isOpen, setIsOpen] = useState(false);
   const [country, setCountry] = useState<string>("KOREA");
@@ -359,6 +361,11 @@ const MainHeader = () => {
                 flexDirection: "row",
                 alignItems: "center",
                 py: "6px",
+                cursor: "pointer",
+              }}
+              onClick={async () => {
+                await cookie.removeItemInCookies("ACCESS_TOKEN");
+                navigate("/sign_in");
               }}
             >
               <LogoutOutlinedIcon color="info" />

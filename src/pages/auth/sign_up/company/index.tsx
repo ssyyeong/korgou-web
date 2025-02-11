@@ -10,8 +10,11 @@ import TextFieldCustom from "../../../../components/TextField";
 
 import CheckIcon from "@mui/icons-material/Check";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+import { useNavigate } from "react-router-dom";
 
 const SignUpCompany = () => {
+  const navigate = useNavigate();
+
   const [firstName, setFirstName] = React.useState("");
   const [lastName, setLastName] = React.useState("");
   const [email, setEmail] = React.useState("");
@@ -22,15 +25,31 @@ const SignUpCompany = () => {
   const [productType, setProductType] = React.useState("");
   const [url, setUrl] = React.useState("");
   const [channel, setChannel] = React.useState("");
-  const [introduceFile, setIntroduceFile] = React.useState("");
+  const [introduceFile, setIntroduceFile] = React.useState<any>({
+    FILE_NAME: "",
+    FILE_URL: "",
+  });
   const [businessRegistrationFile, setBusinessRegistrationFile] =
-    React.useState("");
+    React.useState<any>({
+      FILE_NAME: "",
+      FILE_URL: "",
+    });
   const [isAllAgree, setIsAllAgree] = React.useState(false);
   const [isAgree1, setIsAgree1] = React.useState(false);
   const [isAgree2, setIsAgree2] = React.useState(false);
 
-  const productMethodList: string[] = ["위탁판매"];
-  const productTypeList: string[] = ["국내 상품 유통"];
+  const productMethodList: any[] = [
+    {
+      value: "위탁판매",
+      label: "위탁판매",
+    },
+  ];
+  const productTypeList: any[] = [
+    {
+      value: "국내 상품 유통",
+      label: "국내 상품 유통",
+    },
+  ];
 
   const textStyle = {
     fontSize: "14px",
@@ -51,8 +70,25 @@ const SignUpCompany = () => {
     </Typography>
   );
 
-  const SignUp = () => {
-    console.log("회원가입");
+  const nextPage = () => {
+    console.log(businessRegistrationFile);
+    navigate("/sign_up/email", {
+      state: {
+        name: firstName + " " + lastName,
+        email: email,
+        password,
+        sellerName,
+        productMethod,
+        productType,
+        url,
+        channel,
+        introduceFile,
+        businessRegistrationFile,
+        isAgree1: isAgree1,
+        isAgree2: isAgree2,
+        type: "COMPANY",
+      },
+    });
   };
 
   return (
@@ -160,7 +196,7 @@ const SignUpCompany = () => {
         <TextFieldCustom
           fullWidth
           value={passwordCheck}
-          type="re-password"
+          type="password"
           onChange={(e) => {
             setPasswordCheck(e.target.value);
           }}
@@ -244,7 +280,7 @@ const SignUpCompany = () => {
           }}
           placeholder="자사몰 주소를 입력해주세요."
         />
-        <Typography sx={textStyle}>자사몰 URL</Typography>
+        <Typography sx={textStyle}>대표 외부 판매 채널(자사몰 제외)</Typography>
         <TextFieldCustom
           fullWidth
           value={channel}
@@ -257,10 +293,9 @@ const SignUpCompany = () => {
         <Typography sx={textStyle}>회사/상품 소개서</Typography>
         <Input
           value={introduceFile}
-          setValue={(value: string) => {
-            setIntroduceFile(value);
-          }}
+          setValue={setIntroduceFile}
           type="fileinput"
+          fileTypeInputName
           style={{ mb: "20px", maxHeight: "48px" }}
         />
         <Box
@@ -275,10 +310,9 @@ const SignUpCompany = () => {
         </Box>
         <Input
           value={businessRegistrationFile}
-          setValue={(value: string) => {
-            setBusinessRegistrationFile(value);
-          }}
+          setValue={setBusinessRegistrationFile}
           type="fileinput"
+          fileTypeInputName
           width={{ xs: "100%", md: "100%" }}
           style={{ maxHeight: "48px" }}
         />
@@ -408,7 +442,7 @@ const SignUpCompany = () => {
         color="primary"
         onClick={() => {
           console.log("회원가입");
-          SignUp();
+          nextPage();
         }}
         contents={<Typography fontSize={16}>확인</Typography>}
         style={{ padding: "16px 8px", mt: "20px" }}

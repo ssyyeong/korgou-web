@@ -1,12 +1,13 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Box, Typography } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import OriginButton from "../../../../components/Button/OriginButton";
 
-const SignUpSuccess = ({ route }: any) => {
+const SignUpSuccess = () => {
+  const location = useLocation();
   const navigate = useNavigate();
-  const { id = "" } = route?.state || {};
+  const { id = "" } = location?.state || {};
 
   return (
     <Box
