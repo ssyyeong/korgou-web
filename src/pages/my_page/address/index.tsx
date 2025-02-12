@@ -1,12 +1,35 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Box, Typography, Button, Divider } from "@mui/material";
 import Header from "../../../components/Header/Header";
 import OriginButton from "../../../components/Button/OriginButton";
 import CustomDatePicker from "../../../components/CustomDatePicker";
 import { useNavigate } from "react-router-dom";
+import ControllerAbstractBase from "../../../controller/Controller";
+import { useAppMember } from "../../../hooks/useAppMember";
+import AddressCard from "./AddressCard";
+import AddressController from "../../../controller/AddressController";
 
 const Address = () => {
   const navigator = useNavigate();
+  const { memberCode } = useAppMember();
+
+  const [addressList, setAddressList] = useState([]);
+
+  useEffect(() => {
+    const controller = new ControllerAbstractBase({
+      modelName: "Address",
+      modelId: "address",
+    });
+
+    controller
+      .findAll({
+        APP_MEMBER_IDENTIFICATION_CODE: memberCode,
+      })
+      .then((res) => {
+        console.log("res", res.result.rows);
+        setAddressList(res.result.rows);
+      });
+  }, [memberCode]);
 
   return (
     <Box
@@ -19,18 +42,56 @@ const Address = () => {
       }}
     >
       <Header title="배송지 관리" />
-      <img
-        src="/images/main/address.svg"
-        alt="address"
-        style={{
-          cursor: "pointer",
-          width: "100%",
-          marginBottom: "10px",
-          marginTop: "20px",
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          padding: "16px",
+          flexGrow: 1,
         }}
-      />
+      >
+        {addressList.map((item: any, index) => {
+          const addr = item.ADDRESS + " " + item.DETAILED_ADDRESS;
 
-      {/* <OriginButton
+          return (
+            <AddressCard
+              key={index}
+              item={item}
+              name={item.FIRST_NAME + " " + item.LAST_NAME}
+              type={item.SHIPPING_TYPE}
+              isDefault={item.DEFAULT_YN === "Y"}
+              onClick={(id) => {
+                navigator("/my_page/address/modify", {
+                  state: {
+                    id: id,
+                  },
+                });
+              }}
+              setIsDefault={(value) => {
+                if (value) {
+                  const addressController = new AddressController({
+                    modelName: "Address",
+                    modelId: "address",
+                  });
+                  addressController
+                    .changeDefaultAddress({
+                      APP_MEMBER_IDENTIFICATION_CODE: memberCode,
+                      ADDRESS_IDENTIFICATION_CODE:
+                        item.ADDRESS_IDENTIFICATION_CODE,
+                      DEFAULT_YN: "Y",
+                    })
+                    .then((res) => {
+                      setAddressList(res.data.result);
+                    });
+                }
+              }}
+              address={addr}
+              phone={item.CONTACT}
+            />
+          );
+        })}
+      </Box>
+      <OriginButton
         fullWidth
         variant="contained"
         color="#282930"
@@ -43,7 +104,7 @@ const Address = () => {
           </Typography>
         }
         style={{ padding: "16px 8px", height: "48px" }}
-      /> */}
+      />
     </Box>
   );
 };

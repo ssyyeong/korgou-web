@@ -16,7 +16,7 @@ export interface IControllerOptions {
 
 export interface IModelConfig extends Record<string, any> {}
 
-class AppMemberController {
+class AddressController {
   modelName?: string;
   modelId?: string;
   apiUrl: string;
@@ -42,34 +42,13 @@ class AppMemberController {
     this.modelConfig = null;
   }
 
-  async signUp(option: IControllerOptions): Promise<any> {
+  async changeDefaultAddress(option: IControllerOptions): Promise<any> {
     const params = option;
-    const url = `${this.apiUrl}${this.rootRoute}/${this.role}/${this.modelId}/sign_up/local`;
+    const url = `${this.apiUrl}${this.rootRoute}/${this.role}/${this.modelId}/change_default`;
+    console.log(url);
     const response = await axios.post(url, params);
 
     return response;
   }
-
-  async signIn(option: IControllerOptions): Promise<any> {
-    const params = option;
-    const url = `${this.apiUrl}${this.rootRoute}/${this.role}/${this.modelId}/sign_in/local`;
-    const response = await axios.post(url, params, {
-      headers: {
-        "Content-Type": "application/json",
-        "Access-Control-Allow-Origin": "*", // 또는 특정 도메인
-        "Access-Control-Allow-Headers": "Content-Type",
-      },
-    });
-
-    return response;
-  }
-
-  async getProfile(option: IControllerOptions): Promise<any> {
-    const params = option;
-    const url = `${this.apiUrl}${this.rootRoute}/${this.role}/${this.modelId}/profile`;
-    const response = await axios.get(url, params);
-
-    return response;
-  }
 }
-export default AppMemberController;
+export default AddressController;

@@ -151,12 +151,22 @@ const Input = React.forwardRef(
               bgcolor: "white",
               ...props.style,
             }}
+            displayEmpty={true}
             value={props.value}
             onChange={(e) => {
               props.setValue(e.target.value);
             }}
             {...props.additionalProps}
           >
+            <MenuItem value="">
+              <Typography
+                sx={{
+                  color: "#919298",
+                }}
+              >
+                {props.label}
+              </Typography>
+            </MenuItem>
             {props.dataList &&
               props.dataList?.map((item: any) => {
                 return (
@@ -502,6 +512,7 @@ const Input = React.forwardRef(
             {...props.outLineInputProps}
             type={props.inputType}
             error={props.error}
+            placeholder={props.label}
           />
         )}
       </Box>

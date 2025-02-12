@@ -5,7 +5,8 @@ import axios, { AxiosResponse } from "axios";
 const serverSettings: { config: { apiUrl: string } } = {
   config: {
     // 예: "localhost:4021" 또는 도메인명
-    apiUrl: "",
+    apiUrl: "", // 서버 API URL
+    // apiUrl: "http://localhost:4021", // 로컬 서버 API URL
   },
 };
 
@@ -123,7 +124,7 @@ class ControllerAbstractBase {
       this.modelConfig = await this.getModelConfig();
     }
     const params = { FIND_OPTION_KEY_LIST: JSON.stringify(option) };
-    const url = `https://${this.apiUrl}${this.rootRoute}/${this.role}/${this.modelId}/find_all_by_joined_key`;
+    const url = `${this.apiUrl}${this.rootRoute}/${this.role}/${this.modelId}/find_all_by_joined_key`;
     const response = await axios.get(url, { params });
     return await this.parseResponse(response);
   }
@@ -180,8 +181,8 @@ class ControllerAbstractBase {
       FIND_OPTION_KEY_LIST: JSON.stringify(findOption),
       UPDATE_OPTION_KEY_LIST: JSON.stringify(updateOption),
     };
-
-    const url = `https://${this.apiUrl}${this.rootRoute}/${this.role}/${this.modelId}/update`;
+    console.log(data);
+    const url = `${this.apiUrl}${this.rootRoute}/${this.role}/${this.modelId}/update`;
     const response = await axios.put(url, data);
     return await this.parseResponse(response);
   }
@@ -213,8 +214,8 @@ class ControllerAbstractBase {
       UPDATE_OPTION_KEY_LIST: JSON.stringify(deleteOption),
     };
 
-    const url = `https://${this.apiUrl}${this.rootRoute}/${this.role}/${this.modelId}/delete`;
-    const response = await axios.put(url, data);
+    const url = `${this.apiUrl}${this.rootRoute}/${this.role}/${this.modelId}/delete`;
+    const response = await axios.post(url, data);
     return await this.parseResponse(response);
   }
 
@@ -226,7 +227,7 @@ class ControllerAbstractBase {
     if (img) {
       const formData = new FormData();
       formData.append("file", img, img.name);
-      const uploadUrl = `https://${this.apiUrl}${this.rootRoute}/common/file/upload_image`;
+      const uploadUrl = `${this.apiUrl}${this.rootRoute}/common/file/upload_image`;
       const uploadResponse = await axios.post(uploadUrl, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -252,7 +253,7 @@ class ControllerAbstractBase {
     for (const file of files) {
       const formData = new FormData();
       formData.append("file", file, file.name);
-      const uploadUrl = `https://${this.apiUrl}${this.rootRoute}/common/file/upload_image`;
+      const uploadUrl = `${this.apiUrl}${this.rootRoute}/common/file/upload_image`;
       const uploadResponse = await axios.post(uploadUrl, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -280,7 +281,7 @@ class ControllerAbstractBase {
     if (idCard) {
       const formData = new FormData();
       formData.append("file", idCard, idCard.name);
-      const uploadUrl = `https://${this.apiUrl}${this.rootRoute}/common/file/upload_image`;
+      const uploadUrl = `${this.apiUrl}${this.rootRoute}/common/file/upload_image`;
       const uploadResponse = await axios.post(uploadUrl, formData, {
         headers: {
           "Content-Type": "multipart/form-data",
@@ -292,7 +293,7 @@ class ControllerAbstractBase {
     if (contract) {
       const formData = new FormData();
       formData.append("file", contract, contract.name);
-      const uploadUrl = `https://${this.apiUrl}${this.rootRoute}/common/file/upload_image`;
+      const uploadUrl = `${this.apiUrl}${this.rootRoute}/common/file/upload_image`;
       const uploadResponse = await axios.post(uploadUrl, formData, {
         headers: {
           "Content-Type": "multipart/form-data",

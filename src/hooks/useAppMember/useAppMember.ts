@@ -1,5 +1,5 @@
 import { useEffect, useMemo, useState } from "react";
-import ControllerAbstractBase from "../../controller/controller";
+import ControllerAbstractBase from "../../controller/Controller";
 
 /**
  * 유저 정보 가져오는 훅

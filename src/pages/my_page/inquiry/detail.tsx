@@ -1,11 +1,45 @@
 import { Box, Divider, Typography } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import Header from "../../../components/Header/Header";
 import OriginButton from "../../../components/Button/OriginButton";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import ControllerAbstractBase from "../../../controller/Controller";
+import dayjs from "dayjs";
 
 const InquiryDetail = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const { id } = location.state;
+
+  const [date, setDate] = React.useState("");
+  const [title, setTitle] = React.useState("");
+  const [content, setContent] = React.useState("");
+  const [answer, setAnswer] = React.useState("");
+  const [answerDate, setAnswerDate] = React.useState("");
+
+  useEffect(() => {
+    const controller = new ControllerAbstractBase({
+      modelName: "QnaBoardQuestion",
+      modelId: "qna_board_question",
+    });
+    controller
+      .findOne({
+        QNA_BOARD_QUESTION_IDENTIFICATION_CODE: id,
+      })
+      .then((res) => {
+        setDate(dayjs(res.result.CREATED_AT).format("YYYY-MM-DD HH:mm"));
+        setTitle(res.result.CATEGORY + " " + res.result.TITLE);
+        setContent(res.result.CONTENT);
+        if (res.result.QnaBoardAnswers.length > 0) {
+          setAnswer(res.result.QnaBoardAnswers[0].CONTENT);
+          setAnswerDate(
+            dayjs(res.result.QnaBoardAnswers[0].CREATED_AT).format(
+              "YYYY-MM-DD HH:mm"
+            )
+          );
+        }
+      });
+  }, []);
 
   return (
     <Box
@@ -32,7 +66,7 @@ const InquiryDetail = () => {
             mb: "6px",
           }}
         >
-          2024-06-15 15:00
+          {date}
         </Typography>
         <Typography
           sx={{
@@ -40,7 +74,7 @@ const InquiryDetail = () => {
             mb: "13px",
           }}
         >
-          [배송] 배송 문의드립니다.
+          {title}
         </Typography>
         <Divider sx={{ color: "#282930" }} />
         <Box
@@ -56,57 +90,56 @@ const InquiryDetail = () => {
               color: "#282930",
             }}
           >
-            Lorem ipsum dolor sit amet consectetur. Augue bibendum egestas cras
-            a varius congue. Enim dis quisque augue vel enim. Vitae justo
-            placerat ut in interdum eu. Lorem aliquet magnis faucibus quis
-            mattis urna blandit eu libero.
+            {content}
           </Typography>
         </Box>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            p: "16px",
-            mt: "25px",
-            backgroundColor: "#F5F5F5",
-          }}
-        >
-          <Typography
-            sx={{
-              fontSize: "14px",
-              color: "#282930",
-            }}
-          >
-            안녕하세요. 코고입니다. 관리자 답변이 들어갑니다. Lorem ipsum dolor
-            sit amet consectetur. Augue bibendum egestas cras a varius congue.
-            Enim dis quisque augue vel enim. Vitae justo placerat ut in interdum
-            eu. Lorem aliquet magnis faucibus quis mattis urna blandit eu
-            libero.
-          </Typography>
+        {answer && (
           <Box
             sx={{
               display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
-              mt: "32px",
+              flexDirection: "column",
+              p: "16px",
+              mt: "25px",
+              backgroundColor: "#F5F5F5",
             }}
           >
             <Typography
               sx={{
-                fontSize: "10px",
+                fontSize: "14px",
+                color: "#282930",
               }}
             >
-              2024-06-15 15:00
+              안녕하세요. 코고입니다. 관리자 답변이 들어갑니다. Lorem ipsum
+              dolor sit amet consectetur. Augue bibendum egestas cras a varius
+              congue. Enim dis quisque augue vel enim. Vitae justo placerat ut
+              in interdum eu. Lorem aliquet magnis faucibus quis mattis urna
+              blandit eu libero.
             </Typography>
-            <Typography
+            <Box
               sx={{
-                fontSize: "10px",
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+                mt: "32px",
               }}
             >
-              KORGOU운영팀
-            </Typography>
+              <Typography
+                sx={{
+                  fontSize: "10px",
+                }}
+              >
+                2024-06-15 15:00
+              </Typography>
+              <Typography
+                sx={{
+                  fontSize: "10px",
+                }}
+              >
+                KORGOU운영팀
+              </Typography>
+            </Box>
           </Box>
-        </Box>
+        )}
       </Box>
       <OriginButton
         variant="contained"

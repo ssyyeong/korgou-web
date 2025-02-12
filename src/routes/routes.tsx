@@ -51,6 +51,8 @@ import Package from "../pages/my_page/package";
 import Delivery from "../pages/my_page/delivery";
 import Purchase from "../pages/my_page/purchase";
 import BottomNavBar from "../components/\bnavigation";
+import AddressModify from "../pages/my_page/address/modify";
+import AddressCreate from "../pages/my_page/address/create";
 
 // 로그인 여부를 체크하는 PrivateRoute 컴포넌트
 const PrivateRoute: React.FC = () => {
@@ -121,6 +123,9 @@ const AppRoutes = () => (
       <Route path="/my_page/review" element={<Review />} />
       <Route path="/my_page/cart" element={<Cart />} />
       <Route path="/my_page/address" element={<Address />} />
+      <Route path="/my_page/address/create" element={<AddressCreate />} />
+      <Route path="/my_page/address/modify" element={<AddressModify />} />
+
       <Route path="/my_page/package" element={<Package />} />
       <Route path="/my_page/delivery" element={<Delivery />} />
       <Route path="/my_page/purchase" element={<Purchase />} />

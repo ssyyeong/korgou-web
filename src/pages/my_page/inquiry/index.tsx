@@ -1,14 +1,22 @@
 import { Box, Divider, Tab, Tabs, Typography } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import OriginButton from "../../../components/Button/OriginButton";
 import Header from "../../../components/Header/Header";
 import KeyboardArrowRightOutlinedIcon from "@mui/icons-material/KeyboardArrowRightOutlined";
 import { useNavigate } from "react-router-dom";
+import ControllerAbstractBase from "../../../controller/Controller";
+import { useAppMember } from "../../../hooks/useAppMember";
+import InquiryCard from "./InqueryCard";
+import dayjs from "dayjs";
 
 const Inquiry = () => {
   const navigate = useNavigate();
+  const { memberCode } = useAppMember();
 
   const [tab, setTab] = React.useState(0);
+  const [categoryList, setCategoryList] = React.useState([]);
+  const [qnaAnswerBeforeList, setQnaAnswerBeforeList] = React.useState([]);
+  const [qnaAnswerAfterList, setQnaAnswerAfterList] = React.useState([]);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setTab(newValue);
@@ -27,6 +35,50 @@ const Inquiry = () => {
         {value === tab && <Box>{children}</Box>}
       </Typography>
     );
+  };
+
+  useEffect(() => {
+    const controller = new ControllerAbstractBase({
+      modelName: "QnaBoardQuestion",
+      modelId: "qna_board_question",
+    });
+
+    controller
+      .findAll({
+        APP_MEMBER_IDENTIFICATION_CODE: memberCode,
+      })
+      .then((res) => {
+        const data = res.result.rows;
+        const answerBefore = data.filter(
+          (item: any) => item.QnaBoardAnswers.length === 0
+        );
+        const answerAfter = data.filter(
+          (item: any) => item.QnaBoardAnswers.length > 0
+        );
+
+        setQnaAnswerBeforeList(answerBefore);
+        setQnaAnswerAfterList(answerAfter);
+      });
+    getCategoryList();
+  }, [memberCode]);
+
+  const getCategoryList = () => {
+    const categoryController = new ControllerAbstractBase({
+      modelName: "QnaBoardCategory",
+      modelId: "qna_board_category",
+    });
+
+    categoryController.findAll({}).then((res) => {
+      setCategoryList(
+        res.result.rows.map((item) => {
+          return {
+            value: item.QNA_BOARD_CATEGORY_IDENTIFICATION_CODE,
+            label: item.CATEGORY,
+          };
+        })
+      );
+    });
+    console.log("categoryList", categoryList);
   };
 
   return (
@@ -84,7 +136,7 @@ const Inquiry = () => {
             }}
           >
             <Typography sx={{ fontSize: "14px", color: "#282930", ml: "16px" }}>
-              3개
+              {qnaAnswerAfterList.length}개
             </Typography>
             <OriginButton
               fullWidth
@@ -109,55 +161,19 @@ const Inquiry = () => {
               left: -15,
             }}
           />
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              justifyContent: "space-between",
-              p: "16px",
-              cursor: "pointer",
-            }}
-            onClick={() => {
-              navigate("/my_page/inquiry/detail");
-            }}
-          >
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                width: "100%",
-                justifyContent: "center",
-              }}
-            >
-              <Typography sx={{ fontSize: "12px", color: "#282930" }}>
-                2024-06-15 15:00
-              </Typography>
-              <Typography sx={{ fontSize: "12px", color: "#919298" }}>
-                [상품문의]
-              </Typography>
-              <Typography sx={{ fontSize: "14px", color: "#282930" }}>
-                문의사항 제목이 들어갑니다.
-              </Typography>
-            </Box>
-            <KeyboardArrowRightOutlinedIcon
-              sx={{
-                width: "24px",
-                height: "24px",
-                color: "#B1B2B6",
-                alignSelf: "center",
-                mr: "16px",
-              }}
-            />
-          </Box>
-          <Divider
-            sx={{
-              color: "#ECECED",
-              position: "relative",
-              width: "calc(100% + 30px)",
-              left: -15,
-            }}
-          />
+          {qnaAnswerAfterList.map((item: any) => {
+            return (
+              <InquiryCard
+                id={item.QNA_BOARD_QUESTION_CODE}
+                date={item.CREATED_AT}
+                category={item.category}
+                title={item.title}
+                onClick={(id: number) => {
+                  navigate(`/my_page/inquiry/${id}`);
+                }}
+              />
+            );
+          })}
         </Box>
       </TabPanel>
       <TabPanel value={1} width="100%">
@@ -179,7 +195,7 @@ const Inquiry = () => {
             }}
           >
             <Typography sx={{ fontSize: "14px", color: "#282930", ml: "16px" }}>
-              3개
+              {qnaAnswerBeforeList.length}개
             </Typography>
             <OriginButton
               fullWidth
@@ -204,51 +220,25 @@ const Inquiry = () => {
               left: -15,
             }}
           />
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "100%",
-              justifyContent: "space-between",
-              p: "16px",
-            }}
-          >
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                width: "100%",
-                justifyContent: "center",
-              }}
-            >
-              <Typography sx={{ fontSize: "12px", color: "#282930" }}>
-                2024-06-15 15:00
-              </Typography>
-              <Typography sx={{ fontSize: "12px", color: "#919298" }}>
-                [상품문의]
-              </Typography>
-              <Typography sx={{ fontSize: "14px", color: "#282930" }}>
-                문의사항 제목이 들어갑니다.
-              </Typography>
-            </Box>
-            <KeyboardArrowRightOutlinedIcon
-              sx={{
-                width: "24px",
-                height: "24px",
-                color: "#B1B2B6",
-                alignSelf: "center",
-                mr: "16px",
-              }}
-            />
-          </Box>
-          <Divider
-            sx={{
-              color: "#ECECED",
-              position: "relative",
-              width: "calc(100% + 30px)",
-              left: -15,
-            }}
-          />
+          {qnaAnswerBeforeList.map((item: any) => {
+            const category = categoryList.filter(
+              (category) =>
+                category.value === item.QNA_BOARD_CATEGORY_IDENTIFICATION_CODE
+            )[0];
+            return (
+              <InquiryCard
+                id={item.QNA_BOARD_QUESTION_IDENTIFICATION_CODE}
+                date={dayjs(item.CREATED_AT).format("YYYY-MM-DD HH:mm")}
+                category={category?.label}
+                title={item.TITLE}
+                onClick={(id: number) => {
+                  navigate(`/my_page/inquiry/detail`, {
+                    state: { id },
+                  });
+                }}
+              />
+            );
+          })}
         </Box>
       </TabPanel>
     </Box>
