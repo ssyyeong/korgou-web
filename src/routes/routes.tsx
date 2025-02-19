@@ -53,17 +53,8 @@ import Purchase from "../pages/my_page/purchase";
 import BottomNavBar from "../components/\bnavigation";
 import AddressModify from "../pages/my_page/address/modify";
 import AddressCreate from "../pages/my_page/address/create";
-
-// 로그인 여부를 체크하는 PrivateRoute 컴포넌트
-const PrivateRoute: React.FC = () => {
-  const token = localStorage.getItem("ACCESS_TOKEN"); // 로그인 상태 확인 (예시)
-  const location = useLocation();
-  return token ? (
-    <Outlet />
-  ) : (
-    <Navigate to="/sign_in" state={{ from: location }} replace />
-  );
-};
+import Price from "../pages/main/price";
+import BuyingCreate from "../pages/main/buying/create";
 
 // 조건부로 BottomNavBar를 렌더링하는 컴포넌트
 const ConditionalBottomNavBar = () => {
@@ -80,15 +71,16 @@ const AppRoutes = () => (
     <Routes>
       {/* Public Routes */}
       {/* Protected Routes: 로그인 필요 */}
-      <Route element={<PrivateRoute />}>
-        <Route path="/" element={<Home />} />
-      </Route>
+      <Route path="/" element={<Home />} />
 
       <Route path="/search" element={<Search />} />
       <Route path="/store" element={<Store />} />
       <Route path="/ship" element={<Ship />} />
       <Route path="/buying" element={<Buying />} />
+      <Route path="/buying/create" element={<BuyingCreate />} />
+
       <Route path="/service" element={<Service />} />
+      <Route path="/price" element={<Price />} />
       <Route path="/support" element={<Support />} />
       <Route path="/support/contact" element={<Contacts />} />
       <Route path="/support/notice" element={<Notice />} />

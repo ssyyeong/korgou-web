@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { FaCalendarAlt } from "react-icons/fa"; // 캘린더 아이콘 사용
@@ -40,7 +40,7 @@ const styles = {
     fontSize: "14px",
     width: "50%",
     cursor: "pointer",
-    paddingLeft: "8px",
+    justifyContent: "center",
   },
   icon: {
     color: "#B1B2B6",

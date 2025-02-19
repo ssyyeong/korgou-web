@@ -16,6 +16,7 @@ const Service = () => {
         justifyContent: "center",
         flexDirection: "column",
         position: "relative", // relative로 변경
+        mb: "48px",
       }}
     >
       <Box

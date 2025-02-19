@@ -1,85 +1,29 @@
-import { Box, Divider, Tab, Tabs, Typography } from "@mui/material";
-import React from "react";
-import OriginButton from "../../../../components/Button/OriginButton";
+import { Box, Tab, Tabs, Typography } from "@mui/material";
+import React, { useEffect } from "react";
 import Header from "../../../../components/Header/Header";
-import AccordianBox from "../../../../components/AccordianBox/AccordianBox";
+import ControllerAbstractBase from "../../../../controller/Controller";
+import Faq from "./list";
 
-const Faq = () => {
+const FaqList = () => {
   const [tab, setTab] = React.useState(0);
+
+  const [faqList, setFaqList] = React.useState([]);
+
+  useEffect(() => {
+    const controller = new ControllerAbstractBase({
+      modelName: "FaqBoardContent",
+      modelId: "faq_board_content",
+    });
+
+    controller.findAll({}).then((res) => {
+      setFaqList(res.result.rows);
+    });
+  }, []);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setTab(newValue);
   };
 
-  const accordian = () => {
-    return (
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          width: "100%",
-          alignItems: "center",
-        }}
-      >
-        <AccordianBox
-          title={
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-              }}
-            >
-              <Typography
-                sx={{
-                  fontSize: "14px",
-                  fontWeight: 700,
-                  color: "#3966AE",
-                }}
-              >
-                Q
-              </Typography>
-              <Typography
-                sx={{
-                  fontSize: "14px",
-                  color: "#282930",
-                }}
-              >
-                상품 주문은 어떻게 하나요?
-              </Typography>
-            </Box>
-          }
-          constents={
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-                backgroundColor: "#F5F5F5",
-                padding: "16px",
-              }}
-            >
-              <Typography
-                sx={{
-                  fontSize: "14px",
-                  fontWeight: 700,
-                  color: "#3966AE",
-                }}
-              >
-                A
-              </Typography>
-              <Typography
-                sx={{
-                  fontSize: "14px",
-                  color: "#282930",
-                }}
-              >
-                답변 내용
-              </Typography>
-            </Box>
-          }
-        />
-      </Box>
-    );
-  };
   const TabPanel = (props: any) => {
     const { children, value, index, ...other } = props;
 
@@ -115,27 +59,7 @@ const Faq = () => {
         alignItems: "center",
       }}
     >
-      <Header
-        title="FAQ"
-        icon={
-          <OriginButton
-            variant="contained"
-            onClick={() => {}}
-            contents={
-              <Typography fontSize={14} color="#ffffff">
-                문의 작성
-              </Typography>
-            }
-            style={{
-              height: "32px",
-              borderRadius: "4px",
-              padding: "8px 16px",
-              position: "absolute",
-              top: "20px",
-            }}
-          />
-        }
-      />
+      <Header title="FAQ" />
       <Tabs
         value={tab}
         onChange={handleChange}
@@ -162,11 +86,36 @@ const Faq = () => {
         <Tab label="결제" />
         <Tab label="배송" />
       </Tabs>
-      <TabPanel value={0}>{accordian()}</TabPanel>
-      <TabPanel value={1}>{accordian()}</TabPanel>
-      <TabPanel value={2}>{accordian()}</TabPanel>
-      <TabPanel value={3}>{accordian()}</TabPanel>
+      <TabPanel value={0}>
+        {faqList.map((faq: any) => (
+          <Faq key={faq.id} title={faq.TITLE} content={faq.CONTENT} />
+        ))}
+      </TabPanel>
+      <TabPanel value={1}>
+        {faqList.map(
+          (faq: any) =>
+            faq.FAQ_BOARD_CATEGORY_IDENTIFICATION_CODE === tab && (
+              <Faq key={faq.id} title={faq.TITLE} content={faq.CONTENT} />
+            )
+        )}
+      </TabPanel>
+      <TabPanel value={2}>
+        {faqList.map(
+          (faq: any) =>
+            faq.FAQ_BOARD_CATEGORY_IDENTIFICATION_CODE === tab && (
+              <Faq key={faq.id} title={faq.TITLE} content={faq.CONTENT} />
+            )
+        )}
+      </TabPanel>
+      <TabPanel value={3}>
+        {faqList.map(
+          (faq: any) =>
+            faq.FAQ_BOARD_CATEGORY_IDENTIFICATION_CODE === tab && (
+              <Faq key={faq.id} title={faq.TITLE} content={faq.CONTENT} />
+            )
+        )}
+      </TabPanel>
     </Box>
   );
 };
-export default Faq;
+export default FaqList;

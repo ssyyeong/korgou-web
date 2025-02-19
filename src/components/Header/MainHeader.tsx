@@ -12,6 +12,7 @@ import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import LanguageOutlinedIcon from "@mui/icons-material/LanguageOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import { useNavigate } from "react-router-dom";
+import { LoginOutlined } from "@mui/icons-material";
 
 // 홈 화면 헤더
 const MainHeader = () => {
@@ -19,6 +20,8 @@ const MainHeader = () => {
 
   const [isOpen, setIsOpen] = useState(false);
   const [country, setCountry] = useState<string>("KOREA");
+
+  const token = localStorage.getItem("ACCESS_TOKEN"); // 로그인 상태 확인 (예시)
 
   const menuStyle = {
     display: "flex",
@@ -213,7 +216,12 @@ const MainHeader = () => {
             />
 
             {/* 메뉴 리스트 */}
-            <Box sx={[menuStyle, { mt: "16px" }]}>
+            <Box
+              sx={[menuStyle, { mt: "16px" }]}
+              onClick={() => {
+                navigate("/ship");
+              }}
+            >
               <img
                 src="/images/icon/side_bar/ship.svg"
                 alt="logo"
@@ -222,7 +230,12 @@ const MainHeader = () => {
               />
               <Typography sx={labelStyle}>Go To Ship</Typography>
             </Box>
-            <Box sx={menuStyle}>
+            <Box
+              sx={menuStyle}
+              onClick={() => {
+                navigate("/buying");
+              }}
+            >
               <img
                 src="/images/icon/side_bar/note.svg"
                 alt="logo"
@@ -243,9 +256,14 @@ const MainHeader = () => {
                 width={24}
                 height={24}
               />
-              <Typography sx={labelStyle}>Service & Price</Typography>
+              <Typography sx={labelStyle}>Service</Typography>
             </Box>
-            <Box sx={menuStyle}>
+            <Box
+              sx={menuStyle}
+              onClick={() => {
+                navigate("/price");
+              }}
+            >
               <img
                 src="/images/icon/side_bar/tag.svg"
                 alt="logo"
@@ -302,13 +320,14 @@ const MainHeader = () => {
                   Support
                 </Typography>
               </Box>
+
               <Typography
                 sx={subLabelStyle}
                 onClick={() => {
-                  navigate("/support/faq");
+                  navigate("/support/notice");
                 }}
               >
-                FAQ
+                Notice
               </Typography>
               <Typography
                 sx={subLabelStyle}
@@ -321,10 +340,10 @@ const MainHeader = () => {
               <Typography
                 sx={subLabelStyle}
                 onClick={() => {
-                  navigate("/support/notice");
+                  navigate("/support/faq");
                 }}
               >
-                Notice
+                FAQ
               </Typography>
             </Box>
             <Box
@@ -353,32 +372,60 @@ const MainHeader = () => {
             />
 
             {/* 로그아웃 버튼 */}
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "center",
-                py: "6px",
-                cursor: "pointer",
-              }}
-              onClick={async () => {
-                await localStorage.removeItem("ACCESS_TOKEN");
-                await localStorage.removeItem("APP_MEMBER_IDENTIFICATION_CODE");
-
-                navigate("/sign_in");
-              }}
-            >
-              <LogoutOutlinedIcon color="info" />
-              <Typography
+            {token ? (
+              <Box
                 sx={{
-                  fontSize: "16px",
-                  color: "#282930",
-                  ml: "8px",
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  py: "6px",
+                  cursor: "pointer",
+                }}
+                onClick={async () => {
+                  await localStorage.removeItem("ACCESS_TOKEN");
+                  await localStorage.removeItem(
+                    "APP_MEMBER_IDENTIFICATION_CODE"
+                  );
+                  setIsOpen(false);
+                  navigate("/");
                 }}
               >
-                Logout
-              </Typography>
-            </Box>
+                <LogoutOutlinedIcon color="info" />
+                <Typography
+                  sx={{
+                    fontSize: "16px",
+                    color: "#282930",
+                    ml: "8px",
+                  }}
+                >
+                  Logout
+                </Typography>
+              </Box>
+            ) : (
+              <Box
+                sx={{
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  py: "6px",
+                  cursor: "pointer",
+                }}
+                onClick={async () => {
+                  navigate("/sign_in");
+                }}
+              >
+                <LoginOutlined color="info" />
+                <Typography
+                  sx={{
+                    fontSize: "16px",
+                    color: "#282930",
+                    ml: "8px",
+                  }}
+                >
+                  LogIn
+                </Typography>
+              </Box>
+            )}
           </Box>
         </Modal>
       </Box>

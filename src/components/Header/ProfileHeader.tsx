@@ -144,9 +144,9 @@ const ProfileHeader = (props: any) => {
           }}
         >
           {[
-            { label: "발란스", value: "5,000" },
+            { label: "발란스", value: props.memberBalance },
             { label: "쿠폰", value: "1" },
-            { label: "포인트", value: "5,000" },
+            { label: "포인트", value: props.memberPoint },
           ].map((item, index) => (
             <Box
               key={index}
@@ -169,15 +169,48 @@ const ProfileHeader = (props: any) => {
               >
                 {item.label}
               </Typography>
-              <Typography
+
+              <Box
                 sx={{
-                  color: "#282930",
-                  fontSize: "16px",
-                  fontWeight: "bold",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  flexDirection: "row",
                 }}
               >
-                {item.value}
-              </Typography>
+                <Typography
+                  sx={{
+                    color: "#282930",
+                    fontSize: "16px",
+                    fontWeight: "bold",
+                  }}
+                >
+                  {item.value}
+                </Typography>
+
+                {item.label === "발란스" && (
+                  <Box
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                      borderRadius: "4px",
+                      backgroundColor: "#282930",
+                      padding: "2px 4px",
+                      ml: "4px",
+                    }}
+                  >
+                    <Typography
+                      sx={{
+                        fontSize: "10px",
+                        color: "white",
+                      }}
+                    >
+                      충전
+                    </Typography>
+                  </Box>
+                )}
+              </Box>
             </Box>
           ))}
         </Box>

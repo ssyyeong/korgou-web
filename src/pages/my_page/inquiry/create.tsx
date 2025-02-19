@@ -21,42 +21,57 @@ const InquiryCreate = () => {
   const [description, setDescription] = useState("");
   const [images, setImages] = useState<File[]>([]);
 
-  const createInquiry = () => {
+  type ImageData = {
+    FILE_URL: string;
+    FILE_NAME: string;
+  };
+
+  const createInquiry = async (): Promise<void> => {
+    // ControllerAbstractBase 생성 (타입에 맞게 생성자 파라미터를 수정해야 할 수 있음)
     const controller = new ControllerAbstractBase({
       modelName: "QnaBoardQuestion",
       modelId: "qna_board_question",
     });
 
-    // 업로드된 이미지 데이터를 base64 또는 FormData 형태로 변환하여 서버로 전송 가능
-    // images.map((image) => {
-    //   const imageController = new ImageController({});
-    //   const formData = new FormData();
-    //     formData.append("file", files[0], files[0].name);
-    //   imageController.uploadImage(formData).then((res) => {
-    //     const imageUrl = res.data.result[0];
+    // images 배열은 File 객체들이 들어있다고 가정
+    const uploadPromises: Promise<ImageData>[] = images.map(
+      (image: File): Promise<ImageData> => {
+        const imageController = new ImageController({});
+        const formData = new FormData();
+        formData.append("file", image, image.name);
 
-    //     props.fileTypeInputName
-    //       ? props.setValue({
-    //           FILE_URL: imageUrl,
-    //           FILE_NAME: files[0].name,
-    //         })
-    //       : props.setValue(imageUrl);
-    //   });
+        // uploadImage의 반환값 타입은 상황에 맞게 수정해야 함 (여기서는 any 사용)
+        return imageController.uploadImage(formData).then((res: any) => {
+          const imageUrl: string = res.data.result[0];
+          return {
+            FILE_URL: imageUrl,
+            FILE_NAME: image.name,
+          };
+        });
+      }
+    );
 
-    // });
+    // 모든 이미지 업로드가 완료될 때까지 기다림
+    const imageList: ImageData[] = await Promise.all(uploadPromises);
 
-    controller
-      .create({
+    try {
+      // 업로드된 이미지 URL 리스트를 JSON 문자열로 변환하여 전달
+      const res = await controller.create({
         APP_MEMBER_IDENTIFICATION_CODE: memberCode,
         QNA_BOARD_CATEGORY_IDENTIFICATION_CODE: type,
         TITLE: title,
-        CATEGORY: categoryList.find((item) => item.value === type)?.label,
+        // categoryList는 { value: string; label: string } 형태의 객체 배열이라고 가정
+        CATEGORY: categoryList.find(
+          (item: { value: string; label: string }) => item.value === type
+        )?.label,
         CONTENT: description,
-        // IMAGE_LIST: JSON.stringify(imageList), // 이미지 URL을 JSON 형태로 저장
-      })
-      .then(() => {
-        navigate("/my_page/inquiry");
+        IMAGE_LIST: JSON.stringify(imageList),
       });
+      console.log(res);
+      navigate("/my_page/inquiry");
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   useEffect(() => {

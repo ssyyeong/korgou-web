@@ -11,7 +11,14 @@ const MyPage = () => {
   const [alarmModalOpen, setAlarmModalOpen] = React.useState(false);
   const navigate = useNavigate();
 
-  const { memberId, memberEmailId, memberName } = useAppMember();
+  const { memberId, memberEmailId, memberName, memberPoint, memberBalance } =
+    useAppMember();
+
+  useEffect(() => {
+    if (memberId === undefined) {
+      navigate("/sign_in");
+    }
+  });
 
   const list = [
     {
@@ -57,6 +64,8 @@ const MyPage = () => {
         memberId={memberId}
         memberName={memberName}
         memberEmailId={memberEmailId}
+        memberPoint={memberPoint}
+        memberBalance={memberBalance}
       />
 
       {list.map((item, index) => {

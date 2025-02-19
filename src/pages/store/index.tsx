@@ -1,31 +1,29 @@
-import React, { useState } from "react";
-import {
-  Box,
-  Typography,
-  Button,
-  Checkbox,
-  Divider,
-  IconButton,
-  Paper,
-  FormControlLabel,
-  TextField,
-} from "@mui/material";
-import CalendarTodayIcon from "@mui/icons-material/CalendarToday";
-import PhotoCameraIcon from "@mui/icons-material/PhotoCamera";
+import React, { useEffect, useState } from "react";
+import { Box, Typography, Button, Divider, Paper } from "@mui/material";
 import Header from "../../components/Header/Header";
-import TextFieldCustom from "../../components/TextField";
-import moment from "moment";
 import OriginButton from "../../components/Button/OriginButton";
 import CustomDatePicker from "../../components/CustomDatePicker";
 import Input from "../../components/Input";
 import DropDown from "../../components/Dropdown";
+import { useAppMember } from "../../hooks/useAppMember";
+import { useNavigate } from "react-router-dom";
 
 const Store = () => {
+  const navigate = useNavigate();
+
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [isAllChecked, setIsAllChecked] = useState(false);
   const [filter, setFilter] = useState("전체");
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
+  const { memberId } = useAppMember();
+
+  useEffect(() => {
+    if (memberId === undefined) {
+      navigate("/sign_in");
+    }
+  });
 
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget);

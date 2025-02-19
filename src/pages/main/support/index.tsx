@@ -36,7 +36,9 @@ const Support = () => {
         />
         <OriginButton
           variant="outlined"
-          onClick={() => {}}
+          onClick={() => {
+            navigate("/support/faq");
+          }}
           contents={
             <Typography fontSize={16} fontWeight={700} color="#3966AE">
               FAQ

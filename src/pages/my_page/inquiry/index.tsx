@@ -78,7 +78,6 @@ const Inquiry = () => {
         })
       );
     });
-    console.log("categoryList", categoryList);
   };
 
   return (
@@ -162,12 +161,21 @@ const Inquiry = () => {
             }}
           />
           {qnaAnswerAfterList.map((item: any) => {
+            const category = categoryList.filter(
+              (category) =>
+                category.value === item.QNA_BOARD_CATEGORY_IDENTIFICATION_CODE
+            )[0];
+
             return (
               <InquiryCard
                 id={item.QNA_BOARD_QUESTION_CODE}
                 date={item.CREATED_AT}
-                category={item.category}
+                category={category?.label}
                 title={item.title}
+                image={
+                  JSON.parse(item.IMAGE_LIST).length > 0 &&
+                  JSON.parse(item.IMAGE_LIST)[0].FILE_URL
+                }
                 onClick={(id: number) => {
                   navigate(`/my_page/inquiry/${id}`);
                 }}
@@ -231,6 +239,10 @@ const Inquiry = () => {
                 date={dayjs(item.CREATED_AT).format("YYYY-MM-DD HH:mm")}
                 category={category?.label}
                 title={item.TITLE}
+                image={
+                  JSON.parse(item.IMAGE_LIST).length > 0 &&
+                  JSON.parse(item.IMAGE_LIST)[0].FILE_URL
+                }
                 onClick={(id: number) => {
                   navigate(`/my_page/inquiry/detail`, {
                     state: { id },

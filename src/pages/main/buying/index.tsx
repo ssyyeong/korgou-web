@@ -1,7 +1,8 @@
-import { Box } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import { useNavigate } from "react-router-dom";
+import OriginButton from "../../../components/Button/OriginButton";
 
 const Buying = () => {
   const navigate = useNavigate();
@@ -16,6 +17,7 @@ const Buying = () => {
         justifyContent: "center",
         flexDirection: "column",
         position: "relative", // relative로 변경
+        mb: "48px",
       }}
     >
       <Box
@@ -40,6 +42,17 @@ const Buying = () => {
         />
       </Box>
       <img src="/images/main/buying.svg" alt="service" width={360} />
+      <OriginButton
+        variant="outlined"
+        color="white"
+        onClick={() => {}}
+        contents={
+          <Typography fontSize={16} fontWeight={700} color="#3966AE">
+            Submit
+          </Typography>
+        }
+        style={{ padding: "16px 8px", width: "50%", height: "48px" }}
+      />
     </Box>
   );
 };

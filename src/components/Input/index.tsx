@@ -75,7 +75,6 @@ const Input = React.forwardRef(
     //* 파일 선택 시 호출되는 함수
     const fileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
       const fileList = event.target.files;
-      console.log(fileList);
       const files = fileList ? Array.from(fileList) : [];
       //* 파일 사이즈 체크
       if (props.fileTypeInputNameMaxSize !== undefined && files.length > 0) {

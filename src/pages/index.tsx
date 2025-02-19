@@ -17,6 +17,7 @@ import CalculatorModal from "../components/Modal/CalculatorModal";
 import BuyingModal from "../components/Modal/BuyingModal";
 import SocialLink from "../components/SocialLink";
 import { useAppMember } from "../hooks/useAppMember";
+import VideoCard from "../components/Video";
 
 const Home = () => {
   // 계산기 모달
@@ -150,8 +151,18 @@ const Home = () => {
           marginTop: "40px",
         }}
       >
-        <img src="/images/main/box.svg" alt="logo" />
-        <img src="/images/main/box2.svg" alt="logo" />
+        <VideoCard
+          thumbnailUrl="/images/main/video.svg"
+          videoId="ZbhaV3_Wqr8"
+          title="PACKAGE FORWARD GUIDE"
+          description="패키지 포워드 튜토리얼 영상 링크"
+        />
+        <VideoCard
+          thumbnailUrl="/images/main/video2.svg"
+          videoId="iSV-j7e6_dQ"
+          title="ASSISTED PURCHASE GUIDE"
+          description="어시 튜토리얼 영상으로 링크"
+        />
         <img src="/images/main/box3.svg" alt="logo" />
         <img src="/images/main/box4.svg" alt="logo" />
         <SocialLink mt="50px" />

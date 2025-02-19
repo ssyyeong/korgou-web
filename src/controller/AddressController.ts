@@ -4,8 +4,8 @@ import axios, { AxiosResponse } from "axios";
 const serverSettings: { config: { apiUrl: string } } = {
   config: {
     // 예: "localhost:4021" 또는 도메인명
-    apiUrl: "", // 서버 API URL
-    // apiUrl: "http://localhost:4021", // 로컬 서버 API URL
+    // apiUrl: "", // 서버 API URL
+    apiUrl: "http://localhost:4021", // 로컬 서버 API URL
   },
 };
 
@@ -45,7 +45,6 @@ class AddressController {
   async changeDefaultAddress(option: IControllerOptions): Promise<any> {
     const params = option;
     const url = `${this.apiUrl}${this.rootRoute}/${this.role}/${this.modelId}/change_default`;
-    console.log(url);
     const response = await axios.post(url, params);
 
     return response;

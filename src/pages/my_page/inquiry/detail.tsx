@@ -14,6 +14,7 @@ const InquiryDetail = () => {
   const [date, setDate] = React.useState("");
   const [title, setTitle] = React.useState("");
   const [content, setContent] = React.useState("");
+  const [imageList, setImageList] = React.useState([]);
   const [answer, setAnswer] = React.useState("");
   const [answerDate, setAnswerDate] = React.useState("");
 
@@ -30,6 +31,7 @@ const InquiryDetail = () => {
         setDate(dayjs(res.result.CREATED_AT).format("YYYY-MM-DD HH:mm"));
         setTitle(res.result.CATEGORY + " " + res.result.TITLE);
         setContent(res.result.CONTENT);
+        setImageList(JSON.parse(res.result.IMAGE_LIST));
         if (res.result.QnaBoardAnswers.length > 0) {
           setAnswer(res.result.QnaBoardAnswers[0].CONTENT);
           setAnswerDate(
@@ -39,7 +41,7 @@ const InquiryDetail = () => {
           );
         }
       });
-  }, []);
+  }, [id]);
 
   return (
     <Box
@@ -92,6 +94,30 @@ const InquiryDetail = () => {
           >
             {content}
           </Typography>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              flexWrap: "wrap",
+              gap: 2,
+              mt: 2,
+            }}
+          >
+            {imageList.map((image, index) => (
+              <Box key={index} sx={{ position: "relative" }}>
+                <img
+                  src={image.FILE_URL}
+                  alt={`upload-${index}`}
+                  style={{
+                    width: "100px",
+                    height: "100px",
+                    borderRadius: "8px",
+                    objectFit: "cover",
+                  }}
+                />
+              </Box>
+            ))}
+          </Box>
         </Box>
         {answer && (
           <Box
@@ -109,11 +135,7 @@ const InquiryDetail = () => {
                 color: "#282930",
               }}
             >
-              안녕하세요. 코고입니다. 관리자 답변이 들어갑니다. Lorem ipsum
-              dolor sit amet consectetur. Augue bibendum egestas cras a varius
-              congue. Enim dis quisque augue vel enim. Vitae justo placerat ut
-              in interdum eu. Lorem aliquet magnis faucibus quis mattis urna
-              blandit eu libero.
+              {answer}
             </Typography>
             <Box
               sx={{
@@ -128,7 +150,7 @@ const InquiryDetail = () => {
                   fontSize: "10px",
                 }}
               >
-                2024-06-15 15:00
+                {answerDate}
               </Typography>
               <Typography
                 sx={{
