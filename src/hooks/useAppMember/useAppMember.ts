@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import ControllerAbstractBase from "../../controller/Controller";
+import { useAuth } from "../useAuth";
 
 /**
  * 유저 정보 가져오는 훅
@@ -7,63 +8,44 @@ import ControllerAbstractBase from "../../controller/Controller";
 const useAppMember = () => {
   //* State
   const [memberCode, setMemberCode] = useState<number | undefined>(undefined);
-
-  /**
-   * 유저 아이디
-   */
   const [memberId, setMemberId] = useState<number | undefined>(undefined);
-  /**
-   * 유저 이름
-   */
   const [memberName, setMemberName] = useState<string | undefined>(undefined);
-
-  /**
-   * 유저 이메일 아이디
-   */
   const [memberEmailId, setMemberEmailId] = useState<string | undefined>(
     undefined
   );
-
-  /**
-   * 유저 회원 타입 (구매자 or 판매자)
-   */
   const [memberType, setMemberType] = useState<string | undefined>(undefined);
-
-  /**
-   * 유저 포인트
-   */
   const [memberPoint, setMemberPoint] = useState<number | undefined>(undefined);
-
-  /**
-   * 유저 발란스
-   */
   const [memberBalance, setMemberBalance] = useState<number | undefined>(
     undefined
   );
-  //* Cookie
-  const accessToken = localStorage.getItem("ACCESS_TOKEN");
 
-  const appMemberId = localStorage.getItem("APP_MEMBER_IDENTIFICATION_CODE");
-  //* Hooks
-  /**
-   * 유저 아이디 가져오기
-   */
+  const { accessToken, appMemberId } = useAuth();
+
+  //* 유저 정보 가져오기
   useEffect(() => {
-    const controller = new ControllerAbstractBase({
-      modelName: "AppMember",
-      modelId: "app_member",
-    });
+    const fetchUserData = async () => {
+      try {
+        // accessToken 체크
+        if (accessToken === null) {
+          setMemberId(undefined);
+          setMemberName(undefined);
+          return;
+        }
+        if (memberId !== undefined) return;
 
-    if (accessToken === null) {
-      setMemberId(undefined);
-      setMemberName(undefined);
-    } else {
-      if (memberId !== null) return;
-      controller
-        .findOne({
+        const controller = new ControllerAbstractBase({
+          modelName: "AppMember",
+          modelId: "app_member",
+        });
+
+        // 비동기 호출
+        const res = await controller.findOne({
           APP_MEMBER_IDENTIFICATION_CODE: appMemberId,
-        })
-        .then((res) => {
+        });
+        console.log(res);
+
+        // 데이터 세팅
+        if (res?.result) {
           setMemberCode(res.result.APP_MEMBER_IDENTIFICATION_CODE);
           setMemberId(res.result.APP_MEMBER_ID);
           setMemberName(res.result.USER_NAME);
@@ -71,9 +53,14 @@ const useAppMember = () => {
           setMemberType(res.result.MEMBER_TYPE);
           setMemberPoint(res.result.POINT);
           setMemberBalance(res.result.BALANCE);
-        });
-    }
-  }, [accessToken, appMemberId, memberId]);
+        }
+      } catch (error) {
+        console.error("유저 정보 로딩 실패:", error);
+      }
+    };
+
+    fetchUserData();
+  }, [memberId]);
 
   return {
     memberCode,

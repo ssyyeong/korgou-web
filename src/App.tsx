@@ -4,7 +4,7 @@ import store from "./redux/store/store";
 import AppRoutes from "./routes/routes";
 import "./App.css"; // CSS 추가
 import { createTheme, ThemeProvider } from "@mui/material/styles";
-import { BrowserRouter, useNavigate } from "react-router-dom";
+import { AuthProvider } from "./contexts/AuthContext";
 
 const theme = createTheme({
   palette: {
@@ -32,9 +32,11 @@ const App = () => {
   return (
     <ThemeProvider theme={theme}>
       <Provider store={store}>
-        <div className="container">
-          <AppRoutes />
-        </div>
+        <AuthProvider>
+          <div className="container">
+            <AppRoutes />
+          </div>
+        </AuthProvider>
       </Provider>
     </ThemeProvider>
   );

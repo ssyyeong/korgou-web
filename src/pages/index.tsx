@@ -1,42 +1,24 @@
-import {
-  Box,
-  Button,
-  Divider,
-  IconButton,
-  MenuItem,
-  Modal,
-  Select,
-  TextField,
-  Typography,
-} from "@mui/material";
-import React, { useEffect } from "react";
+import { Box, Typography } from "@mui/material";
+import React from "react";
 import MainHeader from "../components/Header/MainHeader";
-import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
-import OriginButton from "../components/Button/OriginButton";
 import CalculatorModal from "../components/Modal/CalculatorModal";
 import BuyingModal from "../components/Modal/BuyingModal";
 import SocialLink from "../components/SocialLink";
-import { useAppMember } from "../hooks/useAppMember";
 import VideoCard from "../components/Video";
+import GoToShipModal from "../components/Modal/GoToShipModal";
 
 const Home = () => {
+  const [weight, setWeight] = React.useState<string>("");
+
+  // Go To Ship 모달
+  const [goToShipModalOpen, setGoToShipModalOpen] = React.useState(false);
+  // 구매하기 모달
+  const [buyingModalOpen, setBuyingModalOpen] = React.useState(false);
   // 계산기 모달
   const [calculatorModalOpen, setCalculatorModalOpen] = React.useState(false);
   const [service, setService] = React.useState<string>("Send UK to UK");
   const [send, setSend] = React.useState<string>("-");
   const [length, setLength] = React.useState<string>("");
-  const [weight, setWeight] = React.useState<string>("");
-  // 구매하기 모달
-  const [buyingModalOpen, setBuyingModalOpen] = React.useState(false);
-  const [authYn, setAuthYn] = React.useState<string>("Y");
-  const [shoppingMallUrl, setShoppingMallUrl] = React.useState<string>("");
-  const [shoppingMallId, setShoppingMallId] = React.useState<string>("");
-  const [shoppingMallPw, setShoppingMallPw] = React.useState<string>("");
-  const [addressList, setAddressList] = React.useState<string[]>([]);
-  const [address, setAddress] = React.useState<string>("");
-  const [deliveryRequest, setDeliveryRequest] = React.useState<string>("");
-  const [process, setProcess] = React.useState<string>("");
-  const [isAgree, setIsAgree] = React.useState<boolean>(false);
 
   const handleServiceChange = (event: any) => {
     setService(event.target.value as string);
@@ -44,10 +26,6 @@ const Home = () => {
 
   const handleSendChange = (event: any) => {
     setSend(event.target.value as string);
-  };
-
-  const handleAuthYnChange = (event: any) => {
-    setAuthYn(event.target.value as string);
   };
 
   return (
@@ -94,7 +72,7 @@ const Home = () => {
               justifyContent: "center",
             }}
             onClick={async () => {
-              setCalculatorModalOpen(true);
+              setGoToShipModalOpen(true);
             }}
           >
             <Typography
@@ -168,6 +146,17 @@ const Home = () => {
         <SocialLink mt="50px" />
         <img src="/images/main/box6.svg" alt="logo" />
       </Box>
+
+      {/* Go To Ship 모달 */}
+      <GoToShipModal
+        goToShipModalOpen={goToShipModalOpen}
+        setGoToShipModalOpen={setGoToShipModalOpen}
+      />
+      {/* Buying it 모달 */}
+      <BuyingModal
+        buyingModalOpen={buyingModalOpen}
+        setBuyingModalOpen={setBuyingModalOpen}
+      />
       {/* 계산기 모달 */}
       <CalculatorModal
         calculatorModalOpen={calculatorModalOpen}
@@ -180,28 +169,6 @@ const Home = () => {
         setLength={setLength}
         weight={weight}
         setWeight={setWeight}
-      />
-      {/* 구매하기 모달 */}
-      <BuyingModal
-        buyingModalOpen={buyingModalOpen}
-        setBuyingModalOpen={setBuyingModalOpen}
-        authYn={authYn}
-        handleAuthYnChange={handleAuthYnChange}
-        shoppingMallUrl={shoppingMallUrl}
-        setShoppingMallUrl={setShoppingMallUrl}
-        shoppingMallId={shoppingMallId}
-        setShoppingMallId={setShoppingMallId}
-        shoppingMallPw={shoppingMallPw}
-        setShoppingMallPw={setShoppingMallPw}
-        addressList={addressList}
-        address={address}
-        setAddress={setAddress}
-        deliveryRequest={deliveryRequest}
-        setDeliveryRequest={setDeliveryRequest}
-        process={process}
-        setProcess={setProcess}
-        isAgree={isAgree}
-        setIsAgree={setIsAgree}
       />
     </Box>
   );

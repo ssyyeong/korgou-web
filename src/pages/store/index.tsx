@@ -7,6 +7,7 @@ import Input from "../../components/Input";
 import DropDown from "../../components/Dropdown";
 import { useAppMember } from "../../hooks/useAppMember";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
 
 const Store = () => {
   const navigate = useNavigate();
@@ -17,10 +18,10 @@ const Store = () => {
   const [filter, setFilter] = useState("전체");
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
-  const { memberId } = useAppMember();
+  const { isAuthenticated } = useAuth();
 
   useEffect(() => {
-    if (memberId === undefined) {
+    if (!isAuthenticated) {
       navigate("/sign_in");
     }
   });

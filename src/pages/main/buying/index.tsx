@@ -43,15 +43,17 @@ const Buying = () => {
       </Box>
       <img src="/images/main/buying.svg" alt="service" width={360} />
       <OriginButton
-        variant="outlined"
-        color="white"
-        onClick={() => {}}
+        fullWidth
+        variant="contained"
+        color="#282930"
+        onClick={() => {
+          navigate("/buying/create");
+        }}
         contents={
-          <Typography fontSize={16} fontWeight={700} color="#3966AE">
+          <Typography fontSize={16} fontWeight={700} color="white">
             Submit
           </Typography>
         }
-        style={{ padding: "16px 8px", width: "50%", height: "48px" }}
       />
     </Box>
   );

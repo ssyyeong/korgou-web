@@ -10,6 +10,7 @@ import SocialLogin from "../../../components/SocialLogin";
 import { useNavigate } from "react-router-dom";
 import BottomModal from "../../../components/Modal/BottomModal";
 import AppMemberController from "../../../controller/AppMemberController";
+import { useAuth } from "../../../hooks/useAuth";
 
 const SignIn = () => {
   const dispatch = useDispatch();
@@ -20,6 +21,7 @@ const SignIn = () => {
   const [bottomModalOpen, setBottomModalOpen] = React.useState(false);
 
   const navigate = useNavigate();
+  const { isAuthenticated, login, logout, accessToken } = useAuth();
 
   // 로그인 버튼
   const handleLogin = async (e: React.FormEvent) => {
@@ -37,7 +39,6 @@ const SignIn = () => {
       };
 
       const response = await controller.signIn(data);
-      console.log(response);
       if (response.data.status === 200) {
         await localStorage.setItem(
           "ACCESS_TOKEN",
@@ -47,6 +48,8 @@ const SignIn = () => {
           "APP_MEMBER_IDENTIFICATION_CODE",
           response.data.result.user.APP_MEMBER_IDENTIFICATION_CODE
         );
+        login(response.data.result.signInResult.accessToken);
+
         navigate("/");
       }
     }

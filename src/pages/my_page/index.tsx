@@ -6,16 +6,18 @@ import KeyboardArrowRightOutlinedIcon from "@mui/icons-material/KeyboardArrowRig
 import { useNavigate } from "react-router-dom";
 import MainHeader from "../../components/Header/MainHeader";
 import { useAppMember } from "../../hooks/useAppMember";
+import { useAuth } from "../../hooks/useAuth";
 
 const MyPage = () => {
   const [alarmModalOpen, setAlarmModalOpen] = React.useState(false);
   const navigate = useNavigate();
 
-  const { memberId, memberEmailId, memberName, memberPoint, memberBalance } =
+  const { isAuthenticated, login, logout, accessToken } = useAuth();
+  const { memberId, memberName, memberEmailId, memberPoint, memberBalance } =
     useAppMember();
 
   useEffect(() => {
-    if (memberId === undefined) {
+    if (!isAuthenticated) {
       navigate("/sign_in");
     }
   });

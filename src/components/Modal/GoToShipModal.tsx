@@ -14,18 +14,19 @@ import {
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 
 import OriginButton from "../Button/OriginButton";
+import TextFieldCustom from "../TextField";
 import { useNavigate } from "react-router-dom";
 
-interface IBuyingModalProps {
-  buyingModalOpen: boolean;
-  setBuyingModalOpen: (value: boolean) => void;
+interface IGoToShipModalProps {
+  goToShipModalOpen: boolean;
+  setGoToShipModalOpen: (value: boolean) => void;
 }
 
-const BuyingModal = (props: IBuyingModalProps) => {
+const BuyingModal = (props: IGoToShipModalProps) => {
   const navigator = useNavigate();
 
   return (
-    <Modal open={props.buyingModalOpen}>
+    <Modal open={props.goToShipModalOpen}>
       <Box
         sx={{
           position: "absolute",
@@ -43,7 +44,7 @@ const BuyingModal = (props: IBuyingModalProps) => {
         }}
       >
         <IconButton
-          onClick={() => props.setBuyingModalOpen(false)}
+          onClick={() => props.setGoToShipModalOpen(false)}
           sx={{
             width: "24px",
             height: "24px",
@@ -53,13 +54,19 @@ const BuyingModal = (props: IBuyingModalProps) => {
           <CloseOutlinedIcon />
         </IconButton>
 
-        <img src="/images/main/buying_it.svg" alt="service" />
+        <img src="/images/main/go_to_ship.svg" alt="service" />
 
         <OriginButton
           fullWidth
           variant="contained"
-          onClick={() => {
-            navigator("/buying");
+          onClick={async () => {
+            const accessToken = await localStorage.getItem("ACCESS_TOKEN");
+            console.log(accessToken);
+            if (accessToken) {
+              navigator("/ship");
+            } else {
+              navigator("/sign_in");
+            }
           }}
           contents={
             <Typography fontSize={16} fontWeight={700}>
