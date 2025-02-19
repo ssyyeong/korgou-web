@@ -12,7 +12,7 @@ const MyPage = () => {
   const [alarmModalOpen, setAlarmModalOpen] = React.useState(false);
   const navigate = useNavigate();
 
-  const { isAuthenticated, login, logout, accessToken } = useAuth();
+  const { isAuthenticated } = useAuth();
   const { memberId, memberName, memberEmailId, memberPoint, memberBalance } =
     useAppMember();
 
