@@ -168,6 +168,7 @@ const Inquiry = () => {
 
             return (
               <InquiryCard
+                key={item.QNA_BOARD_QUESTION_CODE}
                 id={item.QNA_BOARD_QUESTION_CODE}
                 date={item.CREATED_AT}
                 category={category?.label}
@@ -235,6 +236,7 @@ const Inquiry = () => {
             )[0];
             return (
               <InquiryCard
+                key={item.QNA_BOARD_QUESTION_IDENTIFICATION_CODE}
                 id={item.QNA_BOARD_QUESTION_IDENTIFICATION_CODE}
                 date={dayjs(item.CREATED_AT).format("YYYY-MM-DD HH:mm")}
                 category={category?.label}

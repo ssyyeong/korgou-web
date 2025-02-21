@@ -2,16 +2,12 @@ import React, { useState } from "react";
 import {
   Box,
   Typography,
-  Button,
-  Divider,
-  TextField,
   Avatar,
   ToggleButtonGroup,
   ToggleButton,
 } from "@mui/material";
 import Header from "../../../components/Header/Header";
 import OriginButton from "../../../components/Button/OriginButton";
-import CustomDatePicker from "../../../components/CustomDatePicker";
 import TextFieldCustom from "../../../components/TextField";
 
 const Setting = () => {

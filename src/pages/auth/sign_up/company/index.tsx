@@ -1,7 +1,6 @@
 import React from "react";
-import { useDispatch } from "react-redux";
 
-import { AppBar, Avatar, Box, Divider, Icon, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 import OriginButton from "../../../../components/Button/OriginButton";
 import Input from "../../../../components/Input";

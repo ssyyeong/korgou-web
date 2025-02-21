@@ -42,7 +42,6 @@ const useAppMember = () => {
         const res = await controller.findOne({
           APP_MEMBER_IDENTIFICATION_CODE: appMemberId,
         });
-        console.log(res);
 
         // 데이터 세팅
         if (res?.result) {

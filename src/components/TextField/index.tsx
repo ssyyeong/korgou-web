@@ -41,12 +41,15 @@ interface ITextFieldCustomProps {
   multiline?: boolean;
 
   rows?: number;
+
+  disabled?: boolean;
 }
 
 const TextFieldCustom = (props: ITextFieldCustomProps) => {
   return (
     <TextField
       placeholder={props.placeholder}
+      disabled={props.disabled}
       value={props.value}
       onChange={props.onChange}
       type={props.type}

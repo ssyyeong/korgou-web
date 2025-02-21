@@ -1,21 +1,9 @@
-import {
-  Box,
-  Checkbox,
-  Divider,
-  FormControlLabel,
-  IconButton,
-  Modal,
-  Radio,
-  RadioGroup,
-  ToggleButton,
-  ToggleButtonGroup,
-  Typography,
-} from "@mui/material";
+import { Box, IconButton, Modal, Typography } from "@mui/material";
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 
 import OriginButton from "../Button/OriginButton";
-import TextFieldCustom from "../TextField";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
 
 interface IGoToShipModalProps {
   goToShipModalOpen: boolean;
@@ -24,6 +12,7 @@ interface IGoToShipModalProps {
 
 const BuyingModal = (props: IGoToShipModalProps) => {
   const navigator = useNavigate();
+  const { isAuthenticated } = useAuth();
 
   return (
     <Modal open={props.goToShipModalOpen}>
@@ -59,13 +48,11 @@ const BuyingModal = (props: IGoToShipModalProps) => {
         <OriginButton
           fullWidth
           variant="contained"
-          onClick={async () => {
-            const accessToken = await localStorage.getItem("ACCESS_TOKEN");
-            console.log(accessToken);
-            if (accessToken) {
-              navigator("/ship");
-            } else {
+          onClick={() => {
+            if (!isAuthenticated) {
               navigator("/sign_in");
+            } else {
+              navigator("/ship");
             }
           }}
           contents={

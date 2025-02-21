@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 
-import { Box, Typography } from "@mui/material";
+import { Box } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import ExpandLessIcon from "@mui/icons-material/ExpandLess";
 

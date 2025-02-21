@@ -1,12 +1,9 @@
 import React from "react";
-import { useDispatch } from "react-redux";
 
-import { AppBar, Avatar, Box, Divider, Icon, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
-import { loginSuccess } from "../../../redux/actions/authActions";
 import OriginButton from "../../../components/Button/OriginButton";
 import Input from "../../../components/Input";
-import SocialLogin from "../../../components/SocialLogin";
 import Header from "../../../components/Header/Header";
 import TextFieldCustom from "../../../components/TextField";
 
@@ -14,8 +11,7 @@ import CheckIcon from "@mui/icons-material/Check";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 
 import { countryList } from "../../../configs/data/CountryConfig";
-import { Check } from "@mui/icons-material";
-import { useNavigate, useNavigation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const SignUp = () => {
   const [name, setName] = React.useState("");

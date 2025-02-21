@@ -8,7 +8,7 @@ export interface IControllerOptions {
 
 export interface IModelConfig extends Record<string, any> {}
 
-class PointController {
+class BuyingItController {
   modelName?: string;
   modelId?: string;
   apiUrl: string;
@@ -42,4 +42,4 @@ class PointController {
     return response;
   }
 }
-export default PointController;
+export default BuyingItController;

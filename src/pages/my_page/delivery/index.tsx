@@ -1,9 +1,8 @@
 import React, { useState } from "react";
-import { Box, Typography, Button, Divider } from "@mui/material";
+import { Box, Typography, Button } from "@mui/material";
 import Header from "../../../components/Header/Header";
 import OriginButton from "../../../components/Button/OriginButton";
 import CustomDatePicker from "../../../components/CustomDatePicker";
-import DropDown from "../../../components/Dropdown";
 
 const Delivery = () => {
   const filterings = [
@@ -98,13 +97,13 @@ const Delivery = () => {
         >
           배송 상태
         </Typography>
-        <DropDown
+        {/* <DropDown
           value={filter}
           handleClick={handleClick}
           anchorEl={anchorEl}
           handleClose={handleClose}
           items={["전체", "미입고", "입고완료", "반품"]}
-        />
+        /> */}
       </Box>
     </Box>
   );

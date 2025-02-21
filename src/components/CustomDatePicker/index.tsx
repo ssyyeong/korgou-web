@@ -1,7 +1,7 @@
 import React from "react";
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import { FaCalendarAlt } from "react-icons/fa"; // 캘린더 아이콘 사용
+import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 
 interface ICustomDatePickerProps {
   selectedDate: Date;
@@ -11,7 +11,7 @@ interface ICustomDatePickerProps {
 const CustomDatePicker = (props: ICustomDatePickerProps) => {
   return (
     <div style={styles.container}>
-      <FaCalendarAlt style={styles.icon} />
+      <CalendarMonthIcon style={styles.icon} />
       <DatePicker
         selected={props.selectedDate}
         onChange={(date: any) => props.setSelectedDate(date)}
@@ -28,7 +28,6 @@ const CustomInput = React.forwardRef(({ value, onClick }: any, ref: any) => (
     {value}
   </div>
 ));
-
 const styles = {
   container: {
     height: "48px",
@@ -48,6 +47,9 @@ const styles = {
   },
   customInput: {
     flex: 1,
+    height: "100%", // 부모 컨테이너의 높이를 상속
+    display: "flex", // 중앙 정렬을 위해 추가
+    alignItems: "center", // 텍스트를 세로 중앙 정렬
     color: "#282930",
     background: "transparent",
     border: "none",

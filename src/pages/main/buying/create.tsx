@@ -1,39 +1,41 @@
 import {
   Box,
-  Button,
   Checkbox,
   Divider,
   FormControlLabel,
-  IconButton,
   Radio,
   RadioGroup,
   ToggleButton,
   ToggleButtonGroup,
   Typography,
 } from "@mui/material";
-import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import Header from "../../../components/Header/Header";
-import React, { useState } from "react";
+import React from "react";
 import TextFieldCustom from "../../../components/TextField";
 import OriginButton from "../../../components/Button/OriginButton";
-
-// 타입 정의
-interface ProductData {
-  URL: string;
-  OPTION: string;
-  QUANTITY: string;
-  PRICE: string;
-  REQUEST: string;
-}
+import { useNavigate } from "react-router-dom";
+import { useBuying, ProductData } from "../../../contexts/BuyingContext";
 
 const BuyingCreate: React.FC = () => {
-  const [authYn, setAuthYn] = useState<string>("Y");
-  const [shoppingMallUrl, setShoppingMallUrl] = useState<string>("");
-  const [shoppingMallId, setShoppingMallId] = useState<string>("");
-  const [shoppingMallPw, setShoppingMallPw] = useState<string>("");
-  const [deliveryRequest, setDeliveryRequest] = useState<string>("");
-  const [isAgree, setIsAgree] = useState<boolean>(false);
-  const [productList, setProductList] = useState<ProductData[]>([]);
+  const navigation = useNavigate();
+
+  // 전역 상태 사용
+  const {
+    authYn,
+    setAuthYn,
+    shoppingMallUrl,
+    setShoppingMallUrl,
+    shoppingMallId,
+    setShoppingMallId,
+    shoppingMallPw,
+    setShoppingMallPw,
+    deliveryRequest,
+    setDeliveryRequest,
+    process,
+    setProcess,
+    productList,
+    setProductList,
+  } = useBuying();
 
   // 상품 추가
   const handleAddProduct = () => {
@@ -88,7 +90,6 @@ const BuyingCreate: React.FC = () => {
             value={authYn}
             exclusive
             onChange={(e, value) => {
-              console.log(value);
               value && setAuthYn(value);
             }}
             aria-label="auth toggle"
@@ -196,7 +197,11 @@ const BuyingCreate: React.FC = () => {
                   }}
                 >
                   <Typography
-                    sx={{ fontSize: "16px", color: "#3966AE", fontWeight: 700 }}
+                    sx={{
+                      fontSize: "16px",
+                      color: "#3966AE",
+                      fontWeight: 700,
+                    }}
                   >
                     상품 {index + 1}
                   </Typography>
@@ -222,7 +227,6 @@ const BuyingCreate: React.FC = () => {
                     }
                   />
                 </Box>
-
                 <TextFieldCustom
                   fullWidth
                   sx={{
@@ -384,15 +388,73 @@ const BuyingCreate: React.FC = () => {
         sx={{ "& .MuiInputBase-root": { height: "160px" } }}
       />
 
-      <Divider sx={{ my: "20px", color: "#ECECED" }} />
+      <Divider
+        sx={{
+          color: "#ECECED",
+          position: "relative",
+          width: "calc(100% + 20px)",
+          my: "20px",
+          border: "5px solid #ECECED",
+          alignSelf: "center",
+        }}
+      />
+      {/* 품절 시 진행방식 */}
+      <Typography
+        sx={{ fontSize: "20px", fontWeight: 700, color: "#282930", mb: "4px" }}
+      >
+        품절 시 진행방식
+      </Typography>
+      <Typography sx={{ fontSize: "12px", color: "#919298", mb: "20px" }}>
+        *요청 상품 중 품절된 상품이 발생했을때, 결제 처리 방법
+      </Typography>
+      <RadioGroup
+        value={process}
+        onChange={(e) => {
+          setProcess(e.target.value);
+        }}
+      >
+        <FormControlLabel
+          value="progress"
+          control={
+            <Radio
+              style={{
+                color: "#3966AE",
+                marginBottom: "30px",
+              }}
+            />
+          }
+          label="품절 상품을 건너뛰고 나머지 상품들만 결제 진행"
+        />
+        <FormControlLabel
+          value="stop"
+          control={
+            <Radio
+              style={{
+                color: "#3966AE",
+              }}
+            />
+          }
+          label="주문서 처리를 중지"
+        />
+      </RadioGroup>
+      <Divider
+        sx={{
+          color: "#ECECED",
+          position: "relative",
+          width: "calc(100% + 20px)",
+          my: "20px",
+          border: "5px solid #ECECED",
+          alignSelf: "center",
+        }}
+      />
 
       <FormControlLabel
         control={
           <Checkbox
-            checked={isAgree}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
-              setIsAgree(e.target.checked)
-            }
+            checked={true}
+            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+              // 약관 동의 관련 추가 로직이 필요하면 작성하세요.
+            }}
             sx={{
               color: "#3b5998",
               "&.Mui-checked": { color: "#3966AE" },
@@ -407,7 +469,19 @@ const BuyingCreate: React.FC = () => {
         fullWidth
         variant="contained"
         color="#3966AE"
-        onClick={() => {}}
+        onClick={() => {
+          navigation("/buying/submit", {
+            state: {
+              authYn,
+              shoppingMallUrl,
+              shoppingMallId,
+              shoppingMallPw,
+              deliveryRequest,
+              process,
+              productList,
+            },
+          });
+        }}
         contents={
           <Typography fontSize={16} fontWeight={700}>
             주문 요청

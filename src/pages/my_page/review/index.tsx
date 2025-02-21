@@ -2,7 +2,6 @@ import { Box, Divider, Tab, Tabs, Typography } from "@mui/material";
 import React from "react";
 import OriginButton from "../../../components/Button/OriginButton";
 import Header from "../../../components/Header/Header";
-import KeyboardArrowRightOutlinedIcon from "@mui/icons-material/KeyboardArrowRightOutlined";
 import { useNavigate } from "react-router-dom";
 
 const Review = () => {
