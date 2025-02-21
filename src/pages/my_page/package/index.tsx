@@ -1,16 +1,12 @@
 import React, { useState } from "react";
-import { Box, Typography, Button, Divider } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import Header from "../../../components/Header/Header";
 import OriginButton from "../../../components/Button/OriginButton";
-import CustomDatePicker from "../../../components/CustomDatePicker";
-import { useNavigate } from "react-router-dom";
 import Input from "../../../components/Input";
 import TextFieldCustom from "../../../components/TextField";
 import AlertModal from "../../../components/Modal/AlertModal";
 
 const Package = () => {
-  const navigator = useNavigate();
-
   const [courier, setCourier] = useState("");
   const [trackingNumber, setTrackingNumber] = useState("");
   const [modalOpen, setModalOpen] = useState(false);

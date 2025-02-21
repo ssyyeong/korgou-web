@@ -3,7 +3,6 @@ import { useDispatch } from "react-redux";
 
 import { Avatar, Box, Divider, TextField, Typography } from "@mui/material";
 
-import { loginSuccess } from "../../../redux/actions/authActions";
 import OriginButton from "../../../components/Button/OriginButton";
 import Input from "../../../components/Input";
 import SocialLogin from "../../../components/SocialLogin";
@@ -13,15 +12,13 @@ import AppMemberController from "../../../controller/AppMemberController";
 import { useAuth } from "../../../hooks/useAuth";
 
 const SignIn = () => {
-  const dispatch = useDispatch();
-
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [isAutoLogin, setIsAutoLogin] = React.useState(false);
   const [bottomModalOpen, setBottomModalOpen] = React.useState(false);
 
   const navigate = useNavigate();
-  const { isAuthenticated, login, logout, accessToken } = useAuth();
+  const { login } = useAuth();
 
   // 로그인 버튼
   const handleLogin = async (e: React.FormEvent) => {

@@ -1,10 +1,9 @@
 import React, { useEffect } from "react";
-import { Box, IconButton, Modal, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import ProfileHeader from "../../components/Header/ProfileHeader";
 
 import KeyboardArrowRightOutlinedIcon from "@mui/icons-material/KeyboardArrowRightOutlined";
 import { useNavigate } from "react-router-dom";
-import MainHeader from "../../components/Header/MainHeader";
 import { useAppMember } from "../../hooks/useAppMember";
 import { useAuth } from "../../hooks/useAuth";
 

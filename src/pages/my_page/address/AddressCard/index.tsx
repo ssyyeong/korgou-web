@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import {
   Card,
   CardContent,
@@ -8,7 +8,6 @@ import {
   Box,
   Chip,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
 
 interface AddressCardProps {
   item: any;

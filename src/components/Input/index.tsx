@@ -63,7 +63,6 @@ const Input = React.forwardRef(
     const imageController = new ImageController({});
     //* States
     const [addableData, setAddableData] = useState<string>("");
-    const [yearPickerOpen, setYearPickerOpen] = useState<boolean>(false);
     //* Functions
     //* 파일 삭제 시 인풋 초기화
     const resetInputValue = () => {

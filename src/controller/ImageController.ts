@@ -1,4 +1,4 @@
-import axios, { AxiosResponse } from "axios";
+import axios from "axios";
 import serverSettings from "../configs/serverSetting";
 
 // 옵션과 모델 설정에 사용할 기본 인터페이스 (필요에 따라 확장 가능)

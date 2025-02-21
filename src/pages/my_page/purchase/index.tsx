@@ -9,7 +9,6 @@ import { useAppMember } from "../../../hooks/useAppMember";
 import ControllerAbstractBase from "../../../controller/Controller";
 import dayjs from "dayjs";
 import "dayjs/locale/ko";
-import { set } from "react-datepicker/dist/date_utils";
 import BuyingItController from "../../../controller/BuyingItController";
 
 const Purchase = () => {

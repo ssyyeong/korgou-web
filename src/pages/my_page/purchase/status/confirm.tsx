@@ -1,17 +1,8 @@
 import React from "react";
-import {
-  Box,
-  Divider,
-  FormControlLabel,
-  Radio,
-  RadioGroup,
-  Typography,
-} from "@mui/material";
+import { Box, Divider, Typography } from "@mui/material";
 import Header from "../../../../components/Header/Header";
-import TextFieldCustom from "../../../../components/TextField";
 import OriginButton from "../../../../components/Button/OriginButton";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useBuying } from "../../../../contexts/BuyingContext"; // 경로는 상황에 맞게 수정
 
 const ConfirmState: React.FC = () => {
   const navigate = useNavigate();

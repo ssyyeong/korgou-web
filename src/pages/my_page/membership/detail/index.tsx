@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Box, Typography, Button, Divider } from "@mui/material";
+import React from "react";
+import { Box, Typography, Divider } from "@mui/material";
 import Header from "../../../../components/Header/Header";
 
 const MemberShipDetail = () => {

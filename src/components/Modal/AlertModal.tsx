@@ -1,5 +1,5 @@
 import React from "react";
-import { Modal, Box, Typography, Button, IconButton } from "@mui/material";
+import { Modal, Box, Button, IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close"; // Close 아이콘 추가
 
 interface AlertModalProps {

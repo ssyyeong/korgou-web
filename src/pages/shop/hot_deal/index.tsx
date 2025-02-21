@@ -1,7 +1,5 @@
 import { Box, Divider, Grid2, Typography } from "@mui/material";
 import Header from "../../../components/Header/Header";
-import DropDown from "../../../components/Dropdown";
-import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const HotDeal = () => {
