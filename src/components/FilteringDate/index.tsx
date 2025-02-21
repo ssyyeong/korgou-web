@@ -3,6 +3,7 @@ import CustomDatePicker from "../CustomDatePicker";
 import OriginButton from "../Button/OriginButton";
 
 interface IfilteringDateProps {
+  filterings: any[];
   dateType: string;
   startDate: any;
   endDate: any;
@@ -13,12 +14,6 @@ interface IfilteringDateProps {
 }
 
 const FilteringDate = (props: IfilteringDateProps) => {
-  const filterings = [
-    { value: "today", label: "오늘" },
-    { value: "7days", label: "최근 7일" },
-    { value: "1month", label: "최근 1개월" },
-  ];
-
   return (
     <Box
       sx={{
@@ -28,7 +23,7 @@ const FilteringDate = (props: IfilteringDateProps) => {
       }}
     >
       <Box sx={{ display: "flex", gap: 1, flexDirection: "row", mb: "10px" }}>
-        {filterings.map((filter, index) => (
+        {props.filterings.map((filter, index) => (
           <Button
             key={index}
             variant={props.dateType === filter.value ? "contained" : "outlined"}

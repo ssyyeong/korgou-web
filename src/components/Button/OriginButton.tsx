@@ -52,7 +52,7 @@ const OriginButton = (props: OriginButtonProps) => {
         ...props.style,
         backgroundColor: props.color,
         "&.MuiButton-root:hover": { bgcolor: props.color },
-        "&.MuiButton-root:active": { bgcolor: "transparent" },
+        "&.MuiButton-root:active": { bgcolor: props.color }, //
       }}
       disabled={props.disabled}
       {...props.muiButtonProps}

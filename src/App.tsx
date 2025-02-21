@@ -5,6 +5,7 @@ import AppRoutes from "./routes/routes";
 import "./App.css"; // CSS 추가
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { AuthProvider } from "./contexts/AuthContext";
+import { BuyingProvider } from "./contexts/BuyingContext";
 
 const theme = createTheme({
   palette: {
@@ -33,9 +34,11 @@ const App = () => {
     <ThemeProvider theme={theme}>
       <Provider store={store}>
         <AuthProvider>
-          <div className="container">
-            <AppRoutes />
-          </div>
+          <BuyingProvider>
+            <div className="container">
+              <AppRoutes />
+            </div>
+          </BuyingProvider>
         </AuthProvider>
       </Provider>
     </ThemeProvider>

@@ -1,22 +1,54 @@
 import React, { useEffect, useState } from "react";
-import { Box, Typography, Button, Divider, Paper } from "@mui/material";
+import { Box, Typography, Divider } from "@mui/material";
 import Header from "../../components/Header/Header";
 import OriginButton from "../../components/Button/OriginButton";
-import CustomDatePicker from "../../components/CustomDatePicker";
 import Input from "../../components/Input";
 import DropDown from "../../components/Dropdown";
-import { useAppMember } from "../../hooks/useAppMember";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
+import FilteringDate from "../../components/FilteringDate";
+import StoreCard from "./storeCard";
+import { format } from "date-fns";
 
 const Store = () => {
+  const dateFilterings = [
+    { value: "1month", label: "최근 1개월" },
+    { value: "2month", label: "최근 2개월" },
+    { value: "3month", label: "최근 3개월" },
+  ];
+  const filterings = [
+    { value: "Awaiting User Process", label: "Awaiting User Process" },
+    {
+      value: "Return/Exchange application",
+      label: "Return/Exchange application",
+    },
+    { value: "Return/Exchange Done", label: "Return/Exchange Done" },
+    { value: "Return/Failed", label: "Return/Failed" },
+    { value: "Foward Done", label: "Foward Done" },
+  ];
+
+  interface OrderItem {
+    id: string;
+    productName: string;
+    weight: number;
+    price: number;
+    status: string;
+    date: string;
+    daysLeft: number;
+  }
+
+  const ordersData: OrderItem[] = [];
+
   const navigate = useNavigate();
 
+  const [filter, setFilter] = useState("전체");
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
+  const [dateType, setDateType] = useState(""); //날짜 필터링
   const [isAllChecked, setIsAllChecked] = useState(false);
-  const [filter, setFilter] = useState("전체");
-  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+
+  const [orders] = useState<OrderItem[]>(ordersData);
+  const [checkedOrders, setCheckedOrders] = useState<string[]>([]);
 
   const { isAuthenticated } = useAuth();
 
@@ -26,29 +58,27 @@ const Store = () => {
     }
   });
 
-  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    setAnchorEl(event.currentTarget);
-  };
+  const filteringStore = (filter) => {};
 
   const handleClose = (item: string) => {
-    setAnchorEl(null);
     if (item) setFilter(item);
   };
 
-  const monthBtn = (month: string) => {
-    return (
-      <Button
-        variant="outlined"
-        sx={{
-          color: "#61636C",
-          border: "1px solid #B1B2B6",
-          borderRadius: "4px",
-        }}
-      >
-        {month}
-      </Button>
+  const handleCheckboxChange = (id: string) => {
+    setCheckedOrders((prevChecked) =>
+      prevChecked.includes(id)
+        ? prevChecked.filter((orderId) => orderId !== id)
+        : [...prevChecked, id]
     );
   };
+
+  const groupedOrders = orders.reduce((acc, order) => {
+    if (!acc[order.date]) {
+      acc[order.date] = [];
+    }
+    acc[order.date].push(order);
+    return acc;
+  }, {} as { [key: string]: OrderItem[] });
 
   return (
     <Box
@@ -68,43 +98,22 @@ const Store = () => {
           fontWeight: "bold",
           fontSize: "20px",
           mb: "10px",
+          mt: "20px",
         }}
       >
         도착완료 물건
       </Typography>
+      <FilteringDate
+        filterings={dateFilterings}
+        dateType={dateType}
+        startDate={startDate}
+        endDate={endDate}
+        setDateType={setDateType}
+        setStartDate={setStartDate}
+        setEndDate={setEndDate}
+        onSearch={filteringStore}
+      />
 
-      {/* Date Range Selection */}
-      <Box sx={{ display: "flex", gap: 1, flexDirection: "row", mb: "10px" }}>
-        {monthBtn("1개월")}
-        {monthBtn("3개월")}
-        {monthBtn("6개월")}
-      </Box>
-
-      <Box sx={{ display: "flex", alignItems: "center", gap: 1, mb: 2 }}>
-        <CustomDatePicker
-          selectedDate={startDate}
-          setSelectedDate={setStartDate}
-        />
-        ~
-        <CustomDatePicker selectedDate={endDate} setSelectedDate={setEndDate} />
-        <OriginButton
-          fullWidth
-          variant="contained"
-          color="#2E2F37"
-          onClick={() => {}}
-          contents={
-            <Typography fontSize={16} fontWeight={700} color="#ffffff">
-              조회
-            </Typography>
-          }
-          style={{
-            marginTop: "0px",
-            width: "100px",
-            height: "40px",
-            borderRadius: "4px",
-          }}
-        />
-      </Box>
       <Box
         sx={{
           display: "flex",
@@ -120,11 +129,9 @@ const Store = () => {
           물건 상태
         </Typography>
         <DropDown
-          value={filter}
-          handleClick={handleClick}
-          anchorEl={anchorEl}
-          handleClose={handleClose}
-          items={["전체", "미입고", "입고완료", "반품"]}
+          items={filterings.map((filter) => filter.label)}
+          selectedItem={filter}
+          onSelect={handleClose}
         />
       </Box>
 
@@ -149,127 +156,60 @@ const Store = () => {
       >
         <Input
           type="checkbox"
-          value={isAllChecked}
+          value={checkedOrders.length === orders.length && orders.length !== 0}
           setValue={() => {
             setIsAllChecked(!isAllChecked);
+            setCheckedOrders(
+              isAllChecked ? [] : orders.map((order) => order.id)
+            );
           }}
-          label={"전체 선택"}
-          style={{ fontSize: "14px", color: "#282930" }}
+          label={`전체 선택 [${checkedOrders.length}]`}
+          style={{ fontSize: "14px", color: "#282930", height: "24px" }}
         />
         <Box
           sx={{
             display: "flex",
             flexDirection: "column",
+            mb: "200px",
           }}
         >
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              width: "calc(100% + 30px)",
-              left: -15,
-              backgroundColor: "#F5F6F8",
-              position: "relative",
-            }}
-          >
-            <Typography sx={{ fontSize: "12px", pl: "16px", py: "8px" }}>
-              24.05.01(토)
-            </Typography>
-          </Box>
-          <Paper
-            elevation={0}
-            sx={{
-              pt: "10px",
-              pb: "8px",
-            }}
-          >
-            <Input
-              type="checkbox"
-              value={isAllChecked}
-              setValue={() => {
-                setIsAllChecked(!isAllChecked);
+          {Object.keys(groupedOrders).map((date) => (
+            <Box
+              key={date}
+              sx={{
+                display: "flex",
+                flexDirection: "column",
               }}
-              label={"입고번호 012345"}
-              style={{ fontSize: "12px", color: "#61636C" }}
-            />
-
-            <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
-              <img src={"/images/store/store.svg"} alt="item" />
-              <Box sx={{ flexGrow: 1 }}>
-                <Box
+            >
+              <Box
+                sx={{
+                  display: "flex",
+                  backgroundColor: "#ECECED",
+                  position: "relative",
+                  width: "328px",
+                  alignSelf: "center",
+                  padding: "5px 16px",
+                }}
+              >
+                <Typography
                   sx={{
-                    display: "flex",
-                    justifyContent: "start",
-                    alignItems: "center",
-                    mb: "5px",
+                    fontSize: "12px",
+                    color: "#282930",
                   }}
                 >
-                  <img src={"/images/store/box.svg"} alt="item" />
-                  <Typography
-                    sx={{
-                      color: "#61636C",
-                      fontSize: "12px",
-                    }}
-                  >
-                    {" "}
-                    012345
-                  </Typography>
-                </Box>
-                <Typography variant="body2" color="text.secondary">
-                  [해외배송] 셀퓨전시 선크림
+                  {format(new Date(date), "yy.MM.dd (E)")}
                 </Typography>
-                <Box
-                  sx={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    alignItems: "center",
-                  }}
-                >
-                  <Box
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      justifyContent: "center",
-                      gap: 0.5,
-                    }}
-                  >
-                    <Typography
-                      sx={{
-                        fontSize: "14px",
-                        color: "#282930",
-                      }}
-                    >
-                      무게(g)
-                    </Typography>
-                    <Typography
-                      sx={{
-                        fontSize: "14px",
-                        color: "#EB1F81",
-                        fontWeight: "bold",
-                      }}
-                    >
-                      1,230
-                    </Typography>
-                  </Box>
-                  <Typography
-                    sx={{
-                      fontSize: "16px",
-                      fontWeight: "bold",
-                    }}
-                  >
-                    D-180
-                  </Typography>
-                </Box>
               </Box>
+              {groupedOrders[date].map((order) => (
+                <StoreCard
+                  key={order.id}
+                  item={order}
+                  isChecked={checkedOrders.includes(order.id)}
+                  onCheckboxChange={handleCheckboxChange}
+                />
+              ))}
             </Box>
-          </Paper>
-          <Divider
-            sx={{
-              color: "#ECECED",
-              borderWidth: "1px",
-              my: "8px",
-            }}
-          />
+          ))}
         </Box>
       </Box>
       <Box
@@ -278,7 +218,9 @@ const Store = () => {
           flexDirection: "column",
           position: "fixed",
           bottom: "48px",
-          width: "100%",
+          width: "360",
+          height: "120px",
+          backgroundColor: "white",
         }}
       >
         <Box
@@ -305,7 +247,7 @@ const Store = () => {
                 <img src={"/images/icon/camera.svg"} alt="camera" />
               </Box>
             }
-            style={{ marginTop: "32px", width: "160px" }}
+            style={{ width: "160px" }}
           />
           <OriginButton
             fullWidth
@@ -326,7 +268,7 @@ const Store = () => {
                 <img src={"/images/icon/dispose.svg"} alt="dispose" />
               </Box>
             }
-            style={{ marginTop: "32px", width: "160px" }}
+            style={{ width: "160px" }}
           />
         </Box>
         <OriginButton

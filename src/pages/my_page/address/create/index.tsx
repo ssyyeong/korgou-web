@@ -7,7 +7,6 @@ import Input from "../../../../components/Input";
 import { countryList } from "../../../../configs/data/CountryConfig";
 import { countryNumberList } from "../../../../configs/data/CountryNumberConfig";
 import ControllerAbstractBase from "../../../../controller/Controller";
-import AlertModal from "../../../../components/Modal/AlertModal";
 
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";

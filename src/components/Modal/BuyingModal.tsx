@@ -15,6 +15,7 @@ import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 
 import OriginButton from "../Button/OriginButton";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
 
 interface IBuyingModalProps {
   buyingModalOpen: boolean;
@@ -23,6 +24,7 @@ interface IBuyingModalProps {
 
 const BuyingModal = (props: IBuyingModalProps) => {
   const navigator = useNavigate();
+  const { isAuthenticated } = useAuth();
 
   return (
     <Modal open={props.buyingModalOpen}>
@@ -59,7 +61,11 @@ const BuyingModal = (props: IBuyingModalProps) => {
           fullWidth
           variant="contained"
           onClick={() => {
-            navigator("/buying");
+            if (!isAuthenticated) {
+              navigator("/sign_in");
+            } else {
+              navigator("/buying");
+            }
           }}
           contents={
             <Typography fontSize={16} fontWeight={700}>

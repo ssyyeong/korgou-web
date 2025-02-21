@@ -98,13 +98,13 @@ const Delivery = () => {
         >
           배송 상태
         </Typography>
-        <DropDown
+        {/* <DropDown
           value={filter}
           handleClick={handleClick}
           anchorEl={anchorEl}
           handleClose={handleClose}
           items={["전체", "미입고", "입고완료", "반품"]}
-        />
+        /> */}
       </Box>
     </Box>
   );

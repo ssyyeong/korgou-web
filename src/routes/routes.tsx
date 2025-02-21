@@ -3,10 +3,7 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Navigate,
-  Outlet,
   useLocation,
-  useNavigate,
 } from "react-router-dom";
 
 // 페이지 컴포넌트들
@@ -55,6 +52,8 @@ import AddressModify from "../pages/my_page/address/modify";
 import AddressCreate from "../pages/my_page/address/create";
 import Price from "../pages/main/price";
 import BuyingCreate from "../pages/main/buying/create";
+import BuyingSubmit from "../pages/main/buying/submit";
+import ConfirmState from "../pages/my_page/purchase/status/confirm";
 
 // 조건부로 BottomNavBar를 렌더링하는 컴포넌트
 const ConditionalBottomNavBar = () => {
@@ -78,6 +77,7 @@ const AppRoutes = () => (
       <Route path="/ship" element={<Ship />} />
       <Route path="/buying" element={<Buying />} />
       <Route path="/buying/create" element={<BuyingCreate />} />
+      <Route path="/buying/submit" element={<BuyingSubmit />} />
 
       <Route path="/service" element={<Service />} />
       <Route path="/price" element={<Price />} />
@@ -121,6 +121,10 @@ const AppRoutes = () => (
       <Route path="/my_page/package" element={<Package />} />
       <Route path="/my_page/delivery" element={<Delivery />} />
       <Route path="/my_page/purchase" element={<Purchase />} />
+      <Route
+        path="/my_page/purchase/status/confirm"
+        element={<ConfirmState />}
+      />
     </Routes>
     <ConditionalBottomNavBar />
   </Router>

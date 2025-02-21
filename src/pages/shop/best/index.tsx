@@ -48,13 +48,13 @@ const Best = () => {
         >
           인기 상품 2개
         </Typography>
-        <DropDown
+        {/* <DropDown
           value={filter}
           handleClick={handleClick}
           anchorEl={anchorEl}
           handleClose={handleClose}
           items={["최신순", "인기순"]}
-        />
+        /> */}
       </Box>
       <Grid2 container rowSpacing={2} columnSpacing={2}>
         {bestProduct.map((item, index) => (

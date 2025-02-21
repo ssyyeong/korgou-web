@@ -1,23 +1,14 @@
 import React from "react";
-import {
-  Box,
-  TextField,
-  IconButton,
-  Typography,
-  Button,
-  Chip,
-  List,
-  ListItem,
-  ListItemText,
-  Divider,
-  Grid2,
-} from "@mui/material";
+import { Box, IconButton, Typography, Grid2 } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import CloseIcon from "@mui/icons-material/Close";
 import OriginButton from "../../components/Button/OriginButton";
 import TextFieldCustom from "../../components/TextField";
+import { useNavigate } from "react-router-dom";
 
 const Search = () => {
+  const navigate = useNavigate();
+
   const [searchText, setSearchText] = React.useState("");
 
   const recentSearches = ["선크림", "선쿠션"];
@@ -82,6 +73,10 @@ const Search = () => {
               flexDirection: "column",
               justifyContent: "center",
               alignItems: "center",
+              cursor: "pointer",
+            }}
+            onClick={() => {
+              navigate("/buying");
             }}
           >
             <Typography

@@ -12,8 +12,13 @@ import FilteringDate from "../../../components/FilteringDate";
 import History from "../../../components/List/History";
 
 const Balance = () => {
-  const { memberBalance, memberCode } = useAppMember();
+  const filterings = [
+    { value: "today", label: "오늘" },
+    { value: "7days", label: "최근 7일" },
+    { value: "1month", label: "최근 1개월" },
+  ];
 
+  const { memberBalance, memberCode } = useAppMember();
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [dateType, setDateType] = useState(""); //날짜 필터링
@@ -116,6 +121,7 @@ const Balance = () => {
       />
 
       <FilteringDate
+        filterings={filterings}
         dateType={dateType}
         startDate={startDate}
         endDate={endDate}

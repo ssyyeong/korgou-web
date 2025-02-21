@@ -6,12 +6,14 @@ import CustomDatePicker from "../../../components/CustomDatePicker";
 import { useNavigate } from "react-router-dom";
 import Input from "../../../components/Input";
 import TextFieldCustom from "../../../components/TextField";
+import AlertModal from "../../../components/Modal/AlertModal";
 
 const Package = () => {
   const navigator = useNavigate();
 
   const [courier, setCourier] = useState("");
   const [trackingNumber, setTrackingNumber] = useState("");
+  const [modalOpen, setModalOpen] = useState(false);
 
   return (
     <Box
@@ -122,6 +124,47 @@ const Package = () => {
           </Typography>
         }
         style={{ marginTop: "16px", padding: "16px 8px", height: "48px" }}
+      />
+      <AlertModal
+        open={modalOpen}
+        onClose={() => {
+          setModalOpen(false);
+        }}
+        contents={
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "start",
+              gap: "10px",
+            }}
+          >
+            <Typography
+              sx={{
+                fontSize: "18px",
+                color: "#282930",
+                fontWeight: 700,
+              }}
+            >
+              안내
+            </Typography>
+            <Typography
+              sx={{
+                fontSize: "14px",
+                color: "#61636C",
+              }}
+            >
+              조회되는 미확인 패키지가 없습니다.
+            </Typography>
+          </Box>
+        }
+        button1={{
+          text: "확인",
+          onClick: () => {
+            setModalOpen(false);
+          },
+          color: "#282930",
+        }}
       />
     </Box>
   );
