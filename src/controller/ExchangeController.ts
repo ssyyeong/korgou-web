@@ -8,7 +8,9 @@ export interface IControllerOptions {
 
 export interface IModelConfig extends Record<string, any> {}
 
-class ImageController {
+class ExchangeController {
+  modelName?: string;
+  modelId?: string;
   apiUrl: string;
   rootRoute: string;
   role: string;
@@ -22,17 +24,21 @@ class ImageController {
     modelName?: string;
     modelId?: string;
   }) {
+    this.modelName = modelName;
+    this.modelId = modelId;
     this.apiUrl = serverSettings.config.apiUrl;
     this.rootRoute = "/api";
     this.role = "user";
+    // 예: https://localhost:4021/api/user/{modelId}
+    this.mergedPath = `${this.apiUrl}${this.rootRoute}/${this.role}/${this.modelId}`;
+    this.modelConfig = null;
   }
 
-  async uploadImage(option: IControllerOptions): Promise<any> {
-    const params = option;
-    const url = `${this.apiUrl}${this.rootRoute}/common/file/upload_image`;
-    const response = await axios.post(url, params);
+  async getExchange(): Promise<any> {
+    const url = `${this.apiUrl}${this.rootRoute}/${this.role}/${this.modelId}/current`;
+    const response = await axios.get(url);
 
     return response;
   }
 }
-export default ImageController;
+export default ExchangeController;

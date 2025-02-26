@@ -208,7 +208,7 @@ class ControllerAbstractBase {
     };
 
     const url = `${this.apiUrl}${this.rootRoute}/${this.role}/${this.modelId}/delete`;
-    const response = await axios.post(url, data);
+    const response = await axios.put(url, data);
     return await this.parseResponse(response);
   }
 
@@ -262,48 +262,6 @@ class ControllerAbstractBase {
       modelId: "community_board_content",
     });
     return await controller.create(option);
-  }
-
-  // certification: 신분증 및 계약서 이미지 업로드 후 인증 요청 (생성 또는 업데이트)
-  async certification(
-    option: IControllerOptions,
-    idCard: File | null,
-    contract: File | null,
-    type: string
-  ): Promise<any> {
-    if (idCard) {
-      const formData = new FormData();
-      formData.append("file", idCard, idCard.name);
-      const uploadUrl = `${this.apiUrl}${this.rootRoute}/common/file/upload_image`;
-      const uploadResponse = await axios.post(uploadUrl, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-      const res = await this.parseResponse(uploadResponse);
-      option.ID_CARD_IMAGE_PATH = JSON.stringify(res.result);
-    }
-    if (contract) {
-      const formData = new FormData();
-      formData.append("file", contract, contract.name);
-      const uploadUrl = `${this.apiUrl}${this.rootRoute}/common/file/upload_image`;
-      const uploadResponse = await axios.post(uploadUrl, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-      const res = await this.parseResponse(uploadResponse);
-      option.CONTRACT_IMAGE_PATH = JSON.stringify(res.result);
-    }
-    const controller = new ControllerAbstractBase({
-      modelName: "CommunityVarification",
-      modelId: "community_varification",
-    });
-    if (type === "create") {
-      return await controller.create(option);
-    } else {
-      return await controller.update(option);
-    }
   }
 }
 

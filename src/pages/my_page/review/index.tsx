@@ -40,7 +40,7 @@ const Review = () => {
         alignItems: "center",
       }}
     >
-      <Header title="문의 관리" />
+      <Header title="리뷰 관리" />
       <Tabs
         value={tab}
         onChange={handleChange}
@@ -72,7 +72,7 @@ const Review = () => {
             width: "100%",
           }}
         >
-          <Box
+          {/* <Box
             sx={{
               display: "flex",
               flexDirection: "column",
@@ -165,7 +165,7 @@ const Review = () => {
               width: "calc(100% + 30px)",
               left: -15,
             }}
-          />
+          /> */}
         </Box>
       </TabPanel>
       <TabPanel value={1} width="100%">
@@ -177,7 +177,7 @@ const Review = () => {
             p: "16px",
           }}
         >
-          <Box
+          {/* <Box
             sx={{
               display: "flex",
               flexDirection: "row",
@@ -205,7 +205,7 @@ const Review = () => {
                 상품명1234
               </Typography>
             </Box>
-            {/* <OriginButton
+            <OriginButton
                 fullWidth
                 variant="contained"
                 color="primary"
@@ -218,7 +218,7 @@ const Review = () => {
                   </Typography>
                 }
                 style={{ height: "32px", width: "110px", mr: "16px" }}
-              /> */}
+              />
           </Box>
           <Divider
             sx={{
@@ -259,7 +259,7 @@ const Review = () => {
             a varius congue. Enim dis quisque augue vel enim. Vitae justo
             placerat ut in interdum eu. Lorem aliquet magnis faucibus quis
             mattis urna blandit eu libero.
-          </Typography>
+          </Typography> */}
         </Box>
       </TabPanel>
     </Box>

@@ -46,7 +46,8 @@ const AlertModal: React.FC<AlertModalProps> = ({
           sx={{
             display: "flex",
             flexDirection: "column",
-            p: "15px",
+            p: "10px",
+            mt: "25px",
           }}
         >
           {contents}

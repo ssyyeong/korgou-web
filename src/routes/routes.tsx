@@ -26,7 +26,7 @@ import Search from "../pages/search";
 import Contacts from "../pages/main/support/contacts";
 import Store from "../pages/store";
 import Best from "../pages/shop/best";
-import Detail from "../pages/shop/detail";
+import Detail from "../pages/shop/[pid]";
 import Attendance from "../pages/shop/attendance";
 import HotDeal from "../pages/shop/hot_deal";
 import Support from "../pages/main/support";
@@ -42,6 +42,7 @@ import Inquiry from "../pages/my_page/inquiry";
 import InquiryDetail from "../pages/my_page/inquiry/detail";
 import InquiryCreate from "../pages/my_page/inquiry/create";
 import Review from "../pages/my_page/review";
+import ReviewCreate from "../pages/my_page/review/create";
 import Cart from "../pages/my_page/cart";
 import Address from "../pages/my_page/address";
 import Package from "../pages/my_page/package";
@@ -54,6 +55,7 @@ import Price from "../pages/main/price";
 import BuyingCreate from "../pages/main/buying/create";
 import BuyingSubmit from "../pages/main/buying/submit";
 import ConfirmState from "../pages/my_page/purchase/status/confirm";
+import NewArrival from "../pages/shop/new_arrival";
 
 // 조건부로 BottomNavBar를 렌더링하는 컴포넌트
 const ConditionalBottomNavBar = () => {
@@ -88,10 +90,10 @@ const AppRoutes = () => (
       <Route path="/support/faq" element={<Faq />} />
       <Route path="/shop" element={<Shop />} />
       <Route path="/shop/best" element={<Best />} />
-      <Route path="/shop/detail" element={<Detail />} />
+      <Route path="/shop/detail/:pid" element={<Detail />} />
       <Route path="/shop/attendance" element={<Attendance />} />
       <Route path="/shop/hot_deal" element={<HotDeal />} />
-
+      <Route path="/shop/new_arrival" element={<NewArrival />} />
       {/* 인증 관련 Public Routes */}
       <Route path="/sign_in" element={<SignIn />} />
       <Route path="/sign_up" element={<SignUp />} />
@@ -113,6 +115,8 @@ const AppRoutes = () => (
       <Route path="/my_page/inquiry/detail" element={<InquiryDetail />} />
       <Route path="/my_page/inquiry/create" element={<InquiryCreate />} />
       <Route path="/my_page/review" element={<Review />} />
+      <Route path="/my_page/review/create" element={<ReviewCreate />} />
+
       <Route path="/my_page/cart" element={<Cart />} />
       <Route path="/my_page/address" element={<Address />} />
       <Route path="/my_page/address/create" element={<AddressCreate />} />

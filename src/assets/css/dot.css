@@ -1,0 +1,16 @@
+.slick-dots.custom-dots {
+  position: absolute;
+  bottom: 20px;
+  z-index: 1;
+  color: white;
+}
+
+.slick-dots.custom-dots li button:before {
+  color: white; /* dot 색상 */
+  opacity: 0.5; /* 비활성 dot 투명도 */
+}
+
+.slick-dots.custom-dots li.slick-active button:before {
+  color: white; /* 활성 dot 색상 */
+  opacity: 1; /* 활성 dot 투명도 */
+}

@@ -18,25 +18,31 @@ const Header = (props: IHeaderProps) => {
     <Box
       width={"100%"}
       bgcolor={"white"}
+      height={"56px"}
       display={"flex"}
-      height={"10px"}
       flexDirection={"row"}
       sx={{
-        paddingBlock: 3,
+        alignItems: "center",
+        justifyContent: "center",
+        position: "relative",
       }}
       zIndex={1000}
     >
-      <Box display={"flex"} width={props.icon && "100%"}>
+      <Box
+        display={"flex"}
+        sx={{
+          position: "absolute",
+          left: "0px",
+          cursor: "pointer",
+        }}
+        onClick={() => props.back !== false && navigate(-1)} // Box에 onClick 이벤트 추가
+      >
         {props.back !== false && (
           <ArrowBackIosNewIcon
             sx={{
-              cursor: "pointer",
               color: "#B1B2B6",
               width: "15px",
               height: "15px",
-            }}
-            onClick={() => {
-              navigate(-1);
             }}
           />
         )}
@@ -45,7 +51,8 @@ const Header = (props: IHeaderProps) => {
         display={"flex"}
         sx={{
           justifyContent: "center",
-          width: "100%",
+          position: "absolute",
+          alignItems: "center",
         }}
       >
         <Typography
@@ -64,7 +71,8 @@ const Header = (props: IHeaderProps) => {
           display={"flex"}
           sx={{
             width: "100%",
-            justifyContent: "center",
+            justifyContent: "end",
+            display: "flex",
           }}
         >
           {props.icon}

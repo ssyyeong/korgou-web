@@ -6,7 +6,7 @@ import {
   IconButton,
   Typography,
 } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -21,6 +21,8 @@ import OriginButton from "../../components/Button/OriginButton";
 import reviewConfig from "../../configs/data/ReviewConfig";
 import SocialLink from "../../components/SocialLink";
 import { useNavigate } from "react-router-dom";
+import Item from "./item";
+import ControllerAbstractBase from "../../controller/Controller";
 
 const Shop = () => {
   const settings = {
@@ -65,18 +67,34 @@ const Shop = () => {
     "/images/shop/week.svg",
   ];
 
-  const bestProduct = [
-    "/images/shop/product.svg",
-    "/images/shop/product2.svg",
-    "/images/shop/product3.svg",
-    "/images/shop/product4.svg",
-  ];
-
   const navigate = useNavigate();
   const containerRef = React.useRef<HTMLDivElement>(null);
 
   const benefit = ["쇼핑혜택", "쇼핑혜택", "쇼핑혜택"];
   const [benefitIndex, setBenefitIndex] = React.useState(0);
+
+  const [newArrival, setNewArrival] = React.useState([]);
+  const [bestProduct, setBestProduct] = React.useState([]);
+  const [weeklyBest, setWeeklyBest] = React.useState([]);
+  const [hotDeal, setHotDeal] = React.useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const controller = new ControllerAbstractBase({
+        modelName: "Product",
+        modelId: "product",
+      });
+
+      const res = await controller.findAll({
+        LIMIT: 4,
+      });
+
+      setNewArrival(res.result.rows);
+      setBestProduct(res.result.rows);
+    };
+
+    fetchData();
+  }, []);
 
   return (
     <Box
@@ -288,34 +306,7 @@ const Shop = () => {
         >
           NEW ARRIVAL
         </Typography>
-        <Grid2 container rowSpacing={2} columnSpacing={2}>
-          {bestProduct.map((item, index) => (
-            <Grid2 key={index} size={6}>
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                  paddingBottom: index % 2 === 0 ? "16px" : "0",
-                  cursor: "pointer",
-                }}
-                onClick={() => {
-                  navigate("/shop/detail");
-                }}
-              >
-                <img
-                  src={item}
-                  alt="logo"
-                  width={"100%"}
-                  height={"100%"}
-                  style={{
-                    objectFit: "fill",
-                  }}
-                />
-              </Box>
-            </Grid2>
-          ))}
-        </Grid2>
+        <Item itemList={newArrival} />
         <OriginButton
           fullWidth
           variant="outlined"
@@ -336,7 +327,7 @@ const Shop = () => {
             </Typography>
           }
           onClick={() => {
-            navigate("/shop/best");
+            navigate("/shop/new_arrival");
           }}
         />
       </Box>
@@ -412,34 +403,8 @@ const Shop = () => {
         >
           BEST PRODUCT
         </Typography>
-        <Grid2 container rowSpacing={2} columnSpacing={2}>
-          {bestProduct.map((item, index) => (
-            <Grid2 key={index} size={6}>
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "row",
-                  justifyContent: "space-between",
-                  paddingBottom: index % 2 === 0 ? "16px" : "0",
-                  cursor: "pointer",
-                }}
-                onClick={() => {
-                  navigate("/shop/detail");
-                }}
-              >
-                <img
-                  src={item}
-                  alt="logo"
-                  width={"100%"}
-                  height={"100%"}
-                  style={{
-                    objectFit: "fill",
-                  }}
-                />
-              </Box>
-            </Grid2>
-          ))}
-        </Grid2>
+        <Item itemList={bestProduct} />
+
         <OriginButton
           fullWidth
           variant="outlined"
