@@ -8,8 +8,9 @@ import { useAppMember } from "../../../hooks/useAppMember";
 import CartCard from "./CartCard";
 import { useExchange } from "../../../hooks/useExchange";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
-
+import { useTranslation } from "react-i18next";
 const Cart = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const { memberCode } = useAppMember();
   const { usd } = useExchange();
@@ -228,7 +229,8 @@ const Cart = () => {
                       fontSize: "12px",
                     }}
                   >
-                    전체 선택 [{selectedCartList.length}/{cartList.length}]
+                    {t("cart.select_all")} [{selectedCartList.length}/
+                    {cartList.length}]
                   </Typography>
                 </Box>
                 <OriginButton
@@ -240,7 +242,7 @@ const Cart = () => {
                   }}
                   contents={
                     <Typography fontSize={12} color="#282930">
-                      선택 상품 삭제
+                      {t("cart.delete_selected_items")}
                     </Typography>
                   }
                   disabled={selectedCartList.length === 0}
@@ -279,7 +281,7 @@ const Cart = () => {
                       fontSize: "14px",
                     }}
                   >
-                    선택 상품 수
+                    {t("cart.selected_item_count")}
                   </Typography>
                   <Typography
                     sx={{
@@ -287,7 +289,9 @@ const Cart = () => {
                       fontSize: "14px",
                     }}
                   >
-                    {selectedCartList.length}개
+                    {t("common.field.count.count", {
+                      count: selectedCartList.length,
+                    })}
                   </Typography>
                 </Box>
                 <Box
@@ -304,7 +308,7 @@ const Cart = () => {
                       fontSize: "14px",
                     }}
                   >
-                    총 선택 상품금액
+                    {t("cart.total_selected_item_price")}
                   </Typography>
                   <Typography
                     sx={{
@@ -329,7 +333,7 @@ const Cart = () => {
                       fontSize: "14px",
                     }}
                   >
-                    총 국내 배송비
+                    {t("cart.total_domestic_shipping_fee")}
                   </Typography>
                   <Typography
                     sx={{
@@ -354,7 +358,7 @@ const Cart = () => {
                       fontSize: "14px",
                     }}
                   >
-                    구매대행 수수료
+                    {t("cart.purchase_fee")}
                   </Typography>
                   <Typography
                     sx={{
@@ -387,7 +391,7 @@ const Cart = () => {
                     fontWeight: "bold",
                   }}
                 >
-                  장바구니 합계
+                  {t("cart.cart_total_price")}
                 </Typography>
                 <Typography
                   sx={{
@@ -432,7 +436,9 @@ const Cart = () => {
                         }}
                       />
                       <Typography fontSize={14} color="#282930">
-                        총 {selectedCartList.length}개
+                        {t("cart.total", {
+                          count: selectedCartList.length,
+                        })}
                       </Typography>
                     </Box>
                   }
@@ -444,7 +450,7 @@ const Cart = () => {
                   onClick={() => {}}
                   contents={
                     <Typography fontSize={16} color="#ffffff">
-                      ${selectedCartTotal.toFixed(2)} 주문하기
+                      ${selectedCartTotal.toFixed(2)} {t("common.button.order")}
                     </Typography>
                   }
                 />

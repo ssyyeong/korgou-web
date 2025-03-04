@@ -8,7 +8,7 @@ import {
   Box,
   Chip,
 } from "@mui/material";
-
+import { useTranslation } from "react-i18next";
 interface AddressCardProps {
   item: any;
   name: string;
@@ -21,6 +21,7 @@ interface AddressCardProps {
 }
 
 const AddressCard = (props: AddressCardProps) => {
+  const { t } = useTranslation();
   return (
     <Card
       sx={{
@@ -51,7 +52,7 @@ const AddressCard = (props: AddressCardProps) => {
             </Typography>
             {props.type === "FOREIGN" ? (
               <Chip
-                label="해외배송"
+                label={t("delivery.type.overseas")}
                 sx={{
                   fontSize: 12,
                   color: "white",
@@ -62,7 +63,7 @@ const AddressCard = (props: AddressCardProps) => {
               />
             ) : (
               <Chip
-                label="국내배송"
+                label={t("delivery.type.domestic")}
                 color="default"
                 size="small"
                 sx={{
@@ -92,7 +93,7 @@ const AddressCard = (props: AddressCardProps) => {
                 color: props.isDefault ? "primary" : "#282930",
               }}
             >
-              기본 배송지
+              {t("delivery_address.default_delivery_address")}
             </Typography>
           </Box>
         </Box>
@@ -128,7 +129,7 @@ const AddressCard = (props: AddressCardProps) => {
             props.onClick(props.item.ADDRESS_IDENTIFICATION_CODE);
           }}
         >
-          수정
+          {t("common.button.modify")}
         </Button>
       </CardContent>
     </Card>

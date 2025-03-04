@@ -1,7 +1,7 @@
 import { Box, IconButton, Typography } from "@mui/material";
 import { Delete as DeleteIcon } from "@mui/icons-material";
 import CameraAltOutlinedIcon from "@mui/icons-material/CameraAltOutlined";
-
+import { useTranslation } from "react-i18next";
 interface MultiImageUploaderProps {
   images: File[];
   setImages: (images: File[]) => void;
@@ -10,6 +10,7 @@ interface MultiImageUploaderProps {
 }
 
 const MultiImageUploader = (props: MultiImageUploaderProps) => {
+  const { t } = useTranslation();
   return (
     <Box sx={{ display: "flex", flexWrap: "wrap", gap: 2, mt: 2 }}>
       {props.images.map((image, index) => (
@@ -58,7 +59,7 @@ const MultiImageUploader = (props: MultiImageUploaderProps) => {
       >
         <CameraAltOutlinedIcon sx={{ color: "#B1B2B6" }} />
         <Typography fontSize={12} color="#61636C">
-          이미지 추가
+          {t("common.upload.photo.title")}
         </Typography>
         <input
           type="file"

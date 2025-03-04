@@ -6,8 +6,9 @@ import KeyboardArrowRightOutlinedIcon from "@mui/icons-material/KeyboardArrowRig
 import { useNavigate } from "react-router-dom";
 import { useAppMember } from "../../hooks/useAppMember";
 import { useAuth } from "../../hooks/useAuth";
-
+import { useTranslation } from "react-i18next";
 const MyPage = () => {
+  const { t } = useTranslation();
   const [alarmModalOpen, setAlarmModalOpen] = React.useState(false);
   const navigate = useNavigate();
 
@@ -24,27 +25,27 @@ const MyPage = () => {
   const list = [
     {
       path: "/images/icon/my_page/location.svg",
-      title: "배송지 관리",
+      title: t("my_page.delivery_address"),
       pathName: "/my_page/address",
     },
     {
       path: "/images/icon/my_page/receipt.svg",
-      title: "미확인 패키지",
+      title: t("my_page.unidentified_package"),
       pathName: "/my_page/package",
     },
     {
       path: "/images/icon/my_page/comment.svg",
-      title: "리뷰 관리",
+      title: t("my_page.review"),
       pathName: "/my_page/review",
     },
     {
       path: "/images/icon/my_page/headset.svg",
-      title: "문의 관리",
+      title: t("my_page.inquiry"),
       pathName: "/my_page/inquiry",
     },
     {
       path: "/images/icon/my_page/setting.svg",
-      title: "앱 설정",
+      title: t("my_page.app_setting"),
       pathName: "/my_page/setting",
     },
   ];

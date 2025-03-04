@@ -1,6 +1,6 @@
 import React from "react";
 import { Typography, Checkbox, Box } from "@mui/material";
-
+import { useTranslation } from "react-i18next";
 interface OrderCardProps {
   item: any;
   isChecked: boolean;
@@ -8,6 +8,7 @@ interface OrderCardProps {
 }
 
 const StoreCard = (props: OrderCardProps) => {
+  const { t } = useTranslation();
   return (
     <Box
       sx={{
@@ -97,7 +98,7 @@ const StoreCard = (props: OrderCardProps) => {
                 color: "#282930",
               }}
             >
-              무게(g){" "}
+              {t("store.weight")}
               <span
                 style={{ color: "#EB1F81", fontWeight: 700, fontSize: "14px" }}
               >

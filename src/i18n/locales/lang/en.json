@@ -1,0 +1,785 @@
+{
+  "common": {
+    "button": {
+      "confirm": "Confirm",
+      "cancel": "Cancel",
+      "save": "Save",
+      "modify": "Modify",
+      "delete": "Delete",
+      "close": "Close",
+      "list": "List",
+      "previous": "Previous",
+      "search": "Search",
+      "add": "+ Add",
+      "submit": "Submit",
+      "resend": "Resend",
+      "re_enter": "Re-enter Email",
+      "order_request": "Order Request",
+      "charge": "Charge",
+      "add_address": "+ Add Address",
+      "next_step": "Next",
+      "previous_step": "Previous Step",
+      "order": "Order"
+    },
+
+    "field": {
+      "email": {
+        "label": "Email",
+        "placeholder": "Please enter your email",
+        "verification": {
+          "title": "Email Verification",
+          "message": "Verification code has been sent to the email below",
+          "code": {
+            "label": "Verification Code",
+            "placeholder": "Please enter verification code"
+          },
+          "success": "Email verification completed"
+        }
+      },
+      "password": {
+        "label": "Password",
+        "placeholder": "Please enter password (8+ characters)",
+        "confirm": {
+          "label": "Confirm Password",
+          "placeholder": "Please enter your password again"
+        },
+        "error": "Passwords do not match.",
+        "change": {
+          "title": "Change Password",
+          "new_placeholder": "Please enter new password (8+ characters)",
+          "success": "Password change completed!"
+        }
+      },
+      "name": {
+        "label": "Name",
+        "placeholder": "Please enter your name",
+        "first": "First Name",
+        "last": "Last Name"
+      },
+      "country": {
+        "label": "Country",
+        "placeholder": "Please select your country"
+      },
+      "address": {
+        "label": "Address",
+        "detail": "Address Detail",
+        "postal_code": "Postal Code",
+        "province": "Province",
+        "city": "City",
+        "placeholder": "Please enter address"
+      },
+      "phone": {
+        "label": "Phone Number",
+        "placeholder": "Enter without hyphen"
+      },
+      "recommender_code": {
+        "label": "Referral Code",
+        "placeholder": "Please enter referral code"
+      },
+      "seller_name": {
+        "label": "Brand Seller Name",
+        "placeholder": "Please enter brand seller name"
+      },
+      "product_method": {
+        "label": "Sales Method",
+        "placeholder": "Please select sales method"
+      },
+      "product_type": {
+        "label": "Product Type",
+        "placeholder": "Please select product type"
+      },
+      "url": {
+        "label": "Own Mall URL",
+        "placeholder": "Please enter your mall address"
+      },
+      "channel": {
+        "label": "Main External Sales Channel (Excluding Own Mall)",
+        "placeholder": "Please select main external sales channel"
+      },
+      "introduce_file": {
+        "label": "Company/Product Introduction",
+        "placeholder": "Please upload company/product introduction"
+      },
+      "business_registration_file": {
+        "label": "Business Registration Certificate",
+        "placeholder": "Please upload business registration certificate"
+      },
+      "count": {
+        "label": "Quantity",
+        "unit": "pcs",
+        "count": "{{count}} pcs"
+      },
+      "weight": {
+        "label": "Weight",
+        "unit": "g"
+      }
+    },
+
+    "period": {
+      "today": "Today",
+      "recent": {
+        "week": "Last 7 days",
+        "month": "Last 1 month",
+        "two_month": "Last 2 months",
+        "three_month": "Last 3 months",
+        "six_month": "Last 6 months"
+      }
+    },
+
+    "upload": {
+      "photo": {
+        "title": "Photo Upload",
+        "description": "· Images up to 2MB and 5 photos can be uploaded"
+      },
+      "file": {
+        "add": "Add File"
+      }
+    }
+  },
+
+  "status": {
+    "process": {
+      "waiting": "Waiting",
+      "completed": "Completed",
+      "canceled": "Canceled",
+      "processing": "Processing"
+    },
+    "payment": {
+      "before": "Before Payment",
+      "completed": "Payment Completed",
+      "failed": "Payment Failed"
+    },
+    "delivery": {
+      "waiting": "Waiting for Delivery",
+      "in_transit": "In Transit",
+      "completed": "Delivery Completed",
+      "forwarded": "Forwarded",
+      "returned": "Returned"
+    }
+  },
+
+  "form": {
+    "placeholders": {
+      "email": "Please enter your email",
+      "password": "Please enter password (8+ characters)",
+      "confirm_password": "Please enter your password again",
+      "country": "Please select your country",
+      "name": "Please enter your name",
+      "request": "Please enter your request"
+    }
+  },
+
+  "delivery": {
+    "type": {
+      "overseas": "Overseas Shipping",
+      "domestic": "Domestic Shipping",
+      "warehouse": "Warehouse Shipping"
+    },
+    "service": {
+      "compact": {
+        "label": "Compact Packaging",
+        "description": "Minimum size packaging"
+      },
+      "priority": {
+        "label": "Priority Packaging",
+        "description": "Processing within 48 hours"
+      },
+      "receipt": {
+        "label": "Receipt Removal",
+        "description": "Remove receipt before shipping"
+      }
+    },
+    "tracking": {
+      "label": "Tracking Number",
+      "placeholder": "Please enter tracking number"
+    }
+  },
+
+  "payment": {
+    "method": {
+      "balance": {
+        "label": "Balance",
+        "description": "Pay with account balance"
+      },
+      "point": {
+        "label": "Points",
+        "description": "Pay with points"
+      }
+    },
+    "amount": {
+      "total": "Total Payment Amount",
+      "discount": "Discount Amount",
+      "shipping": "Shipping Fee",
+      "processing": "Processing Fee",
+      "purchase": "Purchase Fee"
+    }
+  },
+
+  "terms": {
+    "privacy": "Agree to Privacy Policy",
+    "service_terms": "Agree to Terms of Service",
+    "marketing": "Agree to Marketing Information Usage",
+    "all": "Agree to All Terms",
+    "required": "Required",
+    "optional": "Optional"
+  },
+
+  "auth": {
+    "login": {
+      "title": "Login",
+      "keep_signed": "Stay Signed In",
+      "forgot_password_link": "Forgot Password?",
+      "types": {
+        "social": "Social Login",
+        "individual": "Individual Login",
+        "company": "Company Login"
+      },
+      "forgot_password": {
+        "title": "KORGOU Existing Customer Login Verification",
+        "description": "We'll send a temporary password to your registered email.\nYou can use your account after logging in and changing your password!",
+        "button": "Get Temporary Password"
+      }
+    },
+    "signup": {
+      "title": "Sign Up",
+      "individual": "Individual Sign Up",
+      "company": "Company Sign Up",
+      "success": {
+        "title": "Welcome",
+        "message": "Registration Completed",
+        "start": "Start KORGOU"
+      }
+    },
+    "change_password": {
+      "title": "Change Password",
+      "new_password_placeholder": "Please enter new password (8+ characters)",
+      "confirm_password_placeholder": "Please confirm password",
+      "change_password": "Change",
+      "password_changed": "Password has been changed successfully!"
+    },
+    "email_verification": {
+      "email_verification_message": "Verification code has been sent to the email below",
+      "verification_code_placeholder": "Verification Code",
+      "email_verification_completed": "Email Verification Complete",
+      "email_verification_completed_message": "Email verification has been completed"
+    },
+    "forgot_password": {
+      "title": "Find Password",
+      "email_label": "Email",
+      "email_verification": "Verify Email",
+      "email_verification_message": "*You can reset your password after email input/verification",
+      "change_password": "Change Password",
+      "password_changed": "Password has been changed successfully!",
+      "login_now": "Login Now"
+    }
+  },
+
+  "main": {
+    "title": "How Korgou Perfects Your Korean Shopping",
+    "free_korean_address": "Free Korean Address",
+    "package_forward": "Package Forward",
+    "assisted_purchase": "Assisted Purchase",
+    "value_added_services": "Value Added Services",
+    "step_by_step_essentials": "Step by Step Essentials",
+    "step_by_step_essentials_description": "Safe and comfortable shipping method! <br/> KorGou will guide you!",
+    "package_forward_guide": "Package Forward Tutorial",
+    "assisted_purchase_guide": "Assisted Purchase Tutorial",
+    "our_advantages": "KORGOU's Advantages",
+    "our_advantages_description": "Experience KORGOU's services.",
+    "advantage_1": "Professional and dedicated delivery and purchase support services",
+    "advantage_2": "Safe and convenient payment",
+    "advantage_3": "Free package storage service for 180 days",
+    "advantage_4": "One-stop service from purchase to overseas shipping",
+    "advantage_5": "Value-added services that reduce total shopping costs",
+    "advantage_6": "Various types of shipping methods",
+    "use_of_the_service": "How to Use KORGOU Service",
+    "service_1": "Assisted Purchase",
+    "service_2": "Registered Countries",
+    "service_3": "Shipping Countries",
+    "service_4": "Package Forward",
+    "official": "KorGou Official",
+    "official_description": "Follow our social media channels to enjoy various K-Entertainment and learn more about our services!"
+  },
+
+  "buying_it": {
+    "title": "Buying it",
+    "shopping_auth": "Shopping Mall Account Status",
+    "shopping_account": "Shopping Mall Account",
+    "shopping_placeholder1": "Shopping mall URL",
+    "shopping_placeholder2": "Shopping mall ID",
+    "shopping_placeholder3": "Shopping mall PASSWORD",
+    "shopping_description": "*Login to shopping mall > Purchase items added to cart",
+    "product_list": "Order Product List",
+    "product": "Product {{count}}",
+    "product_placeholder1": "Enter order product URL",
+    "product_placeholder2": "Enter order options (final option values)",
+    "product_placeholder3": "Enter order quantity",
+    "product_placeholder4": "Enter final product price",
+    "product_placeholder5": "Enter requests",
+    "address": "Shipping Address Settings",
+    "address_type": "Warehouse Shipping",
+    "address_type_description": "Combined packaging with warehouse items",
+    "address_detail": "3rd Floor, 79 Sunhwan-ro, Jungwon-gu, Seongnam-si, Gyeonggi-do",
+    "address_request": "Shipping Requests",
+    "address_request_placeholder": "Enter shipping requests",
+    "proceee": "Out of Stock Handling",
+    "proceee_description": "*Payment processing method when requested items are out of stock",
+    "proceee_option1": "Skip out of stock items and proceed with payment for remaining items",
+    "proceee_option2": "Stop order processing",
+    "order_list": "Order List"
+  },
+
+  "contact_us": {
+    "title": "Contact Us",
+    "email": "Email",
+    "subject": "Subject",
+    "number": "Number",
+    "category": "Category",
+    "description": "KorGou provides efficient customer service through its support ticket system, allowing you to easily search for knowledge-based information or submit tickets. Each request is assigned a unique ticket number for tracking and updates, and you can respond via email or log in to monitor progress and communicate with our team. Please note that inquiries received on weekends will be processed on the next business day."
+  },
+
+  "support": {
+    "title": "Customer Center",
+    "notice": "Notice",
+    "notice_previous": "Previous Article"
+  },
+
+  "calculator": {
+    "shipping_fee_calculator": "Shipping Fee Calculator",
+    "ship_to": "Ship To",
+    "country_select": "Country Selection",
+    "courier": "Courier",
+    "package_weight": "Package Weight(g)",
+    "package_dimension": "Package Dimension(cm)",
+    "calculate_description": "The actual ongoing estimate may differ.",
+    "vies_shipping_rates": "View Shipping Rates"
+  },
+
+  "my_page": {
+    "level_up": "Level Up",
+    "balance": "Balance",
+    "coupon": "Coupon",
+    "point": "Point",
+    "warehouse_status": "Warehouse Status",
+    "delivery_status": "Delivery Status",
+    "purchase_status": "Purchase Status",
+    "notice": "Notice",
+    "delivery_address": "Delivery Address",
+    "unidentified_package": "Unidentified Package",
+    "review": "Review",
+    "inquiry": "Inquiry",
+    "app_setting": "App Setting",
+    "alarm": "Alarm"
+  },
+
+  "point": {
+    "title": "Point",
+    "amount": "Balance",
+    "point_history": "Point History",
+    "check": "Check"
+  },
+
+  "balance": {
+    "title": "Balance",
+    "amount": "Balance",
+    "balance_history": "Balance History",
+    "check": "Check",
+    "charge_point": "Charge Point",
+    "balance_point": "Balance",
+    "payment_method": "Payment Method",
+    "deposit_bank": "Deposit Bank",
+    "deposit_name": "Deposit Name",
+    "payment_info": "Payment Info",
+    "charge_amount": "Charge Amount"
+  },
+
+  "purchase_status": {
+    "title": "Purchase Status",
+    "purchase_status": "Purchase Status",
+    "all": "All",
+    "confirmation_pending": "Confirmation Pending",
+    "confirmed_payment_pending": "Confirmed Payment Pending",
+    "paid": "Paid",
+    "completed": "Completed",
+    "warehouse_alert": "Warehouse Alert Request",
+    "warehouse_alert_title": "Warehouse Alert Request Completed",
+    "warehouse_alert_description": "When the ordered product is delivered to the warehouse, we will send you an email. \n \nAfter the ordered product is delivered to the warehouse, you can set the delivery address and request delivery."
+  },
+
+  "purchase_detail": {
+    "title": "Purchase History Details",
+    "order_number": "Order Number",
+    "order_status": "Order Status",
+    "order_status_description1": "We are checking the order request. \n \nAfter the ordered product is delivered to the warehouse, you can set the delivery address and request delivery.",
+    "order_status_description2": "The ordered product has been confirmed, and the purchase is on hold.",
+    "order_status_description3": "The ordered product has been confirmed, and the purchase is possible. \nPlease proceed with the payment!",
+    "product_info": "Product Info",
+    "order_info": "Order Info",
+    "address_type": "Delivery Type",
+    "address_type_description": "Warehouse Delivery",
+    "warehouse_number": "Warehouse Number",
+    "order_request": "Order Request",
+    "order_image": "Order Image",
+    "payment_info": "Payment Info",
+    "product_quantity": "Product Quantity",
+    "product_price": "Product Price",
+    "purchase_fee": "Purchase Fee",
+    "discount_amount": "Discount Amount",
+    "total_price": "Total Payment Amount",
+    "order_cancel_request": "Order Cancel Request",
+    "payment_button": "Payment",
+    "payment_request": "Payment Request",
+    "payment_progress": "Payment Progress",
+    "payment_method": "Payment Method",
+    "point": "Point",
+    "point_discount": "Point Discount",
+    "use": "Use",
+    "point_discount_amount": "Point Discount Amount",
+    "point_earn": "Point Earn",
+    "point_balance": "Point Balance",
+    "list": "List",
+    "order_cancel_request_title": "Order Cancel Request",
+    "order_cancel_request_description": "Order Cancel Request",
+    "order_cancel_request_button": "Order Cancel",
+    "order_cancel_request_description2": "After the order is confirmed, the order request will be deleted and the order will not be processed.",
+    "close_button": "Close",
+    "order_cancel_request_success_title": "Order Cancel Request Completed",
+    "order_cancel_request_success_description": "If the order cannot be canceled, you may receive a separate message."
+  },
+
+  "cart": {
+    "title": "Cart",
+    "cart_empty": "No items in the cart.",
+    "cart_empty_button": "View Recommended Products",
+    "select_all": "Select All",
+    "delete_selected_items": "Delete Selected Items",
+    "request_description": "Please enter a request related to the order.(Optional)",
+    "selected_item_price": "Selected Item Price",
+    "domestic_shipping_fee": "Domestic Shipping Fee",
+    "total_price": "Total Price",
+    "selected_item_count": "Selected Item Count",
+    "total_selected_item_price": "Total Selected Item Price",
+    "total_domestic_shipping_fee": "Total Domestic Shipping Fee",
+    "purchase_fee": "Purchase Fee",
+    "cart_total_price": "Cart Total Price",
+    "total": "Total {{count}}"
+  },
+
+  "delivery_address": {
+    "title": "Delivery Address Management",
+    "default_delivery_address": "Default Delivery Address",
+    "add_delivery_address": "Add Delivery Address",
+    "modify_delivery_address": "Modify Delivery Address",
+
+    "delivery_type": "Delivery Type",
+    "address_info": "Address Info",
+    "first_name": "First Name",
+    "last_name": "Last Name",
+    "phone_number": "Phone Number",
+    "address": "Address",
+    "address_detail": "Address Detail",
+    "province": "Province",
+    "city": "City",
+    "postal_code": "Postal Code",
+    "etc": "Etc"
+  },
+
+  "profile_setting": {
+    "title": "Profile Setting",
+    "password_change": "Password Change",
+    "member_type": "Member Type",
+    "buyer": "Buyer",
+    "seller": "Seller",
+    "birthday": "Birthday",
+    "withdraw": "Withdraw"
+  },
+
+  "app_setting": {
+    "title": "App Setting",
+    "simple_login": "Simple Login",
+    "simple_login_button": "Connect",
+    "alarm_setting": "Alarm Setting",
+    "push_alarm": "Push Alarm",
+    "push_alarm_description": "When you change the push alarm to off, you will not receive benefit notifications. Would you like to change it to off?",
+    "yes": "Yes",
+    "cancel": "Cancel",
+    "alarm_talk": "Alarm Talk",
+    "version_info": "Version Info",
+    "version": "Version"
+  },
+
+  "inquiry": {
+    "title": "Inquiry Management",
+    "answer_completed": "Answer Completed",
+    "answer_waiting": "Answer Waiting",
+    "inquiry_write": "Inquiry Write"
+  },
+
+  "inquiry_create": {
+    "title": "Inquiry Write",
+    "inquiry_type": "Inquiry Type",
+    "inquiry_title": "Title (Max 50 characters)",
+    "inquiry_content": "Inquiry Content",
+    "inquiry_content_placeholder": "Please enter your inquiry.",
+    "save": "Save"
+  },
+
+  "review": {
+    "title": "Review Management",
+    "review_write": "Review Write",
+    "my_review": "My Review",
+    "modify": "Modify"
+  },
+
+  "review_create": {
+    "title": "Review Write",
+    "star_rating": "Select a star rating!",
+    "satisfaction_level": "Satisfaction Level",
+    "photo_upload": "Photo Upload",
+    "photo_upload_description": "· Images up to 5 photos under 1MB can be uploaded.\n· If you register photos that are irrelevant or inappropriate for the product in your review, points may be withdrawn and photos may be deleted without prior warning.",
+    "review_content": "Review Content",
+    "review_content_placeholder": "Please tell us about your experience using KORGOU.",
+    "review_policy": "Review Policy",
+    "review_policy_description": "· Maximum reward conditions by review grade\n · ex) Bronze 50 points / Silver 100 points / Gold 150 points / Diamond 200 points\n \n · Conditions:\n   - Bronze level: 20 points for one-line review \n+ Additional max 30 points when posting with photo or video · Points will not be awarded for reviews/one-line reviews written before product shipment\n \n· Even if you write multiple reviews/one-line reviews after purchasing the same product more than twice (including options), points will only be awarded once.\n · Reviews/one-line reviews with inappropriate content will not be approved and points will not be awarded. (Points will be retrieved if not approved within 3 months from the date of writing)"
+  },
+
+  "store": {
+    "title": "Warehouse Status",
+    "arrival_completed": "Arrival Completed",
+    "one_month": "1 Month",
+    "three_month": "3 Months",
+    "six_month": "6 Months",
+    "search": "Search",
+    "item_status": "Item Status",
+    "all": "All",
+    "awaiting_user_process": "Awaiting User Process",
+    "return_exchange_application": "Return/Exchange application",
+    "return_exchange_done": "Return/Exchange Done",
+    "return_failed": "Return/Failed",
+    "foward_done": "Foward Done",
+    "select_all": "Select All [{{count}}]",
+    "weight": "Weight (g)",
+    "photo_service": "Photo Service",
+    "disposal": "Disposal",
+    "return_request": "Return Request",
+    "delivery_request": "Delivery Request",
+    "disposal_alert": "When using the Disposal service, you can use the Photo service after requesting it."
+  },
+
+  "forward_request1": {
+    "alert": "Do you want to request delivery for the selected product?",
+    "request_product": "Request Product ({{count}})",
+    "warehouse_number": "Warehouse Number",
+    "tracking_number": "Tracking Number",
+    "weight": "Weight",
+    "request_button": "Request Delivery ({{count}} / {{weight}}g)",
+    "title": "Delivery Request [Address Selection]",
+    "delivery_info": "Delivery Info",
+    "delivery_select": "Delivery Selection",
+    "direct_input": "Direct Input",
+    "overseas_delivery": "Overseas Delivery",
+    "domestic_delivery": "Domestic Delivery",
+    "name": "Name (English)",
+    "address": "Address",
+    "address_detail": "Address Detail",
+    "province": "Province",
+    "city": "City",
+    "postal_code": "Postal Code",
+    "phone_number": "Phone Number (Optional)",
+    "company_name": "Company Name (Optional)",
+    "account_no": "Account No or Tax/CPF",
+    "address_description": "* Registered delivery address will be used for delivery.",
+    "delivery_company": "Delivery Company",
+    "delivery_company_description": "Delivery Company Specific Notes",
+    "recommended_delivery_company": "Recommended Delivery Company",
+    "delivery_select_description": "Delivery Selection",
+    "new_delivery_address": "New Delivery Address",
+    "no_delivery_address": "No registered delivery address.",
+    "delivery_method": "Delivery Method",
+    "delivery_method_description": "* The delivery method currently selected will be applied as the default setting, and can be changed when requesting delivery."
+  },
+
+  "forward_request2": {
+    "title": "Delivery Request [Service Selection]",
+    "total_count": "Total ({{count}} / {{weight}}g)",
+    "total_count_description": "{{count}} / {{weight}}g",
+    "delivery_company": "Delivery Company",
+    "delivery_company_description": "Delivery Company Selection",
+    "delivery_company_description2": "There is a 30kg weight limit and volumetric weight limit per BOX.",
+    "processing_method": "Processing Method",
+    "processing_method1": "General",
+    "processing_method2": "Priority",
+    "processing_description": "· Regular packaging typically takes 1-7 days from the application date, excluding weekends/holidays. With Priority processing, packaging will be completed within 48 hours from the application date, excluding weekends/holidays.\n · Priority processing fee - 6,000 KRW per kg \n· Standard processing fee - 3,000 KRW per kg",
+    "additional_service": "Additional Service",
+    "delivery_insurance": "Delivery Insurance",
+    "other_request": "Other Request",
+    "other_request_description": "Other requests will be processed under KORGOU's judgment.",
+    "cancel": "Cancel",
+    "next": "Next"
+  },
+
+  "forward_request3": {
+    "title": "Delivery Request [Declaration Writing]",
+    "content_info": "Content Info",
+    "content_info_placeholder": "1 character or more, 15 characters or less",
+    "content_info_description": "Please enter information about the item.",
+    "quantity_info": "Quantity Info",
+    "quantity_info_placeholder": "Enter quantity (ex. 1,2,3)",
+    "quantity_info_description": "Please enter the quantity of the item.",
+    "price_info": "Price Info",
+    "price_info_placeholder": "Cannot enter 0 KRW (ex. USD 150 )",
+    "price_info_description": "Please enter the total cost of the item.",
+    "save": "Save",
+    "declaration_writing_note": "[Declaration Writing Note]",
+    "declaration_writing_note_description": "· Please enter information separately for each item.\n· If you do not enter the relevant information, the delivery will not be processed.\n· The price information is the total cost of the item.\n· When writing the declaration, enter information about the item.\n· The quantity information is the quantity of the item.\n· The content information cannot be entered as 'product' or 'gift' etc. nameless items.",
+    "content": "Content ({{count}})",
+    "quantity": "Quantity",
+    "price": "Price",
+    "modify": "Modify",
+    "delete": "Delete"
+  },
+
+  "forward_request4": {
+    "title": "Delivery Request Content Check",
+    "product_info": "Product Info",
+    "warehouse_number": "Warehouse Number",
+    "weight": "Weight (g)",
+    "service_info": "Service Info",
+    "delivery_company": "Delivery Company",
+    "processing_method": "Processing Method",
+    "additional_service": "Additional Service",
+    "other_request": "Other Request",
+    "delivery_info": "Delivery Info",
+    "recipient_name": "Recipient Name",
+    "address": "Address",
+    "phone_number": "Phone Number",
+    "declaration_info": "Declaration Info",
+    "content_info": "Content Info",
+    "quantity_info": "Quantity Info",
+    "price_info": "Price Info",
+    "service_cost": "The service cost will be sent to you via email after the delivery request.",
+    "complete": "Delivery request content has been confirmed.",
+    "complete_description": "Delivery request has been completed.",
+    "complete_description2": "The selected product will be shipped out and sent to you via email!\n\n *The delivery status can be checked in SHIPPING>Delivery Request."
+  },
+
+  "disposal_request": {
+    "title": "Disposal & Split Service",
+    "request_product": "Request Product ({{count}})",
+    "package_number": "Package Number",
+    "weight": "Weight (g)",
+    "request_description": "Request Description",
+    "request_description_placeholder": "Please enter a detailed request.",
+    "photo_upload": "Photo Upload",
+    "photo_upload_description": "· 2MB or less, 5 photos can be uploaded.",
+    "disposal": "Disposal",
+    "disposal_description": "· Select the product to be disposed of or partially disposed of in my warehouse. \n· After agreeing to dispose, it will be disposed immediately when requested, and cannot be canceled.",
+    "disposal_request": "Disposal",
+    "disposal_request_description": "· Select the product to be disposed of or partially disposed of in my warehouse. \n· After agreeing to dispose, it will be disposed immediately when requested, and cannot be canceled.",
+    "disposal_request_button": "Request",
+    "disposal_request_completed": "Disposal request has been completed.",
+    "disposal_request_completed_description": "After the update, the product will be deleted in the warehouse status."
+  },
+
+  "photo_service": {
+    "title": "Premium Photo Service",
+    "request_product": "Request Product ({{count}})",
+    "package_number": "Package Number",
+    "weight": "Weight (g)",
+    "request_description": "Request Description",
+    "request_description_placeholder": "Please enter a detailed request.",
+    "photo_service_description": "· Provide the product that has been received by photographing it.\n · After the update, it can be checked in the warehouse status.",
+    "photo_service_button": "Request",
+    "photo_service_completed": "Photo service request has been completed.",
+    "photo_service_completed_description": "After the update, it can be checked in the warehouse status.",
+    "photo_service_description2": "The image of the product that has been received."
+  },
+
+  "forward_request_status": {
+    "title": "Delivery Request Status",
+    "delivery_status": "Delivery Status",
+    "forward_number": "Forward Number",
+    "total_count": "Total ({{count}} / {{weight}}g)",
+    "total_count_description": "{{count}} / {{weight}}g",
+    "weight": "Weight (g)",
+    "review_write": "Review Write",
+    "applicated": "Applied",
+    "forwarded": "Forwarded",
+    "returned": "Returned",
+    "delivery_completed": "Delivery Completed",
+    "request_cancel": "Request Cancel",
+    "delivery_search": "Delivery Search",
+    "request_cancel_request": "Request Cancel Request",
+    "request_cancel_request_description": "The administrator can approve/reject it."
+  },
+
+  "forward_request_status_detail": {
+    "title": "Delivery Request Details",
+    "forward_number": "Forward Number",
+    "delivery_status": "Order Status",
+    "product_info": "Product Info",
+    "total_count": "Total ({{count}} / {{weight}}g)",
+    "total_count_description": "{{count}} / {{weight}}g",
+    "package_number": "Package Number",
+    "tracking_number": "Tracking Number",
+    "weight": "Weight (g)",
+    "order_info": "Order Info",
+    "service_info": "Service Info",
+    "delivery_company": "Delivery Company",
+    "processing_method": "Processing Method",
+    "additional_service": "Additional Service",
+    "other_request": "Other Request",
+    "delivery_info": "Delivery Info",
+    "recipient_name": "Recipient Name",
+    "declaration_info": "Declaration Info",
+    "content_info": "Content Info",
+    "quantity_info": "Quantity Info",
+    "price_info": "Price Info",
+    "payment_before": "Before Payment",
+    "payment_completed": "Payment Completed",
+    "delivery_fee": "Delivery Fee",
+    "processing_fee": "Processing Fee",
+    "discount_rate": "Discount Rate",
+    "compact_packaging": "Compact Packaging",
+    "priority_packaging": "Priority Packaging",
+    "receipt_removal": "Receipt Removal",
+    "payment_completed2": "Payment Completed",
+    "delivery_search": "Delivery Search",
+    "status": "Status",
+    "delivery_detail": "Delivery Detail",
+    "forwarding_detail": "Forwarding Detail",
+    "payment_info": "Payment Info",
+    "final_payment_amount": "Final Payment Amount"
+  },
+
+  "unidentified_package": {
+    "title": "Unidentified Package",
+    "description": "By checking the lost item tracking number, you can find your lost item.",
+    "delivery_company": "Delivery Company",
+    "tracking_number": "Tracking Number",
+    "tracking_number_description": "Please enter the entire tracking number as a number.",
+    "search_result": "Search result for {{tracking_number}} ({{count}})",
+    "my_item_certification": "My Item Certification"
+  },
+
+  "unidentified_package_auth": {
+    "title": "Authenticate",
+    "item_content": "Item Content",
+    "item_content_description": "Please write the detailed information of the item.",
+    "item_certification_image": "Item Certification Image",
+    "item_certification_image_description": "· Purchase receipt, transaction history/real photo etc.",
+    "photo_upload_description": "· 2MB or less, 5 photos can be uploaded.",
+    "my_item_certification": "My Item Certification",
+    "my_item_certification_description": "· Please proceed with the authentication process to find the lost item.",
+    "item_certification_completed": "Item certification request has been completed.",
+    "item_certification_completed_description": "Once completed, it can be checked in the warehouse status."
+  },
+
+  "navigation": {
+    "search": "Search",
+    "shop": "Shop",
+    "home": "Home",
+    "warehouse": "Warehouse Status",
+    "my_page": "My Page"
+  }
+}

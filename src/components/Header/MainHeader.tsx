@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   IconButton,
   Select,
@@ -13,15 +13,33 @@ import LanguageOutlinedIcon from "@mui/icons-material/LanguageOutlined";
 import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
 import { useNavigate } from "react-router-dom";
 import { LoginOutlined } from "@mui/icons-material";
+import { useTranslation } from "react-i18next";
+import { useAuth } from "../../hooks/useAuth";
 
 // 홈 화면 헤더
 const MainHeader = () => {
   const navigate = useNavigate();
+  const { i18n } = useTranslation();
 
   const [isOpen, setIsOpen] = useState(false);
-  const [country, setCountry] = useState<string>("KOREA");
+  const [country, setCountry] = useState<string>("ko");
 
-  const token = localStorage.getItem("ACCESS_TOKEN"); // 로그인 상태 확인 (예시)
+  const { isAuthenticated } = useAuth();
+
+  const countryList = [
+    { value: "ko", label: "한국어 - KO" },
+    {
+      value: "en",
+      label: "English - EN",
+    },
+    {
+      value: "ja",
+      label: "日本語 - JA",
+    },
+    { value: "zh", label: "中文(简体) - ZH" },
+    { value: "zh2", label: "中文(繁體) - ZH" },
+    { value: "es", label: "español - ES" },
+  ];
 
   const menuStyle = {
     display: "flex",
@@ -53,7 +71,15 @@ const MainHeader = () => {
 
   const handleCountryChange = (event: any) => {
     setCountry(event.target.value as string);
+    i18n.changeLanguage(event.target.value as string);
   };
+
+  useEffect(() => {
+    const language = i18n.language;
+    if (language !== "") {
+      setCountry(language);
+    }
+  }, [i18n.language]);
 
   return (
     <Box
@@ -167,44 +193,30 @@ const MainHeader = () => {
                 mb: "16px",
               }}
             >
-              <MenuItem value="KOREA">
-                <Box
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    flexDirection: "row",
-                  }}
-                >
-                  <LanguageOutlinedIcon
-                    style={{
-                      width: "24px",
-                      height: "24px",
+              {countryList.map((item) => (
+                <MenuItem value={item.value}>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      alignItems: "center",
+                      flexDirection: "row",
                     }}
-                  />
-                  <Typography variant="body1" sx={{ ml: 1, color: "#282930" }}>
-                    KOREA
-                  </Typography>
-                </Box>
-              </MenuItem>
-              <MenuItem value="USA">
-                <Box
-                  sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    flexDirection: "row",
-                  }}
-                >
-                  <LanguageOutlinedIcon
-                    style={{
-                      width: "24px",
-                      height: "24px",
-                    }}
-                  />
-                  <Typography variant="body1" sx={{ ml: 1, color: "#282930" }}>
-                    USA
-                  </Typography>
-                </Box>
-              </MenuItem>
+                  >
+                    <LanguageOutlinedIcon
+                      style={{
+                        width: "24px",
+                        height: "24px",
+                      }}
+                    />
+                    <Typography
+                      variant="body1"
+                      sx={{ ml: 1, color: "#282930" }}
+                    >
+                      {item.label}
+                    </Typography>
+                  </Box>
+                </MenuItem>
+              ))}
             </Select>
             <Divider
               sx={{
@@ -372,7 +384,7 @@ const MainHeader = () => {
             />
 
             {/* 로그아웃 버튼 */}
-            {token ? (
+            {isAuthenticated ? (
               <Box
                 sx={{
                   display: "flex",

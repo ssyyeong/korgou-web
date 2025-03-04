@@ -7,8 +7,9 @@ import TextFieldCustom from "../../../../components/TextField";
 import Input from "../../../../components/Input";
 import AccordianBox from "../../../../components/AccordianBox/AccordianBox";
 import OriginButton from "../../../../components/Button/OriginButton";
-
+import { useTranslation } from "react-i18next";
 const Contacts = () => {
+  const { t } = useTranslation();
   const [email, setEmail] = useState("");
   const [subject, setSubject] = useState("");
   const [suiteNumber, setSuitNumber] = useState("");
@@ -54,12 +55,7 @@ const Contacts = () => {
           marginBottom: "24px",
         }}
       >
-        KorGou provides efficient customer service through a support ticket
-        system, allowing you to browse the knowledge base or submit a ticket
-        easily. Each request is assigned a unique ticket number for tracking and
-        updates, and you can reply via email or log in to monitor progress and
-        communicate with our team. Please note that inquiries submitted on
-        weekends will be addressed on the next business day.
+        {t("contact_us.description")}
       </Typography>
       <Typography
         sx={{
@@ -208,7 +204,7 @@ const Contacts = () => {
               gap: "1px",
             }}
           >
-            <Typography sx={textStyle}>Email</Typography>
+            <Typography sx={textStyle}>{t("contact_us.email")}</Typography>
             {essential}
           </Box>
           <TextFieldCustom
@@ -234,7 +230,7 @@ const Contacts = () => {
               gap: "1px",
             }}
           >
-            <Typography sx={textStyle}>Subject</Typography>
+            <Typography sx={textStyle}>{t("contact_us.subject")}</Typography>
             {essential}
           </Box>
           <TextFieldCustom
@@ -255,7 +251,7 @@ const Contacts = () => {
           onChange={(e) => {
             setSubject(e.target.value);
           }}
-          placeholder="에디터 프로그램"
+          placeholder=""
           rows={5}
           sx={{
             "& .MuiInputBase-root": { height: "160px" },
@@ -292,7 +288,7 @@ const Contacts = () => {
               gap: "1px",
             }}
           >
-            <Typography sx={textStyle}>Your Suite Number</Typography>
+            <Typography sx={textStyle}>{t("contact_us.number")}</Typography>
           </Box>
           <TextFieldCustom
             fullWidth
@@ -318,7 +314,7 @@ const Contacts = () => {
             gap: "1px",
           }}
         >
-          <Typography sx={textStyle}>Category</Typography>
+          <Typography sx={textStyle}>{t("contact_us.category")}</Typography>
           {essential}
         </Box>
         <Input
@@ -352,7 +348,7 @@ const Contacts = () => {
               type="checkbox"
               value={true}
               setValue={() => {}}
-              label={"약관 전체 동의"}
+              label={t("terms.all")}
               style={{ fontSize: "16px" }}
             />
           }
@@ -364,7 +360,7 @@ const Contacts = () => {
           onClick={() => {}}
           contents={
             <Typography fontSize={16} fontWeight={700} color="#ffffff">
-              주문 요청
+              {t("common.button.order_request")}
             </Typography>
           }
           style={{ width: "328px" }}

@@ -8,10 +8,10 @@ import { useEffect } from "react";
 import ControllerAbstractBase from "../../../../controller/Controller";
 import Notice from "./list";
 import dayjs from "dayjs";
-
+import { useTranslation } from "react-i18next";
 const NoticeList = () => {
   const navigate = useNavigate();
-
+  const { t } = useTranslation();
   const [noticeList, setNoticeList] = React.useState([]);
 
   useEffect(() => {
@@ -33,7 +33,7 @@ const NoticeList = () => {
         flexDirection: "column",
       }}
     >
-      <Header title="공지 사항" />
+      <Header title={t("support.notice")} />
       <Typography
         sx={{
           fontSize: "12px",
@@ -41,7 +41,7 @@ const NoticeList = () => {
           my: "11px",
         }}
       >
-        {noticeList.length}개
+        {t("common.field.count.count", { count: noticeList.length })}
       </Typography>
       <Divider
         sx={{

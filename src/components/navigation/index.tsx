@@ -15,14 +15,16 @@ import { ReactComponent as HomeIcon } from "../../home.svg";
 import { ReactComponent as StorageIcon } from "../../storage.svg";
 import { ReactComponent as PeopleIcon } from "../../people.svg";
 
+import { useTranslation } from "react-i18next";
+
 const BottomNavBar = () => {
   const [value, setValue] = useState(2);
   const navigate = useNavigate();
   const location = useLocation(); // 현재 경로를 가져옴
+  const { t } = useTranslation();
 
   useEffect(() => {
     // 현재 경로에 따라 선택된 메뉴 변경
-    console.log(location.pathname.split("/")[1]);
     switch (location.pathname.split("/")[1]) {
       case "search":
         setValue(0);
@@ -98,7 +100,7 @@ const BottomNavBar = () => {
           }}
         >
           <BottomNavigationAction
-            label="검색"
+            label={t("navigation.search")}
             icon={
               <SearchIcon
                 style={{ fill: value === 0 ? "#282930" : "#B1B2B6" }}
@@ -114,7 +116,7 @@ const BottomNavBar = () => {
             }}
           />
           <BottomNavigationAction
-            label="shop"
+            label={t("navigation.shop")}
             icon={
               <ShopIcon style={{ fill: value === 1 ? "#282930" : "#B1B2B6" }} />
             }
@@ -128,7 +130,7 @@ const BottomNavBar = () => {
             }}
           />
           <BottomNavigationAction
-            label="Home"
+            label={t("navigation.home")}
             icon={
               <HomeIcon style={{ fill: value === 2 ? "#282930" : "#B1B2B6" }} />
             }
@@ -142,7 +144,7 @@ const BottomNavBar = () => {
             }}
           />
           <BottomNavigationAction
-            label="창고현황"
+            label={t("navigation.warehouse")}
             icon={
               <StorageIcon
                 style={{ fill: value === 3 ? "#282930" : "#B1B2B6" }}
@@ -158,7 +160,7 @@ const BottomNavBar = () => {
             }}
           />
           <BottomNavigationAction
-            label="마이"
+            label={t("navigation.my_page")}
             icon={
               <PeopleIcon
                 style={{ fill: value === 4 ? "#282930" : "#B1B2B6" }}

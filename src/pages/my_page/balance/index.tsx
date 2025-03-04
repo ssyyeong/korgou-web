@@ -10,12 +10,14 @@ import Header from "../../../components/Header/Header";
 import OriginButton from "../../../components/Button/OriginButton";
 import FilteringDate from "../../../components/FilteringDate";
 import History from "../../../components/List/History";
+import { useTranslation } from "react-i18next";
 
 const Balance = () => {
+  const { t } = useTranslation();
   const filterings = [
-    { value: "today", label: "오늘" },
-    { value: "7days", label: "최근 7일" },
-    { value: "1month", label: "최근 1개월" },
+    { value: "today", label: t("common.period.today") },
+    { value: "7days", label: t("common.period.recent.week") },
+    { value: "1month", label: t("common.period.recent.month") },
   ];
 
   const { memberBalance, memberCode } = useAppMember();
@@ -66,7 +68,7 @@ const Balance = () => {
         backgroundColor: "white",
       }}
     >
-      <Header title="발란스" />
+      <Header title={t("my_page.balance")} />
 
       {/* Section Title */}
       <Typography
@@ -75,7 +77,7 @@ const Balance = () => {
           mb: "4px",
         }}
       >
-        보유 금액
+        {t("balance.amount")}
       </Typography>
       <Box
         sx={{
@@ -98,7 +100,7 @@ const Balance = () => {
           onClick={() => {}}
           contents={
             <Typography fontSize={14} color="#ffffff">
-              충전
+              {t("common.button.charge")}
             </Typography>
           }
           style={{
@@ -136,10 +138,10 @@ const Balance = () => {
           mt: "16px",
         }}
       >
-        포인트 내역
+        {t("balance.balance_history")}
       </Typography>
-      {balanceList.map((point, index) => (
-        <History key={index} item={point} />
+      {balanceList.map((balance, index) => (
+        <History key={index} item={balance} />
       ))}
     </Box>
   );

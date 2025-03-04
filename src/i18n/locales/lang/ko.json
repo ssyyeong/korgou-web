@@ -1,0 +1,784 @@
+{
+  "common": {
+    "button": {
+      "confirm": "확인",
+      "cancel": "취소",
+      "save": "저장",
+      "modify": "수정",
+      "delete": "삭제",
+      "close": "닫기",
+      "list": "목록",
+      "previous": "이전",
+      "search": "조회",
+      "add": "+ 추가",
+      "submit": "제출",
+      "resend": "재전송",
+      "re_enter": "이메일 재입력 하기",
+      "order_request": "주문 요청",
+      "charge": "충전",
+      "add_address": "+ 배송지 추가",
+      "next_step": "다음",
+      "previous_step": "이전 단계로",
+      "order": "주문하기"
+    },
+
+    "field": {
+      "email": {
+        "label": "이메일",
+        "placeholder": "이메일을 입력해주세요",
+        "verification": {
+          "title": "이메일 인증",
+          "message": "아래 이메일로 인증번호가 발송되었습니다",
+          "code": {
+            "label": "인증번호",
+            "placeholder": "인증번호를 입력해주세요"
+          },
+          "success": "이메일 인증이 완료되었습니다"
+        }
+      },
+      "password": {
+        "label": "비밀번호",
+        "placeholder": "비밀번호를 입력해주세요.(8자리 이상)",
+        "confirm": {
+          "label": "비밀번호 확인",
+          "placeholder": "비밀번호를 한번 더 입력해 주세요"
+        },
+        "error": "비밀번호가 일치하지 않습니다.",
+        "change": {
+          "title": "비밀번호 변경",
+          "new_placeholder": "새 비밀번호를 입력해주세요.(8자리 이상)",
+          "success": "비밀번호 변경이 완료되었습니다!"
+        }
+      },
+      "name": {
+        "label": "이름",
+        "placeholder": "이름을 입력해주세요",
+        "first": "성(영문)",
+        "last": "이름(영문)"
+      },
+      "country": {
+        "label": "국가",
+        "placeholder": "국가를 선택해 주세요."
+      },
+      "address": {
+        "label": "주소",
+        "detail": "상세주소",
+        "postal_code": "우편번호",
+        "province": "주(Province)",
+        "city": "도시(City)",
+        "placeholder": "주소를 입력해주세요"
+      },
+      "phone": {
+        "label": "전화번호",
+        "placeholder": "-제외 입력"
+      },
+      "recommender_code": {
+        "label": "추천인 코드",
+        "placeholder": "추천인 코드를 입력해주세요"
+      },
+      "seller_name": {
+        "label": "브랜드 셀러명",
+        "placeholder": "브랜드샐러명을 입력해 주세요."
+      },
+      "product_method": {
+        "label": "판매 방식",
+        "placeholder": "판매 방식을 선택해 주세요."
+      },
+      "product_type": {
+        "label": "상품 종류",
+        "placeholder": "상품 종류를 선택해 주세요."
+      },
+      "url": {
+        "label": "자사몰 URL",
+        "placeholder": "자사몰 주소를 입력해주세요."
+      },
+      "channel": {
+        "label": "대표 외부 판매 채널(자사몰 제외)",
+        "placeholder": "대표 외부 판매 채널을 선택해 주세요."
+      },
+      "introduce_file": {
+        "label": "회사/상품 소개서",
+        "placeholder": "회사/상품 소개서를 업로드해 주세요."
+      },
+      "business_registration_file": {
+        "label": "사업자 등록증",
+        "placeholder": "사업자 등록증을 업로드해 주세요."
+      },
+      "count": {
+        "label": "수량",
+        "unit": "개",
+        "count": "{{count}}개"
+      },
+      "weight": {
+        "label": "무게",
+        "unit": "g"
+      }
+    },
+
+    "period": {
+      "today": "오늘",
+      "recent": {
+        "week": "최근 7일",
+        "month": "최근 1개월",
+        "two_month": "최근 2개월",
+        "three_month": "최근 3개월",
+        "six_month": "최근 6개월"
+      }
+    },
+
+    "upload": {
+      "photo": {
+        "title": "사진 업로드",
+        "description": "· 이미지는 2MB이하 5장까지 업로드 가능합니다."
+      },
+      "file": {
+        "add": "파일추가"
+      }
+    }
+  },
+
+  "status": {
+    "process": {
+      "waiting": "대기중",
+      "completed": "완료",
+      "canceled": "취소됨",
+      "processing": "처리중"
+    },
+    "payment": {
+      "before": "결제 전",
+      "completed": "결제 완료",
+      "failed": "결제 실패"
+    },
+    "delivery": {
+      "waiting": "배송 대기",
+      "in_transit": "배송중",
+      "completed": "배송완료",
+      "forwarded": "발송",
+      "returned": "반송"
+    }
+  },
+
+  "form": {
+    "placeholders": {
+      "email": "이메일을 입력해주세요.",
+      "password": "비밀번호를 입력해주세요.(8자리 이상)",
+      "confirm_password": "비밀번호를 한번 더 입력해 주세요.",
+      "country": "국가를 선택해 주세요.",
+      "name": "이름을 입력해주세요.",
+      "request": "요청사항을 입력하세요."
+    }
+  },
+
+  "delivery": {
+    "type": {
+      "overseas": "해외배송",
+      "domestic": "국내배송",
+      "warehouse": "창고배송"
+    },
+    "service": {
+      "compact": {
+        "label": "컴팩트포장",
+        "description": "최소 크기로 포장"
+      },
+      "priority": {
+        "label": "우선포장",
+        "description": "48시간 이내 처리"
+      },
+      "receipt": {
+        "label": "영수증제거",
+        "description": "배송 전 영수증 제거"
+      }
+    },
+    "tracking": {
+      "label": "운송장번호",
+      "placeholder": "운송장번호를 입력해주세요"
+    }
+  },
+
+  "payment": {
+    "method": {
+      "balance": {
+        "label": "발란스",
+        "description": "계정 잔액으로 결제"
+      },
+      "point": {
+        "label": "포인트",
+        "description": "보유 포인트로 결제"
+      }
+    },
+    "amount": {
+      "total": "총 결제 금액",
+      "discount": "할인 금액",
+      "shipping": "배송비",
+      "processing": "처리 수수료",
+      "purchase": "구매 수수료"
+    }
+  },
+
+  "terms": {
+    "privacy": "개인정보 수집 및 이용 동의",
+    "service_terms": "서비스 이용약관 동의",
+    "marketing": "마케팅 정보 활용에 동의",
+    "all": "약관 전체 동의",
+    "required": "필수",
+    "optional": "선택"
+  },
+
+  "auth": {
+    "login": {
+      "title": "로그인",
+      "keep_signed": "로그인 유지",
+      "forgot_password_link": "비밀번호를 잊으셨나요?",
+      "types": {
+        "social": "소셜 로그인",
+        "individual": "개인 로그인",
+        "company": "기업 로그인"
+      },
+      "forgot_password": {
+        "title": "KORGOU 기존고객 로그인 인증",
+        "description": "기존 서비스에 가입하신 이메일로 \n 임시 비밀번호를 전송해드릴게요. \n 로그인 및 비밀번호 변경 후 계정 사용이 가능하십니다!",
+        "button": "임시 비밀번호 발급받기"
+      }
+    },
+    "signup": {
+      "title": "회원가입",
+      "individual": "개인 회원가입",
+      "company": "기업 회원가입",
+      "success": {
+        "title": "환영합니다",
+        "message": "가입이 완료되었습니다",
+        "start": "KORGOU 시작하기"
+      }
+    },
+    "change_password": {
+      "title": "비밀번호 변경",
+      "new_password_placeholder": "새 비밀번호를 입력해주세요.(8자리 이상)",
+      "confirm_password_placeholder": "비밀번호를 확인해주세요.",
+      "change_password": "변경하기",
+      "password_changed": "비밀번호 변경이 완료되었습니다!"
+    },
+    "email_verification": {
+      "email_verification_message": "아래 이메일로 인증번호가 발송되었습니다.",
+      "verification_code_placeholder": "인증번호",
+      "email_verification_completed": "메일 인증 완료",
+      "email_verification_completed_message": "이메일 인증이 완료되었습니다."
+    },
+    "forgot_password": {
+      "title": "비밀번호 찾기",
+      "email_label": "이메일",
+      "email_verification": "이메일 인증하기",
+      "email_verification_message": "*이메일 입력/본인인증 완료 시 비밀번호를 재설정 할 수 있습니다.",
+      "change_password": "비밀번호 변경",
+      "password_changed": "비밀번호 변경이 완료되었습니다!",
+      "login_now": "로그인 하기"
+    }
+  },
+
+  "main": {
+    "title": "How Korgou Perfects Your Korean Shopping",
+    "free_korean_address": "무료 한국 주소",
+    "package_forward": "패키지 전달",
+    "assisted_purchase": "구매대행",
+    "value_added_services": "부가서비스",
+    "step_by_step_essentials": "단계별 필수 정보",
+    "step_by_step_essentials_description": "안전하고 편안한 배송방법! <br/> KorGou가 알려드립니다!",
+    "package_forward_guide": "패키지 포워드 튜토리얼",
+    "assisted_purchase_guide": "구매대행 튜토리얼",
+    "our_advantages": "KORGOU의 장점",
+    "our_advantages_description": "KORGOU의 서비스를 경험해 보세요.",
+    "advantage_1": "전문적이고 헌신적인 전달 및 구매 지원 서비스",
+    "advantage_2": "안전하고 편리한 결제",
+    "advantage_3": "180일 동안 무료 패키지 보관 서비스",
+    "advantage_4": "구매부터 해외배송까지 원스톱 서비스",
+    "advantage_5": "총 쇼핑 비용을 줄여주는 부가 가치 서비스",
+    "advantage_6": "다양한 유형의 배송 방법",
+    "use_of_the_service": "KORGOU 서비스 이용 방법",
+    "service_1": "구매대행",
+    "service_2": "가입 국가",
+    "service_3": "배송 국가",
+    "service_4": "패키지 전달",
+    "official": "KorGou Official",
+    "official_description": "당사의 소셜 미디어 채널을 팔로우하여 다양한 K-Entertainment를 즐기고 당사의 서비스에 대해 자세히 알아보세요!"
+  },
+
+  "buying_it": {
+    "title": "Buying it",
+    "shopping_auth": "쇼핑몰 계정여부",
+    "shopping_account": "쇼핑몰 계정",
+    "shopping_placeholder1": "쇼핑몰 url",
+    "shopping_placeholder2": "쇼핑몰 ID",
+    "shopping_placeholder3": "쇼핑몰 PASS",
+    "shopping_description": "*쇼핑몰 접속> 장바구니에 추가된 상품을 구매합니다.",
+    "product_list": "주문상품 목록",
+    "product": "상품 {{count}}",
+    "product_placeholder1": "주문상품 URL을 입력하세요.",
+    "product_placeholder2": "주문 옵션(최종 옵션값)을 입력하세요.",
+    "product_placeholder3": "주문 수량을 입력하세요.",
+    "product_placeholder4": "최종 상품 금액을 입력하세요.",
+    "product_placeholder5": "요청사항을 입력하세요.",
+    "address": "배송지 설정",
+    "address_type": "창고배송",
+    "address_type_description": "창고 보유상품과 합포장",
+    "address_detail": "경기도 성남시 중원구 순환로 79 3층",
+    "address_request": "배송 요청사항",
+    "address_request_placeholder": "배송 시 요청사항을 입력하세요.",
+    "proceee": "품절 시 진행방식",
+    "proceee_description": "*요청 상품 중 품절된 상품이 발생했을때, 결제 처리 방법",
+    "proceee_option1": "품절 상품을 건너뛰고 나머지 상품들만 결제 진행",
+    "proceee_option2": "주문서 처리를 중지",
+    "order_list": "주문 목록"
+  },
+
+  "contact_us": {
+    "title": "Contact Us",
+    "email": "이메일",
+    "subject": "제목",
+    "number": "번호",
+    "category": "카테고리",
+    "description": "KorGou는 지원 티켓 시스템을 통해 효율적인 고객 서비스를 제공하므로 지식 기반을 탐색하거나 티켓을 쉽게 제출할 수 있습니다. 각 요청에는 추적 및 업데이트를 위한 고유한 티켓 번호가 할당되며, 이메일을 통해 회신하거나 로그인하여 진행 상황을 모니터링하고 당사 팀과 소통할 수 있습니다. 주말에 접수된 문의사항은 다음 영업일에 처리되오니 참고하시기 바랍니다."
+  },
+
+  "support": {
+    "title": "고객 센터",
+    "notice": "공지사항",
+    "notice_previous": "이전글"
+  },
+
+  "calculator": {
+    "shipping_fee_calculator": "배송비 계산기",
+    "ship_to": "배송지",
+    "country_select": "국가 선택",
+    "courier": "택배사",
+    "package_weight": "패키지 무게(g)",
+    "package_dimension": "패키지 크기(cm)",
+    "calculate_description": "실제 진행중인 견적과 차이가 있을 수 있습니다.",
+    "vies_shipping_rates": "배송비 조회"
+  },
+
+  "my_page": {
+    "level_up": "등급까지",
+    "balance": "발란스",
+    "coupon": "쿠폰",
+    "point": "포인트",
+    "warehouse_status": "창고 현황",
+    "delivery_status": "배송신청 현황",
+    "purchase_status": "구매 현황",
+    "notice": "공지사항",
+    "delivery_address": "배송지 관리",
+    "unidentified_package": "미확인 패키지",
+    "review": "리뷰 관리",
+    "inquiry": "문의 관리",
+    "app_setting": "앱 설정",
+    "alarm": "알림"
+  },
+
+  "point": {
+    "title": "포인트",
+    "amount": "보유 금액",
+    "point_history": "포인트 내역",
+    "check": "조회"
+  },
+
+  "balance": {
+    "title": "발란스",
+    "amount": "보유 금액",
+    "balance_history": "발란스 내역",
+    "check": "조회",
+    "charge_point": "충전포인트",
+    "balance_point": "보유 발란스",
+    "payment_method": "결제 수단",
+    "deposit_bank": "입금 은행",
+    "deposit_name": "입금자명",
+    "payment_info": "결제 정보",
+    "charge_amount": "충전 결제 금액"
+  },
+
+  "purchase_status": {
+    "title": "구매 현황",
+    "purchase_status": "구매 상태",
+    "all": "전체",
+    "confirmation_pending": "확인 대기중",
+    "confirmed_payment_pending": "확인완료 및 결제 대기중",
+    "paid": "결제 완료",
+    "completed": "구매완료",
+    "warehouse_alert": "입고 알림 신청",
+    "warehouse_alert_title": "입고 알림 신청이 완료되었습니다",
+    "warehouse_alert_description": "주문 제품이 창고에 입고되면  메일로 전달드립니다! \n \n주문 제품이 창고에 입고 후 배송지 설정 및 배송요청이 가능합니다."
+  },
+
+  "purchase_detail": {
+    "title": "구매내역 상세",
+    "order_number": "주문번호",
+    "order_status": "주문상태",
+    "order_status_description1": "주문 요청사항을 확인 중 입니다.",
+    "order_status_description2": "주문 요청 상품이 확인되어 구매 대기 상태입니다.",
+    "order_status_description3": "주문 요청 상품이 확인되어, 구매 가능한 상태입니다. \n결제를 진행 해 주세요!",
+    "product_info": "상품 정보",
+    "order_info": "주문 정보",
+    "address_type": "배송타입",
+    "address_type_description": "창고배송",
+    "warehouse_number": "창고 번호",
+    "order_request": "주문 요청사항",
+    "order_image": "주문 이미지",
+    "payment_info": "결제 정보",
+    "product_quantity": "상품수량",
+    "product_price": "상품금액",
+    "purchase_fee": "구매 수수료",
+    "discount_amount": "할인 금액",
+    "total_price": "총 결제 금액",
+    "order_cancel_request": "주문취소 신청",
+    "payment_button": "결제하기",
+    "payment_request": "결제 요청",
+    "payment_progress": "결제 진행",
+    "payment_method": "결제 수단",
+    "point": "포인트",
+    "point_discount": "포인트 선할인",
+    "use": "사용",
+    "point_discount_amount": "선할인 가능 금액",
+    "point_earn": "적립",
+    "point_balance": "보유 포인트",
+    "list": "목록",
+    "order_cancel_request_title": "주문 취소신청을 진행하시겠습니까?",
+    "order_cancel_request_description": "주문 취소신청을 진행하시겠습니까?",
+    "order_cancel_request_button": "주문 취소하기",
+    "order_cancel_request_description2": "담당자 확인 후, 요청내역이 삭제되며, 주문이 진행되지 않습니다.",
+    "close_button": "닫기",
+    "order_cancel_request_success_title": "주문 취소신청이 완료되었습니다.",
+    "order_cancel_request_success_description": "주문취소 불가 시 개별 연락이 갈 수 있습니다."
+  },
+
+  "cart": {
+    "title": "장바구니",
+    "cart_empty": "장바구니에 담긴 상품이 없습니다.",
+    "cart_empty_button": "추천 상품 보러가기",
+    "select_all": "전체 선택",
+    "delete_selected_items": "선택 상품 삭제",
+    "request_description": "주문과 관련된 요청사항을 적어주세요.(선택)",
+    "selected_item_price": "선택 상품금액",
+    "domestic_shipping_fee": "국내 배송비",
+    "total_price": "합계",
+    "selected_item_count": "선택 상품 수",
+    "total_selected_item_price": "총 선택 상품금액",
+    "total_domestic_shipping_fee": "총 국내 배송비",
+    "purchase_fee": "구매대행 수수료",
+    "cart_total_price": "장바구니 합계",
+    "total": "총 {{count}}개"
+  },
+
+  "delivery_address": {
+    "title": "배송지 관리",
+    "default_delivery_address": "기본 배송지",
+    "add_delivery_address": "배송지 추가",
+    "modify_delivery_address": "배송지 수정",
+    "delivery_type": "배송 유형",
+    "address_info": "주소 정보",
+    "first_name": "성(영문)",
+    "last_name": "이름(영문)",
+    "phone_number": "-제외 입력",
+    "address": "주소",
+    "address_detail": "상세주소",
+    "province": "주(Province)",
+    "city": "도시(City)",
+    "postal_code": "우편번호",
+    "etc": "기타"
+  },
+
+  "profile_setting": {
+    "title": "프로필 설정",
+    "password_change": "비밀번호 변경",
+    "member_type": "회원 유형",
+    "buyer": "구매자",
+    "seller": "판매자",
+    "birthday": "생일",
+    "withdraw": "탈퇴하기"
+  },
+
+  "app_setting": {
+    "title": "앱 설정",
+    "simple_login": "간편 로그인 연동",
+    "simple_login_button": "연동하기",
+    "alarm_setting": "알림 설정",
+    "push_alarm": "푸시 알림",
+    "push_alarm_description": "푸시 알림을 off로 변경 시 혜택 알림을 받아볼 수 없습니다. off로 변경하시겠습니까?",
+    "yes": "네",
+    "cancel": "취소",
+    "alarm_talk": "알림톡",
+    "version_info": "버전 정보",
+    "version": "버전"
+  },
+
+  "inquiry": {
+    "title": "문의관리",
+    "answer_completed": "답변 완료",
+    "answer_waiting": "답변 대기",
+    "inquiry_write": "문의 작성"
+  },
+
+  "inquiry_create": {
+    "title": "문의작성",
+    "inquiry_type": "문의 유형 선택",
+    "inquiry_title": "제목(최대 50자)",
+    "inquiry_content": "문의 내용",
+    "inquiry_content_placeholder": "문의 내용을 입력해 주세요.",
+    "save": "저장하기"
+  },
+
+  "review": {
+    "title": "리뷰관리",
+    "review_write": "리뷰 작성",
+    "my_review": "나의 리뷰",
+    "modify": "수정"
+  },
+
+  "review_create": {
+    "title": "리뷰작성",
+    "star_rating": "별점을 선택해주세요!",
+    "satisfaction_level": "만족도",
+    "photo_upload": "포토 업로드",
+    "photo_upload_description": "· 이미지는 1MB이하 5장까지 업로드 가능합니다.\n· 상품과 관련 없거나 부적합한 사진을 리뷰에 등록하시는 경우, 사전경고 없이 포인트 회수와 사진이 삭제될 수 있습니다.",
+    "review_content": "리뷰 작성",
+    "review_content_placeholder": "KORGOU를 이용한 후기를 자세하게 알려주세요.",
+    "review_policy": "리뷰 정책",
+    "review_policy_description": "· 리뷰 등급별 차등지급 조건(최대) \n · ex)브론즈 50원 / 실버 100원 / 골드 150원 / 다이아몬드 200원\n \n · 조건 :\n   -브론즈 기준 한줄평 작성시 포인트 20원 \n+ 사진 or 영상과 작성시 추가최대30원 · 상품 출고 전 리뷰/한줄평을 작성하신 경우 포인트가 지급되지 않습니다\n \n· 동일한 상품을 2회 이상 구입 후(옵션 포함) 리뷰/한줄평을 여러 번 작성하셔도 포인트는 한 번만 지급됩니다.\n · 리뷰/한줄평에 적합하지 않은 내용은 승인불가되어 포인트가 지급되지 않습니다. (작성일로부터 3개월 이내 승인불가된 경우 지급된 포인트 환수)"
+  },
+
+  "store": {
+    "title": "창고 현황",
+    "arrival_completed": "도착완료 물건",
+    "one_month": "1개월",
+    "three_month": "3개월",
+    "six_month": "6개월",
+    "search": "조회",
+    "item_status": "물건 상태",
+    "all": "전체",
+    "awaiting_user_process": "Awaiting User Process",
+    "return_exchange_application": "Return/Exchange application",
+    "return_exchange_done": "Return/Exchange Done",
+    "return_failed": "Return/Failed",
+    "foward_done": "Foward Done",
+    "select_all": "전체 선택 [{{count}}]",
+    "weight": "무게(g)",
+    "photo_service": "포토 서비스",
+    "disposal": "디스포절",
+    "return_request": "반품요청",
+    "delivery_request": "배송 요청",
+    "disposal_alert": "디스포절 서비스를 이용시, 포토서비스 신청 후 이용 가능합니다."
+  },
+
+  "forward_request1": {
+    "alert": "선택하신 상품을 배송요청 하시겠습니까?",
+    "request_product": "요청 상품({{count}})",
+    "warehouse_number": "입고번호",
+    "tracking_number": "운송장번호",
+    "weight": "무게",
+    "request_button": "배송 요청하기({{count}}개 / {{weight}}g)",
+    "title": "배송 요청[주소 선택]",
+    "delivery_info": "배송지 정보",
+    "delivery_select": "배송지 선택",
+    "direct_input": "직접 입력",
+    "overseas_delivery": "해외 배송",
+    "domestic_delivery": "국내 배송",
+    "name": "성+이름(영문)",
+    "address": "주소",
+    "address_detail": "상세주소",
+    "province": "주(Province)",
+    "city": "도시(City)",
+    "postal_code": "우편번호",
+    "phone_number": "-제외 입력",
+    "company_name": "회사명(선택입력)",
+    "account_no": "account no 또는 tax/cpf",
+    "address_description": "* 등록한 배송지로 배송을 신청합니다.",
+    "delivery_company": "배송사",
+    "delivery_company_description": "배송사별 주의사항",
+    "recommended_delivery_company": "추천 배송사",
+    "delivery_select_description": "배송지 선택",
+    "new_delivery_address": "새로운 배송지를 등록합니다",
+    "no_delivery_address": "등록된 배송지가 없습니다.",
+    "delivery_method": "배송 수단",
+    "delivery_method_description": "* 현재 선택하신 배송 수단은 기본 설정으로 적용되며, 배송 신청 시 변경 가능합니다."
+  },
+
+  "forward_request2": {
+    "title": "배송 요청[서비스 선택]",
+    "total_count": "총 계(상품/무게)",
+    "total_count_description": "{{count}} 개/{{weight}}g",
+    "delivery_company": "배송사",
+    "delivery_company_description": "배송사 선택",
+    "delivery_company_description2": "1BOX당 30kg 무게제한 및 부피무게 제한이 있습니다.",
+    "processing_method": "처리 방법",
+    "processing_method1": "일반",
+    "processing_method2": "우선 처리",
+    "processing_description": "· 일반적으로 포장은 신청일로부터 주말/공휴일을 제외한 약 1~7일 소요 되며, Priority로 신청하면 주말/공휴일 제외하고 신청일로부터 48시간 이내에 포장이 완료 됩니다.\n · 우선처리 수수료 - kg당 6,000원 \n·일반처리 수수료 - kg당 3,000원",
+    "additional_service": "부가 서비스",
+    "delivery_insurance": "배송 보험",
+    "other_request": "기타 요청 사항",
+    "other_request_description": "기타 요청사항은 KORGOU판단 아래에 처리 됩니다.",
+    "cancel": "취소",
+    "next": "다음"
+  },
+
+  "forward_request3": {
+    "title": "배송 요청[신고서 작성]",
+    "content_info": "내용물 정보",
+    "content_info_placeholder": "1자 이상 15자 이하 입력",
+    "content_info_description": "물품에 대한 정보를 입력합니다.",
+    "quantity_info": "수량 정보",
+    "quantity_info_placeholder": "수량 입력 (ex. 1,2,3)",
+    "quantity_info_description": "물품에 대한 수량을 입력합니다.",
+    "price_info": "금액 정보",
+    "price_info_placeholder": "0원 입력 불가 (ex. USD 150 )",
+    "price_info_description": "물품에 대한 총 비용을 입력합니다.",
+    "save": "저장",
+    "declaration_writing_note": "[신고서 작성 유의사항]",
+    "declaration_writing_note_description": "· 상품 당 내용물에 대한 정보를 별도로 입력해주세요.\n· 관련 정보를 입력하지 않으면 배송이 처리되지 않습니다.\n· 금액 정보는 물품에 대한 총 비용을 입력합니다.\n· 신고서 작성 시 물품에 대한 정보를 입력합니다.\n· 수량 정보는 물품에 대한 수량을 입력합니다.\n· 내용물 정보는 '상품' 또는 '선물'과 같은 이름 모를 항목으로 입력할 수 없습니다.\n",
+    "content": "내용물({{count}})",
+    "quantity": "수량 정보",
+    "price": "금액 정보",
+    "modify": "수정",
+    "delete": "삭제"
+  },
+
+  "forward_request4": {
+    "title": "배송 요청 내용 확인",
+    "product_info": "상품 정보",
+    "warehouse_number": "입고번호",
+    "weight": "무게(g)",
+    "service_info": "서비스 정보",
+    "delivery_company": "배송사",
+    "processing_method": "처리 방법",
+    "additional_service": "부가 서비스",
+    "other_request": "기타 요청사항",
+    "delivery_info": "배송지 정보",
+    "recipient_name": "수취인명",
+    "address": "주소",
+    "phone_number": "전화번호",
+    "declaration_info": "신고서 정보",
+    "content_info": "내용물 정보",
+    "quantity_info": "수량 정보",
+    "price_info": "금액 정보",
+    "service_cost": "서비스 비용은 배송요청 이후 메일로 발송됩니다.",
+    "complete": "배송요청 내용을 확인하였습니다.",
+    "complete_description": "배송요청이 완료되었습니다",
+    "complete_description2": "선택 제품 배송 출고시  메일로 전달드립니다!\n\n *배송현황은 SHIPPING>배송신청 에서 확인 하실 수 있습니다."
+  },
+
+  "disposal_request": {
+    "title": "디스포절&스플릿 서비스",
+    "request_product": "요청 상품{{count}}",
+    "package_number": "패키지번호",
+    "weight": "무게(g)",
+    "request_description": "요청 사항",
+    "request_description_placeholder": "상세 요청사항을 작성해주세요.",
+    "photo_upload": "포토 업로드",
+    "photo_upload_description": "· 이미지는 2MB이하 5장까지 업로드 가능합니다.",
+    "disposal": "디스포절",
+    "disposal_description": "· 선택 상품을 나의 창고에서 폐기 또는 부분폐기 합니다. \n· 폐기 동의 후 요청시 즉시 폐기처리 되며, 취소는 불가합니다.",
+    "disposal_request": "디스포절",
+    "disposal_request_description": "· 선택 상품을 나의 창고에서 폐기 또는 부분폐기 합니다. \n· 폐기 동의 후 요청시 즉시 폐기처리 되며, 취소는 불가합니다.",
+    "disposal_request_button": "요청하기",
+    "disposal_request_completed": "디스포절 신청이 완료되었습니다.",
+    "disposal_request_completed_description": "업데이트 이후  창고현황 에서 상품이 삭제됩니다."
+  },
+
+  "photo_service": {
+    "title": "프리미엄포토 서비스",
+    "request_product": "요청 상품{{count}}",
+    "package_number": "패키지번호",
+    "weight": "무게(g)",
+    "request_description": "요청 사항",
+    "request_description_placeholder": "상세 요청사항을 작성해주세요.",
+    "photo_service_description": "· 입고 되어있는 상품을 실제 촬영하여 제공합니다.\n ·업데이트 이후 창고현황 에서 확인 가능합니다. ",
+    "photo_service_button": "요청하기",
+    "photo_service_completed": "포토 서비스 신청이 완료되었습니다.",
+    "photo_service_completed_description": "업데이트 이후 창고현황 에서 확인 가능합니다.",
+    "photo_service_description2": "입고된 상품을 실제 촬영한 이미지 입니다."
+  },
+
+  "forward_request_status": {
+    "title": "배송 신청 현황",
+    "delivery_status": "배송상태",
+    "forward_number": "포워드 번호",
+    "total_count": "총 계(상품/무게)",
+    "total_count_description": "{{count}}개/{{weight}}g",
+    "weight": "무게(g)",
+    "review_write": "리뷰 작성",
+    "applicated": "신청완료",
+    "forwarded": "발송",
+    "returned": "반송",
+    "delivery_completed": "배송완료",
+    "request_cancel": "신청취소",
+    "delivery_search": "배송조회",
+    "request_cancel_request": "신청취소요청",
+    "request_cancel_request_description": "관리자가 승인/거부 할 수 있습니다."
+  },
+
+  "forward_request_status_detail": {
+    "title": "배송 신청 상세",
+    "forward_number": "포워드 번호",
+    "delivery_status": "주문상태",
+    "product_info": "상품 정보",
+    "total_count": "총 계(상품/무게)",
+    "total_count_description": "{{count}} 개 / {{weight}}g",
+    "package_number": "패키지 번호",
+    "tracking_number": "운송장번호",
+    "weight": "무게(g)",
+    "order_info": "주문자 정보",
+    "service_info": "서비스 정보",
+    "delivery_company": "배송사",
+    "processing_method": "처리 방법",
+    "additional_service": "부가 서비스",
+    "other_request": "기타 요청사항",
+    "delivery_info": "배송지 정보",
+    "recipient_name": "수취인명",
+    "declaration_info": "신고서 정보",
+    "content_info": "내용물 정보",
+    "quantity_info": "수량 정보",
+    "price_info": "금액 정보",
+    "payment_before": "결제 전",
+    "payment_completed": "결제 완료",
+    "delivery_fee": "배송비",
+    "processing_fee": "프로세싱비",
+    "discount_rate": "할인률",
+    "compact_packaging": "컴팩트포장",
+    "priority_packaging": "우선포장",
+    "receipt_removal": "영수증제거",
+    "payment_completed2": "지불완료",
+    "delivery_search": "배송조회",
+    "status": "상태",
+    "delivery_detail": "배송 상세",
+    "forwarding_detail": "포워딩 세부",
+    "payment_info": "결제 정보",
+    "final_payment_amount": "최종 결제 금액"
+  },
+
+  "unidentified_package": {
+    "title": "미확인 패키지",
+    "description": "분실 물건 운송장을 조회하여 분실된 나의 물건을 찾아갈 수 있습니다.",
+    "delivery_company": "배송사",
+    "tracking_number": "운송장번호",
+    "tracking_number_description": "전체 운송장 번호를 숫자로만 입력해주세요.",
+    "search_result": "{{tracking_number}} 에 대한 검색 결과({{count}})",
+    "my_item_certification": "내 물건 인증하기"
+  },
+
+  "unidentified_package_auth": {
+    "title": "인증하기",
+    "item_content": "물품 내용",
+    "item_content_description": "물품의 상세 사항을 작성 해주세요.",
+    "item_certification_image": "사실확인 인증이미지",
+    "item_certification_image_description": "· 구매 영수증, 거래내역/실물사진 등",
+    "photo_upload_description": "· 이미지는 2MB이하 5장까지 업로드 가능합니다.",
+    "my_item_certification": "내 물건 인증하기",
+    "my_item_certification_description": "· 분실물 확인을 위해 인증 절차를 진행해주세요.",
+    "item_certification_completed": "분실물 인증 신청이 완료되었습니다.",
+    "item_certification_completed_description": "인증이 완료되면, 나의 창고 현황에서 확인 가능합니다."
+  },
+
+  "navigation": {
+    "search": "검색",
+    "shop": "쇼핑",
+    "home": "홈",
+    "warehouse": "창고현황",
+    "my_page": "마이"
+  }
+}

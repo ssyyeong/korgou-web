@@ -9,12 +9,13 @@ import { countryNumberList } from "../../../../configs/data/CountryNumberConfig"
 import ControllerAbstractBase from "../../../../controller/Controller";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-
+import { useTranslation } from "react-i18next";
 const AddressModify = () => {
   const navigator = useNavigate();
   const location = useLocation();
+  const { t } = useTranslation();
 
-  const method = ["DHL", "FEDEX", "EMS", "기타"];
+  const method = ["DHL", "FEDEX", "EMS", t("delivery_address.etc")];
 
   const [addressId, setAddressId] = useState("");
   const [shippingType, setShippingType] = useState("FOREIGN");
@@ -126,7 +127,7 @@ const AddressModify = () => {
         mb: "40px",
       }}
     >
-      <Header title="배송지 추가" />
+      <Header title={t("delivery_address.modify_delivery_address")} />
       <Box
         display="flex"
         flexDirection="column"
@@ -151,7 +152,7 @@ const AddressModify = () => {
               mb: "8px",
             }}
           >
-            배송 유형
+            {t("delivery_address.delivery_type")}
           </Typography>
           <Box display="flex" flexDirection="row" width="100%" gap="8px">
             <OriginButton
@@ -167,7 +168,7 @@ const AddressModify = () => {
                   fontWeight={700}
                   color={shippingType === "FOREIGN" ? "white" : "#282930"}
                 >
-                  해외 배송
+                  {t("delivery.type.overseas")}
                 </Typography>
               }
               style={{ padding: "8px 16px", height: "48px" }}
@@ -185,7 +186,7 @@ const AddressModify = () => {
                   fontWeight={700}
                   color={shippingType === "DOMESTIC" ? "white" : "#282930"}
                 >
-                  국내 배송
+                  {t("delivery.type.domestic")}
                 </Typography>
               }
               style={{
@@ -211,10 +212,10 @@ const AddressModify = () => {
               fontWeight: 700,
             }}
           >
-            주소 정보
+            {t("delivery_address.address_info")}
           </Typography>
           <Input
-            label="국가"
+            label={t("common.field.country.label")}
             dataList={countryList}
             value={country}
             setValue={setCountry}
@@ -223,14 +224,14 @@ const AddressModify = () => {
           />
           <Box display="flex" flexDirection="row" width="100%" gap="8px">
             <Input
-              label="성(영문)"
+              label={t("common.field.name.first")}
               value={firstName}
               setValue={setFirstName}
               type="text"
               style={{ maxHeight: "48px" }}
             />
             <Input
-              label="이름(영문)"
+              label={t("common.field.name.last")}
               value={lastName}
               setValue={setLastName}
               type="text"
@@ -238,7 +239,7 @@ const AddressModify = () => {
             />
           </Box>
           <Input
-            label="주소"
+            label={t("common.field.address.label")}
             value={address}
             setValue={setAddress}
             type="text"
@@ -246,14 +247,14 @@ const AddressModify = () => {
           />
           <Box display="flex" flexDirection="row" width="100%" gap="8px">
             <Input
-              label="상세주소"
+              label={t("common.field.address.detail")}
               value={detailAddress}
               setValue={setDetailAddress}
               type="text"
               style={{ maxHeight: "48px" }}
             />
             <Input
-              label="주(Province)"
+              label={t("common.field.address.province")}
               value={province}
               setValue={setProvince}
               type="text"
@@ -261,14 +262,14 @@ const AddressModify = () => {
             />
           </Box>
           <Input
-            label="도시(City)"
+            label={t("common.field.address.city")}
             value={city}
             setValue={setCity}
             type="text"
             style={{ maxHeight: "48px" }}
           />
           <Input
-            label="우편번호 (Postal Code)"
+            label={t("common.field.address.postal_code")}
             value={postalCode}
             setValue={setPostalCode}
             type="text"
@@ -284,7 +285,7 @@ const AddressModify = () => {
               style={{ maxHeight: "48px", width: "100px" }}
             />
             <Input
-              label="-제외 입력"
+              label={t("common.field.phone.placeholder")}
               value={contact}
               setValue={setContact}
               type="text"
@@ -306,7 +307,7 @@ const AddressModify = () => {
               fontWeight: 700,
             }}
           >
-            배송 수단
+            {t("forward_request1.delivery_method")}
           </Typography>
           <Grid2
             container
@@ -355,7 +356,7 @@ const AddressModify = () => {
           }}
           contents={
             <Typography fontSize={16} fontWeight={700}>
-              저장
+              {t("common.button.save")}
             </Typography>
           }
           style={{ padding: "16px 8px", height: "48px" }}

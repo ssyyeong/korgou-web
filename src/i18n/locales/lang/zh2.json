@@ -1,0 +1,784 @@
+{
+  "common": {
+    "button": {
+      "confirm": "確認",
+      "cancel": "取消",
+      "save": "保存",
+      "modify": "修改",
+      "delete": "刪除",
+      "close": "關閉",
+      "list": "列表",
+      "previous": "上一步",
+      "search": "查詢",
+      "add": "+ 添加",
+      "submit": "提交",
+      "resend": "重新發送",
+      "re_enter": "重新輸入郵箱",
+      "order_request": "訂單請求",
+      "charge": "充值",
+      "add_address": "+ 添加收貨地址",
+      "next_step": "下一步",
+      "previous_step": "返回上一步",
+      "order": "下單"
+    },
+
+    "field": {
+      "email": {
+        "label": "郵箱",
+        "placeholder": "請輸入郵箱",
+        "verification": {
+          "title": "郵箱驗證",
+          "message": "驗證碼已發送至以下郵箱",
+          "code": {
+            "label": "驗證碼",
+            "placeholder": "請輸入驗證碼"
+          },
+          "success": "郵箱驗證完成"
+        }
+      },
+      "password": {
+        "label": "密碼",
+        "placeholder": "請輸入密碼（8位以上）",
+        "confirm": {
+          "label": "確認密碼",
+          "placeholder": "請再次輸入密碼"
+        },
+        "error": "密碼不匹配",
+        "change": {
+          "title": "修改密碼",
+          "new_placeholder": "請輸入新密碼（8位以上）",
+          "success": "密碼修改完成！"
+        }
+      },
+      "name": {
+        "label": "姓名",
+        "placeholder": "請輸入姓名",
+        "first": "姓",
+        "last": "名"
+      },
+      "country": {
+        "label": "國家",
+        "placeholder": "請選擇國家"
+      },
+      "address": {
+        "label": "地址",
+        "detail": "詳細地址",
+        "postal_code": "郵政編碼",
+        "province": "省份",
+        "city": "城市",
+        "placeholder": "請輸入地址"
+      },
+      "phone": {
+        "label": "電話號碼",
+        "placeholder": "請輸入電話號碼（無需連字符）"
+      },
+      "recommender_code": {
+        "label": "推薦碼",
+        "placeholder": "請輸入推薦碼"
+      },
+      "seller_name": {
+        "label": "品牌賣家名稱",
+        "placeholder": "請輸入品牌賣家名稱"
+      },
+      "product_method": {
+        "label": "銷售方式",
+        "placeholder": "請選擇銷售方式"
+      },
+      "product_type": {
+        "label": "商品類型",
+        "placeholder": "請選擇商品類型"
+      },
+      "url": {
+        "label": "自營商城URL",
+        "placeholder": "請輸入商城地址"
+      },
+      "channel": {
+        "label": "主要外部銷售渠道（除自營商城外）",
+        "placeholder": "請選擇主要外部銷售渠道"
+      },
+      "introduce_file": {
+        "label": "公司/商品介紹",
+        "placeholder": "請上傳公司/商品介紹"
+      },
+      "business_registration_file": {
+        "label": "營業執照",
+        "placeholder": "請上傳營業執照"
+      },
+      "count": {
+        "label": "數量",
+        "unit": "個",
+        "count": "{{count}}個"
+      },
+      "weight": {
+        "label": "重量",
+        "unit": "g"
+      }
+    }
+  },
+
+  "period": {
+    "today": "今天",
+    "recent": {
+      "week": "最近7天",
+      "month": "最近1個月",
+      "two_month": "最近2個月",
+      "three_month": "最近3個月",
+      "six_month": "最近6個月"
+    }
+  },
+
+  "upload": {
+    "photo": {
+      "title": "上傳照片",
+      "description": "· 圖片大小限制2MB以下，最多5張"
+    },
+    "file": {
+      "add": "添加文件"
+    }
+  },
+
+  "status": {
+    "process": {
+      "waiting": "等待中",
+      "completed": "已完成",
+      "canceled": "已取消",
+      "processing": "處理中"
+    },
+    "payment": {
+      "before": "待付款",
+      "completed": "付款完成",
+      "failed": "付款失敗"
+    },
+    "delivery": {
+      "waiting": "待發貨",
+      "in_transit": "運輸中",
+      "completed": "已送達",
+      "forwarded": "已轉發",
+      "returned": "已退回"
+    }
+  },
+
+  "form": {
+    "placeholders": {
+      "email": "請輸入郵箱",
+      "password": "請輸入密碼（8位以上）",
+      "confirm_password": "請再次輸入密碼",
+      "country": "請選擇國家",
+      "name": "請輸入姓名",
+      "request": "請輸入請求內容"
+    }
+  },
+
+  "delivery": {
+    "type": {
+      "overseas": "海外配送",
+      "domestic": "國內配送",
+      "warehouse": "倉庫配送"
+    },
+    "service": {
+      "compact": {
+        "label": "緊湊包裝",
+        "description": "最小尺寸包裝"
+      },
+      "priority": {
+        "label": "優先包裝",
+        "description": "48小時內處理"
+      },
+      "receipt": {
+        "label": "移除發票",
+        "description": "發貨前移除發票"
+      }
+    },
+    "tracking": {
+      "label": "運單號",
+      "placeholder": "請輸入運單號"
+    }
+  },
+
+  "payment": {
+    "method": {
+      "balance": {
+        "label": "餘額",
+        "description": "使用賬戶餘額支付"
+      },
+      "point": {
+        "label": "積分",
+        "description": "使用積分支付"
+      }
+    },
+    "amount": {
+      "total": "總支付金額",
+      "discount": "優惠金額",
+      "shipping": "運費",
+      "processing": "處理費",
+      "purchase": "購買費用"
+    }
+  },
+
+  "terms": {
+    "privacy": "同意隱私政策",
+    "service_terms": "同意服務條款",
+    "marketing": "同意營銷信息使用",
+    "all": "同意所有條款",
+    "required": "必需",
+    "optional": "可選"
+  },
+
+  "auth": {
+    "login": {
+      "title": "登錄",
+      "keep_signed": "保持登錄狀態",
+      "forgot_password_link": "忘記密碼？",
+      "types": {
+        "social": "社交賬號登錄",
+        "individual": "個人登錄",
+        "company": "企業登錄"
+      },
+      "forgot_password": {
+        "title": "KORGOU現有用戶登錄驗證",
+        "description": "我們將向您註冊的郵箱發送臨時密碼。\n登錄後更改密碼即可使用賬戶！",
+        "button": "獲取臨時密碼"
+      }
+    },
+    "signup": {
+      "title": "註冊",
+      "individual": "個人註冊",
+      "company": "企業註冊",
+      "success": {
+        "title": "歡迎",
+        "message": "註冊完成",
+        "start": "開始使用KORGOU"
+      }
+    },
+    "change_password": {
+      "title": "修改密碼",
+      "new_password_placeholder": "請輸入新密碼（8位以上）",
+      "confirm_password_placeholder": "請確認密碼",
+      "change_password": "修改",
+      "password_changed": "密碼修改成功！"
+    },
+    "email_verification": {
+      "email_verification_message": "驗證碼已發送至以下郵箱",
+      "verification_code_placeholder": "驗證碼",
+      "email_verification_completed": "郵箱驗證完成",
+      "email_verification_completed_message": "郵箱驗證已完成"
+    },
+    "forgot_password": {
+      "title": "找回密碼",
+      "email_label": "郵箱",
+      "email_verification": "驗證郵箱",
+      "email_verification_message": "*輸入/驗證郵箱後可重置密碼",
+      "change_password": "修改密碼",
+      "password_changed": "密碼修改成功！",
+      "login_now": "立即登錄"
+    }
+  },
+
+  "main": {
+    "title": "KORGOU讓您的韓國購物更完美",
+    "free_korean_address": "免費韓國地址",
+    "package_forward": "包裹轉運",
+    "assisted_purchase": "代購服務",
+    "value_added_services": "增值服務",
+    "step_by_step_essentials": "逐步必備事項",
+    "step_by_step_essentials_description": "安全舒適的配送方式！<br/>KORGOU為您指引！",
+    "package_forward_guide": "包裹轉運教程",
+    "assisted_purchase_guide": "代購服務教程",
+    "our_advantages": "KORGOU的優勢",
+    "our_advantages_description": "體驗KORGOU的服務。",
+    "advantage_1": "專業專注的配送和購買支持服務",
+    "advantage_2": "安全便捷的支付",
+    "advantage_3": "180天免費包裹存儲服務",
+    "advantage_4": "從購買到海外配送的一站式服務",
+    "advantage_5": "降低總購物成本的增值服務",
+    "advantage_6": "多樣化的配送方式",
+    "use_of_the_service": "如何使用KORGOU服務",
+    "service_1": "代購服務",
+    "service_2": "註冊國家",
+    "service_3": "配送國家",
+    "service_4": "包裹轉運",
+    "official": "KORGOU官方",
+    "official_description": "關注我們的社交媒體頻道，享受各種韓國娛樂，了解更多服務信息！"
+  },
+
+  "buying_it": {
+    "title": "購買",
+    "shopping_auth": "購物商城賬號狀態",
+    "shopping_account": "購物商城賬號",
+    "shopping_placeholder1": "購物商城URL",
+    "shopping_placeholder2": "購物商城ID",
+    "shopping_placeholder3": "購物商城密碼",
+    "shopping_description": "*登錄購物商城 > 購買已加入購物車的商品",
+    "product_list": "訂單商品列表",
+    "product": "商品 {{count}}",
+    "product_placeholder1": "輸入訂單商品URL",
+    "product_placeholder2": "輸入訂單選項（最終選項值）",
+    "product_placeholder3": "輸入訂單數量",
+    "product_placeholder4": "輸入最終商品價格",
+    "product_placeholder5": "輸入要求事項",
+    "address": "配送地址設置",
+    "address_type": "倉庫配送",
+    "address_type_description": "與倉庫商品合併包裝",
+    "address_detail": "京畿道城南市中原區順環路79，3樓",
+    "address_request": "配送要求事項",
+    "address_request_placeholder": "輸入配送要求事項",
+    "proceee": "缺貨處理",
+    "proceee_description": "*請求商品缺貨時的付款處理方式",
+    "proceee_option1": "跳過缺貨商品，繼續處理其他商品付款",
+    "proceee_option2": "停止訂單處理",
+    "order_list": "訂單列表"
+  },
+
+  "contact_us": {
+    "title": "Contact Us",
+    "email": "電子郵件",
+    "subject": "主題",
+    "number": "號碼",
+    "category": "分類",
+    "description": "KorGou 通过 支持 票务 系统 提供 高效 的 客户 服务。 因此, 可以 轻松 地 搜索 知识 基础 或 提交 票务。 每个 请求 都有 一个 独特的 票务 编号, 通过 电子邮件 回复 或 登录 以 监控 进度 并 与 我们 团队 沟通。 周末 收到的 咨询 将在 下一个 营业日 处理, 请 参考。"
+  },
+
+  "support": {
+    "title": "客户 中心",
+    "notice": "通知",
+    "notice_previous": "上一篇"
+  },
+
+  "calculator": {
+    "shipping_fee_calculator": "配送 费用 计算器",
+    "ship_to": "配送 地址",
+    "country_select": "国家 选择",
+    "courier": "快递 公司",
+    "package_weight": "包裹 重量(g)",
+    "package_dimension": "包裹 尺寸(cm)",
+    "calculate_description": "实际 进行 的 估算 可能 与 实际 估算 不同。",
+    "vies_shipping_rates": "配送 费用 查询"
+  },
+
+  "my_page": {
+    "level_up": "等级 升级",
+    "balance": "余额",
+    "coupon": "优惠券",
+    "point": "积分",
+    "warehouse_status": "仓库 现况",
+    "delivery_status": "配送 申请 现况",
+    "purchase_status": "购买 现况",
+    "notice": "通知",
+    "delivery_address": "配送 地址 管理",
+    "unidentified_package": "未确认 包裹",
+    "review": "评论 管理",
+    "inquiry": "咨询 管理",
+    "app_setting": "应用 设置",
+    "alarm": "提醒"
+  },
+
+  "point": {
+    "title": "积分",
+    "amount": "余额",
+    "point_history": "积分 历史",
+    "check": "查询"
+  },
+
+  "balance": {
+    "title": "余额",
+    "amount": "余额",
+    "balance_history": "余额 历史",
+    "check": "查询",
+    "charge_point": "充值积分",
+    "balance_point": "余额",
+    "payment_method": "支付 方式",
+    "deposit_bank": "入金 银行",
+    "deposit_name": "入金 姓名",
+    "payment_info": "支付 信息",
+    "charge_amount": "充值 金额"
+  },
+
+  "purchase_status": {
+    "title": "购买 现况",
+    "purchase_status": "购买 状态",
+    "all": "全部",
+    "confirmation_pending": "确认 待机",
+    "confirmed_payment_pending": "确认 完成 及 支付 待机",
+    "paid": "支付 完成",
+    "completed": "购买 完成",
+    "warehouse_alert": "入库 通知",
+    "warehouse_alert_title": "入金 通知 完成",
+    "warehouse_alert_description": "订单 商品 入库 后 邮件 发送。 \n \n 入库 后 地址 设置 及 配送 请求 可能。"
+  },
+
+  "purchase_detail": {
+    "title": "购买 历史 详细",
+    "order_number": "订单 编号",
+    "order_status": "订单 状态",
+    "order_status_description1": "订单 请求 事项 确认 中。",
+    "order_status_description2": "订单 请求 商品 确认 中。",
+    "order_status_description3": "订单 请求 商品 确认 完成, 购买 可能。 \n请 进行 支付！",
+    "product_info": "商品 信息",
+    "order_info": "订单 信息",
+    "address_type": "配送 类型",
+    "address_type_description": "仓库 配送",
+    "warehouse_number": "仓库 编号",
+    "order_request": "订单 请求 事项",
+    "order_image": "订单 图片",
+    "payment_info": "支付 信息",
+    "product_quantity": "商品 数量",
+    "product_price": "商品 价格",
+    "purchase_fee": "购买 手续费",
+    "discount_amount": "折扣 金额",
+    "total_price": "总 支付 金额",
+    "order_cancel_request": "订单 取消 请求",
+    "payment_button": "支付",
+    "payment_request": "支付 请求",
+    "payment_progress": "支付 进行",
+    "payment_method": "支付 方式",
+    "point": "积分",
+    "point_discount": "积分 折扣",
+    "use": "使用",
+    "point_discount_amount": "积分 折扣 可能 金额",
+    "point_earn": "积分 赚取",
+    "point_balance": "积分 余额",
+    "list": "列表",
+    "order_cancel_request_title": "订单 取消 请求",
+    "order_cancel_request_description": "订单 取消 请求",
+    "order_cancel_request_button": "订单 取消",
+    "order_cancel_request_description2": "负责人 确认 后, 请求 记录 删除, 订单 不 进行。",
+    "close_button": "关闭",
+    "order_cancel_request_success_title": "订单 取消 请求 完成",
+    "order_cancel_request_success_description": "订单 取消 不可 时 个别 联系 可能。"
+  },
+
+  "cart": {
+    "title": "购物车",
+    "cart_empty": "购物车中没有商品。",
+    "cart_empty_button": "查看推荐商品",
+    "select_all": "全部选择",
+    "delete_selected_items": "选择商品删除",
+    "request_description": "订单 相关 请求 事项 输入。(选择)",
+    "selected_item_price": "选择商品 价格",
+    "domestic_shipping_fee": "国内 配送 费用",
+    "total_price": "总 价格",
+    "selected_item_count": "选择商品 数量",
+    "total_selected_item_price": "总 选择商品 价格",
+    "total_domestic_shipping_fee": "总 国内 配送 费用",
+    "purchase_fee": "购买 代理 费用",
+    "cart_total_price": "购物车 总 价格",
+    "total": "总 {{count}} 个"
+  },
+
+  "delivery_address": {
+    "title": "配送 地址 管理",
+    "default_delivery_address": "基本 配送 地址",
+    "add_delivery_address": "添加 配送 地址",
+    "modify_delivery_address": "修改 配送 地址",
+    "delivery_type": "配送 类型",
+    "address_info": "地址 信息",
+    "first_name": "姓(英文)",
+    "last_name": "名(英文)",
+    "phone_number": "-除外 输入",
+    "address": "地址",
+    "address_detail": "详细地址",
+    "province": "省(Province)",
+    "city": "市(City)",
+    "postal_code": "邮编",
+    "etc": "其他"
+  },
+
+  "profile_setting": {
+    "title": "个人 设置",
+    "password_change": "密码 变更",
+    "member_type": "会员 类型",
+    "buyer": "买家",
+    "seller": "卖家",
+    "birthday": "生日",
+    "withdraw": "退出"
+  },
+
+  "app_setting": {
+    "title": "应用 设置",
+    "simple_login": "简单 登录 连接",
+    "simple_login_button": "连接",
+    "alarm_setting": "提醒 设置",
+    "push_alarm": "推送 提醒",
+    "push_alarm_description": "推送 提醒 关闭 时 无法 收到 优惠 提醒。 是否 关闭？",
+    "yes": "是",
+    "cancel": "取消",
+    "alarm_talk": "提醒 短信",
+    "version_info": "版本 信息",
+    "version": "版本"
+  },
+
+  "inquiry": {
+    "title": "咨询 管理",
+    "answer_completed": "回答 完成",
+    "answer_waiting": "回答 待机",
+    "inquiry_write": "咨询 写作"
+  },
+
+  "inquiry_create": {
+    "title": "咨询 写作",
+    "inquiry_type": "咨询 类型 选择",
+    "inquiry_title": "标题(最大 50 字)",
+    "inquiry_content": "咨询 内容",
+    "inquiry_content_placeholder": "咨询 内容 输入",
+    "save": "保存"
+  },
+
+  "review": {
+    "title": "评论 管理",
+    "review_write": "评论 写作",
+    "my_review": "我的 评论",
+    "modify": "修改"
+  },
+
+  "review_create": {
+    "title": "评论 写作",
+    "star_rating": "选择 星级",
+    "satisfaction_level": "满意度",
+    "photo_upload": "图片 上传",
+    "photo_upload_description": "· 图片 大小 1MB 以下 5 张 上传 可能。\n· 商品 及 无关 或 不合适 图片 评论 时, 事先 警告 没有, 点数 回收 及 图片 删除 可能。",
+    "review_content": "评论 写作",
+    "review_content_placeholder": "使用 KORGOU 后 详细 信息 输入。",
+    "review_policy": "评论 政策",
+    "review_policy_description": "· 评论 等级 不同 奖励 条件(最大) \n · ex) 铜牌 50 元 / 银牌 100 元 / 金牌 150 元 / 钻石 200 元\n \n · 条件 :\n   - 铜牌 基准 一行 评论 时 20 元 \n+ 图片 or 视频 及 评论 时 追加 最大 30 元 · 商品 出货 前 评论/一行 评论 时 点数 不 支付\n \n· 相同 商品 2 次 以上 购买 后(选项 包含) 评论/一行 评论 时, 即使 多次 写入, 点数 也 只 一次 支付.\n · 评论/一行 评论 不 适合 内容 时 不 批准, 点数 不 支付. (从 写入 日期 起 3 个月 内 不 批准 的 情况 下, 已 支付 的 点数 返还)"
+  },
+
+  "store": {
+    "title": "仓库 现况",
+    "arrival_completed": "到达 完成",
+    "one_month": "1 个月",
+    "three_month": "3 个月",
+    "six_month": "6 个月",
+    "search": "查询",
+    "item_status": "商品 状态",
+    "all": "全部",
+    "awaiting_user_process": "等待 用户 处理",
+    "return_exchange_application": "退货/换货 申请",
+    "return_exchange_done": "退货/换货 完成",
+    "return_failed": "退货/失败",
+    "foward_done": "转发 完成",
+    "select_all": "全部 选择 [{{count}}]",
+    "weight": "重量(g)",
+    "photo_service": "高级 照片 服务",
+    "disposal": "废品 处理",
+    "return_request": "退货 请求",
+    "delivery_request": "配送 请求",
+    "disposal_alert": "废品 处理 服务 使用时, 照片 服务 申请 后 使用 可能。"
+  },
+
+  "forward_request1": {
+    "alert": "选择 的 商品 进行 配送 请求 吗?",
+    "request_product": "请求 商品({{count}})",
+    "warehouse_number": "入库 编号",
+    "tracking_number": "运单 编号",
+    "weight": "重量(g)",
+    "request_button": "配送 请求({{count}}个 / {{weight}}g)",
+    "title": "配送 请求[地址 选择]",
+    "delivery_info": "配送 地址 信息",
+    "delivery_select": "配送 地址 选择",
+    "direct_input": "直接 输入",
+    "overseas_delivery": "海外 配送",
+    "domestic_delivery": "国内 配送",
+    "name": "姓+名(英文)",
+    "address": "地址",
+    "address_detail": "详细地址",
+    "province": "省(Province)",
+    "city": "市(City)",
+    "postal_code": "邮编",
+    "phone_number": "-除外 输入",
+    "company_name": "公司名(选择输入)",
+    "account_no": "account no 或 tax/cpf",
+    "address_description": "* 注册 的 配送 地址 进行 配送 请求。",
+    "delivery_company": "配送 公司",
+    "delivery_company_description": "配送 公司 注意事项",
+    "recommended_delivery_company": "推荐 配送 公司",
+    "delivery_select_description": "配送 地址 选择",
+    "new_delivery_address": "新 配送 地址 注册",
+    "no_delivery_address": "没有 注册 的 配送 地址。",
+    "delivery_method": "配送 方式",
+    "delivery_method_description": "* 当前 选择 的 配送 方式 是 默认 设置, 配送 请求 时 可以 变更。"
+  },
+
+  "forward_request2": {
+    "title": "配送 请求[服务 选择]",
+    "total_count": "总 计(商品/重量)",
+    "total_count_description": "{{count}} 个/{{weight}}g",
+    "delivery_company": "配送 公司",
+    "delivery_company_description": "配送 公司 选择",
+    "delivery_company_description2": "1BOX 当 30kg 重量 限制 及 体积 重量 限制 有。",
+    "processing_method": "处理 方法",
+    "processing_method1": "一般",
+    "processing_method2": "优先 处理",
+    "processing_description": "· 一般 包装 需要 1~7 天, 优先 处理 需要 48 小时 完成。\n · 优先 处理 费用 - kg 6,000 元 \n· 一般 处理 费用 - kg 3,000 元",
+    "additional_service": "附加 服务",
+    "delivery_insurance": "配送 保险",
+    "other_request": "其他 请求 事项",
+    "other_request_description": "其他 请求 事项 由 KORGOU 判断 处理。",
+    "cancel": "取消",
+    "next": "下一步"
+  },
+
+  "forward_request3": {
+    "title": "配送 请求[申报书 写作]",
+    "content_info": "内容 信息",
+    "content_info_placeholder": "1 字 以上 15 字 以下 输入",
+    "content_info_description": "商品 相关 信息 输入。",
+    "quantity_info": "数量 信息",
+    "quantity_info_placeholder": "数量 输入 (ex. 1,2,3)",
+    "quantity_info_description": "商品 相关 数量 输入。",
+    "price_info": "金额 信息",
+    "price_info_placeholder": "0 元 输入 不可 (ex. USD 150 )",
+    "price_info_description": "商品 相关 总 费用 输入。",
+    "save": "保存",
+    "declaration_writing_note": "[申报书 写作 注意事项]",
+    "declaration_writing_note_description": "· 商品 相关 内容 信息 单独 输入。\n· 相关 信息 不 输入 时, 配送 不 处理。\n· 金额 信息 是 商品 相关 总 费用 输入。\n· 申报书 写作 时 商品 相关 信息 输入。\n· 数量 信息 是 商品 相关 数量 输入。\n· 内容 信息 是 '商品' 或 '礼物' 等 不 明确 项目 输入。\n",
+    "content": "内容({{count}})",
+    "quantity": "数量 信息",
+    "price": "金额 信息",
+    "modify": "修改",
+    "delete": "删除"
+  },
+
+  "forward_request4": {
+    "title": "配送 请求 内容 确认",
+    "product_info": "商品 信息",
+    "warehouse_number": "入库 编号",
+    "weight": "重量(g)",
+    "service_info": "服务 信息",
+    "delivery_company": "配送 公司",
+    "processing_method": "处理 方法",
+    "additional_service": "附加 服务",
+    "other_request": "其他 请求 事项",
+    "delivery_info": "配送 地址 信息",
+    "recipient_name": "收货 人 姓名",
+    "address": "地址",
+    "phone_number": "电话 号码",
+    "declaration_info": "申报书 信息",
+    "content_info": "内容 信息",
+    "quantity_info": "数量 信息",
+    "price_info": "金额 信息",
+    "service_cost": "服务 费用 在 配送 请求 后 通过 邮件 发送。",
+    "complete": "配送 请求 内容 确认 完成。",
+    "complete_description": "配送 请求 已经 完成。",
+    "complete_description2": "选择 商品 配送 时 邮件 发送。\n\n *配送 现况 在 SHIPPING>配送 请求 中 确认 可。"
+  },
+
+  "disposal_request": {
+    "title": "废品 处理&拆分 服务",
+    "request_product": "请求 商品({{count}})",
+    "package_number": "包裹 编号",
+    "weight": "重量(g)",
+    "request_description": "请求 事项",
+    "request_description_placeholder": "详细 请求 事项 输入",
+    "photo_upload": "图片 上传",
+    "photo_upload_description": "· 图片 大小 2MB 以下 5 张 上传 可能。",
+    "disposal": "废品 处理",
+    "disposal_description": "· 选择 商品 在 我的 仓库 中 废弃 或 部分废弃。 \n· 废弃 同意 后 请求 时 立即 废弃 处理 但 取消 不可。",
+    "disposal_request": "废品 处理",
+    "disposal_request_description": "· 选择 商品 在 我的 仓库 中 废弃 或 部分废弃。 \n· 废弃 同意 后 请求 时 立即 废弃 处理 但 取消 不可。",
+    "disposal_request_button": "请求 进行",
+    "disposal_request_completed": "废品 处理 申请 完成。",
+    "disposal_request_completed_description": "更新 后 仓库 现况 中 商品 删除。"
+  },
+
+  "photo_service": {
+    "title": "高级 照片 服务",
+    "request_product": "请求 商品({{count}})",
+    "package_number": "包裹 编号",
+    "weight": "重量(g)",
+    "request_description": "请求 事项",
+    "request_description_placeholder": "详细 请求 事项 输入",
+    "photo_service_description": "· 入库 的 商品 实际 拍摄 提供。\n ·更新 后 仓库 现况 中 确认 可能。 ",
+    "photo_service_button": "请求 进行",
+    "photo_service_completed": "照片 服务 申请 完成。",
+    "photo_service_completed_description": "更新 后 仓库 现况 中 确认 可能。",
+    "photo_service_description2": "入库 的 商品 实际 拍摄 的 图片。"
+  },
+
+  "forward_request_status": {
+    "title": "配送 请求 现况",
+    "delivery_status": "配送 状态",
+    "forward_number": "转发 编号",
+    "total_count": "总 计(商品/重量)",
+    "total_count_description": "{{count}} 个/{{weight}}g",
+    "weight": "重量(g)",
+    "review_write": "评论 写作",
+    "applicated": "申请 完成",
+    "forwarded": "发货",
+    "returned": "退货",
+    "delivery_completed": "配送 完成",
+    "request_cancel": "申请 取消",
+    "delivery_search": "配送 搜索",
+    "request_cancel_request": "申请 取消 请求",
+    "request_cancel_request_description": "管理者 可以 批准/拒绝。"
+  },
+
+  "forward_request_status_detail": {
+    "title": "配送 请求 详细",
+    "forward_number": "转发 编号",
+    "delivery_status": "订单 状态",
+    "product_info": "商品 信息",
+    "total_count": "总 计(商品/重量)",
+    "total_count_description": "{{count}} 个 / {{weight}}g",
+    "package_number": "包裹 编号",
+    "tracking_number": "运单 编号",
+    "weight": "重量(g)",
+    "order_info": "订单 信息",
+    "service_info": "服务 信息",
+    "delivery_company": "配送 公司",
+    "processing_method": "处理 方法",
+    "additional_service": "附加 服务",
+    "other_request": "其他 请求 事项",
+    "delivery_info": "配送 地址 信息",
+    "recipient_name": "收货 人 姓名",
+    "declaration_info": "申报书 信息",
+    "content_info": "内容 信息",
+    "quantity_info": "数量 信息",
+    "price_info": "金额 信息",
+    "payment_before": "支付 前",
+    "payment_completed": "支付 完成",
+    "delivery_fee": "配送 费用",
+    "processing_fee": "处理 费用",
+    "discount_rate": "折扣 率",
+    "compact_packaging": "紧凑 包装",
+    "priority_packaging": "优先 包装",
+    "receipt_removal": "收据 删除",
+    "payment_completed2": "支付 完成",
+    "delivery_search": "配送 搜索",
+    "status": "状态",
+    "delivery_detail": "配送 详细",
+    "forwarding_detail": "转发 详细",
+    "payment_info": "支付 信息",
+    "final_payment_amount": "最终 支付 金额"
+  },
+
+  "unidentified_package": {
+    "title": "未确认 包裹",
+    "description": "丢失 物品 运单 编号 查询 丢失 物品 可以 找到。",
+    "delivery_company": "配送 公司",
+    "tracking_number": "运单 编号",
+    "tracking_number_description": "全部 运单 编号 数字 输入",
+    "search_result": "{{tracking_number}} 搜索 结果({{count}})",
+    "my_item_certification": "我的 物品 认证"
+  },
+
+  "unidentified_package_auth": {
+    "title": "认证",
+    "item_content": "物品 内容",
+    "item_content_description": "物品 详细 信息 输入",
+    "item_certification_image": "事实 认证 图片",
+    "item_certification_image_description": "· 购买 收据, 交易 内 容/实物 照片 等",
+    "photo_upload_description": "· 图片 大小 2MB 以下 5 张 上传 可能。",
+    "my_item_certification": "我的 物品 认证",
+    "my_item_certification_description": "· 丢失 物品 确认 目的 认证 程序 进行。",
+    "item_certification_completed": "丢失 物品 认证 申请 完成。",
+    "item_certification_completed_description": "认证 完成 后, 我的 仓库 现况 中 确认 可能。"
+  },
+
+  "navigation": {
+    "search": "搜索",
+    "shop": "商店",
+    "home": "主页",
+    "warehouse": "仓库 现况",
+    "my_page": "我的 页面"
+  }
+}

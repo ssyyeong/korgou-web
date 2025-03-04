@@ -7,6 +7,8 @@ import { createTheme, ThemeProvider } from "@mui/material/styles";
 import { AuthProvider } from "./contexts/AuthContext";
 import { BuyingProvider } from "./contexts/BuyingContext";
 import { ExchangeProvider } from "./contexts/ExchangeContext";
+import { I18nextProvider } from "react-i18next";
+import i18n from "../src/i18n/locales/i18n";
 
 const theme = createTheme({
   palette: {
@@ -32,19 +34,21 @@ const App = () => {
   }, []);
 
   return (
-    <ThemeProvider theme={theme}>
-      <Provider store={store}>
-        <AuthProvider>
-          <ExchangeProvider>
-            <BuyingProvider>
-              <div className="container">
-                <AppRoutes />
-              </div>
-            </BuyingProvider>
-          </ExchangeProvider>
-        </AuthProvider>
-      </Provider>
-    </ThemeProvider>
+    <I18nextProvider i18n={i18n}>
+      <ThemeProvider theme={theme}>
+        <Provider store={store}>
+          <AuthProvider>
+            <ExchangeProvider>
+              <BuyingProvider>
+                <div className="container">
+                  <AppRoutes />
+                </div>
+              </BuyingProvider>
+            </ExchangeProvider>
+          </AuthProvider>
+        </Provider>
+      </ThemeProvider>
+    </I18nextProvider>
   );
 };
 

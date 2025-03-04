@@ -43,6 +43,7 @@ import InquiryDetail from "../pages/my_page/inquiry/detail";
 import InquiryCreate from "../pages/my_page/inquiry/create";
 import Review from "../pages/my_page/review";
 import ReviewCreate from "../pages/my_page/review/create";
+import ReviewDetail from "../pages/my_page/review/detail";
 import Cart from "../pages/my_page/cart";
 import Address from "../pages/my_page/address";
 import Package from "../pages/my_page/package";
@@ -116,7 +117,7 @@ const AppRoutes = () => (
       <Route path="/my_page/inquiry/create" element={<InquiryCreate />} />
       <Route path="/my_page/review" element={<Review />} />
       <Route path="/my_page/review/create" element={<ReviewCreate />} />
-
+      <Route path="/my_page/review/detail" element={<ReviewDetail />} />
       <Route path="/my_page/cart" element={<Cart />} />
       <Route path="/my_page/address" element={<Address />} />
       <Route path="/my_page/address/create" element={<AddressCreate />} />

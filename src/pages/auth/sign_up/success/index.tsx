@@ -1,10 +1,11 @@
 import React from "react";
 import { Box, Typography } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
-
+import { useTranslation } from "react-i18next";
 import OriginButton from "../../../../components/Button/OriginButton";
 
 const SignUpSuccess = () => {
+  const { t } = useTranslation();
   const location = useLocation();
   const navigate = useNavigate();
   const { id = "" } = location?.state || {};
@@ -48,7 +49,7 @@ const SignUpSuccess = () => {
             marginBottom: "30px",
           }}
         >
-          환영합니다.
+          {t("auth.signup.success.title")}
         </Typography>
         <Typography
           sx={{
@@ -58,7 +59,7 @@ const SignUpSuccess = () => {
             color: "#282930",
           }}
         >
-          가입이 완료 되었습니다.
+          {t("auth.signup.success.message")}
         </Typography>
         <Typography
           sx={{
@@ -88,7 +89,7 @@ const SignUpSuccess = () => {
           }}
           contents={
             <Typography fontSize={16} sx={{ color: "white", fontWeight: 700 }}>
-              KORGOU 시작하기
+              {t("auth.signup.success.start")}
             </Typography>
           }
           style={{

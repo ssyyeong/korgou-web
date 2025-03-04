@@ -3,8 +3,10 @@ import React from "react";
 import OriginButton from "../../../components/Button/OriginButton";
 import Header from "../../../components/Header/Header";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const Review = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   const [tab, setTab] = React.useState(0);
@@ -60,8 +62,8 @@ const Review = () => {
           borderBottom: "1px solid #919298", // 탭 아래쪽 보더 설정
         }}
       >
-        <Tab label="리뷰 작성" />
-        <Tab label="나의 리뷰" />
+        <Tab label={t("review.review_write")} />
+        <Tab label={t("review.my_review")} />
       </Tabs>
 
       <TabPanel value={0} width="100%">

@@ -6,19 +6,27 @@ import OriginButton from "../../../../components/Button/OriginButton";
 import Header from "../../../../components/Header/Header";
 import { useLocation, useNavigate } from "react-router-dom";
 import BottomModal from "../../../../components/Modal/BottomModal";
+import { useTranslation } from "react-i18next";
 
 //이메일 인증번호 확인 페이지
 const FindPwEmail = ({ route }: any) => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
   const { title = "", email = "" } = location?.state || {};
-
+  const [newTitle, setNewTitle] = React.useState(title);
   const [newEmail, setNewEmail] = React.useState(email);
   const [authNumber, setAuthNumber] = React.useState("");
   const [bottomModalOpen, setBottomModalOpen] = React.useState(false);
   const [isModifyEmail, setIsModifyEmail] = React.useState(false);
 
   useEffect(() => {
+    //title 값에 따라서 변경되는 타이틀 변경
+    if (title === "이메일 인증") {
+      setNewTitle(t("auth.email_verification.title"));
+    } else {
+      setNewTitle(t("auth.forgot_password.title"));
+    }
     setNewEmail(email);
   }, [email]);
 
@@ -55,7 +63,7 @@ const FindPwEmail = ({ route }: any) => {
           width: "100%",
         }}
       >
-        <Header title={title} />
+        <Header title={newTitle} />
         <Box
           sx={{
             display: "flex",
@@ -70,7 +78,7 @@ const FindPwEmail = ({ route }: any) => {
               fontWeight: 500,
             }}
           >
-            아래 이메일로 인증번호가 발송되었습니다.
+            {t("auth.email_verification.email_verification_message")}
           </Typography>
           {!isModifyEmail ? (
             <Typography
@@ -135,7 +143,7 @@ const FindPwEmail = ({ route }: any) => {
           >
             <TextField
               variant="outlined"
-              placeholder="인증번호"
+              placeholder={t("common.field.email.verification.code.label")}
               value={authNumber}
               onChange={(e) => {
                 setAuthNumber(e.target.value);
@@ -163,7 +171,7 @@ const FindPwEmail = ({ route }: any) => {
                 ml: "8px",
               }}
             >
-              재전송
+              {t("common.field.email.verification.code.resend")}
             </Button>
           </Box>
           <Box
@@ -216,7 +224,7 @@ const FindPwEmail = ({ route }: any) => {
                 setIsModifyEmail(true);
               }}
             >
-              이메일 재입력 하기
+              {t("auth.email_verification.re_enter_email")}
             </Typography>
           </Box>
         </Box>
@@ -236,7 +244,13 @@ const FindPwEmail = ({ route }: any) => {
           onClick={() => {
             setBottomModalOpen(true);
           }}
-          contents={<Typography fontSize={16}>확인</Typography>}
+          contents={
+            <Typography fontSize={16}>
+              {title === "이메일 인증"
+                ? t("auth.email_verification.verify")
+                : t("auth.forgot_password.change_password")}
+            </Typography>
+          }
           style={{
             mb: "32px",
           }}

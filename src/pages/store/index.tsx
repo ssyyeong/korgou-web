@@ -9,22 +9,24 @@ import { useAuth } from "../../hooks/useAuth";
 import FilteringDate from "../../components/FilteringDate";
 import StoreCard from "./storeCard";
 import { format } from "date-fns";
+import { useTranslation } from "react-i18next";
 
 const Store = () => {
+  const { t } = useTranslation();
   const dateFilterings = [
-    { value: "1month", label: "최근 1개월" },
-    { value: "2month", label: "최근 2개월" },
-    { value: "3month", label: "최근 3개월" },
+    { value: "1month", label: t("common.period.recent.month") },
+    { value: "2month", label: t("common.period.recent.two_month") },
+    { value: "3month", label: t("common.period.recent.three_month") },
   ];
   const filterings = [
-    { value: "Awaiting User Process", label: "Awaiting User Process" },
+    { value: "Awaiting User Process", label: t("store.awaiting_user_process") },
     {
       value: "Return/Exchange application",
-      label: "Return/Exchange application",
+      label: t("store.return_exchange_application"),
     },
-    { value: "Return/Exchange Done", label: "Return/Exchange Done" },
-    { value: "Return/Failed", label: "Return/Failed" },
-    { value: "Foward Done", label: "Foward Done" },
+    { value: "Return/Exchange Done", label: t("store.return_exchange_done") },
+    { value: "Return/Failed", label: t("store.return_failed") },
+    { value: "Foward Done", label: t("store.forward_done") },
   ];
 
   interface OrderItem {
@@ -41,7 +43,7 @@ const Store = () => {
 
   const navigate = useNavigate();
 
-  const [filter, setFilter] = useState("전체");
+  const [filter, setFilter] = useState(t("store.all"));
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [dateType, setDateType] = useState(""); //날짜 필터링
@@ -90,7 +92,7 @@ const Store = () => {
         backgroundColor: "white",
       }}
     >
-      <Header title="창고 현황" back={false} />
+      <Header title={t("store.title")} back={false} />
 
       {/* Section Title */}
       <Typography
@@ -101,7 +103,7 @@ const Store = () => {
           mt: "20px",
         }}
       >
-        도착완료 물건
+        {t("store.arrival_completed")}
       </Typography>
       <FilteringDate
         filterings={dateFilterings}
@@ -126,7 +128,7 @@ const Store = () => {
             fontSize: "12px",
           }}
         >
-          물건 상태
+          {t("store.item_status")}
         </Typography>
         <DropDown
           items={filterings.map((filter) => filter.label)}
@@ -163,7 +165,9 @@ const Store = () => {
               isAllChecked ? [] : orders.map((order) => order.id)
             );
           }}
-          label={`전체 선택 [${checkedOrders.length}]`}
+          label={`${t("store.select_all", {
+            count: checkedOrders.length,
+          })}`}
           style={{ fontSize: "14px", color: "#282930", height: "24px" }}
         />
         <Box
@@ -242,7 +246,7 @@ const Store = () => {
                 }}
               >
                 <Typography fontSize={16} fontWeight={700} color="#61636C">
-                  포토 서비스
+                  {t("store.photo_service")}
                 </Typography>
                 <img src={"/images/icon/camera.svg"} alt="camera" />
               </Box>
@@ -263,7 +267,7 @@ const Store = () => {
                 }}
               >
                 <Typography fontSize={16} fontWeight={700} color="#ffffff">
-                  디스포절
+                  {t("store.disposal")}
                 </Typography>
                 <img src={"/images/icon/dispose.svg"} alt="dispose" />
               </Box>
@@ -276,7 +280,7 @@ const Store = () => {
           onClick={() => {}}
           contents={
             <Typography fontSize={16} fontWeight={700} color="white">
-              배송 요청{" "}
+              {t("store.delivery_request")}
             </Typography>
           }
           style={{ marginTop: "16px", width: "328px" }}

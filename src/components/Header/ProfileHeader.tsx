@@ -1,9 +1,11 @@
 import { Box, Typography, Divider } from "@mui/material";
 import KeyboardArrowRightOutlinedIcon from "@mui/icons-material/KeyboardArrowRightOutlined";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const ProfileHeader = (props: any) => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   return (
     <Box
@@ -82,7 +84,7 @@ const ProfileHeader = (props: any) => {
             mb: "8px",
           }}
         >
-          GOLD 등급까지
+          GOLD {t("my_page.level_up")}
         </Typography>
         <img
           src="/images/icon/my_page/bar.png"
@@ -134,7 +136,7 @@ const ProfileHeader = (props: any) => {
             mb: "16px",
           }}
         >
-          경기도 성남시 중원구 상대원동 순환로79 [A123456]
+          {t("buying_it.address_detail")} [A123456]
         </Typography>
         <Divider sx={{ borderColor: "#ECECED", mb: "16px" }} />
         <Box
@@ -144,19 +146,19 @@ const ProfileHeader = (props: any) => {
           }}
         >
           {[
-            { label: "발란스", value: props.memberBalance },
-            { label: "쿠폰", value: "1" },
-            { label: "포인트", value: props.memberPoint },
+            { label: t("my_page.balance"), value: props.memberBalance },
+            { label: t("my_page.coupon"), value: "1" },
+            { label: t("my_page.point"), value: props.memberPoint },
           ].map((item, index) => (
             <Box
               key={index}
               sx={{ textAlign: "center", cursor: "pointer" }}
               onClick={
-                item.label === "발란스"
+                item.label === t("my_page.balance")
                   ? () => navigate("/my_page/balance")
-                  : item.label === "쿠폰"
+                  : item.label === t("my_page.coupon")
                   ? () => navigate("/my_page/point")
-                  : item.label === "포인트"
+                  : item.label === t("my_page.point")
                   ? () => navigate("/my_page/point")
                   : () => {}
               }
@@ -188,7 +190,7 @@ const ProfileHeader = (props: any) => {
                   {item.value}
                 </Typography>
 
-                {item.label === "발란스" && (
+                {item.label === t("my_page.balance") && (
                   <Box
                     sx={{
                       display: "flex",
@@ -206,7 +208,7 @@ const ProfileHeader = (props: any) => {
                         color: "white",
                       }}
                     >
-                      충전
+                      {t("common.button.charge")}
                     </Typography>
                   </Box>
                 )}
@@ -253,7 +255,7 @@ const ProfileHeader = (props: any) => {
                 fontSize: "12px",
               }}
             >
-              창고 현황
+              {t("my_page.warehouse_status")}
             </Typography>
             <Box
               sx={{
@@ -296,7 +298,7 @@ const ProfileHeader = (props: any) => {
                 fontSize: "12px",
               }}
             >
-              배송신청 현황
+              {t("my_page.delivery_status")}
             </Typography>
             <Box
               sx={{
@@ -339,7 +341,7 @@ const ProfileHeader = (props: any) => {
               fontSize: "12px",
             }}
           >
-            구매대행 현황
+            {t("my_page.purchase_status")}
           </Typography>
           <Box
             sx={{

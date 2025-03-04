@@ -3,14 +3,16 @@ import { Box, Typography, Button } from "@mui/material";
 import Header from "../../../components/Header/Header";
 import OriginButton from "../../../components/Button/OriginButton";
 import CustomDatePicker from "../../../components/CustomDatePicker";
+import { useTranslation } from "react-i18next";
 
 const Delivery = () => {
+  const { t } = useTranslation();
   const filterings = [
-    { value: 0, label: "최근 1개월" },
-    { value: 1, label: "최근 3개월" },
-    { value: 2, label: "최근 6개월" },
+    { value: 0, label: t("common.period.recent.month") },
+    { value: 1, label: t("common.period.recent.three_month") },
+    { value: 2, label: t("common.period.recent.six_month") },
   ];
-  const [filter, setFilter] = useState("전체");
+  const [filter, setFilter] = useState(t("common.button.all"));
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
 
   const [startDate, setStartDate] = useState(new Date());
@@ -36,7 +38,7 @@ const Delivery = () => {
         backgroundColor: "white",
       }}
     >
-      <Header title="배송 신청 현황" />
+      <Header title={t("forward_request_status.title")} />
 
       {/* 컴포넌트화 필요 */}
       <Box sx={{ display: "flex", gap: 1, flexDirection: "row", my: "10px" }}>
@@ -72,7 +74,7 @@ const Delivery = () => {
           onClick={() => {}}
           contents={
             <Typography fontSize={16} fontWeight={700} color="#ffffff">
-              조회
+              {t("common.button.search")}
             </Typography>
           }
           style={{
@@ -95,7 +97,7 @@ const Delivery = () => {
             fontSize: "12px",
           }}
         >
-          배송 상태
+          {t("forward_request_status.delivery_status")}
         </Typography>
         {/* <DropDown
           value={filter}

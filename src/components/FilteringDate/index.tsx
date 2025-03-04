@@ -1,7 +1,7 @@
 import { Box, Button, Typography } from "@mui/material";
 import CustomDatePicker from "../CustomDatePicker";
 import OriginButton from "../Button/OriginButton";
-
+import { useTranslation } from "react-i18next";
 interface IfilteringDateProps {
   filterings: any[];
   dateType: string;
@@ -14,6 +14,7 @@ interface IfilteringDateProps {
 }
 
 const FilteringDate = (props: IfilteringDateProps) => {
+  const { t } = useTranslation();
   return (
     <Box
       sx={{
@@ -70,7 +71,7 @@ const FilteringDate = (props: IfilteringDateProps) => {
           }}
           contents={
             <Typography fontSize={16} fontWeight={700} color="#ffffff">
-              조회
+              {t("common.button.search")}
             </Typography>
           }
           style={{

@@ -3,7 +3,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { useExchange } from "../../../../hooks/useExchange";
 import QuantitySelector from "./QuantitySelector";
 import TextFieldCustom from "../../../../components/TextField";
-
+import { useTranslation } from "react-i18next";
 interface CartCardProps {
   cart: any;
   selectedCartList: any[];
@@ -14,6 +14,7 @@ interface CartCardProps {
 }
 
 const CartCard = (props: CartCardProps) => {
+  const { t } = useTranslation();
   const { cart, selectedCartList, setSelectedCartList, deleteCart } = props;
   const { usd } = useExchange();
 
@@ -152,7 +153,7 @@ const CartCard = (props: CartCardProps) => {
               e.target.value
             );
           }}
-          placeholder="주문과 관련된 요청사항을 적어주세요.(선택)"
+          placeholder={t("cart.request_description")}
           sx={{
             "& .MuiInputBase-root": {
               height: "38px",
@@ -177,7 +178,7 @@ const CartCard = (props: CartCardProps) => {
             fontSize: "14px",
           }}
         >
-          선택 상품금액
+          {t("cart.selected_item_price")}
         </Typography>
         <Typography
           sx={{
@@ -203,7 +204,7 @@ const CartCard = (props: CartCardProps) => {
             fontSize: "14px",
           }}
         >
-          국내 배송비
+          {t("cart.domestic_shipping_fee")}
         </Typography>
         <Typography
           sx={{
@@ -235,7 +236,7 @@ const CartCard = (props: CartCardProps) => {
             fontWeight: "bold",
           }}
         >
-          합계
+          {t("cart.total_price")}
         </Typography>
         <Typography
           sx={{

@@ -12,8 +12,10 @@ import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 
 import { countryList } from "../../../configs/data/CountryConfig";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const SignUp = () => {
+  const { t } = useTranslation();
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
@@ -60,7 +62,7 @@ const SignUp = () => {
         flexDirection: "column",
       }}
     >
-      <Header title={"회원가입"} />
+      <Header title={t("auth.signup.title")} />
       <Box
         sx={{
           display: "flex",
@@ -69,7 +71,7 @@ const SignUp = () => {
           height: "100%",
         }}
       >
-        <Typography sx={textStyle}>이름</Typography>
+        <Typography sx={textStyle}>{t("common.field.name.label")}</Typography>
         <TextFieldCustom
           fullWidth
           value={name}
@@ -77,9 +79,9 @@ const SignUp = () => {
           onChange={(e) => {
             setName(e.target.value);
           }}
-          placeholder="English Full-Name"
+          placeholder={t("common.field.name.placeholder")}
         />
-        <Typography sx={textStyle}>이메일</Typography>
+        <Typography sx={textStyle}>{t("common.field.email.label")}</Typography>
         <TextFieldCustom
           fullWidth
           value={email}
@@ -87,9 +89,11 @@ const SignUp = () => {
           onChange={(e) => {
             setEmail(e.target.value);
           }}
-          placeholder="E-mail"
+          placeholder={t("common.field.email.placeholder")}
         />
-        <Typography sx={textStyle}>비밀번호</Typography>
+        <Typography sx={textStyle}>
+          {t("common.field.password.label")}
+        </Typography>
         <TextFieldCustom
           fullWidth
           value={password}
@@ -98,11 +102,11 @@ const SignUp = () => {
             setPassword(e.target.value);
           }}
           sx={{ mb: "10px" }}
-          placeholder="영문,숫자 포함 7~16자를 입력해주세요."
+          placeholder={t("common.field.password.placeholder")}
           error={password.length < 7 && password.length > 0}
           helperText={
             password.length < 7 && password.length > 0
-              ? "비밀번호는 영문,숫자 포함 7자 이상이어야 합니다."
+              ? t("common.field.password.error")
               : ""
           }
         />
@@ -113,13 +117,15 @@ const SignUp = () => {
           onChange={(e) => {
             setPasswordCheck(e.target.value);
           }}
-          placeholder="비밀번호를 한번 더 입력해 주세요."
+          placeholder={t("common.field.password.placeholder")}
           error={passwordCheck !== password}
           helperText={
-            passwordCheck !== password ? "비밀번호가 일치하지 않습니다." : ""
+            passwordCheck !== password ? t("common.field.password.error") : ""
           }
         />
-        <Typography sx={textStyle}>국가</Typography>
+        <Typography sx={textStyle}>
+          {t("common.field.country.label")}
+        </Typography>
         <Input
           dataList={countryList}
           value={country}
@@ -127,7 +133,9 @@ const SignUp = () => {
           type="select"
           style={{ mb: "20px", maxHeight: "48px" }}
         />
-        <Typography sx={textStyle}>추천인 코드</Typography>
+        <Typography sx={textStyle}>
+          {t("common.field.recommender_code.label")}
+        </Typography>
         <TextFieldCustom
           fullWidth
           value={recommenderCode}
@@ -137,7 +145,7 @@ const SignUp = () => {
           }}
           variant={"outlined"}
           sx={{ mb: 2, bgcolor: "white" }}
-          placeholder="Friend Code"
+          placeholder={t("common.field.recommender_code.placeholder")}
         />
         <Box
           sx={{
@@ -157,7 +165,7 @@ const SignUp = () => {
               setIsAgree2(!isAllAgree);
               setIsAgree3(!isAllAgree);
             }}
-            label={"전체 동의"}
+            label={t("terms.all")}
             style={{ fontSize: "16px" }}
           />
           <Box
@@ -194,7 +202,7 @@ const SignUp = () => {
                   fontWeight: 500,
                 }}
               >
-                (필수)
+                {t("terms.required")}
               </Typography>
               <Typography
                 sx={{
@@ -204,7 +212,7 @@ const SignUp = () => {
                   fontWeight: 500,
                 }}
               >
-                서비스 이용약관 동의
+                {t("terms.service_terms")}
               </Typography>
             </Box>
             <KeyboardArrowRightIcon sx={{ color: "#B1B2B6", pr: "32px" }} />
@@ -243,7 +251,7 @@ const SignUp = () => {
                   fontWeight: 500,
                 }}
               >
-                (필수)
+                {t("terms.required")}
               </Typography>
               <Typography
                 sx={{
@@ -253,7 +261,7 @@ const SignUp = () => {
                   fontWeight: 500,
                 }}
               >
-                개인정보 수집 및 이용 동의{" "}
+                {t("terms.privacy")}
               </Typography>
             </Box>
             <KeyboardArrowRightIcon sx={{ color: "#B1B2B6", pr: "32px" }} />
@@ -292,7 +300,7 @@ const SignUp = () => {
                   fontWeight: 500,
                 }}
               >
-                (선택)
+                {t("terms.optional")}
               </Typography>
               <Typography
                 sx={{
@@ -302,7 +310,7 @@ const SignUp = () => {
                   fontWeight: 500,
                 }}
               >
-                마케팅 정보 활용에 동의
+                {t("terms.marketing")}
               </Typography>
             </Box>
             <KeyboardArrowRightIcon sx={{ color: "#B1B2B6", pr: "32px" }} />
@@ -315,10 +323,11 @@ const SignUp = () => {
         variant="contained"
         color="primary"
         onClick={() => {
-          console.log("회원가입");
           nextPage();
         }}
-        contents={<Typography fontSize={16}>확인</Typography>}
+        contents={
+          <Typography fontSize={16}>{t("common.button.confirm")}</Typography>
+        }
         style={{ padding: "16px 8px", mt: "20px" }}
       />
     </Box>

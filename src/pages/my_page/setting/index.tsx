@@ -9,8 +9,10 @@ import {
 import Header from "../../../components/Header/Header";
 import OriginButton from "../../../components/Button/OriginButton";
 import TextFieldCustom from "../../../components/TextField";
+import { useTranslation } from "react-i18next";
 
 const Setting = () => {
+  const { t } = useTranslation();
   const [isPush, setIsPush] = useState(false);
   const [isAlarm, setIsAlarm] = useState(false);
 
@@ -24,7 +26,7 @@ const Setting = () => {
         backgroundColor: "white",
       }}
     >
-      <Header title="앱 설정" />
+      <Header title={t("app_setting.title")} />
 
       <Box
         sx={{
@@ -39,7 +41,7 @@ const Setting = () => {
             mb: "4px",
           }}
         >
-          간편 로그인 연동
+          {t("app_setting.simple_login")}
         </Typography>
         <TextFieldCustom
           fullWidth
@@ -48,7 +50,6 @@ const Setting = () => {
           sx={{
             mb: "10px",
           }}
-          placeholder="쇼핑몰 url"
           onChange={() => {}}
         />
         <Box
@@ -77,7 +78,7 @@ const Setting = () => {
                 fontSize: "14px",
               }}
             >
-              애플
+              Apple
             </Typography>
           </Box>
           <Box
@@ -98,7 +99,7 @@ const Setting = () => {
                 fontSize: "14px",
               }}
             >
-              구글
+              Google
             </Typography>
           </Box>
           <OriginButton
@@ -106,7 +107,7 @@ const Setting = () => {
             onClick={() => {}}
             contents={
               <Typography fontSize={14} color="#2E2F37">
-                연동하기
+                {t("app_setting.simple_login_button")}
               </Typography>
             }
             style={{
@@ -130,7 +131,7 @@ const Setting = () => {
               color: "#282930",
             }}
           >
-            알림 설정
+            {t("app_setting.alarm_setting")}
           </Typography>
           <Box
             sx={{
@@ -148,7 +149,7 @@ const Setting = () => {
                 fontWeight: 700,
               }}
             >
-              푸시 알림
+              {t("app_setting.push_alarm")}
             </Typography>
             <ToggleButtonGroup
               value={isPush}
@@ -198,7 +199,7 @@ const Setting = () => {
                 fontWeight: 700,
               }}
             >
-              알림톡
+              {t("app_setting.alarm_talk")}
             </Typography>
             <ToggleButtonGroup
               value={isAlarm}
@@ -248,7 +249,7 @@ const Setting = () => {
               color: "#282930",
             }}
           >
-            버전 정보
+            {t("app_setting.version_info")}
           </Typography>
           <Typography
             sx={{

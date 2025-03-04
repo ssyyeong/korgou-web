@@ -1,0 +1,784 @@
+{
+  "common": {
+    "button": {
+      "confirm": "確認",
+      "cancel": "キャンセル",
+      "save": "保存",
+      "modify": "修正",
+      "delete": "削除",
+      "close": "閉じる",
+      "list": "リスト",
+      "previous": "前へ",
+      "search": "検索",
+      "add": "+ 追加",
+      "submit": "提出",
+      "resend": "再送信",
+      "re_enter": "メールアドレスを再入力",
+      "order_request": "注文リクエスト",
+      "charge": "チャージ",
+      "add_address": "+ 配送先追加",
+      "next_step": "次へ",
+      "previous_step": "前のステップへ",
+      "order": "注文する"
+    },
+
+    "field": {
+      "email": {
+        "label": "メールアドレス",
+        "placeholder": "メールアドレスを入力してください",
+        "verification": {
+          "title": "メールアドレス認証",
+          "message": "以下のメールアドレスに認証コードが送信されました",
+          "code": {
+            "label": "認証コード",
+            "placeholder": "認証コードを入力してください"
+          },
+          "success": "メールアドレス認証が完了しました"
+        }
+      },
+      "password": {
+        "label": "パスワード",
+        "placeholder": "パスワードを入力してください(8文字以上)",
+        "confirm": {
+          "label": "パスワード確認",
+          "placeholder": "パスワードを再入力してください"
+        },
+        "error": "パスワードが一致しません。",
+        "change": {
+          "title": "パスワード変更",
+          "new_placeholder": "新しいパスワードを入力してください(8文字以上)",
+          "success": "パスワードの変更が完了しました!"
+        }
+      },
+      "name": {
+        "label": "名前",
+        "placeholder": "名前を入力してください",
+        "first": "姓(英字)",
+        "last": "名(英字)"
+      },
+      "country": {
+        "label": "国",
+        "placeholder": "国を選択してください"
+      },
+      "address": {
+        "label": "住所",
+        "detail": "詳細住所",
+        "postal_code": "郵便番号",
+        "province": "県(Province)",
+        "city": "市(City)",
+        "placeholder": "住所を入力してください"
+      },
+      "phone": {
+        "label": "電話番号",
+        "placeholder": "-を除いて入力してください"
+      },
+      "recommender_code": {
+        "label": "推薦コード",
+        "placeholder": "推薦コードを入力してください"
+      },
+      "seller_name": {
+        "label": "ブランド セラー名",
+        "placeholder": "ブランドセラー名を入力してください"
+      },
+      "product_method": {
+        "label": "販売方法",
+        "placeholder": "販売方法を選択してください"
+      },
+      "product_type": {
+        "label": "商品種類",
+        "placeholder": "商品種類を選択してください"
+      },
+      "url": {
+        "label": "自社モールURL",
+        "placeholder": "自社モールのURLを入力してください"
+      },
+      "channel": {
+        "label": "代表 外部 販売 チャネル(自社モール 除く)",
+        "placeholder": "代表 外部 販売 チャネルを選択してください"
+      },
+      "introduce_file": {
+        "label": "会社/商品 紹介書",
+        "placeholder": "会社/商品 紹介書をアップロードしてください"
+      },
+      "business_registration_file": {
+        "label": "会社/商品 紹介書",
+        "placeholder": "会社/商品 紹介書をアップロードしてください"
+      },
+      "count": {
+        "label": "数",
+        "unit": "個",
+        "count": "{{count}}個"
+      },
+      "weight": {
+        "label": "重量",
+        "unit": "g"
+      }
+    },
+
+    "period": {
+      "today": "今日",
+      "recent": {
+        "week": "最近7日",
+        "month": "最近1ヶ月",
+        "two_month": "最近2ヶ月",
+        "three_month": "最近3ヶ月",
+        "six_month": "最近6ヶ月"
+      }
+    },
+
+    "upload": {
+      "photo": {
+        "title": "写真 アップロード",
+        "description": "· 画像は2MB以下、5枚までアップロードできます。"
+      },
+      "file": {
+        "add": "ファイル追加"
+      }
+    }
+  },
+
+  "status": {
+    "process": {
+      "waiting": "待機中",
+      "completed": "完了",
+      "canceled": "キャンセルされました",
+      "processing": "処理中"
+    },
+    "payment": {
+      "before": "前払い",
+      "completed": "支払い完了",
+      "failed": "支払い失敗"
+    },
+    "delivery": {
+      "waiting": "配送 待機",
+      "in_transit": "配送中",
+      "completed": "配送完了",
+      "forwarded": "発送",
+      "returned": "返送"
+    }
+  },
+
+  "form": {
+    "placeholders": {
+      "email": "メールアドレスを入力してください。",
+      "password": "パスワードを入力してください(8文字以上)",
+      "confirm_password": "パスワードを再入力してください。",
+      "country": "国を選択してください。",
+      "name": "名前を入力してください。",
+      "request": "要求を入力してください。"
+    }
+  },
+
+  "delivery": {
+    "type": {
+      "overseas": "海外配送",
+      "domestic": "国内配送",
+      "warehouse": "倉庫配送"
+    },
+    "service": {
+      "compact": {
+        "label": "コンパクトパッケージ",
+        "description": "最小サイズでパッケージ"
+      },
+      "priority": {
+        "label": "優先パッケージ",
+        "description": "48時間以内で処理"
+      },
+      "receipt": {
+        "label": "領収書削除",
+        "description": "配送前に領収書を削除"
+      }
+    },
+    "tracking": {
+      "label": "運送業者 運送業者番号",
+      "placeholder": "運送業者 運送業者番号を入力してください"
+    }
+  },
+
+  "payment": {
+    "method": {
+      "balance": {
+        "label": "バランス",
+        "description": "アカウント残高で支払い"
+      },
+      "point": {
+        "label": "ポイント",
+        "description": "保有ポイントで支払い"
+      }
+    },
+    "amount": {
+      "total": "総支払い金額",
+      "discount": "割引金額",
+      "shipping": "配送料",
+      "processing": "処理料",
+      "purchase": "購入料"
+    }
+  },
+
+  "terms": {
+    "privacy": "個人情報 収集 及び 利用 同意",
+    "service_terms": "サービス 利用 同意",
+    "marketing": "マーケティング 情報 利用に同意",
+    "all": "同意",
+    "required": "必須",
+    "optional": "任意"
+  },
+
+  "auth": {
+    "login": {
+      "title": "ログイン",
+      "keep_signed": "ログイン 保持",
+      "forgot_password_link": "パスワードを忘れましたか?",
+      "types": {
+        "social": "ソーシャル ログイン",
+        "individual": "個人 ログイン",
+        "company": "企業 ログイン"
+      },
+      "forgot_password": {
+        "title": "KORGOU 既存顧客 ログイン 認証",
+        "description": "既存のサービスに登録されたメールアドレスで \n 一時パスワードを送信します。 \n ログイン後、パスワードの変更が可能です!",
+        "button": "一時パスワードを発行する"
+      }
+    },
+    "signup": {
+      "title": "メンバー登録",
+      "individual": "個人 メンバー登録",
+      "company": "企業 メンバー登録",
+      "success": {
+        "title": "ようこそ",
+        "message": "登録が完了しました",
+        "start": "KORGOU 開始"
+      }
+    },
+    "change_password": {
+      "title": "パスワード 変更",
+      "new_password_placeholder": "新しいパスワードを入力してください(8文字以上)",
+      "confirm_password_placeholder": "パスワードを確認してください。",
+      "change_password": "変更する",
+      "password_changed": "パスワードの変更が完了しました!"
+    },
+    "email_verification": {
+      "email_verification_message": "以下のメールアドレスに認証コードが送信されました。",
+      "verification_code_placeholder": "認証コード",
+      "email_verification_completed": "メール 認証 完了",
+      "email_verification_completed_message": "メール 認証が完了しました。"
+    },
+    "forgot_password": {
+      "title": "パスワード 検索",
+      "email_label": "メールアドレス",
+      "email_verification": "メール 認証する",
+      "email_verification_message": "*メールアドレスを入力/本人認証完了時にパスワードを再設定できます。",
+      "change_password": "パスワード 変更",
+      "password_changed": "パスワードの変更が完了しました!",
+      "login_now": "ログイン する"
+    }
+  },
+
+  "main": {
+    "title": "KORGOUが韓国購入を完璧にする方法",
+    "free_korean_address": "無料 韓国 住所",
+    "package_forward": "パッケージ 転送",
+    "assisted_purchase": "購入 代理",
+    "value_added_services": "付加価値 サービス",
+    "step_by_step_essentials": "ステップバイステップ 必須 情報",
+    "step_by_step_essentials_description": "安全で快適な配送方法! <br/> KorGouがお伝えします!",
+    "package_forward_guide": "パッケージ 転送 チュートリアル",
+    "assisted_purchase_guide": "購入 代理 チュートリアル",
+    "our_advantages": "KORGOUの 長所",
+    "our_advantages_description": "KORGOUの サービスを体験してください。",
+    "advantage_1": "専門的で献身的な配送及び購入 サポート サービス",
+    "advantage_2": "安全で便利な支払い",
+    "advantage_3": "180日間 パッケージ 保管 サービス",
+    "advantage_4": "購入から海外配送までのワンストップサービス",
+    "advantage_5": "総 ショッピング コストを削減する 付加価値 サービス",
+    "advantage_6": "多種多様な 配送 方法",
+    "use_of_the_service": "KORGOU サービス 利用 方法",
+    "service_1": "購入 代理",
+    "service_2": "加入 国",
+    "service_3": "配送 国",
+    "service_4": "パッケージ 転送",
+    "official": "KorGou Official",
+    "official_description": "当社のソーシャル メディア チャネルをフォローして、多種多様な K-Entertainmentを楽しんで、当社のサービスについて詳しく知ってください!"
+  },
+
+  "buying_it": {
+    "title": "Buying it",
+    "shopping_auth": "ショッピング アカウント 有無",
+    "shopping_account": "ショッピング アカウント",
+    "shopping_placeholder1": "ショッピング url",
+    "shopping_placeholder2": "ショッピング ID",
+    "shopping_placeholder3": "ショッピング PASS",
+    "shopping_description": "*ショッピング サイト 接続> カートに追加された商品を購入します。",
+    "product_list": "注文商品 リスト",
+    "product": "商品 {{count}}",
+    "product_placeholder1": "注文商品 URLを入力してください。",
+    "product_placeholder2": "注文 オプション(最終 オプション値)を入力してください。",
+    "product_placeholder3": "注文 数を入力してください。",
+    "product_placeholder4": "最終 商品 金額を入力してください。",
+    "product_placeholder5": "要求事項を入力してください。",
+    "address": "配送先 設定",
+    "address_type": "倉庫 配送",
+    "address_type_description": "倉庫 保有商品と合併包装",
+    "address_detail": "埼玉県 さいたま市 浦和区 緑町 1-1-1 3F",
+    "address_request": "配送 要求事項",
+    "address_request_placeholder": "配送 時 要求事項を入力してください。",
+    "proceee": "品切れ 時 進行方法",
+    "proceee_description": "*要求 商品 中 品切れが発生した場合, 支払い 処理 方法",
+    "proceee_option1": "品切れ 商品をスキップし、残りの商品のみを支払い 進行",
+    "proceee_option2": "注文書 処理を停止",
+    "order_list": "注文 リスト"
+  },
+
+  "contact_us": {
+    "title": "Contact Us",
+    "email": "メールアドレス",
+    "subject": "タイトル",
+    "number": "番号",
+    "category": "カテゴリ",
+    "description": "KorGouはサポート チケット システムを通じて効率的な顧客サービスを提供するため、知識ベースを探索するか、チケットを簡単に提出できます。各リクエストには、追跡と更新のための固有のチケット番号が割り当てられ、メールで回答するか、ログインして進行状況を監視し、当社チームとコミュニケーションを取ることができます。週末に受け取った問い合わせは、翌営業日に処理されますのでご注意ください。"
+  },
+
+  "support": {
+    "title": "顧客 センター",
+    "notice": "お知らせ",
+    "notice_previous": "前の記事"
+  },
+
+  "calculator": {
+    "shipping_fee_calculator": "配送料 計算",
+    "ship_to": "配送先",
+    "country_select": "国 選択",
+    "courier": "宅配業者",
+    "package_weight": "パッケージ 重量(g)",
+    "package_dimension": "パッケージ サイズ(cm)",
+    "calculate_description": "実際に進行中の見積とは異なる場合があります。",
+    "vies_shipping_rates": "配送料 見積"
+  },
+
+  "my_page": {
+    "level_up": "等級まで",
+    "balance": "バランス",
+    "coupon": "クーポン",
+    "point": "ポイント",
+    "warehouse_status": "倉庫 現状",
+    "delivery_status": "配送 申請 現状",
+    "purchase_status": "購入 現状",
+    "notice": "お知らせ",
+    "delivery_address": "配送先 管理",
+    "unidentified_package": "未確認 パッケージ",
+    "review": "レビュー 管理",
+    "inquiry": "問い合わせ 管理",
+    "app_setting": "アプリ 設定",
+    "alarm": "アラーム"
+  },
+
+  "point": {
+    "title": "ポイント",
+    "amount": "保有 金額",
+    "point_history": "ポイント 履歴",
+    "check": "確認"
+  },
+
+  "balance": {
+    "title": "バランス",
+    "amount": "保有 金額",
+    "balance_history": "バランス 履歴",
+    "check": "確認",
+    "charge_point": "充電ポイント",
+    "balance_point": "保有 バランス",
+    "payment_method": "支払い 数단",
+    "deposit_bank": "入金 銀行",
+    "deposit_name": "入金者 名前",
+    "payment_info": "支払い 情報",
+    "charge_amount": "充電 支払い 金額"
+  },
+
+  "purchase_status": {
+    "title": "購入 現状",
+    "purchase_status": "購入 現状",
+    "all": "全て",
+    "confirmation_pending": "確認 待ち",
+    "confirmed_payment_pending": "確認完了 及び 支払い 待ち",
+    "paid": "支払い 完了",
+    "completed": "購入 完了",
+    "warehouse_alert": "入金 アラーム 申請",
+    "warehouse_alert_title": "入金 アラーム 申請が完了しました",
+    "warehouse_alert_description": "注文 商品が倉庫に入荷されると、メールでお知らせします! \n \n注文 商品が倉庫に入荷された後、配送先の設定と配送要求が可能です。"
+  },
+
+  "purchase_detail": {
+    "title": "購入 内訳 詳細",
+    "order_number": "注文 番号",
+    "order_status": "注文 現状",
+    "order_status_description1": "注文 要求事項を確認中です。",
+    "order_status_description2": "注文 要求 商品が確認され、購入 待ち 現状です。",
+    "order_status_description3": "注文 要求 商品が確認され、購入 可能 現状です。 \n支払い を 進行 して ください!",
+    "product_info": "商品 情報",
+    "order_info": "注文 情報",
+    "address_type": "配送 タイプ",
+    "address_type_description": "倉庫 配送",
+    "warehouse_number": "倉庫 番号",
+    "order_request": "注文 要求事項",
+    "order_image": "注文 画像",
+    "payment_info": "支払い 情報",
+    "product_quantity": "商品 数量",
+    "product_price": "商品 金額",
+    "purchase_fee": "購入 数数",
+    "discount_amount": "割引 金額",
+    "total_price": "総 支払い 金額",
+    "order_cancel_request": "注文 キャンセル 要求",
+    "payment_button": "支払い する",
+    "payment_request": "支払い 要求",
+    "payment_progress": "支払い 進行",
+    "payment_method": "支払い 数단",
+    "point": "ポイント",
+    "point_discount": "ポイント 割引",
+    "use": "使用",
+    "point_discount_amount": "割引 可能 金額",
+    "point_earn": "ポイント 獲得",
+    "point_balance": "保有 ポイント",
+    "list": "リスト",
+    "order_cancel_request_title": "注文 キャンセル 要求を 進行 しますか?",
+    "order_cancel_request_description": "注文 キャンセル 要求を 進行 しますか?",
+    "order_cancel_request_button": "注文 キャンセル する",
+    "order_cancel_request_description2": "担当者 確認 後、要求 内訳が 削除され、注文が 進行 されません。",
+    "close_button": "閉じる",
+    "order_cancel_request_success_title": "注文 キャンセル 要求が 完了 しました。",
+    "order_cancel_request_success_description": "注文 キャンセル 不可能 時、個別 連絡が 可能 です。"
+  },
+
+  "cart": {
+    "title": "カート",
+    "cart_empty": "カートに 商品が ありません。",
+    "cart_empty_button": "おすすめ 商品 見る",
+    "select_all": "全て 選択",
+    "delete_selected_items": "選択 商品 削除",
+    "request_description": "注文に関するリクエストをご記入ください（任意）",
+    "selected_item_price": "選択商品の金額",
+    "domestic_shipping_fee": "国内配送料",
+    "total_price": "合計",
+    "selected_item_count": "選択商品数",
+    "total_selected_item_price": "選択商品の合計金額",
+    "total_domestic_shipping_fee": "国内配送料合計",
+    "purchase_fee": "代行手数料",
+    "cart_total_price": "カート合計",
+    "total": "合計{{count}}点"
+  },
+
+  "delivery_address": {
+    "title": "配送先 管理",
+    "default_delivery_address": "基本 配送先",
+    "add_delivery_address": "配送先 追加",
+    "modify_delivery_address": "配送先 変更",
+    "delivery_type": "配送 タイプ",
+    "address_info": "住所 情報",
+    "first_name": "姓(英語)",
+    "last_name": "名(英語)",
+    "phone_number": "-除外 入力",
+    "address": "住所",
+    "address_detail": "詳細住所",
+    "province": "県(Province)",
+    "city": "市(City)",
+    "postal_code": "郵便番号",
+    "etc": "その他"
+  },
+
+  "profile_setting": {
+    "title": "プロフィール 設定",
+    "password_change": "パスワード 変更",
+    "member_type": "メンバー タイプ",
+    "buyer": "購入者",
+    "seller": "販売者",
+    "birthday": "誕生日",
+    "withdraw": "退会する"
+  },
+
+  "app_setting": {
+    "title": "アプリ 設定",
+    "simple_login": "簡単 ログイン 連携",
+    "simple_login_button": "連携する",
+    "alarm_setting": "アラーム 設定",
+    "push_alarm": "プッシュ アラーム",
+    "push_alarm_description": "プッシュ アラームを off に変更すると、特典 アラームを受け取ることができなくなります。 off に変更しますか?",
+    "yes": "はい",
+    "cancel": "キャンセル",
+    "alarm_talk": "アラームトーク",
+    "version_info": "バージョン 情報",
+    "version": "バージョン"
+  },
+
+  "inquiry": {
+    "title": "問い合わせ 管理",
+    "answer_completed": "回答 完了",
+    "answer_waiting": "回答 待ち",
+    "inquiry_write": "問い合わせ 作成"
+  },
+
+  "inquiry_create": {
+    "title": "問い合わせ 作成",
+    "inquiry_type": "問い合わせ タイプ 選択",
+    "inquiry_title": "タイトル(最大 50文字)",
+    "inquiry_content": "問い合わせ 内容",
+    "inquiry_content_placeholder": "問い合わせ 内容を入力してください。",
+    "save": "保存する"
+  },
+
+  "review": {
+    "title": "レビュー 管理",
+    "review_write": "レビュー 作成",
+    "my_review": "私のレビュー",
+    "modify": "変更"
+  },
+
+  "review_create": {
+    "title": "レビュー 作成",
+    "star_rating": "星評価を選択してください!",
+    "satisfaction_level": "満足度",
+    "photo_upload": "フォト アップロード",
+    "photo_upload_description": "· 画像は1MB以下 5枚までアップロード可能です。\n· 商品と関連しない写真や不適切な写真をレビューに登録する場合、事前警告なしでポイント回収と写真が削除される可能性があります。",
+    "review_content": "レビュー 作成",
+    "review_content_placeholder": "KORGOUを利用した後のレビューを詳細にお伝えください。",
+    "review_policy": "レビュー ポリシー",
+    "review_policy_description": "· レビュー 等級別 差別支払 条件(最大) \n · ex)ブロンズ 50円 / シルバー 100円 / ゴールド 150円 / ダイヤモンド 200円\n \n · 条件 :\n   -ブロンズ 基準 1行フィードバック 書き込み時 ポイント 20円 \n+ 写真 or 動画と書き込み時 追加最大30円 · 商品出荷前 レビュー/1行フィードバックを書き込んだ場合 ポイントが支払われません\n \n· 同じ商品を2回以上購入した後(オプション含む) レビュー/1行フィードバックを複数回書き込んでも、ポイントは1回だけ支払われます。\n · レビュー/1行フィードバックに適切でない内容は承認されず、ポイントが支払われない場合があります。 (書き込み日から3ヶ月以内に承認されない場合、支払われたポイントが返還されます)"
+  },
+
+  "store": {
+    "title": "倉庫 現状",
+    "arrival_completed": "到着完了 商品",
+    "one_month": "1ヶ月",
+    "three_month": "3ヶ月",
+    "six_month": "6ヶ月",
+    "search": "検索",
+    "item_status": "商品 現状",
+    "all": "全て",
+    "awaiting_user_process": "ユーザー 処理 待ち",
+    "return_exchange_application": "返品/交換 申請",
+    "return_exchange_done": "返品/交換 完了",
+    "return_failed": "返品/失敗",
+    "foward_done": "転送 完了",
+    "select_all": "全て 選択 [{{count}}]",
+    "weight": "重量(g)",
+    "photo_service": "フォト サービス",
+    "disposal": "ディスポーゼル",
+    "return_request": "返品 要求",
+    "delivery_request": "配送 要求",
+    "disposal_alert": "ディスポーゼル サービスを利用する場合、フォトサービス 申請 後 利用 可能 です。"
+  },
+
+  "forward_request1": {
+    "alert": "選択した商品を配送 要求 しますか?",
+    "request_product": "要求 商品({{count}})",
+    "warehouse_number": "入荷番号",
+    "tracking_number": "運送 番号",
+    "weight": "重量",
+    "request_button": "配送 要求({{count}}個 / {{weight}}g)",
+    "title": "配送 要求[住所 選択]",
+    "delivery_info": "配送 先 情報",
+    "delivery_select": "配送 先 選択",
+    "direct_input": "直接 入力",
+    "overseas_delivery": "海外 配送",
+    "domestic_delivery": "国内 配送",
+    "name": "姓(英語) + 名(英語)",
+    "address": "住所",
+    "address_detail": "詳細住所",
+    "province": "県(Province)",
+    "city": "市(City)",
+    "postal_code": "郵便番号",
+    "phone_number": "-除外 入力",
+    "company_name": "会社名(任意)",
+    "account_no": "account no または tax/cpf",
+    "address_description": "* 登録した配送先に配送を申請します。",
+    "delivery_company": "配送会社",
+    "delivery_company_description": "配送会社 別 注意事項",
+    "recommended_delivery_company": "おすすめ 配送会社",
+    "delivery_select_description": "配送先 選択",
+    "new_delivery_address": "新しい 配送先を 登録します",
+    "no_delivery_address": "登録された配送先がありません。",
+    "delivery_method": "配送 手段",
+    "delivery_method_description": "* 現在選択している配送手段は基本設定で適用され、配送申請時に変更可能です。"
+  },
+
+  "forward_request2": {
+    "title": "配送 要求[サービス 選択]",
+    "total_count": "合計(商品/重量)",
+    "total_count_description": "{{count}} 個/{{weight}}g",
+    "delivery_company": "配送会社",
+    "delivery_company_description": "配送会社 選択",
+    "delivery_company_description2": "1BOX 当たり 30kg 重量 制限 及び 体積重量 制限 が あります。",
+    "processing_method": "処理方法",
+    "processing_method1": "標準",
+    "processing_method2": "優先処理",
+    "processing_description": "· 通常梱包はリクエスト日から土日祝日を除いて1-7日程度、優先処理はリクエスト日から土日祝日を除いて48時間以内に完了します。\n · 優先処理手数料 - kg当たり6,000ウォン \n· 標準処理手数料 - kg当たり3,000ウォン",
+    "additional_service": "付加サービス",
+    "delivery_insurance": "配送保険",
+    "other_request": "その他リクエスト",
+    "other_request_description": "その他のリクエストはKORGOUの裁量で処理されます。",
+    "cancel": "キャンセル",
+    "next": "次へ"
+  },
+
+  "forward_request3": {
+    "title": "配送 要求[申告書 作成]",
+    "content_info": "内容 情報",
+    "content_info_placeholder": "1文字 以上 15文字 以下 入力",
+    "content_info_description": "商品に関する情報を入力します。",
+    "quantity_info": "数量 情報",
+    "quantity_info_placeholder": "数量 入力 (ex. 1,2,3)",
+    "quantity_info_description": "商品に関する数量を入力します。",
+    "price_info": "金額 情報",
+    "price_info_placeholder": "0円 入力 不可 (ex. USD 150 )",
+    "price_info_description": "商品に関する総費用を入力します。",
+    "save": "保存",
+    "declaration_writing_note": "[申告書 作成 注意事項]",
+    "declaration_writing_note_description": "· 商品 当たり 内容 情報を 別 入力 して ください。\n· 関連 情報 入力 不可 時、配送 処理 不可 です。\n· 金額 情報 は 商品 総 費用 入力 して ください。\n· 申告書 作成 時、商品 情報 入力 して ください。\n· 数量 情報 は 商品 数量 入力 して ください。\n· 内容 情報 は '商品' または '贈り物' と 同じ 名前 未確認 項目 入力 不可 です。\n",
+    "content": "内容({{count}})",
+    "quantity": "数量 情報",
+    "price": "金額 情報",
+    "modify": "変更",
+    "delete": "削除"
+  },
+
+  "forward_request4": {
+    "title": "配送 要求 内容 確認",
+    "product_info": "商品 情報",
+    "warehouse_number": "入荷番号",
+    "weight": "重量(g)",
+    "service_info": "サービス 情報",
+    "delivery_company": "配送会社",
+    "processing_method": "処理 方法",
+    "additional_service": "付加 サービス",
+    "other_request": "その他 要求",
+    "delivery_info": "配送 先 情報",
+    "recipient_name": "受取人 名",
+    "address": "住所",
+    "phone_number": "電話番号",
+    "declaration_info": "申告書 情報",
+    "content_info": "内容 情報",
+    "quantity_info": "数量 情報",
+    "price_info": "金額 情報",
+    "service_cost": "サービス コストは 配送 要求 後 メールで 送信 されます。",
+    "complete": "配送 要求 内容を 確認 しました。",
+    "complete_description": "配送 要求が 完了 しました",
+    "complete_description2": "選択 商品 配送 出荷時 メールで 通知 します!\n\n *配送 現状は SHIPPING>配送 要求 で 確認 できます。"
+  },
+
+  "disposal_request": {
+    "title": "ディスポーゼル&スプリット サービス",
+    "request_product": "要求 商品{{count}}",
+    "package_number": "パッケージ番号",
+    "weight": "重量(g)",
+    "request_description": "要求 事項",
+    "request_description_placeholder": "詳細 要求事項を 入力 して ください。",
+    "photo_upload": "フォト アップロード",
+    "photo_upload_description": "· 画像は2MB以下 5枚までアップロード 可能 です。",
+    "disposal": "ディスポーゼル",
+    "disposal_description": "· 選択 商品を 私の 倉庫 で 廃棄 または 部分廃棄 します。 \n· 廃棄 同意 後 要求 時 即時 廃棄 処理 され ます が 、 キャンセル は 不可 です。",
+    "disposal_request": "ディスポーゼル",
+    "disposal_request_description": "· 選択 商品を 私の 倉庫 で 廃棄 または 部分廃棄 します。 \n· 廃棄 同意 後 要求 時 即時 廃棄 処理 され ます が 、 キャンセル は 不可 です。",
+    "disposal_request_button": "要求 する",
+    "disposal_request_completed": "ディスポーゼル 申請が 完了 しました。",
+    "disposal_request_completed_description": "更新 後 倉庫 現状 で 商品が 削除 され ます。"
+  },
+
+  "photo_service": {
+    "title": "プレミアム フォト サービス",
+    "request_product": "要求 商品{{count}}",
+    "package_number": "パッケージ番号",
+    "weight": "重量(g)",
+    "request_description": "要求 事項",
+    "request_description_placeholder": "詳細 要求事項を 入力 して ください。",
+    "photo_service_description": "· 入荷 され て いる 商品を 実際 撮影 して 提供 します。\n ·更新 後 倉庫 現状 で 確認 可能 です。 ",
+    "photo_service_button": "要求 する",
+    "photo_service_completed": "フォト サービス 申請が 完了 しました。",
+    "photo_service_completed_description": "更新 後 倉庫 現状 で 確認 可能 です。",
+    "photo_service_description2": "入荷 され て いる 商品を 実際 撮影 した 画像 です。"
+  },
+
+  "forward_request_status": {
+    "title": "配送 要求 現状",
+    "delivery_status": "配送 現状",
+    "forward_number": "フォワード 番号",
+    "total_count": "合計(商品/重量)",
+    "total_count_description": "{{count}}個/{{weight}}g",
+    "weight": "重量(g)",
+    "review_write": "レビュー 作成",
+    "applicated": "申請完了",
+    "forwarded": "発送",
+    "returned": "返品",
+    "delivery_completed": "配送完了",
+    "request_cancel": "申請キャンセル",
+    "delivery_search": "配送 検索",
+    "request_cancel_request": "申請 キャンセル 要求",
+    "request_cancel_request_description": "管理者が承認/拒否 できます。"
+  },
+
+  "forward_request_status_detail": {
+    "title": "配送 要求 現状",
+    "forward_number": "フォワード 番号",
+    "delivery_status": "注文 現状",
+    "product_info": "商品 情報",
+    "total_count": "合計(商品/重量)",
+    "total_count_description": "{{count}} 個 / {{weight}}g",
+    "package_number": "パッケージ 番号",
+    "tracking_number": "運送 番号",
+    "weight": "重量(g)",
+    "order_info": "注文者 情報",
+    "service_info": "サービス 情報",
+    "delivery_company": "配送会社",
+    "processing_method": "処理 方法",
+    "additional_service": "付加 サービス",
+    "other_request": "その他 要求",
+    "delivery_info": "配送先 情報",
+    "recipient_name": "受取人 名",
+    "declaration_info": "申告書 情報",
+    "content_info": "内容 情報",
+    "quantity_info": "数量 情報",
+    "price_info": "金額 情報",
+    "payment_before": "支払い 前",
+    "payment_completed": "支払い 完了",
+    "delivery_fee": "配送 料金",
+    "processing_fee": "処理 料金",
+    "discount_rate": "割引 率",
+    "compact_packaging": "コンパクト 包装",
+    "priority_packaging": "優先 包装",
+    "receipt_removal": "領収書 削除",
+    "payment_completed2": "支払い 完了",
+    "delivery_search": "配送 検索",
+    "status": "現状",
+    "delivery_detail": "配送 詳細",
+    "forwarding_detail": "フォワーディング 詳細",
+    "payment_info": "支払い 情報",
+    "final_payment_amount": "最終 支払い 金額"
+  },
+
+  "unidentified_package": {
+    "title": "未確認 パッケージ",
+    "description": "分失 物 運送 証を 検索 して 分失 した 私の 物を 見つけ る こと が でき ます。",
+    "delivery_company": "配送 会社",
+    "tracking_number": "運送 証 番号",
+    "tracking_number_description": "全て 数字 で 入力 して ください。",
+    "search_result": "{{tracking_number}} に 関する 検索 結果({{count}})",
+    "my_item_certification": "私の 物 認証 する"
+  },
+
+  "unidentified_package_auth": {
+    "title": "認証 する",
+    "item_content": "物 内容",
+    "item_content_description": "物 詳細 情報を 入力 して ください。",
+    "item_certification_image": "実情 確認 認証 画像",
+    "item_certification_image_description": "· 購入 領収書, 取引 内訳/実物 写真 等",
+    "photo_upload_description": "· 画像は2MB以下 5枚までアップロード 可能 です。",
+    "my_item_certification": "私の 物 認証 する",
+    "my_item_certification_description": "· 分失 物 確認 を 目的 と して 認証 手順 を 実施 して ください。",
+    "item_certification_completed": "分失 物 認証 申請が 完了 しました。",
+    "item_certification_completed_description": "認証が 完了 しました 時、 私の 倉庫 現状 で 確認 可能 です。"
+  },
+
+  "navigation": {
+    "search": "検索",
+    "shop": "ショップ",
+    "home": "ホーム",
+    "warehouse": "倉庫現状",
+    "my_page": "マイ"
+  }
+}

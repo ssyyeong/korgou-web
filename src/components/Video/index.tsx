@@ -5,14 +5,12 @@ interface VideoCardProps {
   thumbnailUrl: string; // 썸네일로 사용할 이미지 경로
   videoId: string; // 유튜브 비디오 ID (예: "ZbhaV3_Wqr8")
   title: string; // 영상 제목
-  description?: string; // 부가 설명 (선택)
 }
 
 const VideoCard: React.FC<VideoCardProps> = ({
   thumbnailUrl,
   videoId,
   title,
-  description,
 }) => {
   // 썸네일 대신 실제 영상을 보여줄지 여부
   const [showVideo, setShowVideo] = useState(false);
@@ -96,14 +94,14 @@ const VideoCard: React.FC<VideoCardProps> = ({
               >
                 {title}
               </Typography>
-              <Typography
+              {/* <Typography
                 sx={{
                   fontSize: "14px",
                   color: "white",
                 }}
               >
                 {description}
-              </Typography>
+              </Typography> */}
             </Box>
           </div>
         )}

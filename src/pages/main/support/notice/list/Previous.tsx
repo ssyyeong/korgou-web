@@ -1,6 +1,6 @@
 import { Box, Divider, Typography } from "@mui/material";
 import KeyboardArrowRightOutlinedIcon from "@mui/icons-material/KeyboardArrowRightOutlined";
-
+import { useTranslation } from "react-i18next";
 interface NoticeProps {
   id: number;
   date: string;
@@ -9,6 +9,7 @@ interface NoticeProps {
 }
 
 const Previous = (props: NoticeProps) => {
+  const { t } = useTranslation();
   return (
     <Box
       sx={{
@@ -63,7 +64,7 @@ const Previous = (props: NoticeProps) => {
                   color: "#61636C",
                 }}
               >
-                이전글
+                {t("support.notice_previous")}
               </Typography>
               <KeyboardArrowRightOutlinedIcon
                 sx={{

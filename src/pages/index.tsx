@@ -6,8 +6,12 @@ import BuyingModal from "../components/Modal/BuyingModal";
 import SocialLink from "../components/SocialLink";
 import VideoCard from "../components/Video";
 import GoToShipModal from "../components/Modal/GoToShipModal";
+import { useTranslation } from "react-i18next";
 
 const Home = () => {
+  const { t, i18n } = useTranslation();
+
+  console.log("현재 언어:", i18n.language);
   const [weight, setWeight] = React.useState<string>("");
 
   // Go To Ship 모달
@@ -132,14 +136,12 @@ const Home = () => {
         <VideoCard
           thumbnailUrl="/images/main/video.svg"
           videoId="ZbhaV3_Wqr8"
-          title="PACKAGE FORWARD GUIDE"
-          description="패키지 포워드 튜토리얼 영상 링크"
+          title={t("main.package_forward_guide")}
         />
         <VideoCard
           thumbnailUrl="/images/main/video2.svg"
           videoId="iSV-j7e6_dQ"
-          title="ASSISTED PURCHASE GUIDE"
-          description="어시 튜토리얼 영상으로 링크"
+          title={t("main.assisted_purchase_guide")}
         />
         <img src="/images/main/box3.svg" alt="logo" />
         <img src="/images/main/box4.svg" alt="logo" />

@@ -3,8 +3,10 @@ import { Box, Typography, TextField } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import OriginButton from "../../../components/Button/OriginButton";
 import Header from "../../../components/Header/Header";
+import { useTranslation } from "react-i18next";
 
 const FindPw = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [email, setEmail] = useState(""); // 이메일 입력 상태
 
@@ -19,7 +21,7 @@ const FindPw = () => {
         flexDirection: "column",
       }}
     >
-      <Header title={"비밀번호 찾기"} />
+      <Header title={t("auth.forgot_password.title")} />
       {/* 상단 콘텐츠 */}
       <Box
         sx={{
@@ -37,10 +39,10 @@ const FindPw = () => {
             marginBottom: "8px",
           }}
         >
-          이메일
+          {t("common.field.email.label")}
         </Typography>
         <TextField
-          placeholder="이메일"
+          placeholder={t("common.field.email.label")}
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           variant="outlined"
@@ -61,7 +63,7 @@ const FindPw = () => {
           }}
           contents={
             <Typography fontSize={16} sx={{ color: "white", fontWeight: 700 }}>
-              이메일 인증하기
+              {t("auth.forgot_password.email_verification")}
             </Typography>
           }
           style={{
@@ -79,7 +81,7 @@ const FindPw = () => {
             color: "#888",
           }}
         >
-          *이메일 입력/본인인증 완료 시 비밀번호를 재설정 할 수 있습니다.
+          {t("auth.forgot_password.email_verification_message")}
         </Typography>
       </Box>
     </Box>

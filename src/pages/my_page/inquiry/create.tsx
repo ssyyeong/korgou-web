@@ -9,6 +9,7 @@ import { useAppMember } from "../../../hooks/useAppMember";
 import ControllerAbstractBase from "../../../controller/Controller";
 import ImageController from "../../../controller/ImageController";
 import MultiImageUploader from "../../../components/MultiImageUploader";
+import { useTranslation } from "react-i18next";
 
 const InquiryCreate = () => {
   const navigate = useNavigate();
@@ -19,7 +20,7 @@ const InquiryCreate = () => {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [images, setImages] = useState<File[]>([]);
-
+  const { t } = useTranslation();
   type ImageData = {
     FILE_URL: string;
     FILE_NAME: string;
@@ -111,7 +112,7 @@ const InquiryCreate = () => {
         flexDirection: "column",
       }}
     >
-      <Header title="문의 작성" />
+      <Header title={t("inquiry_create.title")} />
       <Box sx={{ display: "flex", flexDirection: "column", padding: "16px" }}>
         <Input
           dataList={categoryList}
@@ -119,7 +120,7 @@ const InquiryCreate = () => {
           setValue={setType}
           type="select"
           style={{ maxHeight: "48px", mb: "10px" }}
-          label="문의 유형 선택"
+          label={t("inquiry_create.inquiry_type")}
         />
         <TextFieldCustom
           fullWidth
@@ -138,7 +139,7 @@ const InquiryCreate = () => {
           sx={{
             "& .MuiInputBase-root": { height: "160px" },
           }}
-          placeholder="문의 내용"
+          placeholder={t("inquiry_create.inquiry_content")}
         />
 
         {/* 이미지 업로드 영역 */}
@@ -156,7 +157,7 @@ const InquiryCreate = () => {
           onClick={createInquiry}
           contents={
             <Typography fontSize={16} fontWeight={700}>
-              저장하기
+              {t("common.button.save")}
             </Typography>
           }
           style={{

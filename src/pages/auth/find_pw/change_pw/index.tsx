@@ -3,10 +3,11 @@ import { Box, Typography, TextField } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
 import OriginButton from "../../../../components/Button/OriginButton";
 import Header from "../../../../components/Header/Header";
-
+import { useTranslation } from "react-i18next";
 // 비밀번호 변경 페이지
 const ChangePw = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
   const [password, setPassword] = useState(""); // 이메일 입력 상태
   const [rePassword, setRePassword] = useState(""); // 이메일 입력 상태
 
@@ -28,7 +29,7 @@ const ChangePw = () => {
         flexDirection: "column",
       }}
     >
-      <Header title={"비밀번호 변경"} />
+      <Header title={t("auth.change_password.title")} />
       {/* 상단 콘텐츠 */}
       <Box
         sx={{
@@ -46,10 +47,10 @@ const ChangePw = () => {
             marginBottom: "8px",
           }}
         >
-          비밀번호 변경
+          {t("auth.change_password.title")}
         </Typography>
         <TextField
-          placeholder="새 비밀번호를 입력해 주세요.(8자리 이상)"
+          placeholder={t("auth.change_password.new_password_placeholder")}
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           variant="outlined"
@@ -59,7 +60,7 @@ const ChangePw = () => {
           }}
         />
         <TextField
-          placeholder="새 비밀번호를 한번 더 입력해 주세요."
+          placeholder={t("auth.change_password.confirm_password_placeholder")}
           value={rePassword}
           onChange={(e) => setRePassword(e.target.value)}
           variant="outlined"
@@ -78,7 +79,7 @@ const ChangePw = () => {
           }}
           contents={
             <Typography fontSize={16} sx={{ color: "white", fontWeight: 700 }}>
-              변경하기
+              {t("auth.change_password.change_password")}
             </Typography>
           }
           style={{
@@ -96,7 +97,7 @@ const ChangePw = () => {
             color: "#888",
           }}
         >
-          *이메일 입력/본인인증 완료 시 비밀번호를 재설정 할 수 있습니다.
+          {t("auth.change_password.password_changed")}
         </Typography>
       </Box>
     </Box>

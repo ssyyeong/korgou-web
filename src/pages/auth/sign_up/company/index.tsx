@@ -10,9 +10,11 @@ import TextFieldCustom from "../../../../components/TextField";
 import CheckIcon from "@mui/icons-material/Check";
 import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const SignUpCompany = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   const [firstName, setFirstName] = React.useState("");
   const [lastName, setLastName] = React.useState("");
@@ -101,7 +103,7 @@ const SignUpCompany = () => {
         flexDirection: "column",
       }}
     >
-      <Header title={"기업 회원가입"} back={true} />
+      <Header title={t("auth.signup.company")} back={true} />
       <Box
         sx={{
           display: "flex",
@@ -117,7 +119,7 @@ const SignUpCompany = () => {
             gap: "1px",
           }}
         >
-          <Typography sx={textStyle}>이름</Typography>
+          <Typography sx={textStyle}>{t("common.field.name.label")}</Typography>
           {essential}
         </Box>
         <Box
@@ -134,7 +136,7 @@ const SignUpCompany = () => {
             onChange={(e) => {
               setLastName(e.target.value);
             }}
-            placeholder="이름(영문)"
+            placeholder={t("common.field.name.first")}
           />
           <TextFieldCustom
             fullWidth
@@ -143,7 +145,7 @@ const SignUpCompany = () => {
             onChange={(e) => {
               setFirstName(e.target.value);
             }}
-            placeholder="성(영문)"
+            placeholder={t("common.field.name.last")}
           />
         </Box>
         <Box
@@ -153,7 +155,9 @@ const SignUpCompany = () => {
             gap: "1px",
           }}
         >
-          <Typography sx={textStyle}>이메일</Typography>
+          <Typography sx={textStyle}>
+            {t("common.field.email.label")}
+          </Typography>
           {essential}
         </Box>
 
@@ -164,7 +168,7 @@ const SignUpCompany = () => {
           onChange={(e) => {
             setEmail(e.target.value);
           }}
-          placeholder="이메일을 입력해 주세요."
+          placeholder={t("common.field.email.placeholder")}
         />
         <Box
           sx={{
@@ -173,7 +177,9 @@ const SignUpCompany = () => {
             gap: "1px",
           }}
         >
-          <Typography sx={textStyle}>비밀번호</Typography>
+          <Typography sx={textStyle}>
+            {t("common.field.password.label")}
+          </Typography>
           {essential}
         </Box>
         <TextFieldCustom
@@ -184,11 +190,11 @@ const SignUpCompany = () => {
             setPassword(e.target.value);
           }}
           sx={{ mb: "10px" }}
-          placeholder="영문,숫자 포함 7~16자를 입력해주세요."
+          placeholder={t("common.field.password.placeholder")}
           error={password.length < 7 && password.length > 0}
           helperText={
             password.length < 7 && password.length > 0
-              ? "비밀번호는 영문,숫자 포함 7자 이상이어야 합니다."
+              ? t("common.field.password.error")
               : ""
           }
         />
@@ -199,10 +205,10 @@ const SignUpCompany = () => {
           onChange={(e) => {
             setPasswordCheck(e.target.value);
           }}
-          placeholder="비밀번호를 한번 더 입력해 주세요."
+          placeholder={t("common.field.password.confirm.placeholder")}
           error={passwordCheck !== password}
           helperText={
-            passwordCheck !== password ? "비밀번호가 일치하지 않습니다." : ""
+            passwordCheck !== password ? t("common.field.password.error") : ""
           }
         />
         <Box
@@ -212,7 +218,9 @@ const SignUpCompany = () => {
             gap: "1px",
           }}
         >
-          <Typography sx={textStyle}>브랜드 셀러명</Typography>
+          <Typography sx={textStyle}>
+            {t("common.field.seller_name.label")}
+          </Typography>
           {essential}
         </Box>
 
@@ -223,7 +231,7 @@ const SignUpCompany = () => {
           onChange={(e) => {
             setSellerName(e.target.value);
           }}
-          placeholder="브랜드샐러명을 입력해 주세요."
+          placeholder={t("common.field.seller_name.placeholder")}
         />
 
         <Box
@@ -233,7 +241,9 @@ const SignUpCompany = () => {
             gap: "1px",
           }}
         >
-          <Typography sx={textStyle}>판매 방식</Typography>
+          <Typography sx={textStyle}>
+            {t("common.field.product_method.label")}
+          </Typography>
           {essential}
         </Box>
 
@@ -255,7 +265,9 @@ const SignUpCompany = () => {
             gap: "1px",
           }}
         >
-          <Typography sx={textStyle}>상품 종류</Typography>
+          <Typography sx={textStyle}>
+            {t("common.field.product_type.label")}
+          </Typography>
           {essential}
         </Box>
 
@@ -269,7 +281,7 @@ const SignUpCompany = () => {
           width={{ xs: "100%", md: "100%" }}
           style={{ mb: 2, maxHeight: "50px" }}
         />
-        <Typography sx={textStyle}>자사몰 URL</Typography>
+        <Typography sx={textStyle}>{t("common.field.url.label")}</Typography>
         <TextFieldCustom
           fullWidth
           value={url}
@@ -279,7 +291,9 @@ const SignUpCompany = () => {
           }}
           placeholder="자사몰 주소를 입력해주세요."
         />
-        <Typography sx={textStyle}>대표 외부 판매 채널(자사몰 제외)</Typography>
+        <Typography sx={textStyle}>
+          {t("common.field.channel.label")}
+        </Typography>
         <TextFieldCustom
           fullWidth
           value={channel}
@@ -289,7 +303,9 @@ const SignUpCompany = () => {
           }}
           placeholder="ex.coupang"
         />
-        <Typography sx={textStyle}>회사/상품 소개서</Typography>
+        <Typography sx={textStyle}>
+          {t("common.field.introduce_file.label")}
+        </Typography>
         <Input
           value={introduceFile}
           setValue={setIntroduceFile}
@@ -304,7 +320,9 @@ const SignUpCompany = () => {
             gap: "8px",
           }}
         >
-          <Typography sx={textStyle}>사업자 등록증</Typography>
+          <Typography sx={textStyle}>
+            {t("common.field.business_registration_file.label")}
+          </Typography>
           {essential}
         </Box>
         <Input
@@ -331,7 +349,7 @@ const SignUpCompany = () => {
               setIsAgree1(!isAllAgree);
               setIsAgree2(!isAllAgree);
             }}
-            label={"전체 동의"}
+            label={t("terms.all")}
             style={{ fontSize: "16px" }}
           />
           <Box
@@ -368,7 +386,7 @@ const SignUpCompany = () => {
                   fontWeight: 500,
                 }}
               >
-                (필수)
+                {t("terms.required")}
               </Typography>
               <Typography
                 sx={{
@@ -378,7 +396,7 @@ const SignUpCompany = () => {
                   fontWeight: 500,
                 }}
               >
-                서비스 이용약관 동의
+                {t("terms.service_terms")}
               </Typography>
             </Box>
             <KeyboardArrowRightIcon sx={{ color: "#B1B2B6", pr: "32px" }} />
@@ -417,7 +435,7 @@ const SignUpCompany = () => {
                   fontWeight: 500,
                 }}
               >
-                (필수)
+                {t("terms.required")}
               </Typography>
               <Typography
                 sx={{
@@ -427,7 +445,7 @@ const SignUpCompany = () => {
                   fontWeight: 500,
                 }}
               >
-                개인정보 수집 및 이용 동의{" "}
+                {t("terms.privacy")}
               </Typography>
             </Box>
             <KeyboardArrowRightIcon sx={{ color: "#B1B2B6", pr: "32px" }} />
@@ -443,7 +461,9 @@ const SignUpCompany = () => {
           console.log("회원가입");
           nextPage();
         }}
-        contents={<Typography fontSize={16}>확인</Typography>}
+        contents={
+          <Typography fontSize={16}>{t("common.button.confirm")}</Typography>
+        }
         style={{ padding: "16px 8px", mt: "20px" }}
       />
     </Box>

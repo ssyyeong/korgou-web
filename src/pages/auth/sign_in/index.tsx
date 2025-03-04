@@ -10,8 +10,10 @@ import { useNavigate } from "react-router-dom";
 import BottomModal from "../../../components/Modal/BottomModal";
 import AppMemberController from "../../../controller/AppMemberController";
 import { useAuth } from "../../../hooks/useAuth";
-
+import { useTranslation } from "react-i18next";
 const SignIn = () => {
+  const { t } = useTranslation();
+
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [isAutoLogin, setIsAutoLogin] = React.useState(false);
@@ -116,7 +118,7 @@ const SignIn = () => {
             height: "48px",
             mb: 2,
           }}
-          placeholder="이메일"
+          placeholder={t("common.field.email.placeholder")}
           onKeyDown={onKeyDown}
         />
 
@@ -132,7 +134,7 @@ const SignIn = () => {
             height: "48px",
             marginBottom: "20px",
           }}
-          placeholder="비밀번호"
+          placeholder={t("common.field.password.placeholder")}
           onKeyDown={onKeyDown}
         />
         <OriginButton
@@ -142,7 +144,7 @@ const SignIn = () => {
           onClick={handleLogin}
           contents={
             <Typography fontSize={16} fontWeight={700}>
-              로그인
+              {t("auth.login.title")}
             </Typography>
           }
           style={{ padding: "16px 8px", height: "48px" }}
@@ -161,7 +163,7 @@ const SignIn = () => {
             setValue={() => {
               setIsAutoLogin(!isAutoLogin);
             }}
-            label={"로그인 유지"}
+            label={t("auth.login.keep_signed")}
             width={"130px"}
             style={{ fontSize: "14px" }}
           />
@@ -178,7 +180,7 @@ const SignIn = () => {
               navigate("/find_pw");
             }}
           >
-            FORGET_PASSWORD? {">"}
+            {t("auth.login.forgot_password_link")} {">"}
           </Typography>
         </Box>
         <Divider sx={{ color: "#ECECED" }} />
@@ -200,7 +202,7 @@ const SignIn = () => {
             marginBottom: "13px",
           }}
         >
-          소셜로그인
+          {t("auth.login.types.social")}
         </Typography>
         <Box
           sx={{
@@ -263,7 +265,7 @@ const SignIn = () => {
         }}
         contents={
           <Typography fontSize={16} fontWeight={700}>
-            개인 회원가입
+            {t("auth.signup.individual")}
           </Typography>
         }
         style={{ height: "48px" }}
@@ -275,7 +277,7 @@ const SignIn = () => {
         onClick={() => navigate("/sign_up/company")}
         contents={
           <Typography fontSize={16} fontWeight={700} color="#61636C">
-            기업 회원가입
+            {t("auth.signup.company")}
           </Typography>
         }
         style={{ height: "48px", marginTop: "10px" }}
@@ -298,7 +300,7 @@ const SignIn = () => {
                 marginBottom: "24px",
               }}
             >
-              KORGOU 기존고객 로그인 인증
+              {t("auth.login.forgot_password.title")}
             </Typography>
             <Typography
               sx={{
@@ -308,14 +310,11 @@ const SignIn = () => {
                 textAlign: "center",
               }}
             >
-              기존 서비스에 가입하신 이메일로
-              <br />
-              임시 비밀번호를 전송해드릴게요. <br />
-              로그인 및 비밀번호 변경 후 계정 사용이 가능하십니다!
+              {t("auth.login.forgot_password.description")}
             </Typography>
           </Box>
         }
-        btnText={"임시 비밀번호 발급받기"}
+        btnText={t("auth.login.forgot_password.button")}
         bottomModalOpen={bottomModalOpen}
         setBottomModalOpen={() => {
           setBottomModalOpen(true);

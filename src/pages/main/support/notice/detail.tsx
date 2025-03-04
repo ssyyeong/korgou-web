@@ -8,10 +8,11 @@ import { useLocation, useNavigate } from "react-router-dom";
 import ControllerAbstractBase from "../../../../controller/Controller";
 import { useEffect } from "react";
 import Previous from "./list/Previous";
-
+import { useTranslation } from "react-i18next";
 const NoticeDetail = () => {
   const navigate = useNavigate();
   const location = useLocation();
+  const { t } = useTranslation();
   const { id } = location.state;
 
   const [title, setTitle] = React.useState("");
@@ -69,7 +70,7 @@ const NoticeDetail = () => {
         flexDirection: "column",
       }}
     >
-      <Header title="공지 사항" />
+      <Header title={t("support.notice")} />
 
       <Box
         sx={{
@@ -185,7 +186,7 @@ const NoticeDetail = () => {
         }}
         contents={
           <Typography fontSize={14} fontWeight={700} color="white">
-            목록
+            {t("common.button.list")}
           </Typography>
         }
         style={{

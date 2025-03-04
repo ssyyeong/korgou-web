@@ -5,8 +5,9 @@ import OriginButton from "../../../components/Button/OriginButton";
 import Input from "../../../components/Input";
 import TextFieldCustom from "../../../components/TextField";
 import AlertModal from "../../../components/Modal/AlertModal";
-
+import { useTranslation } from "react-i18next";
 const Package = () => {
+  const { t } = useTranslation();
   const [courier, setCourier] = useState("");
   const [trackingNumber, setTrackingNumber] = useState("");
   const [modalOpen, setModalOpen] = useState(false);
@@ -42,7 +43,7 @@ const Package = () => {
             fontWeight: 700,
           }}
         >
-          미확인 패키지
+          {t("unidentified_package.title")}
         </Typography>
         <Typography
           fontSize={16}
@@ -52,7 +53,7 @@ const Package = () => {
             color: "#61636C",
           }}
         >
-          분실 물건 운송장을 조회하여 분실된 나의 물건을 찾아갈 수 있습니다.
+          {t("unidentified_package.description")}
         </Typography>
       </Box>
       <Box
@@ -74,7 +75,7 @@ const Package = () => {
             mb: "8px",
           }}
         >
-          배송사
+          {t("unidentified_package.delivery_company")}
         </Typography>
         <Input
           dataList={[
@@ -94,7 +95,7 @@ const Package = () => {
             mb: "8px",
           }}
         >
-          운송장번호
+          {t("unidentified_package.tracking_number")}
         </Typography>
         <TextFieldCustom
           fullWidth
@@ -106,7 +107,7 @@ const Package = () => {
           onChange={(e) => {
             setTrackingNumber(e.target.value);
           }}
-          placeholder="전체 운송장 번호를 숫자로만 입력해주세요."
+          placeholder={t("unidentified_package.tracking_number_description")}
         />
       </Box>
       <OriginButton
@@ -116,7 +117,7 @@ const Package = () => {
         onClick={() => {}}
         contents={
           <Typography fontSize={16} fontWeight={700}>
-            조회하기
+            {t("common.button.search")}
           </Typography>
         }
         style={{ marginTop: "16px", padding: "16px 8px", height: "48px" }}

@@ -1,0 +1,784 @@
+{
+  "common": {
+    "button": {
+      "confirm": "Confirmar",
+      "cancel": "Cancelar",
+      "save": "Guardar",
+      "modify": "Modificar",
+      "delete": "Eliminar",
+      "close": "Cerrar",
+      "list": "Lista",
+      "previous": "Anterior",
+      "search": "Buscar",
+      "add": "+ Agregar",
+      "submit": "Enviar",
+      "resend": "Reenviar",
+      "re_enter": "Volver a ingresar correo",
+      "order_request": "Solicitud de pedido",
+      "charge": "Cargar",
+      "add_address": "+ Agregar dirección",
+      "next_step": "Siguiente",
+      "previous_step": "Volver",
+      "order": "Ordenar"
+    },
+
+    "field": {
+      "email": {
+        "label": "Correo electrónico",
+        "placeholder": "Ingrese su correo electrónico",
+        "verification": {
+          "title": "Verificación de correo",
+          "message": "Se ha enviado un código de verificación al siguiente correo",
+          "code": {
+            "label": "Código de verificación",
+            "placeholder": "Ingrese el código de verificación"
+          },
+          "success": "Verificación de correo completada"
+        }
+      },
+      "password": {
+        "label": "Contraseña",
+        "placeholder": "Ingrese contraseña (mínimo 8 caracteres)",
+        "confirm": {
+          "label": "Confirmar contraseña",
+          "placeholder": "Vuelva a ingresar la contraseña"
+        },
+        "error": "Las contraseñas no coinciden",
+        "change": {
+          "title": "Cambiar contraseña",
+          "new_placeholder": "Ingrese nueva contraseña (mínimo 8 caracteres)",
+          "success": "¡Contraseña cambiada exitosamente!"
+        }
+      },
+      "name": {
+        "label": "Nombre",
+        "placeholder": "Ingrese su nombre",
+        "first": "Nombre",
+        "last": "Apellido"
+      },
+      "country": {
+        "label": "País",
+        "placeholder": "Seleccione país"
+      },
+      "address": {
+        "label": "Dirección",
+        "detail": "Detalles de dirección",
+        "postal_code": "Código postal",
+        "province": "Provincia",
+        "city": "Ciudad",
+        "placeholder": "Ingrese dirección"
+      },
+      "phone": {
+        "label": "Número de teléfono",
+        "placeholder": "Ingrese número sin guiones"
+      },
+      "recommender_code": {
+        "label": "Código de recomendación",
+        "placeholder": "Ingrese código de recomendación"
+      },
+      "seller_name": {
+        "label": "Nombre del vendedor de marca",
+        "placeholder": "Ingrese nombre del vendedor de marca"
+      },
+      "product_method": {
+        "label": "Método de venta",
+        "placeholder": "Seleccione método de venta"
+      },
+      "product_type": {
+        "label": "Tipo de producto",
+        "placeholder": "Seleccione tipo de producto"
+      },
+      "url": {
+        "label": "URL de tienda propia",
+        "placeholder": "Ingrese URL de la tienda"
+      },
+      "channel": {
+        "label": "Canal principal de venta externa (excepto tienda propia)",
+        "placeholder": "Seleccione canal principal de venta externa"
+      },
+      "introduce_file": {
+        "label": "Presentación de empresa/producto",
+        "placeholder": "Suba presentación de empresa/producto"
+      },
+      "business_registration_file": {
+        "label": "Licencia comercial",
+        "placeholder": "Suba licencia comercial"
+      },
+      "count": {
+        "label": "Cantidad",
+        "unit": "unidades",
+        "count": "{{count}} unidades"
+      },
+      "weight": {
+        "label": "Peso",
+        "unit": "g"
+      }
+    }
+  },
+
+  "period": {
+    "today": "Hoy",
+    "recent": {
+      "week": "Últimos 7 días",
+      "month": "Último mes",
+      "two_month": "Últimos 2 meses",
+      "three_month": "Últimos 3 meses",
+      "six_month": "Últimos 6 meses"
+    }
+  },
+
+  "upload": {
+    "photo": {
+      "title": "Subir foto",
+      "description": "· Imágenes de máximo 2MB, hasta 5 fotos"
+    },
+    "file": {
+      "add": "Agregar archivo"
+    }
+  },
+
+  "status": {
+    "process": {
+      "waiting": "En espera",
+      "completed": "Completado",
+      "canceled": "Cancelado",
+      "processing": "En proceso"
+    },
+    "payment": {
+      "before": "Pendiente de pago",
+      "completed": "Pago completado",
+      "failed": "Pago fallido"
+    },
+    "delivery": {
+      "waiting": "Pendiente de envío",
+      "in_transit": "En tránsito",
+      "completed": "Entregado",
+      "forwarded": "Reenviado",
+      "returned": "Devuelto"
+    }
+  },
+
+  "form": {
+    "placeholders": {
+      "email": "Ingrese correo electrónico",
+      "password": "Ingrese contraseña (mínimo 8 caracteres)",
+      "confirm_password": "Vuelva a ingresar la contraseña",
+      "country": "Seleccione país",
+      "name": "Ingrese nombre",
+      "request": "Ingrese contenido de la solicitud"
+    }
+  },
+
+  "delivery": {
+    "type": {
+      "overseas": "Envío internacional",
+      "domestic": "Envío nacional",
+      "warehouse": "Envío a almacén"
+    },
+    "service": {
+      "compact": {
+        "label": "Empaque compacto",
+        "description": "Empaque de tamaño mínimo"
+      },
+      "priority": {
+        "label": "Empaque prioritario",
+        "description": "Procesamiento en 48 horas"
+      },
+      "receipt": {
+        "label": "Remover factura",
+        "description": "Remover factura antes del envío"
+      }
+    },
+    "tracking": {
+      "label": "Número de seguimiento",
+      "placeholder": "Ingrese número de seguimiento"
+    }
+  },
+
+  "payment": {
+    "method": {
+      "balance": {
+        "label": "Saldo",
+        "description": "Pagar con saldo de cuenta"
+      },
+      "point": {
+        "label": "Puntos",
+        "description": "Pagar con puntos"
+      }
+    },
+    "amount": {
+      "total": "Monto total a pagar",
+      "discount": "Monto de descuento",
+      "shipping": "Costo de envío",
+      "processing": "Cargo por procesamiento",
+      "purchase": "Costo de compra"
+    }
+  },
+
+  "terms": {
+    "privacy": "Aceptar política de privacidad",
+    "service_terms": "Aceptar términos de servicio",
+    "marketing": "Aceptar uso de información de marketing",
+    "all": "Aceptar todos los términos",
+    "required": "Requerido",
+    "optional": "Opcional"
+  },
+
+  "auth": {
+    "login": {
+      "title": "Iniciar sesión",
+      "keep_signed": "Mantener sesión iniciada",
+      "forgot_password_link": "¿Olvidó su contraseña?",
+      "types": {
+        "social": "Iniciar sesión con redes sociales",
+        "individual": "Inicio de sesión individual",
+        "company": "Inicio de sesión empresarial"
+      },
+      "forgot_password": {
+        "title": "Verificación de usuario existente de KORGOU",
+        "description": "Enviaremos una contraseña temporal al correo registrado.\n¡Podrá usar su cuenta después de cambiar la contraseña al iniciar sesión!",
+        "button": "Obtener contraseña temporal"
+      }
+    },
+    "signup": {
+      "title": "Registrarse",
+      "individual": "Registro individual",
+      "company": "Registro empresarial",
+      "success": {
+        "title": "Bienvenido",
+        "message": "Registro completado",
+        "start": "Comenzar a usar KORGOU"
+      }
+    },
+    "change_password": {
+      "title": "Cambiar contraseña",
+      "new_password_placeholder": "Ingrese nueva contraseña (mínimo 8 caracteres)",
+      "confirm_password_placeholder": "Confirme contraseña",
+      "change_password": "Cambiar",
+      "password_changed": "¡Contraseña cambiada exitosamente!"
+    },
+    "email_verification": {
+      "email_verification_message": "Se ha enviado un código de verificación al siguiente correo",
+      "verification_code_placeholder": "Código de verificación",
+      "email_verification_completed": "Verificación de correo completada",
+      "email_verification_completed_message": "La verificación de correo ha sido completada"
+    },
+    "forgot_password": {
+      "title": "Recuperar contraseña",
+      "email_label": "Correo electrónico",
+      "email_verification": "Verificar correo",
+      "email_verification_message": "*Puede restablecer la contraseña después de ingresar/verificar el correo",
+      "change_password": "Cambiar contraseña",
+      "password_changed": "¡Contraseña cambiada exitosamente!",
+      "login_now": "Iniciar sesión ahora"
+    }
+  },
+
+  "main": {
+    "title": "KORGOU hace que sus compras en Corea sean perfectas",
+    "free_korean_address": "Dirección coreana gratuita",
+    "package_forward": "Reenvío de paquetes",
+    "assisted_purchase": "Servicio de compra asistida",
+    "value_added_services": "Servicios de valor agregado",
+    "step_by_step_essentials": "Elementos esenciales paso a paso",
+    "step_by_step_essentials_description": "¡Método de envío seguro y cómodo!<br/>¡KORGOU te guía!",
+    "package_forward_guide": "Guía de reenvío de paquetes",
+    "assisted_purchase_guide": "Guía de compra asistida",
+    "our_advantages": "Nuestras ventajas",
+    "our_advantages_description": "Experimente los servicios de KORGOU.",
+    "advantage_1": "Servicio profesional de envío y soporte de compras",
+    "advantage_2": "Pago seguro y conveniente",
+    "advantage_3": "180 días de almacenamiento gratuito de paquetes",
+    "advantage_4": "Servicio integral desde la compra hasta el envío internacional",
+    "advantage_5": "Servicios de valor agregado para reducir costos totales",
+    "advantage_6": "Diversos métodos de envío",
+    "use_of_the_service": "Cómo usar los servicios de KORGOU",
+    "service_1": "Servicio de compra asistida",
+    "service_2": "Países de registro",
+    "service_3": "Países de envío",
+    "service_4": "Reenvío de paquetes",
+    "official": "KORGOU oficial",
+    "official_description": "¡Siga nuestros canales de redes sociales para disfrutar de diversos contenidos coreanos y obtener más información sobre nuestros servicios!"
+  },
+
+  "buying_it": {
+    "title": "Comprar",
+    "shopping_auth": "Estado de cuenta de tienda",
+    "shopping_account": "Cuenta de tienda",
+    "shopping_placeholder1": "URL de tienda",
+    "shopping_placeholder2": "ID de tienda",
+    "shopping_placeholder3": "Contraseña de tienda",
+    "shopping_description": "*Iniciar sesión en tienda > Comprar productos en carrito",
+    "product_list": "Lista de productos del pedido",
+    "product": "Producto {{count}}",
+    "product_placeholder1": "Ingrese URL del producto",
+    "product_placeholder2": "Ingrese opciones del pedido (valores finales)",
+    "product_placeholder3": "Ingrese cantidad del pedido",
+    "product_placeholder4": "Ingrese precio final del producto",
+    "product_placeholder5": "Ingrese requisitos",
+    "address": "Configuración de dirección de envío",
+    "address_type": "Envío a almacén",
+    "address_type_description": "Empaque combinado con productos en almacén",
+    "address_detail": "3er piso, 79 Sunhwan-ro, Jungwon-gu, Seongnam-si, Gyeonggi-do",
+    "address_request": "Requisitos de envío",
+    "address_request_placeholder": "Ingrese requisitos de envío",
+    "proceee": "Manejo de agotamiento",
+    "proceee_description": "*Método de procesamiento de pago cuando los productos solicitados están agotados",
+    "proceee_option1": "Omitir productos agotados y continuar con el pago de otros productos",
+    "proceee_option2": "Detener procesamiento del pedido",
+    "order_list": "Lista de pedidos"
+  },
+
+  "contact_us": {
+    "title": "Contáctenos",
+    "email": "Correo electrónico",
+    "subject": "Asunto",
+    "number": "Número",
+    "category": "Categoría",
+    "description": "KorGou ofrece un servicio al cliente eficiente a través de nuestro sistema de tickets de soporte, permitiéndole explorar nuestra base de conocimientos o enviar tickets fácilmente. Cada solicitud recibe un número de ticket único para su seguimiento y actualización, y puede responder por correo electrónico o iniciar sesión para monitorear el progreso y comunicarse con nuestro equipo. Tenga en cuenta que las consultas recibidas durante el fin de semana se procesarán el siguiente día hábil."
+  },
+
+  "support": {
+    "title": "Centro de atención al cliente",
+    "notice": "Avisos",
+    "notice_previous": "Artículo anterior"
+  },
+
+  "calculator": {
+    "shipping_fee_calculator": "Calculadora de tarifas de envío",
+    "ship_to": "Destino",
+    "country_select": "Seleccionar país",
+    "courier": "Transportista",
+    "package_weight": "Peso del paquete (g)",
+    "package_dimension": "Tamaño del paquete (cm)",
+    "calculate_description": "Puede haber diferencias entre el cálculo actual y el cálculo real.",
+    "vies_shipping_rates": "Ver tarifas de envío"
+  },
+
+  "my_page": {
+    "level_up": "Nivel hasta",
+    "balance": "Balance",
+    "coupon": "Cupón",
+    "point": "Puntos",
+    "warehouse_status": "Estado del almacén",
+    "delivery_status": "Estado de envío",
+    "purchase_status": "Estado de compra",
+    "notice": "Avisos",
+    "delivery_address": "Gestionar dirección de envío",
+    "unidentified_package": "Paquete no identificado",
+    "review": "Gestionar reseñas",
+    "inquiry": "Gestionar consultas",
+    "app_setting": "Configuración de la aplicación",
+    "alarm": "Alarma"
+  },
+
+  "point": {
+    "title": "Puntos",
+    "amount": "Cantidad disponible",
+    "point_history": "Historial de puntos",
+    "check": "Ver"
+  },
+
+  "balance": {
+    "title": "Balance",
+    "amount": "Cantidad disponible",
+    "balance_history": "Historial de balance",
+    "check": "Ver",
+    "charge_point": "Cargar puntos",
+    "balance_point": "Balance disponible",
+    "payment_method": "Método de pago",
+    "deposit_bank": "Banco de depósito",
+    "deposit_name": "Nombre del depósito",
+    "payment_info": "Información de pago",
+    "charge_amount": "Cantidad de carga"
+  },
+
+  "purchase_status": {
+    "title": "Estado de compra",
+    "purchase_status": "Estado de compra",
+    "all": "Todo",
+    "confirmation_pending": "Confirmación pendiente",
+    "confirmed_payment_pending": "Confirmación completada y pago pendiente",
+    "paid": "Pago completado",
+    "completed": "Compra completada",
+    "warehouse_alert": "Alerta de ingreso",
+    "warehouse_alert_title": "Alerta de ingreso completada",
+    "warehouse_alert_description": "Cuando el producto de su orden llegue al almacén, le enviaremos un correo electrónico. \n \nUna vez que el producto de su orden llegue al almacén, podrá configurar su dirección de envío y solicitar envío."
+  },
+
+  "purchase_detail": {
+    "title": "Detalle de compra",
+    "order_number": "Número de pedido",
+    "order_status": "Estado de pedido",
+    "order_status_description1": "Estamos revisando su solicitud de pedido.",
+    "order_status_description2": "Los productos de su pedido han sido verificados y se encuentra en estado de espera de compra.",
+    "order_status_description3": "Los productos de su pedido han sido verificados y están listos para su compra. \n¡Por favor, realice el pago!",
+    "product_info": "Información del producto",
+    "order_info": "Información del pedido",
+    "address_type": "Tipo de envío",
+    "address_type_description": "Envío a almacén",
+    "warehouse_number": "Número de almacén",
+    "order_request": "Solicitud de pedido",
+    "order_image": "Imagen de pedido",
+    "payment_info": "Información de pago",
+    "product_quantity": "Cantidad de productos",
+    "product_price": "Precio del producto",
+    "purchase_fee": "Comisión de compra",
+    "discount_amount": "Cantidad de descuento",
+    "total_price": "Cantidad total de pago",
+    "order_cancel_request": "Solicitud de cancelación de pedido",
+    "payment_button": "Pagar",
+    "payment_request": "Solicitud de pago",
+    "payment_progress": "Progreso de pago",
+    "payment_method": "Método de pago",
+    "point": "Puntos",
+    "point_discount": "Descuento de puntos",
+    "use": "Usar",
+    "point_discount_amount": "Cantidad de descuento disponible",
+    "point_earn": "Ahorro",
+    "point_balance": "Puntos disponibles",
+    "list": "Lista",
+    "order_cancel_request_title": "¿Desea proceder con la solicitud de cancelación de pedido?",
+    "order_cancel_request_description": "¿Desea proceder con la solicitud de cancelación de pedido?",
+    "order_cancel_request_button": "Cancelar pedido",
+    "order_cancel_request_description2": "Después de la verificación, el historial de solicitudes se eliminará y el pedido no progresará.",
+    "close_button": "Cerrar",
+    "order_cancel_request_success_title": "Solicitud de cancelación de pedido completada",
+    "order_cancel_request_success_description": "Después de la verificación, el historial de solicitudes se eliminará y el pedido no progresará."
+  },
+
+  "cart": {
+    "title": "Cesta de compras",
+    "cart_empty": "No hay productos en el carrito.",
+    "cart_empty_button": "Ver productos recomendados",
+    "select_all": "Seleccionar todo",
+    "delete_selected_items": "Eliminar productos seleccionados",
+    "request_description": "Ingrese requisitos relacionados con el pedido (opcional)",
+    "selected_item_price": "Precio de producto seleccionado",
+    "domestic_shipping_fee": "Envío nacional",
+    "total_price": "Total",
+    "selected_item_count": "Número de productos seleccionados",
+    "total_selected_item_price": "Precio total de productos seleccionados",
+    "total_domestic_shipping_fee": "Total de envío nacional",
+    "purchase_fee": "Comisión de compra",
+    "cart_total_price": "Total del carrito",
+    "total": "Total {{count}} productos"
+  },
+
+  "delivery_address": {
+    "title": "Gestionar dirección de envío",
+    "default_delivery_address": "Dirección de envío predeterminada",
+    "add_delivery_address": "Agregar dirección de envío",
+    "modify_delivery_address": "Modificar dirección de envío",
+    "delivery_type": "Tipo de envío",
+    "address_info": "Información de dirección",
+    "first_name": "Nombre (inglés)",
+    "last_name": "Apellido (inglés)",
+    "phone_number": "-Excluir entrada",
+    "address": "Dirección",
+    "address_detail": "Dirección detallada",
+    "province": "Provincia",
+    "city": "Ciudad",
+    "postal_code": "Código postal",
+    "etc": "Otro"
+  },
+
+  "profile_setting": {
+    "title": "Configuración de perfil",
+    "password_change": "Cambiar contraseña",
+    "member_type": "Tipo de miembro",
+    "buyer": "Comprador",
+    "seller": "Vendedor",
+    "birthday": "Cumpleaños",
+    "withdraw": "Salir"
+  },
+
+  "app_setting": {
+    "title": "Configuración de la aplicación",
+    "simple_login": "Inicio de sesión simple",
+    "simple_login_button": "Conectar",
+    "alarm_setting": "Configuración de alarmas",
+    "push_alarm": "Alarma de notificación",
+    "push_alarm_description": "Alarma de notificación off para no recibir beneficios. ¿Desea cambiar a off?",
+    "yes": "Sí",
+    "cancel": "Cancelar",
+    "alarm_talk": "Alarma de notificación",
+    "version_info": "Información de la versión",
+    "version": "Versión"
+  },
+
+  "inquiry": {
+    "title": "Gestionar consultas",
+    "answer_completed": "Respuesta completada",
+    "answer_waiting": "Respuesta pendiente",
+    "inquiry_write": "Escribir consulta"
+  },
+
+  "inquiry_create": {
+    "title": "Escribir consulta",
+    "inquiry_type": "Seleccionar tipo de consulta",
+    "inquiry_title": "Título (máximo 50 caracteres)",
+    "inquiry_content": "Contenido de la consulta",
+    "inquiry_content_placeholder": "Ingrese el contenido de la consulta.",
+    "save": "Guardar"
+  },
+
+  "review": {
+    "title": "Gestionar reseñas",
+    "review_write": "Escribir reseña",
+    "my_review": "Mis reseñas",
+    "modify": "Modificar"
+  },
+
+  "review_create": {
+    "title": "Escribir reseña",
+    "star_rating": "Seleccione la calificación!",
+    "satisfaction_level": "Nivel de satisfacción",
+    "photo_upload": "Subir foto",
+    "photo_upload_description": "· La imagen es de 1MB o menos y se puede subir hasta 5 imágenes.\n· Si registra imágenes que no están relacionadas con el producto o que no son adecuadas, puede ser eliminada sin previo aviso y se retirarán los puntos.",
+    "review_content": "Escribir reseña",
+    "review_content_placeholder": "Dénos su opinión sobre KORGOU.",
+    "review_policy": "Política de reseñas",
+    "review_policy_description": "· Condiciones de pago diferencial por nivel de reseña (máximo) \n · ej.) Bronce 50 won / Plata 100 won / Oro 150 won / Diamante 200 won\n \n · Condiciones:\n   - Nivel Bronce: 20 won por escribir una reseña de una línea \n+ Hasta 30 won adicionales al publicar con foto o video · No se otorgarán puntos por reseñas/comentarios escritos antes del envío del producto\n \n· Incluso si escribe múltiples reseñas/comentarios después de comprar el mismo producto más de dos veces (incluidas las opciones), los puntos solo se otorgarán una vez.\n · Las reseñas/comentarios con contenido inapropiado no serán aprobados y no se otorgarán puntos. (Los puntos serán recuperados si no se aprueba dentro de los 3 meses posteriores a la fecha de escritura)"
+  },
+
+  "store": {
+    "title": "Estado del almacén",
+    "arrival_completed": "Artículo completado",
+    "one_month": "1 mes",
+    "three_month": "3 meses",
+    "six_month": "6 meses",
+    "search": "Buscar",
+    "item_status": "Estado del artículo",
+    "all": "Todo",
+    "awaiting_user_process": "Esperando proceso del usuario",
+    "return_exchange_application": "Solicitud de devolución/cambio",
+    "return_exchange_done": "Devolución/cambio completado",
+    "return_failed": "Devolución/Fallo",
+    "foward_done": "Envío completado",
+    "select_all": "Seleccionar todo [{{count}}]",
+    "weight": "Peso (g)",
+    "photo_service": "Servicio de fotos",
+    "disposal": "Desecho",
+    "return_request": "Solicitud de devolución",
+    "delivery_request": "Solicitud de envío",
+    "disposal_alert": "El servicio de desecho se puede utilizar después de solicitar el servicio de fotos."
+  },
+
+  "forward_request1": {
+    "alert": "¿Desea solicitar envío para los productos seleccionados?",
+    "request_product": "Solicitud de producto({{count}})",
+    "warehouse_number": "Número de ingreso",
+    "tracking_number": "Número de envío",
+    "weight": "Peso",
+    "request_button": "Solicitar envío({{count}} / {{weight}}g)",
+    "title": "Solicitud de envío[Selección de dirección]",
+    "delivery_info": "Información de dirección de envío",
+    "delivery_select": "Selección de dirección de envío",
+    "direct_input": "Ingresar directamente",
+    "overseas_delivery": "Envío internacional",
+    "domestic_delivery": "Envío nacional",
+    "name": "Nombre (inglés)",
+    "address": "Dirección",
+    "address_detail": "Dirección detallada",
+    "province": "Provincia",
+    "city": "Ciudad",
+    "postal_code": "Código postal",
+    "phone_number": "-Excluir entrada",
+    "company_name": "Nombre de la empresa (opcional)",
+    "account_no": "Número de cuenta o impuesto/CPF",
+    "address_description": "* Se solicita envío a la dirección registrada.",
+    "delivery_company": "Empresa de envío",
+    "delivery_company_description": "Advertencias por empresa de envío",
+    "recommended_delivery_company": "Empresa de envío recomendada",
+    "delivery_select_description": "Selección de dirección de envío",
+    "new_delivery_address": "Registrar nueva dirección de envío",
+    "no_delivery_address": "No hay direcciones de envío registradas.",
+    "delivery_method": "Método de envío",
+    "delivery_method_description": "* El método de envío seleccionado actualmente se aplica como configuración predeterminada y puede cambiarse durante la solicitud de envío."
+  },
+
+  "forward_request2": {
+    "title": "Solicitud de envío[Selección de servicio]",
+    "total_count": "Total (productos/peso)",
+    "total_count_description": "{{count}} / {{weight}}g",
+    "delivery_company": "Empresa de envío",
+    "delivery_company_description": "Selección de empresa de envío",
+    "delivery_company_description2": "1BOX tiene un límite de peso de 30kg y un límite de volumen/peso.",
+    "processing_method": "Método de procesamiento",
+    "processing_method1": "General",
+    "processing_method2": "Prioridad",
+    "processing_description": "· Generalmente, el embalaje tarda aproximadamente 1-7 días (excepto fines de semana y días festivos) desde la fecha de solicitud, pero si se solicita Priority, se completará en 48 horas (excepto fines de semana y días festivos) desde la fecha de solicitud.\n · 우선처리 수수료 - kg당 6,000원 \n·일반처리 수수료 - kg당 3,000원",
+    "additional_service": "Servicio adicional",
+    "delivery_insurance": "Seguro de envío",
+    "other_request": "Otro pedido",
+    "other_request_description": "Otro pedido se procesará bajo la decisión de KORGOU.",
+    "cancel": "Cancelar",
+    "next": "Siguiente"
+  },
+
+  "forward_request3": {
+    "title": "Solicitud de envío[Escritura de declaración]",
+    "content_info": "Información de contenido",
+    "content_info_placeholder": "1 carácter o más, 15 carácteres o menos",
+    "content_info_description": "Ingrese la información del contenido.",
+    "quantity_info": "Información de cantidad",
+    "quantity_info_placeholder": "Ingrese la cantidad (ex. 1,2,3)",
+    "quantity_info_description": "Ingrese la cantidad del producto.",
+    "price_info": "Información de precio",
+    "price_info_placeholder": "No se permite ingresar 0 (ej. USD 150)",
+    "price_info_description": "Ingrese el costo total del producto.",
+    "save": "Guardar",
+    "declaration_writing_note": "[Escritura de declaración de observaciones]",
+    "declaration_writing_note_description": "· 1 producto por 1 contenido. \n· 내용물 정보는 '상품' 또는 '선물'과 같은 이름 모를 항목으로 입력할 수 없습니다.\n",
+    "content": "Contenido({{count}})",
+    "quantity": "Cantidad",
+    "price": "Precio",
+    "modify": "Modificar",
+    "delete": "Eliminar"
+  },
+
+  "forward_request4": {
+    "title": "Verificación de solicitud de envío",
+    "product_info": "Información del producto",
+    "warehouse_number": "Número de ingreso",
+    "weight": "Peso (g)",
+    "service_info": "Información del servicio",
+    "delivery_company": "Empresa de envío",
+    "processing_method": "Método de procesamiento",
+    "additional_service": "Servicio adicional",
+    "other_request": "Otro pedido",
+    "delivery_info": "Información de dirección de envío",
+    "recipient_name": "Nombre del destinatario",
+    "address": "Dirección",
+    "phone_number": "Teléfono",
+    "declaration_info": "Información de declaración",
+    "content_info": "Información de contenido",
+    "quantity_info": "Información de cantidad",
+    "price_info": "Información de precio",
+    "service_cost": "Los costos del servicio se enviarán por correo electrónico después de la solicitud de envío.",
+    "complete": "He confirmado los detalles de la solicitud de envío.",
+    "complete_description": "La solicitud de envío se ha completado",
+    "complete_description2": "¡Le notificaremos por correo electrónico cuando los productos seleccionados sean enviados!\n\n *Puede verificar el estado del envío en SHIPPING>Solicitud de envío."
+  },
+
+  "disposal_request": {
+    "title": "Desecho y división de servicios",
+    "request_product": "Solicitud de producto({{count}})",
+    "package_number": "Número de paquete",
+    "weight": "Peso (g)",
+    "request_description": "Solicitud de pedido",
+    "request_description_placeholder": "Ingrese los detalles de la solicitud.",
+    "photo_upload": "Subir foto",
+    "photo_upload_description": "· 2MB o menos y se puede subir hasta 5 imágenes.",
+    "disposal": "Desecho",
+    "disposal_description": "· Seleccione el producto en su almacén para desechar o desechar parcialmente. \n· Después de aceptar el desecho, se procesará inmediatamente y no se puede cancelar.",
+    "disposal_request": "Desecho",
+    "disposal_request_description": "· Seleccione el producto en su almacén para desechar o desechar parcialmente. \n· Después de aceptar el desecho, se procesará inmediatamente y no se puede cancelar.",
+    "disposal_request_button": "Solicitar",
+    "disposal_request_completed": "Desecho solicitado completado.",
+    "disposal_request_completed_description": "Después de actualizar, el producto se eliminará en el estado del almacén."
+  },
+
+  "photo_service": {
+    "title": "Servicio de fotos premium",
+    "request_product": "Solicitud de producto({{count}})",
+    "package_number": "Número de paquete",
+    "weight": "Peso (g)",
+    "request_description": "Solicitud de pedido",
+    "request_description_placeholder": "Ingrese los detalles de la solicitud.",
+    "photo_service_description": "· Proporciona imágenes reales de productos ingresados. \n · Después de actualizar, el producto se eliminará en el estado del almacén.",
+    "photo_service_button": "Solicitar",
+    "photo_service_completed": "Servicio de fotos solicitado completado.",
+    "photo_service_completed_description": "Después de actualizar, el producto se eliminará en el estado del almacén.",
+    "photo_service_description2": "Imagen de producto ingresado."
+  },
+
+  "forward_request_status": {
+    "title": "Estado de solicitud de envío",
+    "delivery_status": "Estado de envío",
+    "forward_number": "Número de envío",
+    "total_count": "Total (productos/peso)",
+    "total_count_description": "{{count}} / {{weight}}g",
+    "weight": "Peso (g)",
+    "review_write": "Escribir reseña",
+    "applicated": "Solicitud completada",
+    "forwarded": "Envío",
+    "returned": "Devolución",
+    "delivery_completed": "Envío completado",
+    "request_cancel": "Solicitud de cancelación",
+    "delivery_search": "Búsqueda de envío",
+    "request_cancel_request": "Solicitud de cancelación",
+    "request_cancel_request_description": "El administrador puede aprobar/rechazar."
+  },
+
+  "forward_request_status_detail": {
+    "title": "Estado de solicitud de envío detallado",
+    "forward_number": "Número de envío",
+    "delivery_status": "Estado de pedido",
+    "product_info": "Información del producto",
+    "total_count": "Total (productos/peso)",
+    "total_count_description": "{{count}} / {{weight}}g",
+    "package_number": "Número de paquete",
+    "tracking_number": "Número de envío",
+    "weight": "Peso (g)",
+    "order_info": "Información del pedido",
+    "service_info": "Información del servicio",
+    "delivery_company": "Empresa de envío",
+    "processing_method": "Método de procesamiento",
+    "additional_service": "Servicio adicional",
+    "other_request": "Otro pedido",
+    "delivery_info": "Información de dirección de envío",
+    "recipient_name": "Nombre del destinatario",
+    "declaration_info": "Información de declaración",
+    "content_info": "Información de contenido",
+    "quantity_info": "Información de cantidad",
+    "price_info": "Información de precio",
+    "payment_before": "Antes de pago",
+    "payment_completed": "Pago completado",
+    "delivery_fee": "Costo de envío",
+    "processing_fee": "Costo de procesamiento",
+    "discount_rate": "Tasa de descuento",
+    "compact_packaging": "Empaquetado compacto",
+    "priority_packaging": "Empaquetado prioritario",
+    "receipt_removal": "Eliminación de recibo",
+    "payment_completed2": "Pago completado",
+    "delivery_search": "Búsqueda de envío",
+    "status": "Estado",
+    "delivery_detail": "Envío detallado",
+    "forwarding_detail": "Envío detallado",
+    "payment_info": "Información de pago",
+    "final_payment_amount": "Cantidad total de pago"
+  },
+
+  "unidentified_package": {
+    "title": "Paquete no identificado",
+    "description": "Busque el artículo perdido consultando el número de envío.",
+    "delivery_company": "Empresa de envío",
+    "tracking_number": "Número de envío",
+    "tracking_number_description": "Ingrese el número de envío completo como número.",
+    "search_result": "Resultado de búsqueda de {{tracking_number}} ({{count}})",
+    "my_item_certification": "Certificación de mi artículo"
+  },
+
+  "unidentified_package_auth": {
+    "title": "Certificación",
+    "item_content": "Contenido del artículo",
+    "item_content_description": "Ingrese los detalles del artículo.",
+    "item_certification_image": "Imagen de certificación de hechos",
+    "item_certification_image_description": "· Recibo de compra, historial de transacciones/fotos del producto, etc.",
+    "photo_upload_description": "· 2MB o menos y se puede subir hasta 5 imágenes.",
+    "my_item_certification": "Certificación de mi artículo",
+    "my_item_certification_description": "Para verificar la pérdida, realice el proceso de certificación.",
+    "item_certification_completed": "Certificación de artículo completada.",
+    "item_certification_completed_description": "Después de actualizar, el producto se eliminará en el estado del almacén."
+  },
+
+  "navigation": {
+    "search": "Buscar",
+    "shop": "Tienda",
+    "home": "Inicio",
+    "warehouse": "Depósito",
+    "my_page": "Mi página"
+  }
+}

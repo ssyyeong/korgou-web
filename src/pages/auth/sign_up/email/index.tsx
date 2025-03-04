@@ -5,13 +5,14 @@ import { Box, Button, TextField, Typography } from "@mui/material";
 import OriginButton from "../../../../components/Button/OriginButton";
 import Header from "../../../../components/Header/Header";
 import { useLocation, useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import AppMemberController from "../../../../controller/AppMemberController";
 
 const Email = ({ route }: any) => {
   const location = useLocation();
   const navigate = useNavigate();
-
+  const { t } = useTranslation();
   const {
     name = "",
     email = "",
@@ -100,7 +101,7 @@ const Email = ({ route }: any) => {
         }}
       >
         <Header
-          title={"이메일 인증"}
+          title={t("common.field.email.verification.title")}
           styles={{
             fontSize: "15x",
             fontWeight: 700,
@@ -121,7 +122,7 @@ const Email = ({ route }: any) => {
               mb: "13px",
             }}
           >
-            아래 이메일로 인증번호가 발송되었습니다.
+            {t("common.field.email.verification.message")}
           </Typography>
           {!isModifyEmail ? (
             <Typography
@@ -144,7 +145,7 @@ const Email = ({ route }: any) => {
             >
               <TextField
                 variant="outlined"
-                placeholder="이메일"
+                placeholder={t("common.field.email.label")}
                 value={newEmail}
                 onChange={(e) => {
                   setNewEmail(e.target.value);
@@ -172,7 +173,7 @@ const Email = ({ route }: any) => {
                   ml: "8px",
                 }}
               >
-                수정
+                {t("common.button.modify")}
               </Button>
             </Box>
           )}
@@ -186,7 +187,7 @@ const Email = ({ route }: any) => {
           >
             <TextField
               variant="outlined"
-              label="인증번호"
+              label={t("common.field.email.verification.code.label")}
               value={authNumber}
               onChange={(e) => {
                 setAuthNumber(e.target.value);
@@ -213,7 +214,7 @@ const Email = ({ route }: any) => {
                 height: "55px",
               }}
             >
-              재전송
+              {t("common.button.resend")}
             </Button>
           </Box>
           <Box
@@ -235,7 +236,7 @@ const Email = ({ route }: any) => {
                 textDecoration: "underline",
               }}
             >
-              이메일 재입력 하기
+              {t("common.button.re_enter")}
             </Typography>
           </Box>
         </Box>
@@ -255,7 +256,9 @@ const Email = ({ route }: any) => {
           onClick={() => {
             signUp();
           }}
-          contents={<Typography fontSize={16}>확인</Typography>}
+          contents={
+            <Typography fontSize={16}>{t("common.button.confirm")}</Typography>
+          }
           style={{
             padding: "16px 8px",
             my: 2,

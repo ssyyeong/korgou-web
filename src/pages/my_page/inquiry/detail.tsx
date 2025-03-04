@@ -5,8 +5,10 @@ import OriginButton from "../../../components/Button/OriginButton";
 import { useLocation, useNavigate } from "react-router-dom";
 import ControllerAbstractBase from "../../../controller/Controller";
 import dayjs from "dayjs";
+import { useTranslation } from "react-i18next";
 
 const InquiryDetail = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
   const { id } = location.state;
@@ -53,7 +55,7 @@ const InquiryDetail = () => {
         backgroundColor: "white",
       }}
     >
-      <Header title="문의 관리" />
+      <Header title={t("inquiry.title")} />
       <Box
         sx={{
           display: "flex",
@@ -171,7 +173,7 @@ const InquiryDetail = () => {
         }}
         contents={
           <Typography fontSize={16} fontWeight={700}>
-            목록
+            {t("common.button.list")}
           </Typography>
         }
         style={{

@@ -15,9 +15,11 @@ import TextFieldCustom from "../../../components/TextField";
 import OriginButton from "../../../components/Button/OriginButton";
 import { useNavigate } from "react-router-dom";
 import { useBuying, ProductData } from "../../../contexts/BuyingContext";
+import { useTranslation } from "react-i18next";
 
 const BuyingCreate: React.FC = () => {
   const navigation = useNavigate();
+  const { t } = useTranslation();
 
   // 전역 상태 사용
   const {
@@ -84,7 +86,7 @@ const BuyingCreate: React.FC = () => {
               mb: "10px",
             }}
           >
-            쇼핑몰 계정여부
+            {t("buying_it.shopping_auth")}
           </Typography>
           <ToggleButtonGroup
             value={authYn}
@@ -140,7 +142,7 @@ const BuyingCreate: React.FC = () => {
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setShoppingMallUrl(e.target.value)
               }
-              placeholder="쇼핑몰 URL"
+              placeholder={t("buying_it.shopping_placeholder1")}
             />
             <TextFieldCustom
               fullWidth
@@ -150,7 +152,7 @@ const BuyingCreate: React.FC = () => {
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setShoppingMallId(e.target.value)
               }
-              placeholder="쇼핑몰 ID"
+              placeholder={t("buying_it.shopping_placeholder2")}
             />
             <TextFieldCustom
               fullWidth
@@ -160,10 +162,10 @@ const BuyingCreate: React.FC = () => {
               onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                 setShoppingMallPw(e.target.value)
               }
-              placeholder="쇼핑몰 PASS"
+              placeholder={t("buying_it.shopping_placeholder3")}
             />
             <Typography sx={{ fontSize: "14px", color: "#61636C" }}>
-              *쇼핑몰 접속 {">"} 장바구니에 추가된 상품을 구매합니다.
+              {t("buying_it.shopping_description")}
             </Typography>
           </Box>
         ) : (
@@ -176,7 +178,7 @@ const BuyingCreate: React.FC = () => {
                 mb: "10px",
               }}
             >
-              주문상품 목록
+              {t("buying_it.product_list")}
             </Typography>
             {productList.map((product, index) => (
               <Box
@@ -203,7 +205,7 @@ const BuyingCreate: React.FC = () => {
                       fontWeight: 700,
                     }}
                   >
-                    상품 {index + 1}
+                    {t("buying_it.product", { count: index + 1 })}
                   </Typography>
                   <OriginButton
                     variant="contained"
@@ -222,7 +224,7 @@ const BuyingCreate: React.FC = () => {
                           color: "#919298",
                         }}
                       >
-                        삭제
+                        {t("common.button.delete")}
                       </Typography>
                     }
                   />
@@ -232,7 +234,7 @@ const BuyingCreate: React.FC = () => {
                   sx={{
                     mb: "10px",
                   }}
-                  placeholder="주문상품 URL을 입력하세요."
+                  placeholder={t("buying_it.product_placeholder1")}
                   value={product.URL}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                     handleProductChange(index, "URL", e.target.value)
@@ -243,7 +245,7 @@ const BuyingCreate: React.FC = () => {
                   sx={{
                     mb: "10px",
                   }}
-                  placeholder="주문 옵션(최종 옵션값)을 입력하세요."
+                  placeholder={t("buying_it.product_placeholder2")}
                   value={product.OPTION}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                     handleProductChange(index, "OPTION", e.target.value)
@@ -254,7 +256,7 @@ const BuyingCreate: React.FC = () => {
                   sx={{
                     mb: "10px",
                   }}
-                  placeholder="수량을 선택하세요."
+                  placeholder={t("buying_it.product_placeholder3")}
                   value={product.QUANTITY}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                     handleProductChange(index, "QUANTITY", e.target.value)
@@ -265,7 +267,7 @@ const BuyingCreate: React.FC = () => {
                   sx={{
                     mb: "10px",
                   }}
-                  placeholder="최종 상품 금액을 입력하세요."
+                  placeholder={t("buying_it.product_placeholder4")}
                   value={product.PRICE}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                     handleProductChange(index, "PRICE", e.target.value)
@@ -276,7 +278,7 @@ const BuyingCreate: React.FC = () => {
                   sx={{
                     mb: "10px",
                   }}
-                  placeholder="요청사항을 입력하세요."
+                  placeholder={t("buying_it.product_placeholder5")}
                   value={product.REQUEST}
                   onChange={(e: React.ChangeEvent<HTMLInputElement>) =>
                     handleProductChange(index, "REQUEST", e.target.value)
@@ -296,7 +298,7 @@ const BuyingCreate: React.FC = () => {
                     color: "#fff",
                   }}
                 >
-                  + add
+                  {t("common.button.add")}
                 </Typography>
               }
             />
@@ -317,7 +319,7 @@ const BuyingCreate: React.FC = () => {
       <Typography
         sx={{ fontSize: "20px", fontWeight: 700, color: "#282930", mb: "10px" }}
       >
-        배송지 설정
+        {t("buying_it.address")}
       </Typography>
       <RadioGroup value={"warehouse"} onChange={(e) => {}}>
         <FormControlLabel
@@ -345,7 +347,8 @@ const BuyingCreate: React.FC = () => {
                   mb: "8px",
                 }}
               >
-                <strong> 창고배송</strong>(창고 보유상품과 합포장)
+                <strong>{t("buying_it.address_type")}</strong>{" "}
+                {t("buying_it.address_type_description")}
               </Typography>
               <Typography
                 sx={{
@@ -353,7 +356,7 @@ const BuyingCreate: React.FC = () => {
                   color: "#282930",
                 }}
               >
-                경기도 성남시 중원구 순환로 79 3층 <strong>C128405</strong>
+                {t("buying_it.address_detail")} <strong>C128405</strong>
               </Typography>
             </Box>
           }
@@ -373,7 +376,7 @@ const BuyingCreate: React.FC = () => {
       <Typography
         sx={{ fontSize: "20px", fontWeight: 700, color: "#282930", mb: "10px" }}
       >
-        배송 요청사항
+        {t("buying_it.address_request")}
       </Typography>
       <TextFieldCustom
         fullWidth
@@ -384,7 +387,7 @@ const BuyingCreate: React.FC = () => {
         }
         multiline
         rows={5}
-        placeholder="배송 요청사항을 입력해주세요."
+        placeholder={t("buying_it.address_request_placeholder")}
         sx={{ "& .MuiInputBase-root": { height: "160px" } }}
       />
 
@@ -402,10 +405,10 @@ const BuyingCreate: React.FC = () => {
       <Typography
         sx={{ fontSize: "20px", fontWeight: 700, color: "#282930", mb: "4px" }}
       >
-        품절 시 진행방식
+        {t("buying_it.proceee")}
       </Typography>
       <Typography sx={{ fontSize: "12px", color: "#919298", mb: "20px" }}>
-        *요청 상품 중 품절된 상품이 발생했을때, 결제 처리 방법
+        {t("buying_it.proceee_description")}
       </Typography>
       <RadioGroup
         value={process}
@@ -423,7 +426,7 @@ const BuyingCreate: React.FC = () => {
               }}
             />
           }
-          label="품절 상품을 건너뛰고 나머지 상품들만 결제 진행"
+          label={t("buying_it.proceee_option1")}
         />
         <FormControlLabel
           value="stop"
@@ -434,7 +437,7 @@ const BuyingCreate: React.FC = () => {
               }}
             />
           }
-          label="주문서 처리를 중지"
+          label={t("buying_it.proceee_option2")}
         />
       </RadioGroup>
       <Divider
@@ -461,7 +464,7 @@ const BuyingCreate: React.FC = () => {
             }}
           />
         }
-        label="약관 전체 동의"
+        label={t("terms.all")}
         sx={{ fontSize: "16px", color: "#282930", mb: "24px" }}
       />
 
@@ -484,7 +487,7 @@ const BuyingCreate: React.FC = () => {
         }}
         contents={
           <Typography fontSize={16} fontWeight={700}>
-            주문 요청
+            {t("common.button.order_request")}
           </Typography>
         }
         style={{ padding: "16px 8px", mb: "8px", height: "48px" }}

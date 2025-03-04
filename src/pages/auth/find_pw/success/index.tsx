@@ -2,9 +2,11 @@ import React from "react";
 import { Box, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
 import OriginButton from "../../../../components/Button/OriginButton";
+import { useTranslation } from "react-i18next";
 
 const PasswordSuccess = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   return (
     <Box
@@ -36,7 +38,7 @@ const PasswordSuccess = () => {
           textAlign: "center",
         }}
       >
-        비밀번호 변경이 완료되었습니다!
+        {t("auth.forgot_password.password_changed")}
       </Typography>
 
       {/* 로그인 버튼 */}
@@ -46,7 +48,7 @@ const PasswordSuccess = () => {
         onClick={() => navigate("/sign_in")}
         contents={
           <Typography fontSize={16} sx={{ color: "white", fontWeight: 700 }}>
-            로그인 하기
+            {t("auth.forgot_password.login_now")}
           </Typography>
         }
       />

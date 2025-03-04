@@ -14,11 +14,12 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useBuying } from "../../../contexts/BuyingContext"; // 경로는 상황에 맞게 수정
 import ControllerAbstractBase from "../../../controller/Controller";
 import { useAppMember } from "../../../hooks/useAppMember";
+import { useTranslation } from "react-i18next";
 
 const BuyingSubmit: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
-
+  const { t } = useTranslation();
   const { memberCode } = useAppMember();
 
   // BuyingContext의 setter 함수들 사용
@@ -106,7 +107,9 @@ const BuyingSubmit: React.FC = () => {
             mb: "10px",
           }}
         >
-          {authYn === "Y" ? "쇼핑몰 계정" : "주문 목록"}
+          {authYn === "Y"
+            ? t("buying_it.shopping_account")
+            : t("buying_it.order_list")}
         </Typography>
 
         <Divider sx={{ color: "#ECECED", my: "20px" }} />
@@ -177,7 +180,7 @@ const BuyingSubmit: React.FC = () => {
                 <Typography
                   sx={{ fontSize: "16px", color: "#3966AE", fontWeight: 700 }}
                 >
-                  상품 {index + 1}
+                  {t("buying_it.product", { count: index + 1 })}
                 </Typography>
                 <Box sx={{ display: "flex", flexDirection: "column" }}>
                   <Box
@@ -262,7 +265,7 @@ const BuyingSubmit: React.FC = () => {
           mb: "10px",
         }}
       >
-        배송지 설정
+        {t("buying_it.address")}
       </Typography>
       <RadioGroup value={"warehouse"} onChange={(e) => {}}>
         <FormControlLabel
@@ -282,10 +285,11 @@ const BuyingSubmit: React.FC = () => {
               <Typography
                 sx={{ fontSize: "16px", color: "#282930", mb: "8px" }}
               >
-                <strong> 창고배송</strong>(창고 보유상품과 합포장)
+                <strong>{t("buying_it.address_type")}</strong>{" "}
+                {t("buying_it.address_type_description")}
               </Typography>
               <Typography sx={{ fontSize: "14px", color: "#282930" }}>
-                경기도 성남시 중원구 순환로 79 3층 <strong>C128405</strong>
+                {t("buying_it.address_detail")} <strong>C128405</strong>
               </Typography>
             </Box>
           }
@@ -310,7 +314,7 @@ const BuyingSubmit: React.FC = () => {
           mb: "10px",
         }}
       >
-        배송 요청사항
+        {t("buying_it.address_request")}
       </Typography>
       <TextFieldCustom
         fullWidth
@@ -347,12 +351,12 @@ const BuyingSubmit: React.FC = () => {
             color: "#282930",
           }}
         >
-          품절 시 진행방식
+          {t("buying_it.proceee")}
         </Typography>
         <Typography sx={{ fontSize: "16px", color: "#282930" }}>
           {process === "progress"
-            ? "품절 상품을 건너뛰고 나머지 상품들만 결제 진행"
-            : "주문서 처리를 중지"}
+            ? t("buying_it.proceee_option1")
+            : t("buying_it.proceee_option2")}
         </Typography>
       </Box>
       <Divider
@@ -386,7 +390,7 @@ const BuyingSubmit: React.FC = () => {
           }}
           contents={
             <Typography fontSize={16} fontWeight={700} color="#61636C">
-              이전 단계로
+              {t("common.button.previous")}
             </Typography>
           }
           style={{
@@ -402,7 +406,7 @@ const BuyingSubmit: React.FC = () => {
           onClick={handleSubmit}
           contents={
             <Typography fontSize={16} fontWeight={700}>
-              제출하기
+              {t("common.button.submit")}
             </Typography>
           }
           style={{ borderRadius: "0px" }}

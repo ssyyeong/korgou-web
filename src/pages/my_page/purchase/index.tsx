@@ -10,8 +10,9 @@ import ControllerAbstractBase from "../../../controller/Controller";
 import dayjs from "dayjs";
 import "dayjs/locale/ko";
 import BuyingItController from "../../../controller/BuyingItController";
-
+import { useTranslation } from "react-i18next";
 const Purchase = () => {
+  const { t } = useTranslation();
   dayjs.locale("ko");
 
   const navigate = useNavigate();
@@ -29,16 +30,22 @@ const Purchase = () => {
   const [buyingItList, setBuyingItList] = useState([]);
 
   const dateFilterings = [
-    { value: "1month", label: "최근 1개월" },
-    { value: "2month", label: "최근 2개월" },
-    { value: "3month", label: "최근 3개월" },
+    { value: "1month", label: t("common.period.recent.month") },
+    { value: "2month", label: t("common.period.recent.two_month") },
+    { value: "3month", label: t("common.period.recent.three_month") },
   ];
   const filterings = [
-    { value: "All", label: "전체" },
-    { value: "Confirmation pending", label: "확인 대기중" },
-    { value: "Confirmed, payment pending", label: "확인완료 및 결제 대기중" },
-    { value: "Paid", label: "결제 완료" },
-    { value: "Completed", label: "구매 완료" },
+    { value: "All", label: t("purchase_status.all") },
+    {
+      value: "Confirmation pending",
+      label: t("purchase_status.confirmation_pending"),
+    },
+    {
+      value: "Confirmed, payment pending",
+      label: t("purchase_status.confirmed_payment_pending"),
+    },
+    { value: "Paid", label: t("purchase_status.paid") },
+    { value: "Completed", label: t("purchase_status.completed") },
   ];
 
   const controller = new ControllerAbstractBase({
@@ -48,7 +55,7 @@ const Purchase = () => {
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setTab(newValue);
-    setFilter("전체");
+    setFilter(t("purchase_status.all"));
     setStartDate(new Date());
     setEndDate(new Date());
     setDateType("");
@@ -95,7 +102,7 @@ const Purchase = () => {
       APP_MEMBER_IDENTIFICATION_CODE: memberCode,
     };
 
-    if (filter !== "전체") {
+    if (filter !== t("purchase_status.all")) {
       option.STATUS = filterings.filter(
         (item) => item.label === filter
       )[0].value;
@@ -107,7 +114,7 @@ const Purchase = () => {
   };
 
   useEffect(() => {
-    fetchData("전체");
+    fetchData(t("purchase_status.all"));
   }, [memberCode]);
 
   return (
@@ -122,7 +129,7 @@ const Purchase = () => {
         alignItems: "center",
       }}
     >
-      <Header title="구매 현황" />
+      <Header title={t("purchase_status.title")} />
       <Tabs
         value={tab}
         onChange={handleChange}
@@ -180,7 +187,7 @@ const Purchase = () => {
                 fontSize: "12px",
               }}
             >
-              구매 상태
+              {t("purchase_status.purchase_status")}
             </Typography>
             <DropDown
               items={filterings.map((filter) => filter.label)}
@@ -193,7 +200,7 @@ const Purchase = () => {
               fontSize: "14px",
             }}
           >
-            0개
+            {t("common.field.count.count", { count: 0 })}
           </Typography>
           {/* <Box
             sx={{
@@ -324,7 +331,7 @@ const Purchase = () => {
                 fontSize: "12px",
               }}
             >
-              구매 상태
+              {t("purchase_status.purchase_status")}
             </Typography>
             <DropDown
               items={filterings.map((filter) => filter.label)}
@@ -348,7 +355,7 @@ const Purchase = () => {
               fontSize: "14px",
             }}
           >
-            {buyingItList.length}개
+            {t("common.field.count.count", { count: buyingItList.length })}
           </Typography>
           {buyingItList.map((buyingIt) => (
             <BuyingItItem

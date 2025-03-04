@@ -12,8 +12,9 @@ import DeleteIcon from "@mui/icons-material/Delete";
 import ImageController from "../../../controller/ImageController";
 import CameraAltOutlinedIcon from "@mui/icons-material/CameraAltOutlined";
 import MultiImageUploader from "../../../components/MultiImageUploader";
-
+import { useTranslation } from "react-i18next";
 const ReviewCreate = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
   const { productCode } = location?.state || {};
@@ -95,7 +96,7 @@ const ReviewCreate = () => {
         mb: "120px",
       }}
     >
-      <Header title="리뷰작성" />
+      <Header title={t("review_create.title")} />
 
       <Box sx={{ display: "flex", flexDirection: "column" }}>
         <Box
@@ -108,7 +109,7 @@ const ReviewCreate = () => {
           }}
         >
           <Typography fontSize={20} fontWeight={700}>
-            별점을 선택해주세요!
+            {t("review_create.star_rating")}
           </Typography>
           <Box
             sx={{
@@ -120,7 +121,7 @@ const ReviewCreate = () => {
             }}
           >
             <Typography fontSize={16} fontWeight={700}>
-              만족도
+              {t("review_create.satisfaction_level")}
             </Typography>
             <Box
               sx={{
@@ -172,7 +173,7 @@ const ReviewCreate = () => {
               fontWeight: 700,
             }}
           >
-            포토 업로드
+            {t("review_create.photo_upload")}
           </Typography>
           <Typography
             sx={{
@@ -180,11 +181,10 @@ const ReviewCreate = () => {
               my: "10px",
               flexWrap: "wrap",
               color: "#61636C",
+              whiteSpace: "pre-line",
             }}
           >
-            · 이미지는 1MB이하 5장까지 업로드 가능합니다.
-            <br />· 상품과 관련 없거나 부적합한 사진을 리뷰에 등록하시는 경우,
-            사전경고 없이 포인트 회수와 사진이 삭제될 수 있습니다.
+            {t("review_create.photo_upload_description")}
           </Typography>
         </Box>
         <MultiImageUploader
@@ -202,7 +202,7 @@ const ReviewCreate = () => {
             mb: "8px",
           }}
         >
-          리뷰 작성
+          {t("review_create.review_content")}
         </Typography>
 
         <TextFieldCustom
@@ -215,7 +215,7 @@ const ReviewCreate = () => {
           sx={{
             "& .MuiInputBase-root": { height: "160px" },
           }}
-          placeholder="코고를 이용한 후기를 자세하게 알려주세요."
+          placeholder={t("review_create.review_content_placeholder")}
         />
 
         <Box
@@ -226,7 +226,7 @@ const ReviewCreate = () => {
           }}
         >
           <Typography fontSize={14} fontWeight={700}>
-            리뷰 정책
+            {t("review_create.review_policy")}
           </Typography>
           <Typography fontSize={14} fontWeight={700} color="#B1B2B6">
             {">"}
@@ -240,7 +240,7 @@ const ReviewCreate = () => {
           onClick={createReview}
           contents={
             <Typography fontSize={16} fontWeight={700}>
-              저장
+              {t("common.button.save")}
             </Typography>
           }
           style={{

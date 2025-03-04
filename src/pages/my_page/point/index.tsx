@@ -8,12 +8,13 @@ import { useAppMember } from "../../../hooks/useAppMember";
 import Header from "../../../components/Header/Header";
 import FilteringDate from "../../../components/FilteringDate";
 import History from "../../../components/List/History";
-
+import { useTranslation } from "react-i18next";
 const PointList = () => {
+  const { t } = useTranslation();
   const filterings = [
-    { value: "today", label: "오늘" },
-    { value: "7days", label: "최근 7일" },
-    { value: "1month", label: "최근 1개월" },
+    { value: "today", label: t("common.period.today") },
+    { value: "7days", label: t("common.period.recent.week") },
+    { value: "1month", label: t("common.period.recent.month") },
   ];
 
   const { memberPoint, memberCode } = useAppMember();
@@ -65,7 +66,7 @@ const PointList = () => {
         backgroundColor: "white",
       }}
     >
-      <Header title="포인트" />
+      <Header title={t("point.title")} />
 
       {/* Section Title */}
       <Typography
@@ -75,7 +76,7 @@ const PointList = () => {
           color: "#61636C",
         }}
       >
-        보유 금액
+        {t("point.amount")}
       </Typography>
 
       <Typography
@@ -114,7 +115,7 @@ const PointList = () => {
           mt: "16px",
         }}
       >
-        포인트 내역
+        {t("point.point_history")}
       </Typography>
       {pointList.map((point, index) => (
         <History key={index} item={point} />

@@ -1,6 +1,6 @@
 import React from "react";
 import { Box, Divider, Typography } from "@mui/material";
-
+import { useTranslation } from "react-i18next";
 interface IBuyingItItemProps {
   buyingItId: string;
   date: string;
@@ -8,6 +8,7 @@ interface IBuyingItItemProps {
 }
 
 const BuyingItItem = (props: IBuyingItItemProps) => {
+  const { t } = useTranslation();
   return (
     <Box
       sx={{
@@ -35,7 +36,10 @@ const BuyingItItem = (props: IBuyingItItemProps) => {
       <Typography
         sx={{
           fontSize: "14px",
-          color: props.status === "결제완료" ? "#282930" : "#3966AE",
+          color:
+            props.status === t("purchase_status.completed")
+              ? "#282930"
+              : "#3966AE",
           fontWeight: 700,
           alignSelf: "flex-end",
         }}

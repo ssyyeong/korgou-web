@@ -3,9 +3,11 @@ import { Box, Typography } from "@mui/material";
 import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import { useNavigate } from "react-router-dom";
 import OriginButton from "../../../components/Button/OriginButton";
+import { useTranslation } from "react-i18next";
 
 const Ship = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   return (
     <Box
@@ -51,7 +53,7 @@ const Ship = () => {
         }}
         contents={
           <Typography fontSize={16} fontWeight={700} color="white">
-            Submit
+            {t("common.button.submit")}
           </Typography>
         }
       />

@@ -3,8 +3,9 @@ import { Box, Divider, Typography } from "@mui/material";
 import Header from "../../../../components/Header/Header";
 import OriginButton from "../../../../components/Button/OriginButton";
 import { useLocation, useNavigate } from "react-router-dom";
-
+import { useTranslation } from "react-i18next";
 const ConfirmState: React.FC = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -33,7 +34,7 @@ const ConfirmState: React.FC = () => {
         mb: "48px",
       }}
     >
-      <Header title="구매내역 상세" />
+      <Header title={t("purchase_detail.title")} />
       <Box
         sx={{
           display: "flex",
@@ -56,7 +57,7 @@ const ConfirmState: React.FC = () => {
               color: "#282930",
             }}
           >
-            주문번호 {purchaseId}
+            {t("purchase_detail.order_number")} {purchaseId}
           </Typography>
           <Typography
             sx={{
@@ -84,7 +85,7 @@ const ConfirmState: React.FC = () => {
                 color: "#61636C",
               }}
             >
-              주문상태
+              {t("purchase_detail.order_status")}
             </Typography>
             <Typography
               sx={{
@@ -140,7 +141,7 @@ const ConfirmState: React.FC = () => {
               mb: "18px",
             }}
           >
-            상품 정보
+            {t("purchase_detail.product_info")}
           </Typography>
           <Typography
             sx={{
@@ -204,7 +205,7 @@ const ConfirmState: React.FC = () => {
               mb: "20px",
             }}
           >
-            주문 정보
+            {t("purchase_detail.order_info")}
           </Typography>
           <Box
             sx={{
@@ -214,7 +215,7 @@ const ConfirmState: React.FC = () => {
             }}
           >
             <Typography sx={{ fontSize: "14px", color: "#61636C" }}>
-              이름
+              {t("common.field.name.label")}
             </Typography>
             <Typography sx={{ fontSize: "14px", color: "#282930" }}>
               {orderInfo.name}
@@ -228,7 +229,7 @@ const ConfirmState: React.FC = () => {
             }}
           >
             <Typography sx={{ fontSize: "14px", color: "#61636C" }}>
-              이메일
+              {t("common.field.email.label")}
             </Typography>
             <Typography sx={{ fontSize: "14px", color: "#282930" }}>
               {orderInfo.email}
@@ -242,7 +243,7 @@ const ConfirmState: React.FC = () => {
             }}
           >
             <Typography sx={{ fontSize: "14px", color: "#61636C" }}>
-              배송타입
+              {t("purchase_detail.address_type")}
             </Typography>
             <Typography sx={{ fontSize: "14px", color: "#282930" }}>
               {orderInfo.deliveryType}
@@ -256,7 +257,7 @@ const ConfirmState: React.FC = () => {
             }}
           >
             <Typography sx={{ fontSize: "14px", color: "#61636C" }}>
-              창고 번호
+              {t("purchase_detail.warehouse_number")}
             </Typography>
             <Typography sx={{ fontSize: "14px", color: "#282930" }}>
               {orderInfo.storeNumber}
@@ -270,7 +271,7 @@ const ConfirmState: React.FC = () => {
             }}
           >
             <Typography sx={{ fontSize: "14px", color: "#61636C" }}>
-              구매 요청사항
+              {t("purchase_detail.order_request")}
             </Typography>
             <Typography sx={{ fontSize: "14px", color: "#282930" }}>
               {orderInfo.purchaseRequest}
@@ -303,7 +304,7 @@ const ConfirmState: React.FC = () => {
             mb: "20px",
           }}
         >
-          결제 정보
+          {t("purchase_detail.payment_info")}
         </Typography>
 
         <Box
@@ -320,7 +321,7 @@ const ConfirmState: React.FC = () => {
               color: "#61636C",
             }}
           >
-            상품수량
+            {t("purchase_detail.product_quantity")}
           </Typography>
           <Typography
             sx={{
@@ -345,7 +346,7 @@ const ConfirmState: React.FC = () => {
               color: "#61636C",
             }}
           >
-            상품금액
+            {t("purchase_detail.product_price")}
           </Typography>
           <Typography
             sx={{
@@ -370,7 +371,7 @@ const ConfirmState: React.FC = () => {
               color: "#61636C",
             }}
           >
-            구매 수수료
+            {t("purchase_detail.purchase_fee")}
           </Typography>
           <Typography
             sx={{
@@ -395,7 +396,7 @@ const ConfirmState: React.FC = () => {
               color: "#61636C",
             }}
           >
-            할인금액{"(-)"}
+            {t("purchase_detail.discount_amount")} {"(-)"}
           </Typography>
           <Typography
             sx={{
@@ -428,7 +429,7 @@ const ConfirmState: React.FC = () => {
               color: "#EB1F81",
             }}
           >
-            총 결제금액
+            {t("purchase_detail.total_price")}
           </Typography>
           <Typography
             sx={{
@@ -437,7 +438,7 @@ const ConfirmState: React.FC = () => {
               color: "#EB1F81",
             }}
           >
-            {price - discount + charge}원
+            {price - discount + charge}
           </Typography>
         </Box>
         <Box
@@ -473,7 +474,7 @@ const ConfirmState: React.FC = () => {
         onClick={() => {}}
         contents={
           <Typography fontSize={16} fontWeight={700} color="#61636C">
-            주문취소 신청
+            {t("purchase_detail.order_cancel_request")}
           </Typography>
         }
         style={{
@@ -492,7 +493,7 @@ const ConfirmState: React.FC = () => {
         }}
         contents={
           <Typography fontSize={16} fontWeight={700} color="white">
-            목록
+            {t("common.button.list")}
           </Typography>
         }
         style={{ borderRadius: "0px" }}

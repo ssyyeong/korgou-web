@@ -2,9 +2,11 @@ import { Box, Typography } from "@mui/material";
 import Header from "../../../components/Header/Header";
 import OriginButton from "../../../components/Button/OriginButton";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 const Support = () => {
   const navigate = useNavigate();
+  const { t } = useTranslation();
 
   return (
     <Box
@@ -14,7 +16,7 @@ const Support = () => {
         flexDirection: "column",
       }}
     >
-      <Header title="고객센터" />
+      <Header title={t("support.title")} />
       <Box
         sx={{
           display: "flex",
@@ -29,7 +31,7 @@ const Support = () => {
           }}
           contents={
             <Typography fontSize={16} fontWeight={700} color="#3966AE">
-              공지사항
+              {t("support.notice")}
             </Typography>
           }
           style={{ marginTop: "32px", width: "160px" }}

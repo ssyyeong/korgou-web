@@ -3,8 +3,9 @@ import React from "react";
 import Header from "../../../components/Header/Header";
 import OriginButton from "../../../components/Button/OriginButton";
 import { useNavigate } from "react-router-dom";
-
-const InquiryDetail = () => {
+import { useTranslation } from "react-i18next";
+const ReviewDetail = () => {
+  const { t } = useTranslation();
   const navigate = useNavigate();
 
   return (
@@ -17,7 +18,7 @@ const InquiryDetail = () => {
         backgroundColor: "white",
       }}
     >
-      <Header title="문의 관리" />
+      <Header title={t("review_detail.title")} />
       <Box
         sx={{
           display: "flex",
@@ -134,4 +135,4 @@ const InquiryDetail = () => {
   );
 };
 
-export default InquiryDetail;
+export default ReviewDetail;

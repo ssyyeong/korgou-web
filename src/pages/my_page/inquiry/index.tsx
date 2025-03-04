@@ -8,11 +8,11 @@ import ControllerAbstractBase from "../../../controller/Controller";
 import { useAppMember } from "../../../hooks/useAppMember";
 import InquiryCard from "./InqueryCard";
 import dayjs from "dayjs";
-
+import { useTranslation } from "react-i18next";
 const Inquiry = () => {
   const navigate = useNavigate();
   const { memberCode } = useAppMember();
-
+  const { t } = useTranslation();
   const [tab, setTab] = React.useState(0);
   const [categoryList, setCategoryList] = React.useState([]);
   const [qnaAnswerBeforeList, setQnaAnswerBeforeList] = React.useState([]);
@@ -92,7 +92,7 @@ const Inquiry = () => {
         alignItems: "center",
       }}
     >
-      <Header title="문의 관리" />
+      <Header title={t("inquiry.title")} />
       <Tabs
         value={tab}
         onChange={handleChange}
@@ -112,8 +112,8 @@ const Inquiry = () => {
           borderBottom: "1px solid #919298", // 탭 아래쪽 보더 설정
         }}
       >
-        <Tab label="답변 완료" />
-        <Tab label="답변 대기" />
+        <Tab label={t("inquiry.answer_completed")} />
+        <Tab label={t("inquiry.answer_waiting")} />
       </Tabs>
 
       <TabPanel value={0} width="100%">
@@ -135,7 +135,9 @@ const Inquiry = () => {
             }}
           >
             <Typography sx={{ fontSize: "14px", color: "#282930", ml: "16px" }}>
-              {qnaAnswerAfterList.length}개
+              {t("common.field.count.count", {
+                count: qnaAnswerAfterList.length,
+              })}
             </Typography>
             <OriginButton
               fullWidth
@@ -146,7 +148,7 @@ const Inquiry = () => {
               }}
               contents={
                 <Typography fontSize={12} color="#ffffff">
-                  문의 작성
+                  {t("inquiry_create.title")}
                 </Typography>
               }
               style={{ height: "24px", width: "80px" }}
@@ -204,7 +206,9 @@ const Inquiry = () => {
             }}
           >
             <Typography sx={{ fontSize: "14px", color: "#282930", ml: "16px" }}>
-              {qnaAnswerBeforeList.length}개
+              {t("common.field.count.count", {
+                count: qnaAnswerBeforeList.length,
+              })}
             </Typography>
             <OriginButton
               fullWidth
@@ -215,7 +219,7 @@ const Inquiry = () => {
               }}
               contents={
                 <Typography fontSize={12} color="#ffffff">
-                  문의 작성
+                  {t("inquiry_create.title")}
                 </Typography>
               }
               style={{ height: "24px", width: "80px" }}

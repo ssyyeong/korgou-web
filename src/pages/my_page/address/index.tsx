@@ -7,10 +7,11 @@ import ControllerAbstractBase from "../../../controller/Controller";
 import { useAppMember } from "../../../hooks/useAppMember";
 import AddressCard from "./AddressCard";
 import AddressController from "../../../controller/AddressController";
-
+import { useTranslation } from "react-i18next";
 const Address = () => {
   const navigator = useNavigate();
   const { memberCode } = useAppMember();
+  const { t } = useTranslation();
 
   const [addressList, setAddressList] = useState([]);
 
@@ -40,7 +41,7 @@ const Address = () => {
         backgroundColor: "white",
       }}
     >
-      <Header title="배송지 관리" />
+      <Header title={t("my_page.delivery_address")} />
       <Box
         sx={{
           display: "flex",
@@ -99,7 +100,7 @@ const Address = () => {
         }}
         contents={
           <Typography fontSize={16} fontWeight={700}>
-            + 배송지 추가
+            {t("common.button.add_address")}
           </Typography>
         }
         style={{ padding: "16px 8px", height: "48px" }}
