@@ -26,7 +26,7 @@ const Store = () => {
     },
     { value: "Return/Exchange Done", label: t("store.return_exchange_done") },
     { value: "Return/Failed", label: t("store.return_failed") },
-    { value: "Foward Done", label: t("store.forward_done") },
+    { value: "Foward Done", label: t("store.foward_done") },
   ];
 
   interface OrderItem {

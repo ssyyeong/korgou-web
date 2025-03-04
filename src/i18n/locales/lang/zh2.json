@@ -113,27 +113,27 @@
         "label": "重量",
         "unit": "g"
       }
-    }
-  },
-
-  "period": {
-    "today": "今天",
-    "recent": {
-      "week": "最近7天",
-      "month": "最近1個月",
-      "two_month": "最近2個月",
-      "three_month": "最近3個月",
-      "six_month": "最近6個月"
-    }
-  },
-
-  "upload": {
-    "photo": {
-      "title": "上傳照片",
-      "description": "· 圖片大小限制2MB以下，最多5張"
     },
-    "file": {
-      "add": "添加文件"
+
+    "period": {
+      "today": "今天",
+      "recent": {
+        "week": "最近7天",
+        "month": "最近1個月",
+        "two_month": "最近2個月",
+        "three_month": "最近3個月",
+        "six_month": "最近6個月"
+      }
+    },
+
+    "upload": {
+      "photo": {
+        "title": "上傳照片",
+        "description": "· 圖片大小限制2MB以下，最多5張"
+      },
+      "file": {
+        "add": "添加文件"
+      }
     }
   },
 

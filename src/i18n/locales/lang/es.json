@@ -113,27 +113,27 @@
         "label": "Peso",
         "unit": "g"
       }
-    }
-  },
-
-  "period": {
-    "today": "Hoy",
-    "recent": {
-      "week": "Últimos 7 días",
-      "month": "Último mes",
-      "two_month": "Últimos 2 meses",
-      "three_month": "Últimos 3 meses",
-      "six_month": "Últimos 6 meses"
-    }
-  },
-
-  "upload": {
-    "photo": {
-      "title": "Subir foto",
-      "description": "· Imágenes de máximo 2MB, hasta 5 fotos"
     },
-    "file": {
-      "add": "Agregar archivo"
+
+    "period": {
+      "today": "Hoy",
+      "recent": {
+        "week": "Últimos 7 días",
+        "month": "Último mes",
+        "two_month": "Últimos 2 meses",
+        "three_month": "Últimos 3 meses",
+        "six_month": "Últimos 6 meses"
+      }
+    },
+
+    "upload": {
+      "photo": {
+        "title": "Subir foto",
+        "description": "· Imágenes de máximo 2MB, hasta 5 fotos"
+      },
+      "file": {
+        "add": "Agregar archivo"
+      }
     }
   },
 
