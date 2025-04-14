@@ -1,5 +1,4 @@
 import React from "react";
-import { useDispatch } from "react-redux";
 
 import { Avatar, Box, Divider, TextField, Typography } from "@mui/material";
 
@@ -11,6 +10,7 @@ import BottomModal from "../../../components/Modal/BottomModal";
 import AppMemberController from "../../../controller/AppMemberController";
 import { useAuth } from "../../../hooks/useAuth";
 import { useTranslation } from "react-i18next";
+
 const SignIn = () => {
   const { t } = useTranslation();
 
@@ -39,6 +39,10 @@ const SignIn = () => {
 
       const response = await controller.signIn(data);
       if (response.data.status === 200) {
+        if (response.data.result.result === "change password") {
+          setBottomModalOpen(true);
+          return;
+        }
         await localStorage.setItem(
           "ACCESS_TOKEN",
           response.data.result.signInResult.accessToken
@@ -316,9 +320,7 @@ const SignIn = () => {
         }
         btnText={t("auth.login.forgot_password.button")}
         bottomModalOpen={bottomModalOpen}
-        setBottomModalOpen={() => {
-          setBottomModalOpen(true);
-        }}
+        setBottomModalOpen={setBottomModalOpen}
         handleClose={handleClose}
         btnClick={btnClick}
       />

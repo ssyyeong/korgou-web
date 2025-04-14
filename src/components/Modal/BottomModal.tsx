@@ -20,19 +20,21 @@ const BottomModal = (props: IBottomModalProps) => {
         sx={{
           position: "absolute",
           bottom: "0",
-          left: "0",
-          right: "0",
+          left: "49.5%",
+          transform: "translateX(-50%)",
           backgroundColor: "white",
-          width: "100%",
+          width: "360px",
           padding: "24px 0px 32px 0px",
           borderTopLeftRadius: "20px",
           borderTopRightRadius: "20px",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
+          wordBreak: "keep-all",
+          wordWrap: "break-word",
         }}
       >
-        {props.title}
+        <Box sx={{ width: "100%" }}>{props.title}</Box>
         <OriginButton
           fullWidth
           variant="contained"

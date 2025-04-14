@@ -8,6 +8,7 @@ const ConfirmState: React.FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
   const location = useLocation();
+  const { id } = location.state;
 
   const [purchaseId, setPurchaseId] = React.useState<string>("");
   const [date, setDate] = React.useState<string>("");

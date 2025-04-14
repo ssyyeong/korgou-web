@@ -49,7 +49,7 @@ const Buying = () => {
         variant="contained"
         color="#282930"
         onClick={() => {
-          navigate("/buying/create");
+          navigate("/buying/type");
         }}
         contents={
           <Typography fontSize={16} fontWeight={700} color="white">

@@ -31,7 +31,8 @@
           "message": "아래 이메일로 인증번호가 발송되었습니다",
           "code": {
             "label": "인증번호",
-            "placeholder": "인증번호를 입력해주세요"
+            "placeholder": "인증번호를 입력해주세요",
+            "resend": "재전송"
           },
           "success": "이메일 인증이 완료되었습니다"
         }
@@ -260,6 +261,7 @@
     "email_verification": {
       "email_verification_message": "아래 이메일로 인증번호가 발송되었습니다.",
       "verification_code_placeholder": "인증번호",
+      "re_enter_email": "이메일 재입력 하기",
       "email_verification_completed": "메일 인증 완료",
       "email_verification_completed_message": "이메일 인증이 완료되었습니다."
     },

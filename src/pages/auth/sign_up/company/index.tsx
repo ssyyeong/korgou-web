@@ -458,7 +458,6 @@ const SignUpCompany = () => {
         variant="contained"
         color="primary"
         onClick={() => {
-          console.log("회원가입");
           nextPage();
         }}
         contents={

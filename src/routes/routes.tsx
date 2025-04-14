@@ -55,6 +55,8 @@ import AddressCreate from "../pages/my_page/address/create";
 import Price from "../pages/main/price";
 import BuyingCreate from "../pages/main/buying/create";
 import BuyingSubmit from "../pages/main/buying/submit";
+import BuyingType from "../pages/main/buying/type";
+import BuyingTransfer from "../pages/main/buying/transfer_money";
 import ConfirmState from "../pages/my_page/purchase/status/confirm";
 import NewArrival from "../pages/shop/new_arrival";
 
@@ -79,8 +81,10 @@ const AppRoutes = () => (
       <Route path="/store" element={<Store />} />
       <Route path="/ship" element={<Ship />} />
       <Route path="/buying" element={<Buying />} />
+      <Route path="/buying/type" element={<BuyingType />} />
       <Route path="/buying/create" element={<BuyingCreate />} />
       <Route path="/buying/submit" element={<BuyingSubmit />} />
+      <Route path="/buying/transfer_money" element={<BuyingTransfer />} />
 
       <Route path="/service" element={<Service />} />
       <Route path="/price" element={<Price />} />

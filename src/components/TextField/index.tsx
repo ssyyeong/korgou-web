@@ -59,6 +59,15 @@ const TextFieldCustom = ({
   placeholderFontSize = "14px", // 기본값 설정
   ...props
 }: ITextFieldCustomProps) => {
+  const defaultSx = {
+    mb: "20px",
+    bgcolor: "white",
+    "& .MuiInputBase-root": { height: "48px" },
+    "& input::placeholder": {
+      fontSize: placeholderFontSize,
+    },
+  };
+
   return (
     <TextField
       placeholder={props.placeholder}
@@ -73,13 +82,8 @@ const TextFieldCustom = ({
       multiline={props.multiline}
       rows={props.rows}
       sx={{
-        mb: "20px",
-        bgcolor: "white",
-        "& .MuiInputBase-root": { height: "48px" },
-        "& input::placeholder": {
-          fontSize: placeholderFontSize, // placeholder 크기 조절 가능
-        },
-        ...props.sx,
+        ...defaultSx,
+        ...(props.sx || {}),
       }}
     />
   );

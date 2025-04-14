@@ -49,10 +49,11 @@ const OriginButton = (props: OriginButtonProps) => {
       sx={{
         padding: props.disabledGutters ? "0px" : "17px 16px",
         height: "48px",
+        textTransform: "none",
         ...props.style,
         backgroundColor: props.color,
         "&.MuiButton-root:hover": { bgcolor: props.color },
-        "&.MuiButton-root:active": { bgcolor: props.color }, //
+        "&.MuiButton-root:active": { bgcolor: props.color },
       }}
       disabled={props.disabled}
       {...props.muiButtonProps}

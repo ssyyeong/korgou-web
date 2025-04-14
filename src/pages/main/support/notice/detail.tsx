@@ -9,6 +9,7 @@ import ControllerAbstractBase from "../../../../controller/Controller";
 import { useEffect } from "react";
 import Previous from "./list/Previous";
 import { useTranslation } from "react-i18next";
+
 const NoticeDetail = () => {
   const navigate = useNavigate();
   const location = useLocation();

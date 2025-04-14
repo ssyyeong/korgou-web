@@ -34,6 +34,7 @@ const Purchase = () => {
     { value: "2month", label: t("common.period.recent.two_month") },
     { value: "3month", label: t("common.period.recent.three_month") },
   ];
+
   const filterings = [
     { value: "All", label: t("purchase_status.all") },
     {
@@ -114,7 +115,9 @@ const Purchase = () => {
   };
 
   useEffect(() => {
-    fetchData(t("purchase_status.all"));
+    if (memberCode) {
+      fetchData(t("purchase_status.all"));
+    }
   }, [memberCode]);
 
   return (
@@ -365,7 +368,7 @@ const Purchase = () => {
               status={
                 filterings.filter(
                   (filter) => filter.value === buyingIt.STATUS
-                )[0].label
+                )[0]?.label
               }
             />
           ))}
