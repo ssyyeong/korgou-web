@@ -26,11 +26,46 @@ import ControllerAbstractBase from "../../controller/Controller";
 
 const Shop = () => {
   const settings = {
-    dots: false,
-    infinite: true,
-    centerMode: true, // 슬라이더의 중앙 강조 모드
-    centerPadding: "20px", // 좌우에 보이는 이미지 크기
-    slidesToShow: 1, // 한 번에 한 슬라이드만 완전히 표시
+    dots: true,
+    infinite: false,
+    centerMode: true,
+    centerPadding: "25px",
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    arrows: false,
+    speed: 500,
+    accessibility: true,
+    vertical: false,
+    adaptiveHeight: true,
+    appendDots: (dots) => {
+      const totalSlides = banner.length;
+      const currentSlide = Math.floor(
+        dots.findIndex((dot) => dot.props.className.includes("slick-active")) +
+          1
+      );
+
+      return (
+        <Box
+          sx={{
+            position: "absolute",
+            bottom: "20px",
+            right: "20px",
+            backgroundColor: "rgba(40, 41, 48, 0.60)",
+            borderRadius: "16px",
+            color: "white",
+            fontSize: "12px",
+            width: "56px",
+            height: "20px",
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            zIndex: 1,
+          }}
+        >
+          {currentSlide}/{totalSlides}
+        </Box>
+      );
+    },
   };
 
   const settings2 = {
@@ -49,12 +84,6 @@ const Shop = () => {
     centerPadding: "10px", // 좌우에 보이는 이미지 크기
   };
 
-  const images = [
-    "/images/main/banner.svg",
-    "/images/main/banner.svg",
-    "/images/main/banner.svg",
-  ];
-
   const images2 = [
     "/images/main/attendance.svg",
     "/images/main/attendance.svg",
@@ -70,6 +99,7 @@ const Shop = () => {
   const navigate = useNavigate();
   const containerRef = React.useRef<HTMLDivElement>(null);
 
+  const [banner, setBanner] = React.useState([]);
   const benefit = ["쇼핑혜택", "쇼핑혜택", "쇼핑혜택"];
   const [benefitIndex, setBenefitIndex] = React.useState(0);
 
@@ -92,9 +122,26 @@ const Shop = () => {
       setNewArrival(res.result.rows);
       setBestProduct(res.result.rows);
     };
-
+    fetchBanner();
     fetchData();
   }, []);
+
+  const fetchBanner = async () => {
+    const bannerList = [];
+    const controller = new ControllerAbstractBase({
+      modelName: "ShopBanner",
+      modelId: "shop_banner",
+    });
+
+    controller.findAll({}).then((res) => {
+      res.result.rows.forEach((row) => {
+        if (row.ACTIVE_YN === "Y") {
+          bannerList.push(JSON.parse(row.IMAGE));
+        }
+      });
+      setBanner(bannerList);
+    });
+  };
 
   return (
     <Box
@@ -112,28 +159,43 @@ const Shop = () => {
       <Box
         sx={{
           width: "100%",
-          maxWidth: 600, // 슬라이더의 최대 너비
+          maxWidth: 600,
+          padding: "0 16px",
+          ".slick-slide": {
+            padding: "0 8px",
+            height: "365px",
+            "& > div": {
+              height: "100%",
+            },
+          },
+          ".slick-list": {
+            margin: "0 -8px",
+          },
+          ".slick-track": {
+            display: "flex",
+            alignItems: "center",
+          },
         }}
       >
         <Slider {...settings}>
-          {images.map((src, index) => (
+          {banner.map((src, index) => (
             <Box
               key={index}
               sx={{
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",
+                height: "100%",
               }}
             >
               <img
                 src={src}
                 alt="banner"
                 style={{
-                  objectFit: "cover", // 이미지가 영역에 맞게 확대되거나 축소되어 잘림
+                  objectFit: "cover",
                   width: "280px",
                   height: "365px",
-                  borderRadius: "16px", // 이미지의 모서리를 둥글게 처리
-                  boxShadow: "0 4px 8px rgba(0,0,0,0.2)", // 그림자 추가
+                  borderRadius: "16px",
                 }}
               />
             </Box>
@@ -307,29 +369,31 @@ const Shop = () => {
           NEW ARRIVAL
         </Typography>
         <Item itemList={newArrival} />
-        <OriginButton
-          fullWidth
-          variant="outlined"
-          style={{
-            borderRadius: "8px",
-            border: "1px solid #ECECED",
-            mt: "16px",
-          }}
-          contents={
-            <Typography
-              sx={{
-                color: "#919298",
-                fontSize: "16px",
-                fontWeight: 700,
-              }}
-            >
-              MORE
-            </Typography>
-          }
-          onClick={() => {
-            navigate("/shop/new_arrival");
-          }}
-        />
+        {newArrival.length > 4 && (
+          <OriginButton
+            fullWidth
+            variant="outlined"
+            style={{
+              borderRadius: "8px",
+              border: "1px solid #ECECED",
+              mt: "16px",
+            }}
+            contents={
+              <Typography
+                sx={{
+                  color: "#919298",
+                  fontSize: "16px",
+                  fontWeight: 700,
+                }}
+              >
+                MORE
+              </Typography>
+            }
+            onClick={() => {
+              navigate("/shop/new_arrival");
+            }}
+          />
+        )}
       </Box>
       {/* WEEKLY BEST */}
       <Box
@@ -404,30 +468,31 @@ const Shop = () => {
           BEST PRODUCT
         </Typography>
         <Item itemList={bestProduct} />
-
-        <OriginButton
-          fullWidth
-          variant="outlined"
-          style={{
-            borderRadius: "8px",
-            border: "1px solid #ECECED",
-            mt: "16px",
-          }}
-          contents={
-            <Typography
-              sx={{
-                color: "#919298",
-                fontSize: "16px",
-                fontWeight: 700,
-              }}
-            >
-              MORE
-            </Typography>
-          }
-          onClick={() => {
-            navigate("/shop/best");
-          }}
-        />
+        {bestProduct.length > 4 && (
+          <OriginButton
+            fullWidth
+            variant="outlined"
+            style={{
+              borderRadius: "8px",
+              border: "1px solid #ECECED",
+              mt: "16px",
+            }}
+            contents={
+              <Typography
+                sx={{
+                  color: "#919298",
+                  fontSize: "16px",
+                  fontWeight: 700,
+                }}
+              >
+                MORE
+              </Typography>
+            }
+            onClick={() => {
+              navigate("/shop/best");
+            }}
+          />
+        )}
       </Box>
       {/* KORGOU BENEFIT */}
       <Box

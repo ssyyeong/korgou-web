@@ -399,7 +399,7 @@ const MainHeader = () => {
                     "APP_MEMBER_IDENTIFICATION_CODE"
                   );
                   setIsOpen(false);
-                  navigate("/");
+                  navigate("/sign_in");
                 }}
               >
                 <LogoutOutlinedIcon color="info" />

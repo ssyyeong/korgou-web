@@ -1,5 +1,5 @@
 import { Box, Typography } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
 import MainHeader from "../components/Header/MainHeader";
 import CalculatorModal from "../components/Modal/CalculatorModal";
 import BuyingModal from "../components/Modal/BuyingModal";
@@ -7,13 +7,14 @@ import SocialLink from "../components/SocialLink";
 import VideoCard from "../components/Video";
 import GoToShipModal from "../components/Modal/GoToShipModal";
 import { useTranslation } from "react-i18next";
+import ControllerAbstractBase from "../controller/Controller";
 
 const Home = () => {
   const { t, i18n } = useTranslation();
 
-  console.log("현재 언어:", i18n.language);
+  //메인 배너
+  const [banner, setBanner] = React.useState<string>("");
   const [weight, setWeight] = React.useState<string>("");
-
   // Go To Ship 모달
   const [goToShipModalOpen, setGoToShipModalOpen] = React.useState(false);
   // 구매하기 모달
@@ -23,6 +24,21 @@ const Home = () => {
   const [service, setService] = React.useState<string>("Send UK to UK");
   const [send, setSend] = React.useState<string>("-");
   const [length, setLength] = React.useState<string>("");
+
+  useEffect(() => {
+    const controller = new ControllerAbstractBase({
+      modelName: "MainBanner",
+      modelId: "main_banner",
+    });
+
+    controller.findAll({}).then((res) => {
+      res.result.rows.forEach((row) => {
+        if (row.ACTIVE_YN === "Y") {
+          setBanner(JSON.parse(row.IMAGE));
+        }
+      });
+    });
+  }, []);
 
   const handleServiceChange = (event: any) => {
     setService(event.target.value as string);
@@ -52,7 +68,7 @@ const Home = () => {
           mx: "16px",
         }}
       >
-        <img src="/images/main/banner.svg" alt="logo" width={360} />
+        <img src={banner} alt="logo" width={360} />
         <Box
           sx={{
             display: "flex",

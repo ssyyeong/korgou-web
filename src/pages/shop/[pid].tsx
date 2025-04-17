@@ -27,16 +27,19 @@ const Detail = () => {
 
   const setting3 = {
     dots: true,
-    infinite: true,
-    speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
     arrows: false,
+    infinite: true,
+    speed: 500,
+    accessibility: true,
+    centerMode: true,
+    centerPadding: "40px",
     appendDots: (dots) => (
       <Box
         sx={{
           position: "absolute",
-          bottom: "20px", // 이미지 하단에서의 거리
+          bottom: "20px",
           width: "100%",
           padding: 0,
           display: "flex",
@@ -46,7 +49,7 @@ const Detail = () => {
         <ul style={{ margin: "0px", padding: "0px" }}> {dots} </ul>
       </Box>
     ),
-    dotsClass: "slick-dots custom-dots", // 커스텀 클래스 추가
+    dotsClass: "slick-dots custom-dots",
   };
 
   useEffect(() => {
@@ -89,6 +92,7 @@ const Detail = () => {
         height: "100%",
         mb: "130px",
         overflow: "hidden",
+        position: "relative",
       }}
     >
       <Header
@@ -128,8 +132,12 @@ const Detail = () => {
         }
       />
 
-      <Box sx={{ width: "100%" }}>
-        {/* Slider를 감싸는 추가 Box */}
+      <Box
+        sx={{
+          width: "100%",
+          padding: "16px",
+        }}
+      >
         <Slider {...setting3}>
           {product?.IMAGE_LIST &&
             JSON.parse(product?.IMAGE_LIST)?.map((src, index) => {
@@ -140,15 +148,17 @@ const Detail = () => {
                     display: "flex",
                     justifyContent: "center",
                     alignItems: "center",
+                    padding: "0 8px",
                   }}
                 >
                   <img
                     src={src.FILE_URL}
                     alt="product"
                     style={{
-                      width: "100%",
-                      height: "464px",
-                      objectFit: "fill",
+                      width: "280px",
+                      height: "365px",
+                      objectFit: "cover",
+                      borderRadius: "16px",
                     }}
                   />
                 </Box>
@@ -159,9 +169,9 @@ const Detail = () => {
       <Box
         sx={{
           display: "flex",
-          justifyContent: "center",
           flexDirection: "column",
           mt: "16px",
+          width: "100%",
         }}
       >
         <Typography
@@ -211,10 +221,12 @@ const Detail = () => {
       </Box>
       <Divider
         sx={{
+          position: "relative",
           color: "#ECECED",
-          borderWidth: "0.5px",
+          borderWidth: "0.1px",
           mt: "16px",
           mb: "20px",
+          width: "100%",
         }}
       />
 
