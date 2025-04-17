@@ -69,6 +69,7 @@ const AlertModal: React.FC<AlertModalProps> = ({
                 borderRadius: 0,
                 borderRight: "1px solid #ddd", // 버튼 구분선
                 color: button1?.color,
+                backgroundColor: button1?.backgroundColor,
               }}
             >
               {button1.text}
@@ -78,7 +79,8 @@ const AlertModal: React.FC<AlertModalProps> = ({
               onClick={button2.onClick}
               sx={{
                 borderRadius: 0,
-                color: button1?.color,
+                color: button2?.color,
+                backgroundColor: button2?.backgroundColor,
               }}
             >
               {button2.text}

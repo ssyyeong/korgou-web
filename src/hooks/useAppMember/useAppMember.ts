@@ -18,6 +18,10 @@ const useAppMember = () => {
   const [memberBalance, setMemberBalance] = useState<number | undefined>(
     undefined
   );
+  const [memberPush, setMemberPush] = useState<boolean | undefined>(undefined);
+  const [memberAlarm, setMemberAlarm] = useState<boolean | undefined>(
+    undefined
+  );
 
   const { accessToken, appMemberId } = useAuth();
 
@@ -52,6 +56,8 @@ const useAppMember = () => {
           setMemberType(res.result.MEMBER_TYPE);
           setMemberPoint(res.result.POINT);
           setMemberBalance(res.result.BALANCE);
+          setMemberPush(res.result.PUSH_YN === "Y");
+          setMemberAlarm(res.result.ALIMTALK_YN === "Y");
         }
       } catch (error) {
         console.error("유저 정보 로딩 실패:", error);
@@ -69,6 +75,8 @@ const useAppMember = () => {
     memberType,
     memberPoint,
     memberBalance,
+    memberPush,
+    memberAlarm,
   };
 };
 
