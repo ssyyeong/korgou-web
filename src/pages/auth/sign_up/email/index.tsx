@@ -8,6 +8,28 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 
 import AppMemberController from "../../../../controller/AppMemberController";
+import ControllerAbstractBase from "../../../../controller/Controller";
+
+interface MemberData {
+  APP_MEMBER_ID: string;
+  USER_NAME: string;
+  EMAIL: string;
+  PASSWORD: string;
+  COUNTRY: string;
+  RECOMMEND_CODE: string;
+  BRAND_NAME: string;
+  SALE_METHOD: string;
+  PRODUCT_TYPE: string;
+  URL: string;
+  CHANNEL: string;
+  INTRODUCE_FILE: string;
+  BUSINESS_REGISTRATION_FILE: string;
+  MEMBER_TYPE: string;
+  TERMS_YN: string;
+  PERSONAL_YN: string;
+  MARKETING_YN: string;
+  APP_MEMBER_IDENTIFICATION_CODE?: string;
+}
 
 const Email = ({ route }: any) => {
   const location = useLocation();
@@ -37,15 +59,19 @@ const Email = ({ route }: any) => {
   const [isModifyEmail, setIsModifyEmail] = React.useState(false);
 
   const signUp = async () => {
-    const controller = new AppMemberController({
-      modelName: "AppMember",
-      modelId: "app_member",
-    });
+    const userData = await localStorage.getItem("USER_DATA");
+    let user = null;
+    let appMemberId = "";
+
+    if (userData) {
+      user = JSON.parse(userData);
+      appMemberId = user.APP_MEMBER_IDENTIFICATION_CODE;
+    }
 
     const memberId =
       name.slice(0, 1).toUpperCase() + Math.floor(Math.random() * 1000000);
 
-    const data = {
+    let data: MemberData = {
       APP_MEMBER_ID: memberId,
       USER_NAME: name,
       EMAIL: newEmail,
@@ -65,11 +91,41 @@ const Email = ({ route }: any) => {
       MARKETING_YN: isAgree3 ? "Y" : "N",
     };
 
+    if (appMemberId) {
+      data.APP_MEMBER_IDENTIFICATION_CODE = appMemberId;
+      updateMember(data);
+    } else {
+      createMember(data);
+    }
+  };
+
+  const createMember = async (data: any) => {
+    const controller = new AppMemberController({
+      modelName: "AppMember",
+      modelId: "app_member",
+    });
+
     const response = await controller.signUp(data);
     if (response.data.status === 200) {
       navigate("/sign_up/success", {
         state: {
           id: response.data.result.user.APP_MEMBER_ID,
+        },
+      });
+    }
+  };
+
+  const updateMember = async (data: any) => {
+    const controller = new ControllerAbstractBase({
+      modelName: "AppMember",
+      modelId: "app_member",
+    });
+
+    const response = await controller.update(data);
+    if (response.status === 200) {
+      navigate("/sign_up/success", {
+        state: {
+          id: data.APP_MEMBER_ID,
         },
       });
     }

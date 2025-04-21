@@ -217,10 +217,10 @@ const SignIn = () => {
         >
           <SocialLogin
             clientId={
-              "723926736636-q43fi38slh2c86gei55dm4qmhe5kha50.apps.googleusercontent.com"
+              "432443290810-6latcr1lqv90e7enf1h1c6os52fiinfj.apps.googleusercontent.com"
             }
             callbackUrl={
-              process.env.NEXT_PUBLIC_WEB_HOST + "/auth/redirect_url/google"
+              process.env.REACT_APP_WEB_HOST + "/auth/redirect_url/google"
             }
             type={"google"}
             children={
@@ -238,7 +238,7 @@ const SignIn = () => {
               "723926736636-q43fi38slh2c86gei55dm4qmhe5kha50.apps.googleusercontent.com"
             }
             callbackUrl={
-              process.env.NEXT_PUBLIC_WEB_HOST + "/auth/redirect_url/google"
+              process.env.REACT_APP_WEB_HOST + "/auth/redirect_url/google"
             }
             type={"google"}
             children={

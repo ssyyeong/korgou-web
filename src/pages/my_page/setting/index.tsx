@@ -64,6 +64,7 @@ const Setting = () => {
         sx={{
           display: "flex",
           flexDirection: "column",
+          mt: "20px",
         }}
       >
         <Typography

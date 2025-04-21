@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { Box, Typography } from "@mui/material";
 
@@ -16,6 +16,7 @@ const SignUpCompany = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
 
+  const [isSns, setIsSns] = React.useState(false);
   const [firstName, setFirstName] = React.useState("");
   const [lastName, setLastName] = React.useState("");
   const [email, setEmail] = React.useState("");
@@ -71,8 +72,18 @@ const SignUpCompany = () => {
     </Typography>
   );
 
+  useEffect(() => {
+    getUser();
+  }, []);
+
+  const getUser = async () => {
+    const userData = await localStorage.getItem("USER_DATA");
+    if (userData) {
+      setIsSns(true);
+    }
+  };
+
   const nextPage = () => {
-    console.log(businessRegistrationFile);
     navigate("/sign_up/email", {
       state: {
         name: firstName + " " + lastName,
@@ -148,28 +159,31 @@ const SignUpCompany = () => {
             placeholder={t("common.field.name.last")}
           />
         </Box>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            gap: "1px",
-          }}
-        >
-          <Typography sx={textStyle}>
-            {t("common.field.email.label")}
-          </Typography>
-          {essential}
-        </Box>
-
-        <TextFieldCustom
-          fullWidth
-          value={email}
-          type="email"
-          onChange={(e) => {
-            setEmail(e.target.value);
-          }}
-          placeholder={t("common.field.email.placeholder")}
-        />
+        {isSns && (
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              gap: "1px",
+            }}
+          >
+            <Typography sx={textStyle}>
+              {t("common.field.email.label")}
+            </Typography>
+            {essential}
+          </Box>
+        )}
+        {isSns && (
+          <TextFieldCustom
+            fullWidth
+            value={email}
+            type="email"
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
+            placeholder={t("common.field.email.placeholder")}
+          />
+        )}
         <Box
           sx={{
             display: "flex",

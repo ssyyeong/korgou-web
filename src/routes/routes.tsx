@@ -59,7 +59,7 @@ import BuyingType from "../pages/main/buying/type";
 import BuyingTransfer from "../pages/main/buying/transfer_money";
 import ConfirmState from "../pages/my_page/purchase/status/confirm";
 import NewArrival from "../pages/shop/new_arrival";
-
+import GoogleLogin from "../pages/auth/redirect_url/google";
 // 조건부로 BottomNavBar를 렌더링하는 컴포넌트
 const ConditionalBottomNavBar = () => {
   const location = useLocation();
@@ -109,6 +109,7 @@ const AppRoutes = () => (
       <Route path="/find_pw/email" element={<FindPwEmail />} />
       <Route path="/find_pw/change_pw" element={<ChangePw />} />
       <Route path="/find_pw/success" element={<PasswordSuccess />} />
+      <Route path="/auth/redirect_url/google" element={<GoogleLogin />} />
 
       <Route path="/my_page" element={<MyPage />} />
       <Route path="/my_page/point" element={<Point />} />

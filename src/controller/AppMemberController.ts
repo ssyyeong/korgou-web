@@ -63,5 +63,13 @@ class AppMemberController {
 
     return response;
   }
+
+  async googleLogin(option: IControllerOptions): Promise<any> {
+    const params = option;
+    const url = `${this.apiUrl}${this.rootRoute}/${this.role}/${this.modelId}/google_login`;
+    const response = await axios.post(url, params);
+
+    return response;
+  }
 }
 export default AppMemberController;

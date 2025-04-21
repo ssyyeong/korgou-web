@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { Box, Typography } from "@mui/material";
 
@@ -16,6 +16,8 @@ import { useTranslation } from "react-i18next";
 
 const SignUp = () => {
   const { t } = useTranslation();
+
+  const [isSns, setIsSns] = React.useState(false);
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
@@ -28,6 +30,17 @@ const SignUp = () => {
   const [isAgree3, setIsAgree3] = React.useState(false);
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    getUser();
+  }, []);
+
+  const getUser = async () => {
+    const userData = await localStorage.getItem("USER_DATA");
+    if (userData) {
+      setIsSns(true);
+    }
+  };
 
   const textStyle = {
     fontSize: "14px",
@@ -81,16 +94,22 @@ const SignUp = () => {
           }}
           placeholder={t("common.field.name.placeholder")}
         />
-        <Typography sx={textStyle}>{t("common.field.email.label")}</Typography>
-        <TextFieldCustom
-          fullWidth
-          value={email}
-          type="email"
-          onChange={(e) => {
-            setEmail(e.target.value);
-          }}
-          placeholder={t("common.field.email.placeholder")}
-        />
+        {isSns && (
+          <Typography sx={textStyle}>
+            {t("common.field.email.label")}
+          </Typography>
+        )}
+        {isSns && (
+          <TextFieldCustom
+            fullWidth
+            value={email}
+            type="email"
+            onChange={(e) => {
+              setEmail(e.target.value);
+            }}
+            placeholder={t("common.field.email.placeholder")}
+          />
+        )}
         <Typography sx={textStyle}>
           {t("common.field.password.label")}
         </Typography>
