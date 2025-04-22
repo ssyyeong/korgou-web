@@ -85,7 +85,7 @@ const SignUpSuccess = () => {
           variant="contained"
           color="#282930"
           onClick={() => {
-            navigate("/"); // 홈화면으로 이동
+            navigate("/sign_in"); // 로그인화면으로 이동
           }}
           contents={
             <Typography fontSize={16} sx={{ color: "white", fontWeight: 700 }}>

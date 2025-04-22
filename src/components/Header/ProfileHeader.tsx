@@ -147,7 +147,7 @@ const ProfileHeader = (props: any) => {
         >
           {[
             { label: t("my_page.balance"), value: props.memberBalance },
-            { label: t("my_page.coupon"), value: "1" },
+            { label: t("my_page.coupon"), value: props.memberCouponCount },
             { label: t("my_page.point"), value: props.memberPoint },
           ].map((item, index) => (
             <Box
@@ -268,7 +268,7 @@ const ProfileHeader = (props: any) => {
                   fontSize: "16px",
                 }}
               >
-                3
+                {props.memberStoreCount}
               </Typography>
               <KeyboardArrowRightOutlinedIcon
                 sx={{
@@ -311,7 +311,7 @@ const ProfileHeader = (props: any) => {
                   fontSize: "16px",
                 }}
               >
-                0
+                {props.memberDeliveryCount}
               </Typography>
               <KeyboardArrowRightOutlinedIcon
                 sx={{
@@ -354,7 +354,7 @@ const ProfileHeader = (props: any) => {
                 fontSize: "16px",
               }}
             >
-              1
+              {props.memberBuyingItCount}
             </Typography>
             <KeyboardArrowRightOutlinedIcon
               sx={{

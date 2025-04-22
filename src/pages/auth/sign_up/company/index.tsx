@@ -1,24 +1,26 @@
 import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import { Box, Typography } from "@mui/material";
+import CheckIcon from "@mui/icons-material/Check";
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 
 import OriginButton from "../../../../components/Button/OriginButton";
 import Input from "../../../../components/Input";
 import Header from "../../../../components/Header/Header";
 import TextFieldCustom from "../../../../components/TextField";
 
-import CheckIcon from "@mui/icons-material/Check";
-import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
-import { useNavigate } from "react-router-dom";
-import { useTranslation } from "react-i18next";
+import AppMemberController from "../../../../controller/AppMemberController";
+import EmailAuth from "../../../../components/Custom/EmailAuth";
+import ControllerAbstractBase from "../../../../controller/Controller";
 
 const SignUpCompany = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
 
   const [isSns, setIsSns] = React.useState(false);
-  const [firstName, setFirstName] = React.useState("");
-  const [lastName, setLastName] = React.useState("");
+  const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [passwordCheck, setPasswordCheck] = React.useState("");
@@ -28,6 +30,10 @@ const SignUpCompany = () => {
   const [url, setUrl] = React.useState("");
   const [channel, setChannel] = React.useState("");
   const [introduceFile, setIntroduceFile] = React.useState<any>({
+    FILE_NAME: "",
+    FILE_URL: "",
+  });
+  const [bankStatementFile, setBankStatementFile] = React.useState<any>({
     FILE_NAME: "",
     FILE_URL: "",
   });
@@ -83,24 +89,85 @@ const SignUpCompany = () => {
     }
   };
 
-  const nextPage = () => {
-    navigate("/sign_up/email", {
-      state: {
-        name: firstName + " " + lastName,
-        email: email,
-        password,
-        sellerName,
-        productMethod,
-        productType,
-        url,
-        channel,
-        introduceFile,
-        businessRegistrationFile,
-        isAgree1: isAgree1,
-        isAgree2: isAgree2,
-        type: "COMPANY",
-      },
+  const signUp = async () => {
+    const userData = await localStorage.getItem("USER_DATA");
+    let user = null;
+    let appMemberId = "";
+
+    if (userData) {
+      user = JSON.parse(userData);
+      appMemberId = user.APP_MEMBER_IDENTIFICATION_CODE;
+    }
+
+    let data: {
+      USER_NAME: string;
+      EMAIL: string;
+      PASSWORD: string;
+      BRAND_NAME: string;
+      SALE_METHOD: string;
+      PRODUCT_TYPE: string;
+      URL: string;
+      CHANNEL: string;
+      INTRODUCE_FILE: string;
+      BUSINESS_REGISTRATION_FILE: string;
+      MEMBER_TYPE: string;
+      TERMS_YN: string;
+      PERSONAL_YN: string;
+      APP_MEMBER_IDENTIFICATION_CODE?: string;
+    } = {
+      USER_NAME: name,
+      EMAIL: email,
+      PASSWORD: password,
+      BRAND_NAME: sellerName,
+      SALE_METHOD: productMethod,
+      PRODUCT_TYPE: productType,
+      URL: url,
+      CHANNEL: channel,
+      INTRODUCE_FILE: JSON.stringify(introduceFile),
+      BUSINESS_REGISTRATION_FILE: JSON.stringify(businessRegistrationFile),
+      MEMBER_TYPE: "COMPANY",
+      TERMS_YN: isAgree1 ? "Y" : "N",
+      PERSONAL_YN: isAgree2 ? "Y" : "N",
+    };
+
+    if (appMemberId) {
+      data.APP_MEMBER_IDENTIFICATION_CODE = appMemberId;
+      updateMember(data);
+    } else {
+      createMember(data);
+    }
+  };
+
+  const createMember = async (data: any) => {
+    const controller = new AppMemberController({
+      modelName: "AppMember",
+      modelId: "app_member",
     });
+
+    const response = await controller.signUp(data);
+    if (response.data.status === 200) {
+      navigate("/sign_up/success", {
+        state: {
+          id: response.data.result.user.APP_MEMBER_ID,
+        },
+      });
+    }
+  };
+
+  const updateMember = async (data: any) => {
+    const controller = new ControllerAbstractBase({
+      modelName: "AppMember",
+      modelId: "app_member",
+    });
+
+    const response = await controller.update(data);
+    if (response.status === 200) {
+      navigate("/sign_up/success", {
+        state: {
+          id: data.APP_MEMBER_ID,
+        },
+      });
+    }
   };
 
   return (
@@ -142,89 +209,62 @@ const SignUpCompany = () => {
         >
           <TextFieldCustom
             fullWidth
-            value={lastName}
+            value={name}
             type="name"
             onChange={(e) => {
-              setLastName(e.target.value);
+              setName(e.target.value);
             }}
-            placeholder={t("common.field.name.first")}
-          />
-          <TextFieldCustom
-            fullWidth
-            value={firstName}
-            type="name"
-            onChange={(e) => {
-              setFirstName(e.target.value);
-            }}
-            placeholder={t("common.field.name.last")}
+            placeholder={t("common.field.name.placeholder")}
           />
         </Box>
-        {isSns && (
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              gap: "1px",
-            }}
-          >
-            <Typography sx={textStyle}>
-              {t("common.field.email.label")}
-            </Typography>
-            {essential}
-          </Box>
+        {!isSns && (
+          <>
+            <EmailAuth setEmail={setEmail} email={email} />
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                gap: "1px",
+              }}
+            >
+              <Typography sx={textStyle}>
+                {t("common.field.password.label")}
+              </Typography>
+              {essential}
+            </Box>
+            <TextFieldCustom
+              fullWidth
+              value={password}
+              type="password"
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
+              sx={{ mb: "10px" }}
+              placeholder={t("common.field.password.placeholder")}
+              error={password.length < 7 && password.length > 0}
+              helperText={
+                password.length < 7 && password.length > 0
+                  ? t("common.field.password.error")
+                  : ""
+              }
+            />
+            <TextFieldCustom
+              fullWidth
+              value={passwordCheck}
+              type="password"
+              onChange={(e) => {
+                setPasswordCheck(e.target.value);
+              }}
+              placeholder={t("common.field.password.confirm.placeholder")}
+              error={passwordCheck !== password}
+              helperText={
+                passwordCheck !== password
+                  ? t("common.field.password.error")
+                  : ""
+              }
+            />
+          </>
         )}
-        {isSns && (
-          <TextFieldCustom
-            fullWidth
-            value={email}
-            type="email"
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
-            placeholder={t("common.field.email.placeholder")}
-          />
-        )}
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            gap: "1px",
-          }}
-        >
-          <Typography sx={textStyle}>
-            {t("common.field.password.label")}
-          </Typography>
-          {essential}
-        </Box>
-        <TextFieldCustom
-          fullWidth
-          value={password}
-          type="password"
-          onChange={(e) => {
-            setPassword(e.target.value);
-          }}
-          sx={{ mb: "10px" }}
-          placeholder={t("common.field.password.placeholder")}
-          error={password.length < 7 && password.length > 0}
-          helperText={
-            password.length < 7 && password.length > 0
-              ? t("common.field.password.error")
-              : ""
-          }
-        />
-        <TextFieldCustom
-          fullWidth
-          value={passwordCheck}
-          type="password"
-          onChange={(e) => {
-            setPasswordCheck(e.target.value);
-          }}
-          placeholder={t("common.field.password.confirm.placeholder")}
-          error={passwordCheck !== password}
-          helperText={
-            passwordCheck !== password ? t("common.field.password.error") : ""
-          }
-        />
         <Box
           sx={{
             display: "flex",
@@ -317,6 +357,7 @@ const SignUpCompany = () => {
           }}
           placeholder="ex.coupang"
         />
+        {/* 회사/상품 소개서 */}
         <Typography sx={textStyle}>
           {t("common.field.introduce_file.label")}
         </Typography>
@@ -327,6 +368,18 @@ const SignUpCompany = () => {
           fileTypeInputName
           style={{ mb: "20px", maxHeight: "48px" }}
         />
+        {/* 통장사본 */}
+        <Typography sx={textStyle}>
+          {t("common.field.bank_statement.label")}
+        </Typography>
+        <Input
+          value={bankStatementFile}
+          setValue={setBankStatementFile}
+          type="fileinput"
+          fileTypeInputName
+          style={{ mb: "20px", maxHeight: "48px" }}
+        />
+        {/* 사업자 등록증 */}
         <Box
           sx={{
             display: "flex",
@@ -472,7 +525,7 @@ const SignUpCompany = () => {
         variant="contained"
         color="primary"
         onClick={() => {
-          nextPage();
+          signUp();
         }}
         contents={
           <Typography fontSize={16}>{t("common.button.confirm")}</Typography>

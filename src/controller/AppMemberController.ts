@@ -71,5 +71,21 @@ class AppMemberController {
 
     return response;
   }
+
+  async sendEmailVerificationCode(option: IControllerOptions): Promise<any> {
+    const params = option;
+    const url = `${this.apiUrl}${this.rootRoute}/${this.role}/${this.modelId}/send_email_auth`;
+    const response = await axios.post(url, params);
+
+    return response;
+  }
+
+  async verifyEmailVerificationCode(option: IControllerOptions): Promise<any> {
+    const params = option;
+    const url = `${this.apiUrl}${this.rootRoute}/${this.role}/${this.modelId}/validate_email_auth`;
+    const response = await axios.post(url, params);
+
+    return response;
+  }
 }
 export default AppMemberController;

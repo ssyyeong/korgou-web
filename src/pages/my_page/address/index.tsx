@@ -8,6 +8,7 @@ import { useAppMember } from "../../../hooks/useAppMember";
 import AddressCard from "./AddressCard";
 import AddressController from "../../../controller/AddressController";
 import { useTranslation } from "react-i18next";
+
 const Address = () => {
   const navigator = useNavigate();
   const { memberCode } = useAppMember();
@@ -16,19 +17,24 @@ const Address = () => {
   const [addressList, setAddressList] = useState([]);
 
   useEffect(() => {
-    const controller = new ControllerAbstractBase({
-      modelName: "Address",
-      modelId: "address",
-    });
-
-    controller
-      .findAll({
-        APP_MEMBER_IDENTIFICATION_CODE: memberCode,
-      })
-      .then((res) => {
-        console.log("res", res.result.rows);
-        setAddressList(res.result.rows);
+    console.log("memberCode", memberCode);
+    // memberCode가 null이 아닐 때만 API 호출하도록 수정
+    if (memberCode) {
+      const controller = new ControllerAbstractBase({
+        modelName: "Address",
+        modelId: "address",
       });
+      console.log("memberCode", memberCode);
+
+      controller
+        .findAll({
+          APP_MEMBER_IDENTIFICATION_CODE: memberCode,
+        })
+        .then((res) => {
+          console.log("res", res.result.rows);
+          // setAddressList(res.result.rows);
+        });
+    }
   }, [memberCode]);
 
   return (

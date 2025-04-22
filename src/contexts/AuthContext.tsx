@@ -13,9 +13,16 @@ export const AuthContext = createContext<AuthContextType | undefined>(
 );
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(false);
-  const [accessToken, setAccessToken] = useState<string | null>(null);
-  const [appMemberId, setAppMemberId] = useState<string | null>(null);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean>(() => {
+    const token = localStorage.getItem("ACCESS_TOKEN");
+    return !!token;
+  });
+  const [accessToken, setAccessToken] = useState<string | null>(() => {
+    return localStorage.getItem("ACCESS_TOKEN");
+  });
+  const [appMemberId, setAppMemberId] = useState<string | null>(() => {
+    return localStorage.getItem("APP_MEMBER_IDENTIFICATION_CODE");
+  });
 
   // 앱 초기 로딩 시 localStorage에서 토큰 확인
   useEffect(() => {

@@ -13,14 +13,23 @@ const MyPage = () => {
   const navigate = useNavigate();
 
   const { isAuthenticated } = useAuth();
-  const { memberId, memberName, memberEmailId, memberPoint, memberBalance } =
-    useAppMember();
+  const {
+    memberId,
+    memberName,
+    memberEmailId,
+    memberPoint,
+    memberBalance,
+    memberStoreCount,
+    memberCouponCount,
+    memberDeliveryCount,
+    memberBuyingItCount,
+  } = useAppMember();
 
   useEffect(() => {
     if (!isAuthenticated) {
       navigate("/sign_in");
     }
-  });
+  }, [isAuthenticated, navigate]);
 
   const list = [
     {
@@ -49,6 +58,7 @@ const MyPage = () => {
       pathName: "/my_page/setting",
     },
   ];
+
   return (
     <Box
       sx={{
@@ -68,11 +78,16 @@ const MyPage = () => {
         memberEmailId={memberEmailId}
         memberPoint={memberPoint}
         memberBalance={memberBalance}
+        memberStoreCount={memberStoreCount}
+        memberCouponCount={memberCouponCount}
+        memberDeliveryCount={memberDeliveryCount}
+        memberBuyingItCount={memberBuyingItCount}
       />
 
       {list.map((item, index) => {
         return (
           <Box
+            key={index}
             sx={{
               display: "flex",
               flexDirection: "row",

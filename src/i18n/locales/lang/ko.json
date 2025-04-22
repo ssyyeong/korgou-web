@@ -13,6 +13,7 @@
       "add": "+ 추가",
       "submit": "제출",
       "resend": "재전송",
+      "verify": "인증",
       "re_enter": "이메일 재입력 하기",
       "order_request": "주문 요청",
       "charge": "충전",
@@ -35,6 +36,12 @@
             "resend": "재전송"
           },
           "success": "이메일 인증이 완료되었습니다"
+        },
+        "error": {
+          "required": "이메일을 입력해주세요",
+          "invalid": "이메일 형식이 올바르지 않습니다",
+          "duplicate": "이미 가입된 이메일입니다",
+          "verification_failed": "이메일 인증 실패"
         }
       },
       "password": {
@@ -100,6 +107,10 @@
       "introduce_file": {
         "label": "회사/상품 소개서",
         "placeholder": "회사/상품 소개서를 업로드해 주세요."
+      },
+      "bank_statement": {
+        "label": "통장 사본",
+        "placeholder": "통장 사본을 업로드해 주세요."
       },
       "business_registration_file": {
         "label": "사업자 등록증",

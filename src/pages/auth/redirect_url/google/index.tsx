@@ -1,11 +1,14 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import AppMemberController from "../../../../controller/AppMemberController";
-import { Box, Modal, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import AlertModal from "../../../../components/Modal/AlertModal";
+import { useAuth } from "../../../../hooks/useAuth";
 
 const GoogleRedirect = () => {
   const navigate = useNavigate();
+  const { login } = useAuth();
+
   const [code, setCode] = useState<string | null>(null);
   const [modalOpen, setModalOpen] = useState<boolean>(false);
 
@@ -30,6 +33,7 @@ const GoogleRedirect = () => {
           code,
         });
 
+        //기존 회원이 아닌 경우
         if (response.data.result.user.IS_EXIST_MEMBER === false) {
           localStorage.setItem(
             "ACCESS_TOKEN",
@@ -44,10 +48,18 @@ const GoogleRedirect = () => {
           return;
         }
 
-        localStorage.setItem(
+        await localStorage.setItem(
           "ACCESS_TOKEN",
-          response.data.result.signUpResult.accessToken
+          response.data.result.signInResult.accessToken
         );
+        await localStorage.setItem(
+          "APP_MEMBER_IDENTIFICATION_CODE",
+          response.data.result.user.APP_MEMBER_IDENTIFICATION_CODE
+        );
+
+        //기존 회원인 경우
+        login(response.data.result.signInResult.accessToken);
+
         navigate("/");
       } catch (error: any) {
         alert(

@@ -1,18 +1,20 @@
 import React, { useEffect } from "react";
+import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 import { Box, Typography } from "@mui/material";
+import CheckIcon from "@mui/icons-material/Check";
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
+
+import { countryList } from "../../../configs/data/CountryConfig";
 
 import OriginButton from "../../../components/Button/OriginButton";
 import Input from "../../../components/Input";
 import Header from "../../../components/Header/Header";
 import TextFieldCustom from "../../../components/TextField";
-
-import CheckIcon from "@mui/icons-material/Check";
-import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
-
-import { countryList } from "../../../configs/data/CountryConfig";
-import { useNavigate } from "react-router-dom";
-import { useTranslation } from "react-i18next";
+import EmailAuth from "../../../components/Custom/EmailAuth";
+import ControllerAbstractBase from "../../../controller/Controller";
+import AppMemberController from "../../../controller/AppMemberController";
 
 const SignUp = () => {
   const { t } = useTranslation();
@@ -48,20 +50,77 @@ const SignUp = () => {
     mb: "8px",
   };
 
-  const nextPage = () => {
-    navigate("/sign_up/email", {
-      state: {
-        name: name,
-        email: email,
-        password: password,
-        country: country,
-        recommenderCode: recommenderCode,
-        isAgree1: isAgree1,
-        isAgree2: isAgree2,
-        isAgree3: isAgree3,
-        type: "INDIVIDUAL",
-      },
+  const signUp = async () => {
+    const userData = await localStorage.getItem("USER_DATA");
+    let user = null;
+    let appMemberId = "";
+
+    if (userData) {
+      user = JSON.parse(userData);
+      appMemberId = user.APP_MEMBER_IDENTIFICATION_CODE;
+    }
+
+    let data: {
+      USER_NAME: string;
+      EMAIL: string;
+      PASSWORD: string;
+      COUNTRY: string;
+      RECOMMEND_CODE: string;
+      MEMBER_TYPE: string;
+      TERMS_YN: string;
+      PERSONAL_YN: string;
+      MARKETING_YN: string;
+      APP_MEMBER_IDENTIFICATION_CODE?: string;
+    } = {
+      USER_NAME: name,
+      EMAIL: email,
+      PASSWORD: password,
+      COUNTRY: country,
+      RECOMMEND_CODE: recommenderCode,
+      MEMBER_TYPE: "INDIVIDUAL",
+      TERMS_YN: isAgree1 ? "Y" : "N",
+      PERSONAL_YN: isAgree2 ? "Y" : "N",
+      MARKETING_YN: isAgree3 ? "Y" : "N",
+    };
+
+    if (appMemberId) {
+      data.APP_MEMBER_IDENTIFICATION_CODE = appMemberId;
+      updateMember(data);
+    } else {
+      createMember(data);
+    }
+  };
+
+  const createMember = async (data: any) => {
+    const controller = new AppMemberController({
+      modelName: "AppMember",
+      modelId: "app_member",
     });
+
+    const response = await controller.signUp(data);
+    if (response.data.status === 200) {
+      navigate("/sign_up/success", {
+        state: {
+          id: response.data.result.user.APP_MEMBER_ID,
+        },
+      });
+    }
+  };
+
+  const updateMember = async (data: any) => {
+    const controller = new ControllerAbstractBase({
+      modelName: "AppMember",
+      modelId: "app_member",
+    });
+
+    const response = await controller.update(data);
+    if (response.status === 200) {
+      navigate("/sign_up/success", {
+        state: {
+          id: data.APP_MEMBER_ID,
+        },
+      });
+    }
   };
 
   return (
@@ -94,54 +153,45 @@ const SignUp = () => {
           }}
           placeholder={t("common.field.name.placeholder")}
         />
-        {isSns && (
-          <Typography sx={textStyle}>
-            {t("common.field.email.label")}
-          </Typography>
+        {!isSns && (
+          <>
+            <EmailAuth setEmail={setEmail} email={email} />
+            <Typography sx={textStyle}>
+              {t("common.field.password.label")}
+            </Typography>
+            <TextFieldCustom
+              fullWidth
+              value={password}
+              type="password"
+              onChange={(e) => {
+                setPassword(e.target.value);
+              }}
+              sx={{ mb: "10px" }}
+              placeholder={t("common.field.password.placeholder")}
+              error={password.length < 7 && password.length > 0}
+              helperText={
+                password.length < 7 && password.length > 0
+                  ? t("common.field.password.error")
+                  : ""
+              }
+            />
+            <TextFieldCustom
+              fullWidth
+              value={passwordCheck}
+              type="password"
+              onChange={(e) => {
+                setPasswordCheck(e.target.value);
+              }}
+              placeholder={t("common.field.password.placeholder")}
+              error={passwordCheck !== password}
+              helperText={
+                passwordCheck !== password
+                  ? t("common.field.password.error")
+                  : ""
+              }
+            />
+          </>
         )}
-        {isSns && (
-          <TextFieldCustom
-            fullWidth
-            value={email}
-            type="email"
-            onChange={(e) => {
-              setEmail(e.target.value);
-            }}
-            placeholder={t("common.field.email.placeholder")}
-          />
-        )}
-        <Typography sx={textStyle}>
-          {t("common.field.password.label")}
-        </Typography>
-        <TextFieldCustom
-          fullWidth
-          value={password}
-          type="password"
-          onChange={(e) => {
-            setPassword(e.target.value);
-          }}
-          sx={{ mb: "10px" }}
-          placeholder={t("common.field.password.placeholder")}
-          error={password.length < 7 && password.length > 0}
-          helperText={
-            password.length < 7 && password.length > 0
-              ? t("common.field.password.error")
-              : ""
-          }
-        />
-        <TextFieldCustom
-          fullWidth
-          value={passwordCheck}
-          type="password"
-          onChange={(e) => {
-            setPasswordCheck(e.target.value);
-          }}
-          placeholder={t("common.field.password.placeholder")}
-          error={passwordCheck !== password}
-          helperText={
-            passwordCheck !== password ? t("common.field.password.error") : ""
-          }
-        />
         <Typography sx={textStyle}>
           {t("common.field.country.label")}
         </Typography>
@@ -342,7 +392,7 @@ const SignUp = () => {
         variant="contained"
         color="primary"
         onClick={() => {
-          nextPage();
+          signUp();
         }}
         contents={
           <Typography fontSize={16}>{t("common.button.confirm")}</Typography>

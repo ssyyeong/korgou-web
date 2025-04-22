@@ -14,7 +14,6 @@ import Buying from "../pages/main/buying";
 import SignIn from "../pages/auth/sign_in";
 import SignUp from "../pages/auth/sign_up";
 import SignUpCompany from "../pages/auth/sign_up/company";
-import Email from "../pages/auth/sign_up/email";
 import FindPw from "../pages/auth/find_pw";
 import FindPwEmail from "../pages/auth/find_pw/email";
 import ChangePw from "../pages/auth/find_pw/change_pw";
@@ -103,7 +102,6 @@ const AppRoutes = () => (
       <Route path="/sign_in" element={<SignIn />} />
       <Route path="/sign_up" element={<SignUp />} />
       <Route path="/sign_up/company" element={<SignUpCompany />} />
-      <Route path="/sign_up/email" element={<Email />} />
       <Route path="/sign_up/success" element={<SignUpSuccess />} />
       <Route path="/find_pw" element={<FindPw />} />
       <Route path="/find_pw/email" element={<FindPwEmail />} />

@@ -6,22 +6,21 @@ import { useAuth } from "../useAuth";
  * 유저 정보 가져오는 훅
  */
 const useAppMember = () => {
-  //* State
-  const [memberCode, setMemberCode] = useState<number | undefined>(undefined);
-  const [memberId, setMemberId] = useState<number | undefined>(undefined);
-  const [memberName, setMemberName] = useState<string | undefined>(undefined);
-  const [memberEmailId, setMemberEmailId] = useState<string | undefined>(
-    undefined
-  );
-  const [memberType, setMemberType] = useState<string | undefined>(undefined);
-  const [memberPoint, setMemberPoint] = useState<number | undefined>(undefined);
-  const [memberBalance, setMemberBalance] = useState<number | undefined>(
-    undefined
-  );
-  const [memberPush, setMemberPush] = useState<boolean | undefined>(undefined);
-  const [memberAlarm, setMemberAlarm] = useState<boolean | undefined>(
-    undefined
-  );
+  const [memberData, setMemberData] = useState<{
+    code?: number;
+    id?: number;
+    name?: string;
+    emailId?: string;
+    type?: string;
+    point?: number;
+    balance?: number;
+    push?: boolean;
+    alarm?: boolean;
+    storeCount?: number;
+    couponCount?: number;
+    deliveryCount?: number;
+    buyingItCount?: number;
+  }>({});
 
   const { accessToken, appMemberId } = useAuth();
 
@@ -29,35 +28,36 @@ const useAppMember = () => {
   useEffect(() => {
     const fetchUserData = async () => {
       try {
-        // accessToken 체크
-        if (accessToken === null) {
-          setMemberId(undefined);
-          setMemberName(undefined);
+        if (!accessToken || !appMemberId) {
+          setMemberData({});
           return;
         }
-        if (memberId !== undefined) return;
 
         const controller = new ControllerAbstractBase({
           modelName: "AppMember",
           modelId: "app_member",
         });
 
-        // 비동기 호출
         const res = await controller.findOne({
           APP_MEMBER_IDENTIFICATION_CODE: appMemberId,
         });
 
-        // 데이터 세팅
         if (res?.result) {
-          setMemberCode(res.result.APP_MEMBER_IDENTIFICATION_CODE);
-          setMemberId(res.result.APP_MEMBER_ID);
-          setMemberName(res.result.USER_NAME);
-          setMemberEmailId(res.result.EMAIL);
-          setMemberType(res.result.MEMBER_TYPE);
-          setMemberPoint(res.result.POINT);
-          setMemberBalance(res.result.BALANCE);
-          setMemberPush(res.result.PUSH_YN === "Y");
-          setMemberAlarm(res.result.ALIMTALK_YN === "Y");
+          setMemberData({
+            code: res.result.APP_MEMBER_IDENTIFICATION_CODE,
+            id: res.result.APP_MEMBER_ID,
+            name: res.result.USER_NAME,
+            emailId: res.result.EMAIL,
+            type: res.result.MEMBER_TYPE,
+            point: res.result.POINT,
+            balance: res.result.BALANCE,
+            push: res.result.PUSH_YN === "Y",
+            alarm: res.result.ALIMTALK_YN === "Y",
+            storeCount: res.result.STORE_COUNT || 0,
+            couponCount: res.result.COUPON_COUNT || 0,
+            deliveryCount: res.result.DELIVERY_COUNT || 0,
+            buyingItCount: res.result.BUYING_IT_COUNT || 0,
+          });
         }
       } catch (error) {
         console.error("유저 정보 로딩 실패:", error);
@@ -65,18 +65,22 @@ const useAppMember = () => {
     };
 
     fetchUserData();
-  }, [memberId]);
+  }, [accessToken, appMemberId]);
 
   return {
-    memberCode,
-    memberId,
-    memberEmailId,
-    memberName,
-    memberType,
-    memberPoint,
-    memberBalance,
-    memberPush,
-    memberAlarm,
+    memberCode: memberData.code,
+    memberId: memberData.id,
+    memberEmailId: memberData.emailId,
+    memberName: memberData.name,
+    memberType: memberData.type,
+    memberPoint: memberData.point,
+    memberBalance: memberData.balance,
+    memberPush: memberData.push,
+    memberAlarm: memberData.alarm,
+    memberStoreCount: memberData.storeCount,
+    memberCouponCount: memberData.couponCount,
+    memberDeliveryCount: memberData.deliveryCount,
+    memberBuyingItCount: memberData.buyingItCount,
   };
 };
 
