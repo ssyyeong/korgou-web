@@ -12,7 +12,7 @@ interface ITextFieldCustomProps {
   /**
    * 텍스트 필드의 value
    */
-  value: string;
+  value: string | number;
   /**
    * 텍스트 필드의 value 변경 핸들러
    */

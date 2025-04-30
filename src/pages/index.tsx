@@ -8,22 +8,19 @@ import VideoCard from "../components/Video";
 import GoToShipModal from "../components/Modal/GoToShipModal";
 import { useTranslation } from "react-i18next";
 import ControllerAbstractBase from "../controller/Controller";
+import { Image } from "@mui/icons-material";
 
 const Home = () => {
   const { t, i18n } = useTranslation();
 
   //메인 배너
   const [banner, setBanner] = React.useState<string>("");
-  const [weight, setWeight] = React.useState<string>("");
   // Go To Ship 모달
   const [goToShipModalOpen, setGoToShipModalOpen] = React.useState(false);
   // 구매하기 모달
   const [buyingModalOpen, setBuyingModalOpen] = React.useState(false);
   // 계산기 모달
   const [calculatorModalOpen, setCalculatorModalOpen] = React.useState(false);
-  const [service, setService] = React.useState<string>("Send UK to UK");
-  const [send, setSend] = React.useState<string>("-");
-  const [length, setLength] = React.useState<string>("");
 
   useEffect(() => {
     const controller = new ControllerAbstractBase({
@@ -39,14 +36,6 @@ const Home = () => {
       });
     });
   }, []);
-
-  const handleServiceChange = (event: any) => {
-    setService(event.target.value as string);
-  };
-
-  const handleSendChange = (event: any) => {
-    setSend(event.target.value as string);
-  };
 
   return (
     <Box
@@ -75,68 +64,34 @@ const Home = () => {
             flexDirection: "row",
             position: "absolute",
             bottom: "-5%",
-            gap: "5px",
+            gap: "14px",
             width: "100%",
             justifyContent: "center",
           }}
         >
-          <Box
-            sx={{
-              display: "flex",
-              backgroundColor: "#3966AE",
-              borderRadius: "8px",
-              border: "0.5px solid #fff",
-              width: "135px",
-              height: "48px",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-            onClick={async () => {
-              setGoToShipModalOpen(true);
-            }}
-          >
-            <Typography
-              sx={{
-                fontSize: "16px",
-                fontWeight: 700,
-                color: "white",
-                cursor: "pointer",
-              }}
-            >
-              Go To Ship
-            </Typography>
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              textAlign: "center",
-              backgroundColor: "#3966AE",
-              borderRadius: "8px",
-              border: "0.5px solid #fff",
-              width: "135px",
-              height: "48px",
-              alignItems: "center",
-              justifyContent: "center",
-            }}
-            onClick={() => setBuyingModalOpen(true)}
-          >
-            <Typography
-              sx={{
-                fontSize: "16px",
-                fontWeight: 700,
-                color: "white",
-                cursor: "pointer",
-              }}
-            >
-              Buying it
-            </Typography>
-          </Box>
           <img
-            src="/images/icon/side_bar/comment.svg"
+            src="/images/main/go_to_ship_modal.svg"
             alt="arrow"
-            width={"48px"}
+            width={"119px"}
             height={"48px"}
             style={{ cursor: "pointer" }}
+            onClick={() => setGoToShipModalOpen(true)}
+          />
+          <img
+            src="/images/main/buying_it_modal.svg"
+            alt="arrow"
+            width={"119px"}
+            height={"48px"}
+            style={{ cursor: "pointer" }}
+            onClick={() => setBuyingModalOpen(true)}
+          />
+          <img
+            src="/images/main/calculator_modal.svg"
+            alt="arrow"
+            width={"36px"}
+            height={"48px"}
+            style={{ cursor: "pointer" }}
+            onClick={() => setCalculatorModalOpen(true)}
           />
         </Box>
       </Box>
@@ -179,14 +134,6 @@ const Home = () => {
       <CalculatorModal
         calculatorModalOpen={calculatorModalOpen}
         setCalculatorModalOpen={setCalculatorModalOpen}
-        service={service}
-        handleServiceChange={handleServiceChange}
-        send={send}
-        handleSendChange={handleSendChange}
-        length={length}
-        setLength={setLength}
-        weight={weight}
-        setWeight={setWeight}
       />
     </Box>
   );

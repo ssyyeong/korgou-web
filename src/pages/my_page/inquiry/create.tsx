@@ -67,7 +67,7 @@ const InquiryCreate = () => {
         CONTENT: description,
         IMAGE_LIST: JSON.stringify(imageList),
       });
-      console.log(res);
+
       navigate("/my_page/inquiry");
     } catch (error) {
       console.error(error);

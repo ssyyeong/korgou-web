@@ -1,6 +1,7 @@
 import {
   Box,
   Divider,
+  Icon,
   IconButton,
   MenuItem,
   Modal,
@@ -11,22 +12,28 @@ import {
 import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
 import OriginButton from "../Button/OriginButton";
 import { useNavigate } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
+import { useState } from "react";
+import { countryList } from "../../configs/data/CountryConfig";
+import Input from "../Input";
+import { courierList } from "../../configs/data/CourierConfig";
+import TextFieldCustom from "../TextField";
 
 interface ICalculatorModalProps {
   calculatorModalOpen: boolean;
   setCalculatorModalOpen: (value: boolean) => void;
-  service: string;
-  handleServiceChange: (event: any) => void;
-  send: string;
-  handleSendChange: (event: any) => void;
-  length: string;
-  setLength: (value: string) => void;
-  weight: string;
-  setWeight: (value: string) => void;
 }
 
 const CalculatorModal = (props: ICalculatorModalProps) => {
   const navigator = useNavigate();
+  const { isAuthenticated } = useAuth();
+
+  const [country, setCountry] = useState<string>("");
+  const [courier, setCourier] = useState<string>("");
+  const [packageWeight, setPackageWeight] = useState<number>();
+  const [length, setLength] = useState<number>();
+  const [width, setWidth] = useState<number>();
+  const [height, setHeight] = useState<number>();
 
   return (
     <Modal open={props.calculatorModalOpen}>
@@ -34,222 +41,234 @@ const CalculatorModal = (props: ICalculatorModalProps) => {
         sx={{
           position: "absolute",
           top: "50%",
-          left: "50%",
+          left: "49.5%",
           transform: "translate(-50%, -50%)",
           display: "flex",
           flexDirection: "column",
-          justifyContent: "center",
           backgroundColor: "white",
           width: "330px",
-          pt: "20px",
-          pb: "32px",
-          px: "16px",
+          borderRadius: "16px",
+          overflow: "hidden",
         }}
       >
         <Box
           sx={{
             display: "flex",
             flexDirection: "row",
-            borderBottom: "1px solid #B1B2B6",
-            pb: "8px",
-            mb: "16px",
+            justifyContent: "space-between",
+            alignItems: "center",
+            p: "16px",
           }}
         >
           <Typography
             sx={{
-              fontSize: "24px",
+              fontSize: "20px",
               fontWeight: 700,
               color: "#282930",
-              marginLeft: "20px",
             }}
           >
-            shipping fee <br />
-            calculator
+            Shipping fee calculator
           </Typography>
-          <img
-            src="/images/main/character.png"
-            alt="character"
-            style={{ position: "absolute", top: "-20px", right: "20px" }}
-          />
           <IconButton
             onClick={() => props.setCalculatorModalOpen(false)}
             sx={{
-              position: "absolute",
-              right: "16px",
-              top: "20px",
               width: "24px",
               height: "24px",
             }}
           >
             <CloseOutlinedIcon />
           </IconButton>
-          <Divider sx={{ mb: 2, color: "#ECECED" }} />
         </Box>
+        {/* 컨텐츠 영역 */}
         <Box
           sx={{
             display: "flex",
+            gap: "16px",
             flexDirection: "column",
+            p: "16px",
           }}
         >
-          <Typography
-            sx={{
-              fontSize: "14px",
-              fontWeight: 700,
-              color: "#282930",
-              mb: "8px",
-            }}
-          >
-            Service
-          </Typography>
-          <Select
-            value={props.service}
-            onChange={props.handleServiceChange}
-            fullWidth
-            sx={{
-              mb: "20px",
-              height: "48px",
-              color: "#919298",
-            }}
-          >
-            <MenuItem value={"Send UK to UK"}>Send UK to UK</MenuItem>
-            <MenuItem value={"Send UK to Korea"}>Send UK to Korea</MenuItem>
-          </Select>
-          <Typography
-            sx={{
-              fontSize: "14px",
-              fontWeight: 700,
-              color: "#282930",
-              mb: "8px",
-            }}
-          >
-            Send To
-          </Typography>
-          <Select
-            value={props.send}
-            onChange={props.handleSendChange}
-            fullWidth
-            sx={{
-              mb: "20px",
-              height: "48px",
-              color: "#919298",
-            }}
-          >
-            <MenuItem value={"-"}>-</MenuItem>
-          </Select>
+          {/* Ship to */}
           <Box
             sx={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "space-between",
               gap: "8px",
+              display: "flex",
+              flexDirection: "column",
             }}
           >
-            <Box
+            <Typography
               sx={{
-                display: "flex",
-                flexDirection: "column",
-                width: "50%",
+                fontSize: "14px",
+                fontWeight: 700,
+                color: "#282930",
               }}
             >
-              <Typography
-                sx={{
-                  fontSize: "14px",
-                  fontWeight: 700,
-                  color: "#282930",
-                  mb: "8px",
-                }}
-              >
-                Length
-              </Typography>
-              <TextField
-                fullWidth
-                value={props.length}
-                type="length"
-                onChange={(e) => {
-                  props.setLength(e.target.value);
-                }}
-                variant={"outlined"}
-                sx={{ mb: 2, bgcolor: "white" }}
-                placeholder="Less than 1 merte"
-              />
-            </Box>
+              Ship to
+            </Typography>
+            <Input
+              label={"Ship to"}
+              dataList={countryList}
+              value={country}
+              setValue={setCountry}
+              type="select"
+              style={{ maxHeight: "48px" }}
+            />
+          </Box>
+          {/* Courier */}
+          <Box
+            sx={{
+              gap: "8px",
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
+            <Typography
+              sx={{
+                fontSize: "14px",
+                fontWeight: 700,
+                color: "#282930",
+              }}
+            >
+              Courier
+            </Typography>
+            <Input
+              label={"Courier"}
+              dataList={courierList}
+              value={courier}
+              setValue={setCourier}
+              type="select"
+              style={{ maxHeight: "48px" }}
+            />
+            <Typography
+              sx={{
+                fontSize: "12px",
+                color: "#282930",
+                mt: "8px",
+              }}
+            >
+              * Please check the available shipping method to your address via
+              the notice on the website
+            </Typography>
+          </Box>
+          {/* Package Weight */}
+          <Box
+            sx={{
+              gap: "8px",
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
+            <Typography
+              sx={{
+                fontSize: "14px",
+                fontWeight: 700,
+                color: "#282930",
+              }}
+            >
+              Package Weight(g)
+            </Typography>
+            <TextFieldCustom
+              fullWidth
+              value={packageWeight}
+              type="number"
+              onChange={(e: any) => setPackageWeight(e.target.value)}
+            />
+          </Box>
 
+          {/* Package Dimensions(cm) */}
+          <Box
+            sx={{
+              gap: "8px",
+              display: "flex",
+              flexDirection: "column",
+              width: "100%",
+            }}
+          >
+            <Typography
+              sx={{
+                fontSize: "14px",
+                fontWeight: 700,
+                color: "#282930",
+                mb: "8px",
+              }}
+            >
+              Package Dimensions(cm)
+            </Typography>
             <Box
               sx={{
                 display: "flex",
-                flexDirection: "column",
-                width: "50%",
+                flexDirection: "row",
+                gap: "4px",
               }}
             >
+              <TextFieldCustom
+                fullWidth
+                placeholder="L"
+                value={length}
+                type="number"
+                onChange={(e: any) => setLength(e.target.value)}
+              />
               <Typography
                 sx={{
-                  fontSize: "14px",
-                  fontWeight: 700,
-                  color: "#282930",
-                  mb: "8px",
+                  fontSize: 30,
+                  color: "#41434E",
                 }}
               >
-                Weight
+                ×
               </Typography>
-              <TextField
+
+              <TextFieldCustom
                 fullWidth
-                value={props.weight}
-                type="weight"
-                onChange={(e) => {
-                  props.setWeight(e.target.value + "kg");
+                placeholder="W"
+                value={width}
+                type="number"
+                onChange={(e: any) => setWidth(e.target.value)}
+              />
+              <Typography
+                sx={{
+                  fontSize: 30,
+                  color: "#41434E",
                 }}
-                variant={"outlined"}
-                sx={{ mb: 2, bgcolor: "white" }}
-                placeholder="1kg"
+              >
+                ×
+              </Typography>
+
+              <TextFieldCustom
+                fullWidth
+                placeholder="H"
+                value={height}
+                type="number"
+                onChange={(e: any) => setHeight(e.target.value)}
               />
             </Box>
           </Box>
-          <Divider sx={{ mb: "20px", color: "#B1B2B6" }} />
+
+          <Typography
+            sx={{
+              fontSize: "14px",
+              color: "#41434E",
+            }}
+          >
+            There may be a difference from the actual quote in progress.
+          </Typography>
+
           <OriginButton
-            fullWidth
             variant="contained"
-            color="#3966AE"
+            fullWidth
             onClick={() => {
-              navigator("/ship");
+              if (!isAuthenticated) {
+                navigator("/sign_in");
+              } else {
+                //todo 계산결과 처리
+                //  navigator("/buying");
+              }
             }}
             contents={
-              <Typography fontSize={16} fontWeight={700}>
-                View More
+              <Typography fontSize={16} fontWeight={700} color="white">
+                View Shipping Rates
               </Typography>
             }
-            style={{ padding: "16px 8px", mb: "8px", height: "48px" }}
           />
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              justifyContent: "center",
-              gap: "8px",
-            }}
-          >
-            <OriginButton
-              variant="outlined"
-              color="white"
-              onClick={() => {}}
-              contents={
-                <Typography fontSize={16} fontWeight={700} color="#3966AE">
-                  How to use
-                </Typography>
-              }
-              style={{ padding: "16px 8px", width: "50%", height: "48px" }}
-            />
-            <OriginButton
-              variant="outlined"
-              color="white"
-              onClick={() => {}}
-              contents={
-                <Typography fontSize={16} fontWeight={700} color="#3966AE">
-                  Go To Ship
-                </Typography>
-              }
-              style={{ padding: "16px 8px", width: "50%", height: "48px" }}
-            />
-          </Box>
         </Box>
       </Box>
     </Modal>

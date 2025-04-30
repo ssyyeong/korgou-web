@@ -20,7 +20,7 @@ const BuyingModal = (props: IBuyingModalProps) => {
         sx={{
           position: "absolute",
           top: "50%",
-          left: "50%",
+          left: "49.5%",
           transform: "translate(-50%, -50%)",
           display: "flex",
           flexDirection: "column",
@@ -29,7 +29,7 @@ const BuyingModal = (props: IBuyingModalProps) => {
           pt: "20px",
           pb: "32px",
           px: "16px",
-          backgroundColor: "#F4D8E7",
+          backgroundColor: "#D1E2F4",
         }}
       >
         <IconButton

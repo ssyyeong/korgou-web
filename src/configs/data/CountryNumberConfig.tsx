@@ -95,6 +95,104 @@ const countryNumberList = [
   { value: "+371", label: "+371" }, // Latvia
   { value: "+961", label: "+961" }, // Lebanon
   { value: "+266", label: "+266" }, // Lesotho
+  { value: "+231", label: "+231" }, // Liberia
+  { value: "+218", label: "+218" }, // Libya
+  { value: "+423", label: "+423" }, // Liechtenstein
+  { value: "+370", label: "+370" }, // Lithuania
+  { value: "+352", label: "+352" }, // Luxembourg
+  { value: "+261", label: "+261" }, // Madagascar
+  { value: "+265", label: "+265" }, // Malawi
+  { value: "+60", label: "+60" }, // Malaysia
+  { value: "+960", label: "+960" }, // Maldives
+  { value: "+223", label: "+223" }, // Mali
+  { value: "+356", label: "+356" }, // Malta
+  { value: "+692", label: "+692" }, // Marshall Islands
+  { value: "+222", label: "+222" }, // Mauritania
+  { value: "+230", label: "+230" }, // Mauritius
+  { value: "+52", label: "+52" }, // Mexico
+  { value: "+691", label: "+691" }, // Micronesia
+  { value: "+373", label: "+373" }, // Moldova
+  { value: "+377", label: "+377" }, // Monaco
+  { value: "+976", label: "+976" }, // Mongolia
+  { value: "+382", label: "+382" }, // Montenegro
+  { value: "+212", label: "+212" }, // Morocco
+  { value: "+258", label: "+258" }, // Mozambique
+  { value: "+95", label: "+95" }, // Myanmar (Burma)
+  { value: "+264", label: "+264" }, // Namibia
+  { value: "+674", label: "+674" }, // Nauru
+  { value: "+977", label: "+977" }, // Nepal
+  { value: "+31", label: "+31" }, // Netherlands
+  { value: "+64", label: "+64" }, // New Zealand
+  { value: "+505", label: "+505" }, // Nicaragua
+  { value: "+227", label: "+227" }, // Niger
+  { value: "+234", label: "+234" }, // Nigeria
+  { value: "+47", label: "+47" }, // Norway
+  { value: "+968", label: "+968" }, // Oman
+  { value: "+92", label: "+92" }, // Pakistan
+  { value: "+680", label: "+680" }, // Palau
+  { value: "+970", label: "+970" }, // Palestine
+  { value: "+507", label: "+507" }, // Panama
+  { value: "+675", label: "+675" }, // Papua New Guinea
+  { value: "+595", label: "+595" }, // Paraguay
+  { value: "+51", label: "+51" }, // Peru
+  { value: "+63", label: "+63" }, // Philippines
+  { value: "+48", label: "+48" }, // Poland
+  { value: "+351", label: "+351" }, // Portugal
+  { value: "+1-787", label: "+1-787" }, // Puerto Rico
+  { value: "+974", label: "+974" }, // Qatar
+  { value: "+40", label: "+40" }, // Romania
+  { value: "+7", label: "+7" }, // Russia
+  { value: "+250", label: "+250" }, // Rwanda
+  { value: "+1-869", label: "+1-869" }, // Saint Kitts and Nevis
+  { value: "+1-758", label: "+1-758" }, // Saint Lucia
+  { value: "+1-784", label: "+1-784" }, // Saint Vincent and the Grenadines
+  { value: "+685", label: "+685" }, // Samoa
+  { value: "+378", label: "+378" }, // San Marino
+  { value: "+239", label: "+239" }, // Sao Tome and Principe
+  { value: "+966", label: "+966" }, // Saudi Arabia
+  { value: "+221", label: "+221" }, // Senegal
+  { value: "+381", label: "+381" }, // Serbia
+  { value: "+248", label: "+248" }, // Seychelles
+  { value: "+232", label: "+232" }, // Sierra Leone
+  { value: "+65", label: "+65" }, // Singapore
+  { value: "+421", label: "+421" }, // Slovakia
+  { value: "+386", label: "+386" }, // Slovenia
+  { value: "+677", label: "+677" }, // Solomon Islands
+  { value: "+252", label: "+252" }, // Somalia
+  { value: "+27", label: "+27" }, // South Africa
+  { value: "+211", label: "+211" }, // South Sudan
+  { value: "+34", label: "+34" }, // Spain
+  { value: "+94", label: "+94" }, // Sri Lanka
+  { value: "+249", label: "+249" }, // Sudan
+  { value: "+597", label: "+597" }, // Suriname
+  { value: "+46", label: "+46" }, // Sweden
+  { value: "+41", label: "+41" }, // Switzerland
+  { value: "+963", label: "+963" }, // Syria
+  { value: "+886", label: "+886" }, // Taiwan
+  { value: "+992", label: "+992" }, // Tajikistan
+  { value: "+255", label: "+255" }, // Tanzania
+  { value: "+66", label: "+66" }, // Thailand
+  { value: "+228", label: "+228" }, // Togo
+  { value: "+676", label: "+676" }, // Tonga
+  { value: "+1-868", label: "+1-868" }, // Trinidad and Tobago
+  { value: "+216", label: "+216" }, // Tunisia
+  { value: "+90", label: "+90" }, // Turkey
+  { value: "+993", label: "+993" }, // Turkmenistan
+  { value: "+688", label: "+688" }, // Tuvalu
+  { value: "+256", label: "+256" }, // Uganda
+  { value: "+380", label: "+380" }, // Ukraine
+  { value: "+971", label: "+971" }, // United Arab Emirates
+  { value: "+44", label: "+44" }, // United Kingdom
+  { value: "+1", label: "+1" }, // United States
+  { value: "+598", label: "+598" }, // Uruguay
+  { value: "+998", label: "+998" }, // Uzbekistan
+  { value: "+678", label: "+678" }, // Vanuatu
+  { value: "+379", label: "+379" }, // Vatican City
+  { value: "+58", label: "+58" }, // Venezuela
+  { value: "+84", label: "+84" }, // Vietnam
+  { value: "+967", label: "+967" }, // Yemen
+  { value: "+260", label: "+260" }, // Zambia
+  { value: "+263", label: "+263" }, // Zimbabwe
 ];
 
 export { countryNumberList };

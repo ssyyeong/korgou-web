@@ -17,7 +17,9 @@ const SocialLogin = (props: Props) => {
   return (
     <Box
       onClick={() => {
-        window.location.href = login;
+        if (login) {
+          window.location.href = login;
+        }
       }}
       width={48}
       height={48}

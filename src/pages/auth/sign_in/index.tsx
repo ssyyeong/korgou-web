@@ -234,13 +234,11 @@ const SignIn = () => {
             }
           />
           <SocialLogin
-            clientId={
-              "723926736636-q43fi38slh2c86gei55dm4qmhe5kha50.apps.googleusercontent.com"
-            }
+            clientId={"your.apple.service.id"}
             callbackUrl={
-              process.env.REACT_APP_WEB_HOST + "/auth/redirect_url/google"
+              process.env.REACT_APP_WEB_HOST + "/auth/redirect_url/apple"
             }
-            type={"google"}
+            type={"apple"}
             children={
               <Avatar
                 src="/images/logo/apple.png"
