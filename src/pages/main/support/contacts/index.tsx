@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import { useLoadScript, GoogleMap, MarkerF } from "@react-google-maps/api";
 
 import { Box, Divider, Typography } from "@mui/material";
 
@@ -16,37 +15,6 @@ const Contacts = () => {
   const [subject, setSubject] = useState("");
   const [suiteNumber, setSuitNumber] = useState("");
   const [category, setCategory] = useState("");
-
-  const { isLoaded } = useLoadScript({
-    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY || "",
-  });
-
-  const center = {
-    lat: 35.1689766, // 부산 센텀시티 위도
-    lng: 129.1308156, // 부산 센텀시티 경도
-  };
-
-  const mapContainerStyle = {
-    width: "100%",
-    height: "240px",
-    borderRadius: "8px",
-  };
-
-  const mapOptions = {
-    disableDefaultUI: true,
-    zoomControl: true,
-    styles: [
-      {
-        featureType: "poi",
-        elementType: "labels",
-        stylers: [{ visibility: "off" }],
-      },
-    ],
-    zoom: 17,
-    mapTypeControl: false,
-    streetViewControl: false,
-    fullscreenControl: false,
-  };
 
   const textStyle = {
     fontSize: "14px",
