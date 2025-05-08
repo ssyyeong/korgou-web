@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { Box, Typography } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { Box, Typography, CircularProgress } from "@mui/material";
 import ProfileHeader from "../../components/Header/ProfileHeader";
 
 import KeyboardArrowRightOutlinedIcon from "@mui/icons-material/KeyboardArrowRightOutlined";
@@ -7,12 +7,16 @@ import { useNavigate } from "react-router-dom";
 import { useAppMember } from "../../hooks/useAppMember";
 import { useAuth } from "../../hooks/useAuth";
 import { useTranslation } from "react-i18next";
+
 const MyPage = () => {
   const { t } = useTranslation();
   const [alarmModalOpen, setAlarmModalOpen] = React.useState(false);
   const navigate = useNavigate();
 
   const { isAuthenticated } = useAuth();
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
   const {
     memberId,
     memberName,
@@ -71,18 +75,19 @@ const MyPage = () => {
         top: 0,
       }}
     >
-      {/* <MainHeader /> */}
-      <ProfileHeader
-        memberId={memberId}
-        memberName={memberName}
-        memberEmailId={memberEmailId}
-        memberPoint={memberPoint}
-        memberBalance={memberBalance}
-        memberStoreCount={memberStoreCount}
-        memberCouponCount={memberCouponCount}
-        memberDeliveryCount={memberDeliveryCount}
-        memberBuyingItCount={memberBuyingItCount}
-      />
+      {memberId && (
+        <ProfileHeader
+          memberId={memberId}
+          memberName={memberName}
+          memberEmailId={memberEmailId}
+          memberPoint={memberPoint}
+          memberBalance={memberBalance}
+          memberStoreCount={memberStoreCount}
+          memberCouponCount={memberCouponCount}
+          memberDeliveryCount={memberDeliveryCount}
+          memberBuyingItCount={memberBuyingItCount}
+        />
+      )}
 
       {list.map((item, index) => {
         return (

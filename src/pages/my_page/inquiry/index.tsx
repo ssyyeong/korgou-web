@@ -9,6 +9,7 @@ import { useAppMember } from "../../../hooks/useAppMember";
 import InquiryCard from "./InqueryCard";
 import dayjs from "dayjs";
 import { useTranslation } from "react-i18next";
+
 const Inquiry = () => {
   const navigate = useNavigate();
   const { memberCode } = useAppMember();

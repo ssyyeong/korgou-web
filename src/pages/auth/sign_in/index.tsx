@@ -10,6 +10,7 @@ import BottomModal from "../../../components/Modal/BottomModal";
 import AppMemberController from "../../../controller/AppMemberController";
 import { useAuth } from "../../../hooks/useAuth";
 import { useTranslation } from "react-i18next";
+import AlertModal from "../../../components/Modal/AlertModal";
 
 const SignIn = () => {
   const { t } = useTranslation();
@@ -18,6 +19,7 @@ const SignIn = () => {
   const [password, setPassword] = React.useState("");
   const [isAutoLogin, setIsAutoLogin] = React.useState(false);
   const [bottomModalOpen, setBottomModalOpen] = React.useState(false);
+  const [modalOpen, setModalOpen] = React.useState(false);
 
   const navigate = useNavigate();
   const { login } = useAuth();
@@ -37,24 +39,30 @@ const SignIn = () => {
         PASSWORD: password,
       };
 
-      const response = await controller.signIn(data);
-      if (response.data.status === 200) {
-        if (response.data.result.result === "change password") {
-          setBottomModalOpen(true);
-          return;
-        }
-        await localStorage.setItem(
-          "ACCESS_TOKEN",
-          response.data.result.signInResult.accessToken
-        );
-        await localStorage.setItem(
-          "APP_MEMBER_IDENTIFICATION_CODE",
-          response.data.result.user.APP_MEMBER_IDENTIFICATION_CODE
-        );
-        login(response.data.result.signInResult.accessToken);
+      controller
+        .signIn(data)
+        .then(async (response) => {
+          if (response.data.status === 200) {
+            if (response.data.result.result === "change password") {
+              setBottomModalOpen(true);
+              return;
+            }
+            await localStorage.setItem(
+              "ACCESS_TOKEN",
+              response.data.result.signInResult.accessToken
+            );
+            await localStorage.setItem(
+              "APP_MEMBER_IDENTIFICATION_CODE",
+              response.data.result.user.APP_MEMBER_IDENTIFICATION_CODE
+            );
+            login(response.data.result.signInResult.accessToken);
 
-        navigate("/");
-      }
+            navigate("/");
+          }
+        })
+        .catch((error) => {
+          setModalOpen(true);
+        });
     }
   };
 
@@ -321,6 +329,40 @@ const SignIn = () => {
         setBottomModalOpen={setBottomModalOpen}
         handleClose={handleClose}
         btnClick={btnClick}
+      />
+      <AlertModal
+        open={modalOpen}
+        onClose={() => {
+          setModalOpen(false);
+        }}
+        contents={
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "start",
+              mt: "10px",
+              width: "100%",
+            }}
+          >
+            <Typography
+              sx={{
+                fontSize: "14px",
+                color: "#61636C",
+                textAlign: "left",
+              }}
+            >
+              아이디 또는 비밀번호가 일치하지 않습니다.
+            </Typography>
+          </Box>
+        }
+        button1={{
+          text: "확인",
+          onClick: () => {
+            setModalOpen(false);
+          },
+          color: "#282930",
+        }}
       />
     </Box>
   );
