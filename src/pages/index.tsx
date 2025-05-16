@@ -104,6 +104,63 @@ const Home = () => {
           marginTop: "40px",
         }}
       >
+        <Typography
+          fontSize={24}
+          fontWeight={700}
+          color="#282930"
+          sx={{
+            lineHeight: "130%",
+            letterSpacing: "-0.24px",
+          }}
+        >
+          How Korgou Perfects <br />
+          Your Korean Shopping
+        </Typography>
+        <img
+          src="/images/main/card.svg"
+          alt="card"
+          style={{
+            marginTop: "30px",
+            marginBottom: "30px",
+          }}
+        />
+      </Box>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Typography
+          fontSize={24}
+          fontWeight={700}
+          color="#282930"
+          sx={{
+            lineHeight: "130%",
+            letterSpacing: "-0.24px",
+            textAlign: "center",
+          }}
+        >
+          Step-by-step Essentials
+        </Typography>
+        <Typography
+          fontSize={14}
+          fontWeight={500}
+          color="#919298"
+          sx={{
+            lineHeight: "130%",
+            letterSpacing: "-0.14px",
+            mb: "16px",
+            mt: "4px",
+            textAlign: "center",
+          }}
+        >
+          Safe and comfortable delivery method!
+          <br />
+          KorGou will let you know!
+        </Typography>
         <VideoCard
           thumbnailUrl="/images/main/video.svg"
           videoId="ZbhaV3_Wqr8"
