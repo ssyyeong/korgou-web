@@ -4,6 +4,8 @@ import { useLocation, useNavigate } from "react-router-dom";
 import OriginButton from "../../../../components/Button/OriginButton";
 import Header from "../../../../components/Header/Header";
 import { useTranslation } from "react-i18next";
+import AppMemberController from "../../../../controller/AppMemberController";
+import TextFieldCustom from "../../../../components/TextField";
 // 비밀번호 변경 페이지
 const ChangePw = () => {
   const navigate = useNavigate();
@@ -16,6 +18,22 @@ const ChangePw = () => {
 
   const chagnePassword = () => {
     // 비밀번호 변경 api
+    const appMemberController = new AppMemberController({
+      modelName: "AppMember",
+      modelId: "app_member",
+    });
+
+    appMemberController
+      .changePasswordByEmail({
+        EMAIL: email,
+        PASSWORD: password,
+      })
+      .then((res) => {
+        navigate("/find_pw/success");
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   return (
@@ -45,29 +63,39 @@ const ChangePw = () => {
             fontWeight: 500,
             color: "#333",
             marginBottom: "8px",
+            marginTop: "20px",
           }}
         >
           {t("auth.change_password.title")}
         </Typography>
-        <TextField
-          placeholder={t("auth.change_password.new_password_placeholder")}
+        <TextFieldCustom
+          fullWidth
           value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          variant="outlined"
-          fullWidth
-          sx={{
-            marginBottom: "24px",
+          type="password"
+          onChange={(e) => {
+            setPassword(e.target.value);
           }}
+          sx={{ mb: "10px" }}
+          placeholder={t("common.field.password.placeholder")}
+          error={password.length < 7 && password.length > 0}
+          helperText={
+            password.length < 7 && password.length > 0
+              ? t("common.field.password.error")
+              : ""
+          }
         />
-        <TextField
-          placeholder={t("auth.change_password.confirm_password_placeholder")}
-          value={rePassword}
-          onChange={(e) => setRePassword(e.target.value)}
-          variant="outlined"
+        <TextFieldCustom
           fullWidth
-          sx={{
-            marginBottom: "24px",
+          value={rePassword}
+          type="password"
+          onChange={(e) => {
+            setRePassword(e.target.value);
           }}
+          placeholder={t("common.field.password.confirm.placeholder")}
+          error={rePassword !== password}
+          helperText={
+            rePassword !== password ? t("common.field.password.error") : ""
+          }
         />
 
         {/* 변경하기 버튼 */}
@@ -86,19 +114,9 @@ const ChangePw = () => {
             padding: "12px 0",
             backgroundColor: "#3F6CBF", // 버튼 색상
             borderRadius: "4px",
+            marginTop: "20px",
           }}
         />
-
-        {/* 안내 문구 */}
-        <Typography
-          sx={{
-            marginTop: "16px",
-            fontSize: "12px",
-            color: "#888",
-          }}
-        >
-          {t("auth.change_password.password_changed")}
-        </Typography>
       </Box>
     </Box>
   );

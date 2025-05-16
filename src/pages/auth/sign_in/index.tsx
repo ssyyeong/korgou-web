@@ -241,7 +241,7 @@ const SignIn = () => {
               />
             }
           />
-          <SocialLogin
+          {/* <SocialLogin
             clientId={"your.apple.service.id"}
             callbackUrl={
               process.env.REACT_APP_WEB_HOST + "/auth/redirect_url/apple"
@@ -256,7 +256,7 @@ const SignIn = () => {
                 }}
               />
             }
-          />
+          /> */}
         </Box>
       </Box>
       <Divider

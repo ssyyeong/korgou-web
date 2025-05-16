@@ -87,5 +87,13 @@ class AppMemberController {
 
     return response;
   }
+
+  async changePasswordByEmail(option: IControllerOptions): Promise<any> {
+    const params = option;
+    const url = `${this.apiUrl}${this.rootRoute}/${this.role}/${this.modelId}/update_password_by_email`;
+    const response = await axios.post(url, params);
+
+    return response;
+  }
 }
 export default AppMemberController;

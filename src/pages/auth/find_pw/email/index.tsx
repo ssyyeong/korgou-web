@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import { Box, Button, TextField, Typography } from "@mui/material";
 
@@ -7,6 +7,7 @@ import Header from "../../../../components/Header/Header";
 import { useLocation, useNavigate } from "react-router-dom";
 import BottomModal from "../../../../components/Modal/BottomModal";
 import { useTranslation } from "react-i18next";
+import AppMemberController from "../../../../controller/AppMemberController";
 
 //이메일 인증번호 확인 페이지
 const FindPwEmail = ({ route }: any) => {
@@ -19,16 +20,61 @@ const FindPwEmail = ({ route }: any) => {
   const [authNumber, setAuthNumber] = React.useState("");
   const [bottomModalOpen, setBottomModalOpen] = React.useState(false);
   const [isModifyEmail, setIsModifyEmail] = React.useState(false);
+  const [timeLeft, setTimeLeft] = useState(180); // 3분 = 180초
+  const [isTimerRunning, setIsTimerRunning] = useState(false);
 
   useEffect(() => {
     //title 값에 따라서 변경되는 타이틀 변경
     if (title === "이메일 인증") {
-      setNewTitle(t("auth.email_verification.title"));
+      setNewTitle(t("auth.forgot_password.email_verification"));
     } else {
       setNewTitle(t("auth.forgot_password.title"));
     }
     setNewEmail(email);
+
+    // 페이지 로드시 자동으로 인증번호 전송
+    if (email) {
+      sendVerificationCode();
+    }
   }, [email]);
+
+  // 타이머 효과
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    if (isTimerRunning && timeLeft > 0) {
+      timer = setInterval(() => {
+        setTimeLeft((prev) => prev - 1);
+      }, 1000);
+    } else if (timeLeft === 0) {
+      setIsTimerRunning(false);
+    }
+    return () => clearInterval(timer);
+  }, [isTimerRunning, timeLeft]);
+
+  // 인증번호 전송 함수
+  const sendVerificationCode = async () => {
+    try {
+      const controller = new AppMemberController({
+        modelName: "AppMember",
+        modelId: "app_member",
+      });
+
+      await controller.sendEmailVerificationCode({ EMAIL: newEmail });
+      setTimeLeft(180); // 타이머 리셋
+      setIsTimerRunning(true); // 타이머 시작
+    } catch (error) {
+      console.error("인증번호 전송 실패:", error);
+    }
+  };
+
+  // 타이머 포맷팅 함수
+  const formatTime = (seconds: number) => {
+    const minutes = Math.floor(seconds / 60);
+    const remainingSeconds = seconds % 60;
+    return `${String(minutes).padStart(2, "0")}:${String(
+      remainingSeconds
+    ).padStart(2, "0")}`;
+  };
 
   const handleClose = (reason: any) => {
     if (reason === "backdropClick") {
@@ -39,7 +85,7 @@ const FindPwEmail = ({ route }: any) => {
   const changePw = () => {
     setBottomModalOpen(false);
     navigate("/find_pw/change_pw", {
-      state: { newEmail },
+      state: { email: newEmail },
     });
   };
 
@@ -118,6 +164,9 @@ const FindPwEmail = ({ route }: any) => {
                 color="secondary"
                 onClick={() => {
                   setIsModifyEmail(false);
+                  setTimeLeft(180); // 타이머 리셋
+                  setIsTimerRunning(true); // 타이머 시작
+                  sendVerificationCode(); // 인증번호 재전송
                 }}
                 sx={{
                   color: "white",
@@ -158,9 +207,8 @@ const FindPwEmail = ({ route }: any) => {
             <Button
               variant="contained"
               color="secondary"
-              onClick={() => {
-                console.log("인증번호 확인");
-              }}
+              onClick={sendVerificationCode}
+              disabled={isTimerRunning}
               sx={{
                 color: "white",
                 fontSize: "14px",
@@ -191,7 +239,7 @@ const FindPwEmail = ({ route }: any) => {
                 color: "#EB1F81",
               }}
             >
-              00:30:00
+              {formatTime(timeLeft)}
             </Typography>
             <Typography
               sx={{
@@ -199,6 +247,10 @@ const FindPwEmail = ({ route }: any) => {
                 fontWeight: 600,
                 color: "#EB1F81",
                 textDecoration: "underline",
+                cursor: "pointer",
+              }}
+              onClick={() => {
+                sendVerificationCode();
               }}
             >
               연장
@@ -219,9 +271,11 @@ const FindPwEmail = ({ route }: any) => {
                 textDecoration: "underline",
                 textAlign: "center",
                 color: "#61636C",
+                cursor: "pointer",
               }}
               onClick={() => {
                 setIsModifyEmail(true);
+                setIsTimerRunning(false); // 타이머 멈추기
               }}
             >
               {t("auth.email_verification.re_enter_email")}
@@ -247,7 +301,7 @@ const FindPwEmail = ({ route }: any) => {
           contents={
             <Typography fontSize={16}>
               {title === "이메일 인증"
-                ? t("auth.email_verification.verify")
+                ? t("common.button.confirm")
                 : t("auth.forgot_password.change_password")}
             </Typography>
           }
