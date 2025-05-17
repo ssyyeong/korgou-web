@@ -17,22 +17,19 @@ const Address = () => {
   const [addressList, setAddressList] = useState([]);
 
   useEffect(() => {
-    console.log("memberCode", memberCode);
     // memberCode가 null이 아닐 때만 API 호출하도록 수정
     if (memberCode) {
       const controller = new ControllerAbstractBase({
         modelName: "Address",
         modelId: "address",
       });
-      console.log("memberCode", memberCode);
 
       controller
         .findAll({
           APP_MEMBER_IDENTIFICATION_CODE: memberCode,
         })
         .then((res) => {
-          console.log("res", res.result.rows);
-          // setAddressList(res.result.rows);
+          setAddressList(res.result.rows);
         });
     }
   }, [memberCode]);
@@ -63,7 +60,7 @@ const Address = () => {
             <AddressCard
               key={index}
               item={item}
-              name={item.FIRST_NAME + " " + item.LAST_NAME}
+              name={item.NAME}
               type={item.SHIPPING_TYPE}
               isDefault={item.DEFAULT_YN === "Y"}
               onClick={(id) => {

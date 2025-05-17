@@ -73,6 +73,7 @@ const MyPage = () => {
         backgroundColor: "white",
         position: "absolute",
         top: 0,
+        pb: "30px",
       }}
     >
       {memberId && (

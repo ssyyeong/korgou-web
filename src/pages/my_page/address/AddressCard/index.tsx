@@ -9,6 +9,7 @@ import {
   Chip,
 } from "@mui/material";
 import { useTranslation } from "react-i18next";
+import OriginButton from "../../../../components/Button/OriginButton";
 interface AddressCardProps {
   item: any;
   name: string;
@@ -27,20 +28,12 @@ const AddressCard = (props: AddressCardProps) => {
       sx={{
         mb: "10px",
         backgroundColor: "#F5F5F5",
-        borderRadius: "1px",
-        boxShadow: "0px 2px 4px rgba(0, 0, 0, 0.05)",
         border: props.isDefault ? "1px solid #3966AE" : "1px solid #F5F5F5",
+        borderRadius: "0px",
       }}
     >
       <CardContent>
-        <Box
-          display="flex"
-          justifyContent="space-between"
-          alignItems="center"
-          sx={{
-            mb: "10px",
-          }}
-        >
+        <Box display="flex" justifyContent="space-between" alignItems="center">
           <Box display="flex" flexDirection="row" gap="8px" alignItems="center">
             <Typography
               sx={{
@@ -90,12 +83,29 @@ const AddressCard = (props: AddressCardProps) => {
               sx={{
                 fontSize: "12px",
                 fontWeight: 700,
-                color: props.isDefault ? "primary" : "#282930",
+                color: props.isDefault ? "#3966AE" : "#282930",
               }}
             >
               {t("delivery_address.default_delivery_address")}
             </Typography>
           </Box>
+        </Box>
+
+        <Box
+          sx={{
+            display: "flex",
+            height: "63px",
+          }}
+        >
+          <Typography
+            sx={{
+              fontSize: "14px",
+              color: "#282930",
+              my: "10px",
+            }}
+          >
+            {props.address}
+          </Typography>
         </Box>
 
         <Typography
@@ -105,32 +115,27 @@ const AddressCard = (props: AddressCardProps) => {
             mb: "10px",
           }}
         >
-          {props.address}
-        </Typography>
-        <Typography
-          sx={{
-            fontSize: "14px",
-            color: "#282930",
-            mb: "10px",
-          }}
-        >
           {props.phone}
         </Typography>
-
-        <Button
+        <OriginButton
           variant="contained"
-          sx={{
-            backgroundColor: "#ECECED",
-            color: "black",
-            fontSize: "12px",
+          color="#ECECED"
+          style={{
+            height: "24px",
             borderRadius: "4px",
+            minWidth: "41px",
+            padding: "0px",
+            boxShadow: "none",
           }}
           onClick={() => {
             props.onClick(props.item.ADDRESS_IDENTIFICATION_CODE);
           }}
-        >
-          {t("common.button.modify")}
-        </Button>
+          contents={
+            <Typography fontSize={12} color="#2E2F37">
+              {t("common.button.modify")}
+            </Typography>
+          }
+        />
       </CardContent>
     </Card>
   );

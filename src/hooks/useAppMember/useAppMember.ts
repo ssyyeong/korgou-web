@@ -44,7 +44,7 @@ const useAppMember = () => {
 
         if (res?.result) {
           setMemberData({
-            code: res.result.APP_MEMBER_IDENTIFICATION_CODE,
+            code: Number(appMemberId),
             id: res.result.APP_MEMBER_ID,
             name: res.result.USER_NAME,
             emailId: res.result.EMAIL,

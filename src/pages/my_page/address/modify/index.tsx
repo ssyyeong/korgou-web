@@ -15,13 +15,11 @@ const AddressModify = () => {
   const location = useLocation();
   const { t } = useTranslation();
 
-  const method = ["DHL", "FEDEX", "EMS", t("delivery_address.etc")];
-
   const [addressId, setAddressId] = useState("");
+  const [shippingMethodList, setShippingMethodList] = useState([]);
   const [shippingType, setShippingType] = useState("FOREIGN");
   const [country, setCountry] = useState("");
-  const [firstName, setFirstName] = useState("");
-  const [lastName, setLastName] = useState("");
+  const [name, setName] = useState("");
   const [address, setAddress] = useState("");
   const [detailAddress, setDetailAddress] = useState("");
   const [province, setProvince] = useState("");
@@ -29,7 +27,8 @@ const AddressModify = () => {
   const [postalCode, setPostalCode] = useState("");
   const [countryNumber, setCountryNumber] = useState("");
   const [contact, setContact] = useState("");
-  const [addressMethod, setAddressMethod] = useState("DHL");
+  const [addressMethod, setAddressMethod] = useState(1);
+  const [addressMethodLabel, setAddressMethodLabel] = useState("");
 
   useEffect(() => {
     if (!location.state) return;
@@ -47,21 +46,43 @@ const AddressModify = () => {
         ADDRESS_IDENTIFICATION_CODE: id,
       })
       .then((res) => {
+        getShippingMethodList();
         setShippingType(res.result.SHIPPING_TYPE);
         setCountry(res.result.COUNTRY);
-        setFirstName(res.result.FIRST_NAME);
-        setLastName(res.result.LAST_NAME);
+        setName(res.result.NAME);
         setAddress(res.result.ADDRESS);
         setDetailAddress(res.result.DETAILED_ADDRESS);
         setProvince(res.result.PROVINCE);
         setCity(res.result.CITY);
         setPostalCode(res.result.POSTAL_CODE);
         setCountryNumber(res.result.COUNTRY_NUMBER);
-        setCountryNumber(res.result.COUNTRY_NUMBER);
         setContact(res.result.CONTACT);
-        setAddressMethod(res.result.ADDRESS_METHOD);
+        setAddressMethod(res.result.COURIER_IDENTIFICATION_CODE);
+        setAddressMethodLabel(res.result.ADDRESS_METHOD);
       });
   }, [location.state]);
+
+  const getShippingMethodList = async () => {
+    const controller = new ControllerAbstractBase({
+      modelName: "Courier",
+      modelId: "courier",
+    });
+
+    const list = [];
+    controller
+      .findAll({
+        ACTIVE_YN: "Y",
+      })
+      .then(async (res) => {
+        res.result.rows.forEach((item) => {
+          list.push({
+            label: item.ENGLISH_NAME,
+            value: item.COURIER_IDENTIFICATION_CODE,
+          });
+        });
+        setShippingMethodList(list);
+      });
+  };
 
   const update = async () => {
     const appMemberId = await localStorage.getItem(
@@ -72,19 +93,13 @@ const AddressModify = () => {
       modelName: "Address",
       modelId: "address",
     });
+    console.log("addressMethod", addressMethod);
 
     if (
-      country === "" ||
-      firstName === "" ||
-      lastName === "" ||
       address === "" ||
-      detailAddress === "" ||
-      province === "" ||
-      city === "" ||
       postalCode === "" ||
       countryNumber === "" ||
-      contact === "" ||
-      addressMethod === ""
+      contact === ""
     ) {
       toast.error("모든 항목을 입력해주세요.", {
         position: "top-center",
@@ -98,10 +113,10 @@ const AddressModify = () => {
       .update({
         ADDRESS_IDENTIFICATION_CODE: addressId,
         APP_MEMBER_IDENTIFICATION_CODE: appMemberId,
+        COURIER_IDENTIFICATION_CODE: addressMethod,
         SHIPPING_TYPE: shippingType,
         COUNTRY: country,
-        FIRST_NAME: firstName,
-        LAST_NAME: lastName,
+        NAME: name,
         ADDRESS: address,
         DETAILED_ADDRESS: detailAddress,
         PROVINCE: province,
@@ -109,7 +124,7 @@ const AddressModify = () => {
         POSTAL_CODE: postalCode,
         COUNTRY_NUMBER: countryNumber,
         CONTACT: contact,
-        ADDRESS_METHOD: addressMethod,
+        ADDRESS_METHOD: addressMethodLabel,
       })
       .then((res) => {
         navigator("/my_page/address");
@@ -214,84 +229,129 @@ const AddressModify = () => {
           >
             {t("delivery_address.address_info")}
           </Typography>
-          <Input
-            label={t("common.field.country.label")}
-            dataList={countryList}
-            value={country}
-            setValue={setCountry}
-            type="select"
-            style={{ maxHeight: "48px" }}
-          />
-          <Box display="flex" flexDirection="row" width="100%" gap="8px">
-            <Input
-              label={t("common.field.name.first")}
-              value={firstName}
-              setValue={setFirstName}
-              type="text"
-              style={{ maxHeight: "48px" }}
-            />
-            <Input
-              label={t("common.field.name.last")}
-              value={lastName}
-              setValue={setLastName}
-              type="text"
-              style={{ maxHeight: "48px" }}
-            />
-          </Box>
-          <Input
-            label={t("common.field.address.label")}
-            value={address}
-            setValue={setAddress}
-            type="text"
-            style={{ maxHeight: "48px" }}
-          />
-          <Box display="flex" flexDirection="row" width="100%" gap="8px">
-            <Input
-              label={t("common.field.address.detail")}
-              value={detailAddress}
-              setValue={setDetailAddress}
-              type="text"
-              style={{ maxHeight: "48px" }}
-            />
-            <Input
-              label={t("common.field.address.province")}
-              value={province}
-              setValue={setProvince}
-              type="text"
-              style={{ maxHeight: "48px" }}
-            />
-          </Box>
-          <Input
-            label={t("common.field.address.city")}
-            value={city}
-            setValue={setCity}
-            type="text"
-            style={{ maxHeight: "48px" }}
-          />
-          <Input
-            label={t("common.field.address.postal_code")}
-            value={postalCode}
-            setValue={setPostalCode}
-            type="text"
-            style={{ maxHeight: "48px" }}
-          />
-          <Box display="flex" flexDirection="row" width="100%" gap="8px">
-            <Input
-              label="-"
-              dataList={countryNumberList}
-              value={countryNumber}
-              setValue={setCountryNumber}
-              type="select"
-              style={{ maxHeight: "48px", width: "100px" }}
-            />
-            <Input
-              label={t("common.field.phone.placeholder")}
-              value={contact}
-              setValue={setContact}
-              type="text"
-              style={{ maxHeight: "48px", width: "220px" }}
-            />
-          </Box>
+          {shippingType === "FOREIGN" ? (
+            <>
+              <Input
+                label={t("common.field.country.label")}
+                dataList={countryList}
+                value={country}
+                setValue={setCountry}
+                type="select"
+                style={{ maxHeight: "48px" }}
+              />
+              <Box display="flex" flexDirection="row" width="100%" gap="8px">
+                <Input
+                  label={t("common.field.name.first") + "(영문)"}
+                  value={name}
+                  setValue={setName}
+                  type="text"
+                  style={{ maxHeight: "48px" }}
+                />
+              </Box>
+              <Input
+                label={t("common.field.address.label")}
+                value={address}
+                setValue={setAddress}
+                type="text"
+                style={{ maxHeight: "48px" }}
+              />
+              <Box display="flex" flexDirection="row" width="100%" gap="8px">
+                <Input
+                  label={t("common.field.address.detail")}
+                  value={detailAddress}
+                  setValue={setDetailAddress}
+                  type="text"
+                  style={{ maxHeight: "48px" }}
+                />
+                <Input
+                  label={t("common.field.address.province")}
+                  value={province}
+                  setValue={setProvince}
+                  type="text"
+                  style={{ maxHeight: "48px" }}
+                />
+              </Box>
+              <Input
+                label={t("common.field.address.city")}
+                value={city}
+                setValue={setCity}
+                type="text"
+                style={{ maxHeight: "48px" }}
+              />
+              <Input
+                label={t("common.field.address.postal_code")}
+                value={postalCode}
+                setValue={setPostalCode}
+                type="text"
+                style={{ maxHeight: "48px" }}
+              />
+              <Box display="flex" flexDirection="row" width="100%" gap="8px">
+                <Input
+                  label="-"
+                  dataList={countryNumberList}
+                  value={countryNumber}
+                  setValue={setCountryNumber}
+                  type="select"
+                  style={{ maxHeight: "48px", width: "100px" }}
+                />
+                <Input
+                  label={t("common.field.phone.placeholder")}
+                  value={contact}
+                  setValue={setContact}
+                  type="text"
+                  style={{ maxHeight: "48px", width: "220px" }}
+                />
+              </Box>
+            </>
+          ) : (
+            <>
+              <Input
+                label={t("common.field.name.label")}
+                value={name}
+                setValue={setName}
+                type="text"
+                style={{ maxHeight: "48px" }}
+              />
+              <Input
+                label={t("common.field.address.postal_code")}
+                value={postalCode}
+                setValue={setPostalCode}
+                type="text"
+                style={{ maxHeight: "48px" }}
+              />
+              <Input
+                label={t("common.field.address.label")}
+                value={address}
+                setValue={setAddress}
+                type="text"
+                style={{ maxHeight: "48px" }}
+              />
+              <Input
+                label={t("common.field.address.detail")}
+                value={detailAddress}
+                setValue={setDetailAddress}
+                type="text"
+                style={{ maxHeight: "48px" }}
+              />
+              <Box display="flex" flexDirection="row" width="100%" gap="8px">
+                <Input
+                  label="-"
+                  dataList={countryNumberList}
+                  value={countryNumber}
+                  setValue={setCountryNumber}
+                  type="select"
+                  style={{ maxHeight: "48px", width: "100px" }}
+                />
+                <Input
+                  label={t("common.field.phone.placeholder")}
+                  value={contact}
+                  setValue={setContact}
+                  type="text"
+                  style={{ maxHeight: "48px", width: "220px" }}
+                />
+              </Box>
+            </>
+          )}
         </Box>
         {/* 배송 수단 */}
         <Box
@@ -316,30 +376,34 @@ const AddressModify = () => {
               gap: "8px",
             }}
           >
-            {method.map((item, index) => (
+            {shippingMethodList.map((item, index) => (
               <Grid2 size={6} key={index}>
                 <Button
                   fullWidth
-                  variant={addressMethod === item ? "contained" : "outlined"}
+                  variant={
+                    addressMethod === item.value ? "contained" : "outlined"
+                  }
                   onClick={() => {
-                    setAddressMethod(item);
+                    setAddressMethod(item.value);
+                    setAddressMethodLabel(item.label);
                   }}
                   style={{
                     padding: "8px 16px",
                     borderRadius: "1px",
-                    borderColor: addressMethod === item ? "#282930" : "61636C",
+                    borderColor:
+                      addressMethod === item.value ? "#282930" : "61636C",
                     backgroundColor:
-                      addressMethod === item ? "#282930" : "white",
+                      addressMethod === item.value ? "#282930" : "white",
                   }}
                 >
                   <Typography
                     fontSize={16}
                     fontWeight={700}
                     sx={{
-                      color: addressMethod === item ? "white" : "#61636C",
+                      color: addressMethod === item.value ? "white" : "#61636C",
                     }}
                   >
-                    {item}
+                    {item.label}
                   </Typography>
                 </Button>
               </Grid2>

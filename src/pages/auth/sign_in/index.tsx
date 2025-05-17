@@ -55,7 +55,7 @@ const SignIn = () => {
               "APP_MEMBER_IDENTIFICATION_CODE",
               response.data.result.user.APP_MEMBER_IDENTIFICATION_CODE
             );
-            login(response.data.result.signInResult.accessToken);
+            await login(response.data.result.signInResult.accessToken);
 
             navigate("/");
           }

@@ -55,7 +55,6 @@ const Setting = () => {
         flexDirection: "column",
         backgroundColor: "white",
         position: "relative",
-        pb: "80px",
       }}
     >
       <Header title={t("app_setting.title")} />
@@ -307,13 +306,12 @@ const Setting = () => {
       <Box
         sx={{
           position: "fixed",
-          bottom: "16px",
+          bottom: "60px",
           left: 0,
           right: 0,
           padding: "0 16px",
           display: "flex",
           justifyContent: "center",
-          zIndex: 10,
         }}
       >
         <OriginButton

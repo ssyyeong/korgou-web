@@ -147,7 +147,7 @@ const TransferMoney = () => {
           onChange={(e) => {
             setBankNumber(e.target.value);
           }}
-          placeholder={t("common.field.email.placeholder")}
+          placeholder="Account number"
         />
         <Box
           sx={{

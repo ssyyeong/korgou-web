@@ -136,7 +136,7 @@ const ProfileHeader = (props: any) => {
             mb: "16px",
           }}
         >
-          {t("buying_it.address_detail")} [A123456]
+          {t("buying_it.address_detail")} [{props.memberId}]
         </Typography>
         <Divider sx={{ borderColor: "#ECECED", mb: "16px" }} />
         <Box
@@ -333,6 +333,7 @@ const ProfileHeader = (props: any) => {
             py: "8px",
             pl: "8px",
             cursor: "pointer",
+            borderBottom: "1px solid #ECECED",
           }}
           onClick={() => navigate("/my_page/purchase")}
         >
@@ -356,6 +357,41 @@ const ProfileHeader = (props: any) => {
             >
               {props.memberBuyingItCount}
             </Typography>
+            <KeyboardArrowRightOutlinedIcon
+              sx={{
+                width: " 16px",
+                height: "16px",
+                color: "#B1B2B6",
+                alignSelf: "center",
+              }}
+            />{" "}
+          </Box>
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "space-between",
+            py: "8px",
+            pl: "8px",
+            cursor: "pointer",
+          }}
+          onClick={() => navigate("/support/notice")}
+        >
+          <Typography
+            sx={{
+              fontSize: "12px",
+            }}
+          >
+            공지사항
+          </Typography>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+            }}
+          >
             <KeyboardArrowRightOutlinedIcon
               sx={{
                 width: " 16px",
