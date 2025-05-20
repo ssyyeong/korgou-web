@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import { Avatar, Box, Divider, TextField, Typography } from "@mui/material";
 
@@ -22,7 +22,13 @@ const SignIn = () => {
   const [modalOpen, setModalOpen] = React.useState(false);
 
   const navigate = useNavigate();
-  const { login } = useAuth();
+  const { login, isAuthenticated } = useAuth();
+
+  // useEffect(() => {
+  //   if (isAuthenticated) {
+  //     navigate("/");
+  //   }
+  // }, [isAuthenticated, navigate]);
 
   // 로그인 버튼
   const handleLogin = async (e: React.FormEvent) => {
@@ -47,16 +53,18 @@ const SignIn = () => {
               setBottomModalOpen(true);
               return;
             }
-            await localStorage.setItem(
-              "ACCESS_TOKEN",
-              response.data.result.signInResult.accessToken
-            );
-            await localStorage.setItem(
-              "APP_MEMBER_IDENTIFICATION_CODE",
+            // await localStorage.setItem(
+            //   "ACCESS_TOKEN",
+            //   response.data.result.signInResult.accessToken
+            // );
+            // await localStorage.setItem(
+            //   "APP_MEMBER_IDENTIFICATION_CODE",
+            //   response.data.result.user.APP_MEMBER_IDENTIFICATION_CODE
+            // );
+            await login(
+              response.data.result.signInResult.accessToken,
               response.data.result.user.APP_MEMBER_IDENTIFICATION_CODE
             );
-            await login(response.data.result.signInResult.accessToken);
-
             navigate("/");
           }
         })
@@ -197,7 +205,7 @@ const SignIn = () => {
         </Box>
         <Divider sx={{ color: "#ECECED" }} />
       </Box>
-      <Box
+      {/* <Box
         sx={{
           display: "flex",
           flexDirection: "column",
@@ -241,7 +249,7 @@ const SignIn = () => {
               />
             }
           />
-          {/* <SocialLogin
+          <SocialLogin
             clientId={"your.apple.service.id"}
             callbackUrl={
               process.env.REACT_APP_WEB_HOST + "/auth/redirect_url/apple"
@@ -256,9 +264,9 @@ const SignIn = () => {
                 }}
               />
             }
-          /> */}
+          />
         </Box>
-      </Box>
+      </Box> */}
       <Divider
         sx={{
           width: "100%",

@@ -20,6 +20,8 @@ const useAppMember = () => {
     couponCount?: number;
     deliveryCount?: number;
     buyingItCount?: number;
+    birthday?: string;
+    cartCount?: number;
   }>({});
 
   const { accessToken, appMemberId } = useAuth();
@@ -57,6 +59,8 @@ const useAppMember = () => {
             couponCount: res.result.COUPON_COUNT || 0,
             deliveryCount: res.result.DELIVERY_COUNT || 0,
             buyingItCount: res.result.BUYING_IT_COUNT || 0,
+            birthday: res.result.BIRTHDAY || "",
+            cartCount: res.result.CART_COUNT || 0,
           });
         }
       } catch (error) {
@@ -81,6 +85,8 @@ const useAppMember = () => {
     memberCouponCount: memberData.couponCount,
     memberDeliveryCount: memberData.deliveryCount,
     memberBuyingItCount: memberData.buyingItCount,
+    memberBirthday: memberData.birthday,
+    memberCartCount: memberData.cartCount,
   };
 };
 

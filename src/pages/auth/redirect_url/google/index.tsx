@@ -35,11 +35,11 @@ const GoogleRedirect = () => {
 
         //기존 회원이 아닌 경우
         if (response.data.result.user.IS_EXIST_MEMBER === false) {
-          localStorage.setItem(
-            "ACCESS_TOKEN",
-            response.data.result.signUpResult.accessToken
-          );
-          localStorage.setItem(
+          // await localStorage.setItem(
+          //   "ACCESS_TOKEN",
+          //   response.data.result.signUpResult.accessToken
+          // );
+          await localStorage.setItem(
             "USER_DATA",
             JSON.stringify(response.data.result.user)
           );
@@ -48,17 +48,20 @@ const GoogleRedirect = () => {
           return;
         }
 
-        await localStorage.setItem(
-          "ACCESS_TOKEN",
-          response.data.result.signInResult.accessToken
-        );
+        // await localStorage.setItem(
+        //   "ACCESS_TOKEN",
+        //   response.data.result.signInResult.accessToken
+        // );
         await localStorage.setItem(
           "APP_MEMBER_IDENTIFICATION_CODE",
           response.data.result.user.APP_MEMBER_IDENTIFICATION_CODE
         );
 
         //기존 회원인 경우
-        login(response.data.result.signInResult.accessToken);
+        login(
+          response.data.result.signInResult.accessToken,
+          response.data.result.user.APP_MEMBER_IDENTIFICATION_CODE
+        );
 
         navigate("/");
       } catch (error: any) {

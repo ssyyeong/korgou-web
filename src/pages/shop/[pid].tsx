@@ -15,8 +15,10 @@ import Slider from "react-slick"; // react-slick import 추가
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import "../../assets/css/dot.css";
+
 import { useAppMember } from "../../hooks/useAppMember";
 import AlertModal from "../../components/Modal/AlertModal";
+
 const Detail = () => {
   const navigate = useNavigate();
   const { pid } = useParams();
@@ -30,11 +32,12 @@ const Detail = () => {
     slidesToShow: 1,
     slidesToScroll: 1,
     arrows: false,
-    infinite: true,
-    speed: 500,
+    infinite:
+      product?.IMAGE_LIST && JSON.parse(product?.IMAGE_LIST)?.length > 1,
     accessibility: true,
-    centerMode: true,
-    centerPadding: "40px",
+    centerMode:
+      product?.IMAGE_LIST && JSON.parse(product?.IMAGE_LIST)?.length > 1,
+    centerPadding: "10px",
     appendDots: (dots) => (
       <Box
         sx={{
@@ -91,7 +94,6 @@ const Detail = () => {
         alignItems: "center",
         height: "100%",
         mb: "130px",
-        overflow: "hidden",
         position: "relative",
       }}
     >
@@ -131,39 +133,50 @@ const Detail = () => {
           </Box>
         }
       />
-
       <Box
         sx={{
-          width: "100%",
-          padding: "16px",
+          width: "360px",
+          maxWidth: 600,
+          padding: "0 16px",
+          ".slick-slide": {
+            padding: "0", // 여백 제거
+            height: "365px",
+            "& > div": {
+              height: "100%",
+            },
+          },
+          ".slick-list": {
+            margin: "0", // 여백 제거
+          },
+          ".slick-track": {
+            display: "flex",
+            alignItems: "center",
+          },
         }}
       >
         <Slider {...setting3}>
           {product?.IMAGE_LIST &&
-            JSON.parse(product?.IMAGE_LIST)?.map((src, index) => {
-              return (
-                <Box
-                  key={index}
-                  sx={{
-                    display: "flex",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    padding: "0 8px",
+            JSON.parse(product?.IMAGE_LIST)?.map((src, index) => (
+              <Box
+                key={index}
+                sx={{
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                  height: "100%",
+                }}
+              >
+                <img
+                  src={src.FILE_URL}
+                  alt="banner"
+                  style={{
+                    objectFit: "cover",
+                    width: "360px",
+                    height: "365px",
                   }}
-                >
-                  <img
-                    src={src.FILE_URL}
-                    alt="product"
-                    style={{
-                      width: "280px",
-                      height: "365px",
-                      objectFit: "cover",
-                      borderRadius: "16px",
-                    }}
-                  />
-                </Box>
-              );
-            })}
+                />
+              </Box>
+            ))}
         </Slider>
       </Box>
       <Box

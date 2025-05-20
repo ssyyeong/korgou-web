@@ -76,6 +76,7 @@ const EmailAuth = (props: EmailAuthProps) => {
       controller
         .sendEmailVerificationCode({
           EMAIL: props.email,
+          TYPE: "SIGN_UP",
         })
         .then((response) => {
           setEncryptedEmailVerificationCode(response.data.result);

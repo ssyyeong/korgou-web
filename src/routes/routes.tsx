@@ -34,9 +34,11 @@ import NoticeDetail from "../pages/main/support/notice/detail";
 import Faq from "../pages/main/support/faq";
 import Point from "../pages/my_page/point";
 import Balance from "../pages/my_page/balance";
+import BalancePayment from "../pages/my_page/balance/payment";
 import MemberShip from "../pages/my_page/membership";
 import MemberShipDetail from "../pages/my_page/membership/detail";
 import Setting from "../pages/my_page/setting";
+import Profile from "../pages/my_page/profile";
 import Inquiry from "../pages/my_page/inquiry";
 import InquiryDetail from "../pages/my_page/inquiry/detail";
 import InquiryCreate from "../pages/my_page/inquiry/create";
@@ -59,6 +61,9 @@ import BuyingTransfer from "../pages/main/buying/transfer_money";
 import ConfirmState from "../pages/my_page/purchase/status/confirm";
 import NewArrival from "../pages/shop/new_arrival";
 import GoogleLogin from "../pages/auth/redirect_url/google";
+import History from "../pages/my_page/history";
+import Coupon from "../pages/my_page/coupon";
+
 // 조건부로 BottomNavBar를 렌더링하는 컴포넌트
 const ConditionalBottomNavBar = () => {
   const location = useLocation();
@@ -112,9 +117,11 @@ const AppRoutes = () => (
       <Route path="/my_page" element={<MyPage />} />
       <Route path="/my_page/point" element={<Point />} />
       <Route path="/my_page/balance" element={<Balance />} />
+      <Route path="/my_page/balance/payment" element={<BalancePayment />} />
       <Route path="/my_page/membership" element={<MemberShip />} />
       <Route path="/my_page/membership/detail" element={<MemberShipDetail />} />
       <Route path="/my_page/setting" element={<Setting />} />
+      <Route path="/my_page/profile" element={<Profile />} />
       <Route path="/my_page/inquiry" element={<Inquiry />} />
       <Route path="/my_page/inquiry/detail" element={<InquiryDetail />} />
       <Route path="/my_page/inquiry/create" element={<InquiryCreate />} />
@@ -125,10 +132,11 @@ const AppRoutes = () => (
       <Route path="/my_page/address" element={<Address />} />
       <Route path="/my_page/address/create" element={<AddressCreate />} />
       <Route path="/my_page/address/modify" element={<AddressModify />} />
-
       <Route path="/my_page/package" element={<Package />} />
       <Route path="/my_page/delivery" element={<Delivery />} />
       <Route path="/my_page/purchase" element={<Purchase />} />
+      <Route path="/my_page/history" element={<History />} />
+      <Route path="/my_page/coupon" element={<Coupon />} />
       <Route
         path="/my_page/purchase/status/confirm"
         element={<ConfirmState />}

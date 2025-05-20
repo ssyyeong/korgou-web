@@ -8,10 +8,12 @@ import VideoCard from "../components/Video";
 import GoToShipModal from "../components/Modal/GoToShipModal";
 import { useTranslation } from "react-i18next";
 import ControllerAbstractBase from "../controller/Controller";
-import { Image } from "@mui/icons-material";
+import { useAuth } from "../hooks/useAuth";
 
 const Home = () => {
   const { t, i18n } = useTranslation();
+
+  const { isAuthenticated } = useAuth();
 
   //메인 배너
   const [banner, setBanner] = React.useState<string>("");
@@ -23,6 +25,10 @@ const Home = () => {
   const [calculatorModalOpen, setCalculatorModalOpen] = React.useState(false);
 
   useEffect(() => {
+    getBannerList();
+  }, []);
+
+  const getBannerList = () => {
     const controller = new ControllerAbstractBase({
       modelName: "MainBanner",
       modelId: "main_banner",
@@ -35,7 +41,7 @@ const Home = () => {
         }
       });
     });
-  }, []);
+  };
 
   return (
     <Box

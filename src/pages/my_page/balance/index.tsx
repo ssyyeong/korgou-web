@@ -11,9 +11,12 @@ import OriginButton from "../../../components/Button/OriginButton";
 import FilteringDate from "../../../components/FilteringDate";
 import History from "../../../components/List/History";
 import { useTranslation } from "react-i18next";
+import { useNavigate } from "react-router-dom";
 
 const Balance = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+
   const filterings = [
     { value: "today", label: t("common.period.today") },
     { value: "7days", label: t("common.period.recent.week") },
@@ -75,6 +78,7 @@ const Balance = () => {
         sx={{
           fontSize: "14px",
           mb: "4px",
+          mt: "16px",
         }}
       >
         {t("balance.amount")}
@@ -97,7 +101,9 @@ const Balance = () => {
         <OriginButton
           fullWidth
           variant="contained"
-          onClick={() => {}}
+          onClick={() => {
+            navigate("/my_page/balance/payment");
+          }}
           contents={
             <Typography fontSize={14} color="#ffffff">
               {t("common.button.charge")}

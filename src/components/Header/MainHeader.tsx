@@ -1,30 +1,27 @@
 import React, { useEffect, useState } from "react";
-import {
-  IconButton,
-  Select,
-  MenuItem,
-  Box,
-  Typography,
-  Modal,
-  Divider,
-} from "@mui/material";
-import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
-import LanguageOutlinedIcon from "@mui/icons-material/LanguageOutlined";
-import LogoutOutlinedIcon from "@mui/icons-material/LogoutOutlined";
+import { IconButton, MenuItem, Box, Typography, Menu } from "@mui/material";
+
 import { useNavigate } from "react-router-dom";
-import { LoginOutlined } from "@mui/icons-material";
 import { useTranslation } from "react-i18next";
+
 import { useAuth } from "../../hooks/useAuth";
+import AlarmModal from "../Modal/AlarmModal";
+import SideBarModal from "../Modal/SideBarModal";
+import ControllerAbstractBase from "../../controller/Controller";
 
 // 홈 화면 헤더
 const MainHeader = () => {
   const navigate = useNavigate();
   const { i18n } = useTranslation();
+  const { isAuthenticated } = useAuth();
 
   const [isOpen, setIsOpen] = useState(false);
-  const [country, setCountry] = useState<string>("ko");
+  const [country, setCountry] = useState<string>(i18n.language || "ko");
+  const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
+  const open = Boolean(anchorEl);
 
-  const { isAuthenticated } = useAuth();
+  const [alarmOpen, setAlarmOpen] = useState(false);
+  const [alarmList, setAlarmList] = useState<any>([]);
 
   const countryList = [
     { value: "ko", label: "한국어 - KO" },
@@ -41,45 +38,64 @@ const MainHeader = () => {
     { value: "es", label: "español - ES" },
   ];
 
-  const menuStyle = {
-    display: "flex",
-    flexDirection: "row",
-    py: "10px",
-    alignItems: "center",
-    gap: "8px",
-    cursor: "pointer",
+  const getAlarmList = () => {
+    const controller = new ControllerAbstractBase({
+      modelName: "Notification",
+      modelId: "notification",
+    });
+
+    controller.findAll({}).then((res) => {
+      setAlarmList(res.result.rows);
+    });
   };
 
-  const labelStyle = {
-    fontSize: "14px",
-    fontWeight: 700,
-    color: "#282930",
-    cursor: "pointer",
+  const readAllAlarm = () => {
+    const controller = new ControllerAbstractBase({
+      modelName: "Notification",
+      modelId: "notification",
+    });
+
+    alarmList.forEach((alarm) => {
+      controller
+        .update({
+          NOTIFICATION_IDENTIFICATION_CODE:
+            alarm.NOTIFICATION_IDENTIFICATION_CODE,
+          READ_YN: "Y",
+        })
+        .then((res) => {
+          getAlarmList();
+        });
+    });
   };
 
-  const subLabelStyle = {
-    ml: "32px",
-    my: "10px",
-    fontSize: "12px",
-    color: "#282930",
-    cursor: "pointer",
-  };
+  useEffect(() => {
+    const language = i18n.language;
+    setCountry(language || "ko");
+  }, [i18n.language]);
 
   const toggleDrawer = (open: boolean) => () => {
     setIsOpen(open);
   };
 
-  const handleCountryChange = (event: any) => {
-    setCountry(event.target.value as string);
-    i18n.changeLanguage(event.target.value as string);
+  const handleClick = (event: React.MouseEvent<HTMLElement>) => {
+    setAnchorEl(event.currentTarget);
   };
 
-  useEffect(() => {
-    const language = i18n.language;
-    if (language !== "") {
-      setCountry(language);
-    }
-  }, [i18n.language]);
+  const handleClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleCountrySelect = (countryCode: string) => {
+    setCountry(countryCode);
+    i18n.changeLanguage(countryCode);
+    handleClose();
+  };
+
+  const handleCountryChange = (event: any) => {
+    const newValue = event.target.value as string;
+    setCountry(newValue);
+    i18n.changeLanguage(newValue);
+  };
 
   return (
     <Box
@@ -113,24 +129,27 @@ const MainHeader = () => {
           color="info"
           aria-label="account"
           onClick={() => {
-            navigate("/my_page");
+            if (isAuthenticated) {
+              setAlarmOpen(true);
+            } else {
+              navigate("/sign_in");
+            }
           }}
         >
           <img
-            src="/images/icon/people.svg"
+            src="/images/icon/alarm.svg"
             alt="logo"
             width={"24px"}
             height={"24px"}
           />
         </IconButton>
-        <IconButton
-          color="info"
-          aria-label="cart"
-          onClick={() => {
-            navigate("/my_page/cart");
-          }}
-        >
-          <ShoppingCartOutlinedIcon />
+        <IconButton color="info" aria-label="global" onClick={handleClick}>
+          <img
+            src="/images/icon/global.svg"
+            alt="logo"
+            width={"24px"}
+            height={"24px"}
+          />
         </IconButton>
         <IconButton color="info" aria-label="menu" onClick={toggleDrawer(true)}>
           <img
@@ -140,306 +159,69 @@ const MainHeader = () => {
             height={"24px"}
           />
         </IconButton>
+        <Menu
+          anchorEl={anchorEl}
+          open={open}
+          onClose={handleClose}
+          PaperProps={{
+            elevation: 0,
+            sx: {
+              overflow: "visible",
+              filter: "drop-shadow(0px 2px 8px rgba(0,0,0,0.32))",
+              mt: 1.5,
+              "& .MuiMenuItem-root": {
+                padding: "10px 16px",
+                fontSize: "14px",
+                "&:hover": {
+                  backgroundColor: "#f5f5f5",
+                },
+                "&.Mui-selected": {
+                  backgroundColor: "#e3f2fd",
+                  "&:hover": {
+                    backgroundColor: "#e3f2fd",
+                  },
+                },
+              },
+            },
+          }}
+          transformOrigin={{ horizontal: "center", vertical: "top" }}
+          anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
+          sx={{
+            "& .MuiPaper-root": {
+              marginLeft: "-10px",
+              marginTop: "8px",
+            },
+          }}
+        >
+          {countryList.map((countryItem) => (
+            <MenuItem
+              key={countryItem.value}
+              onClick={() => handleCountrySelect(countryItem.value)}
+              selected={countryItem.value === country}
+            >
+              <Typography sx={{ fontSize: "14px" }}>
+                {countryItem.label}
+              </Typography>
+            </MenuItem>
+          ))}
+        </Menu>
         {/* side bar */}
-        <Modal open={isOpen} onClose={toggleDrawer(false)}>
-          <Box
-            sx={{
-              position: "absolute",
-              top: "50%",
-              left: "55%",
-              transform: "translate(-50%, -50%)",
-              width: 180,
-              height: "100%",
-              bgcolor: "white",
-              borderTopLeftRadius: 50,
-              borderBottomLeftRadius: 50,
-              pt: "20px",
-              pb: "20px",
-              px: "16px",
-            }}
-          >
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                alignItems: "center",
-                py: "19px",
-                px: "15px",
-              }}
-            >
-              <img
-                src="/images/logo/logo.svg"
-                alt="logo"
-                width={"81px"}
-                height={"17px"}
-              />
-              <img
-                src="/images/icon/side_bar/side_bar_dark.svg"
-                alt="logo"
-                width={"24px"}
-                height={"24px"}
-                style={{ cursor: "pointer", marginLeft: "auto" }}
-                onClick={toggleDrawer(false)}
-              />
-            </Box>
-
-            {/* 나라 선택 */}
-            <Select
-              value={country}
-              onChange={handleCountryChange}
-              fullWidth
-              sx={{
-                height: "40px",
-                mb: "16px",
-              }}
-            >
-              {countryList.map((item) => (
-                <MenuItem value={item.value}>
-                  <Box
-                    sx={{
-                      display: "flex",
-                      alignItems: "center",
-                      flexDirection: "row",
-                    }}
-                  >
-                    <LanguageOutlinedIcon
-                      style={{
-                        width: "24px",
-                        height: "24px",
-                      }}
-                    />
-                    <Typography
-                      variant="body1"
-                      sx={{ ml: 1, color: "#282930" }}
-                    >
-                      {item.label}
-                    </Typography>
-                  </Box>
-                </MenuItem>
-              ))}
-            </Select>
-            <Divider
-              sx={{
-                color: "#ECECED",
-                position: "fixed",
-                width: "100%",
-                left: 0,
-              }}
-            />
-
-            {/* 메뉴 리스트 */}
-            <Box
-              sx={[menuStyle, { mt: "16px" }]}
-              onClick={() => {
-                navigate("/ship");
-              }}
-            >
-              <img
-                src="/images/icon/side_bar/ship.svg"
-                alt="logo"
-                width={24}
-                height={24}
-              />
-              <Typography sx={labelStyle}>Go To Ship</Typography>
-            </Box>
-            <Box
-              sx={menuStyle}
-              onClick={() => {
-                navigate("/buying");
-              }}
-            >
-              <img
-                src="/images/icon/side_bar/note.svg"
-                alt="logo"
-                width={24}
-                height={24}
-              />
-              <Typography sx={labelStyle}>Buying it</Typography>
-            </Box>
-            <Box
-              sx={menuStyle}
-              onClick={() => {
-                navigate("/service");
-              }}
-            >
-              <img
-                src="/images/icon/side_bar/service.svg"
-                alt="logo"
-                width={24}
-                height={24}
-              />
-              <Typography sx={labelStyle}>Service</Typography>
-            </Box>
-            <Box
-              sx={menuStyle}
-              onClick={() => {
-                navigate("/price");
-              }}
-            >
-              <img
-                src="/images/icon/side_bar/tag.svg"
-                alt="logo"
-                width={24}
-                height={24}
-              />
-              <Typography sx={labelStyle}>Price</Typography>
-            </Box>
-            <Box sx={menuStyle}>
-              <img
-                src="/images/icon/side_bar/shop.svg"
-                alt="logo"
-                width={24}
-                height={24}
-              />
-              <Typography sx={labelStyle}>Shop</Typography>
-            </Box>
-            <Box sx={menuStyle}>
-              <img
-                src="/images/icon/side_bar/blog.svg"
-                alt="logo"
-                width={24}
-                height={24}
-              />
-              <Typography sx={labelStyle}>BLOG</Typography>
-            </Box>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-              }}
-            >
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "row",
-                  alignItems: "center",
-                  py: "6px",
-                  gap: "8px",
-                }}
-              >
-                <img
-                  src="/images/icon/side_bar/headset.svg"
-                  alt="logo"
-                  width={24}
-                  height={24}
-                />
-                <Typography
-                  sx={labelStyle}
-                  onClick={() => {
-                    navigate("/support");
-                  }}
-                >
-                  Support
-                </Typography>
-              </Box>
-
-              <Typography
-                sx={subLabelStyle}
-                onClick={() => {
-                  navigate("/support/notice");
-                }}
-              >
-                Notice
-              </Typography>
-              <Typography
-                sx={subLabelStyle}
-                onClick={() => {
-                  navigate("/support/contact");
-                }}
-              >
-                Contact US
-              </Typography>
-              <Typography
-                sx={subLabelStyle}
-                onClick={() => {
-                  navigate("/support/faq");
-                }}
-              >
-                FAQ
-              </Typography>
-            </Box>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                py: "10px",
-                alignItems: "center",
-                gap: "8px",
-              }}
-            >
-              <img
-                src="/images/icon/side_bar/comment.svg"
-                alt="logo"
-                width={24}
-                height={24}
-              />
-              <Typography sx={labelStyle}>Review</Typography>
-            </Box>
-            <Divider
-              sx={{
-                color: "#ECECED",
-                width: "100%",
-                my: "16px",
-              }}
-            />
-
-            {/* 로그아웃 버튼 */}
-            {isAuthenticated ? (
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "row",
-                  alignItems: "center",
-                  py: "6px",
-                  cursor: "pointer",
-                }}
-                onClick={async () => {
-                  await localStorage.removeItem("ACCESS_TOKEN");
-                  await localStorage.removeItem(
-                    "APP_MEMBER_IDENTIFICATION_CODE"
-                  );
-                  setIsOpen(false);
-                  navigate("/sign_in");
-                }}
-              >
-                <LogoutOutlinedIcon color="info" />
-                <Typography
-                  sx={{
-                    fontSize: "16px",
-                    color: "#282930",
-                    ml: "8px",
-                  }}
-                >
-                  Logout
-                </Typography>
-              </Box>
-            ) : (
-              <Box
-                sx={{
-                  display: "flex",
-                  flexDirection: "row",
-                  alignItems: "center",
-                  py: "6px",
-                  cursor: "pointer",
-                }}
-                onClick={async () => {
-                  navigate("/sign_in");
-                }}
-              >
-                <LoginOutlined color="info" />
-                <Typography
-                  sx={{
-                    fontSize: "16px",
-                    color: "#282930",
-                    ml: "8px",
-                  }}
-                >
-                  LogIn
-                </Typography>
-              </Box>
-            )}
-          </Box>
-        </Modal>
+        <SideBarModal
+          open={isOpen}
+          toggleDrawer={toggleDrawer}
+          country={country}
+          handleCountryChange={handleCountryChange}
+          countryList={countryList}
+          isAuthenticated={isAuthenticated}
+          navigate={navigate}
+        />
+        {/* 알림 모달 */}
+        <AlarmModal
+          open={alarmOpen}
+          onClose={() => setAlarmOpen(false)}
+          alarmList={alarmList}
+          readAll={readAllAlarm}
+        />
       </Box>
     </Box>
   );

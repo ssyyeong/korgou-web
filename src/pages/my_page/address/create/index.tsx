@@ -52,6 +52,8 @@ const AddressCreate = () => {
           });
         });
         setShippingMethodList(list);
+        setAddressMethod(list[0].value);
+        setAddressMethodLabel(list[0].label);
       });
   }, []);
 
@@ -84,7 +86,7 @@ const AddressCreate = () => {
       });
       return;
     }
-
+    console.log(addressMethodLabel);
     controller
       .create({
         APP_MEMBER_IDENTIFICATION_CODE: memberCode,

@@ -321,7 +321,57 @@ const BuyingCreate: React.FC = () => {
       >
         {t("buying_it.address")}
       </Typography>
-      <RadioGroup value={"warehouse"} onChange={(e) => {}}>
+      <RadioGroup
+        value={"warehouse"}
+        onChange={(e) => {}}
+        sx={{ flexDirection: "row", gap: 2 }}
+      >
+        <FormControlLabel
+          value="domestic"
+          control={
+            <Radio
+              style={{
+                color: "#3966AE",
+                marginBottom: "30px",
+              }}
+            />
+          }
+          label={
+            <Box>
+              <Typography
+                sx={{ fontSize: "16px", color: "#282930", mb: "4px" }}
+              >
+                <strong>국내배송</strong>
+              </Typography>
+              <Typography sx={{ fontSize: "14px", color: "#282930" }}>
+                국내 주소로 배송받기
+              </Typography>
+            </Box>
+          }
+        />
+        <FormControlLabel
+          value="overseas"
+          control={
+            <Radio
+              style={{
+                color: "#3966AE",
+                marginBottom: "30px",
+              }}
+            />
+          }
+          label={
+            <Box>
+              <Typography
+                sx={{ fontSize: "16px", color: "#282930", mb: "4px" }}
+              >
+                <strong>해외배송</strong>
+              </Typography>
+              <Typography sx={{ fontSize: "14px", color: "#282930" }}>
+                해외 주소로 배송받기
+              </Typography>
+            </Box>
+          }
+        />
         <FormControlLabel
           value="warehouse"
           control={

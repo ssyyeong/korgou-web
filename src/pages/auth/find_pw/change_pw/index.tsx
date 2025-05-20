@@ -22,6 +22,8 @@ const ChangePw = () => {
       modelName: "AppMember",
       modelId: "app_member",
     });
+    console.log(email);
+    console.log(password);
 
     appMemberController
       .changePasswordByEmail({

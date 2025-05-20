@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Box, Typography, CircularProgress } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import ProfileHeader from "../../components/Header/ProfileHeader";
 
 import KeyboardArrowRightOutlinedIcon from "@mui/icons-material/KeyboardArrowRightOutlined";
@@ -7,15 +7,14 @@ import { useNavigate } from "react-router-dom";
 import { useAppMember } from "../../hooks/useAppMember";
 import { useAuth } from "../../hooks/useAuth";
 import { useTranslation } from "react-i18next";
+import ControllerAbstractBase from "../../controller/Controller";
 
 const MyPage = () => {
   const { t } = useTranslation();
-  const [alarmModalOpen, setAlarmModalOpen] = React.useState(false);
+  const [alarmList, setAlarmList] = useState<any[]>([]);
   const navigate = useNavigate();
 
-  const { isAuthenticated } = useAuth();
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState<string | null>(null);
+  const { isAuthenticated, loading } = useAuth();
 
   const {
     memberId,
@@ -27,15 +26,21 @@ const MyPage = () => {
     memberCouponCount,
     memberDeliveryCount,
     memberBuyingItCount,
+    memberCartCount,
   } = useAppMember();
 
   useEffect(() => {
-    if (!isAuthenticated) {
+    if (!loading && !isAuthenticated) {
       navigate("/sign_in");
     }
-  }, [isAuthenticated, navigate]);
+  }, [isAuthenticated, loading, navigate]);
 
   const list = [
+    {
+      path: "/images/icon/my_page/store.svg",
+      title: "취소/반품/교환내역",
+      pathName: "/my_page/history",
+    },
     {
       path: "/images/icon/my_page/location.svg",
       title: t("my_page.delivery_address"),
@@ -63,6 +68,38 @@ const MyPage = () => {
     },
   ];
 
+  const getAlarmList = () => {
+    const controller = new ControllerAbstractBase({
+      modelName: "Notification",
+      modelId: "notification",
+    });
+
+    controller.findAll({}).then((res) => {
+      setAlarmList(res.result.rows);
+    });
+  };
+
+  const readAllAlarm = () => {
+    const controller = new ControllerAbstractBase({
+      modelName: "Notification",
+      modelId: "notification",
+    });
+
+    alarmList.forEach((alarm) => {
+      controller
+        .update({
+          NOTIFICATION_IDENTIFICATION_CODE:
+            alarm.NOTIFICATION_IDENTIFICATION_CODE,
+          READ_YN: "Y",
+        })
+        .then((res) => {
+          getAlarmList();
+        });
+    });
+  };
+
+  if (loading) return null;
+
   return (
     <Box
       sx={{
@@ -73,7 +110,7 @@ const MyPage = () => {
         backgroundColor: "white",
         position: "absolute",
         top: 0,
-        pb: "30px",
+        pb: "100px",
       }}
     >
       {memberId && (
@@ -87,6 +124,9 @@ const MyPage = () => {
           memberCouponCount={memberCouponCount}
           memberDeliveryCount={memberDeliveryCount}
           memberBuyingItCount={memberBuyingItCount}
+          alarmList={alarmList}
+          readAllAlarm={readAllAlarm}
+          memberCartCount={memberCartCount}
         />
       )}
 

@@ -25,6 +25,9 @@ import Item from "./item";
 import ControllerAbstractBase from "../../controller/Controller";
 
 const Shop = () => {
+  //알림 목록
+  const [alarmList, setAlarmList] = React.useState<any>([]);
+
   const settings = {
     dots: true,
     infinite: false,
