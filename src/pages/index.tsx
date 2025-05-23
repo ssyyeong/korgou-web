@@ -170,12 +170,14 @@ const Home = () => {
         <VideoCard
           thumbnailUrl="/images/main/video.svg"
           videoId="ZbhaV3_Wqr8"
-          title={t("main.package_forward_guide")}
+          title={"Guide for Package Forwarding"}
+          playButtonColor="#4f7596"
         />
         <VideoCard
-          thumbnailUrl="/images/main/video2.svg"
+          thumbnailUrl="/images/main/video1.svg"
           videoId="iSV-j7e6_dQ"
-          title={t("main.assisted_purchase_guide")}
+          title={"Guide for Assisted Purchase"}
+          playButtonColor="#ab742e"
         />
         <img src="/images/main/box3.svg" alt="logo" />
         <img src="/images/main/box4.svg" alt="logo" />
