@@ -8,9 +8,9 @@ import {
 
 // 페이지 컴포넌트들
 import Home from "../pages";
-import Service from "../pages/main/service";
-import Ship from "../pages/main/ship";
-import Buying from "../pages/main/buying";
+import Service from "../pages/main/sidebar/service";
+import Ship from "../pages/main/sidebar/ship";
+import Buying from "../pages/main/sidebar/buying_it";
 import SignIn from "../pages/auth/sign_in";
 import SignUp from "../pages/auth/sign_up";
 import SignUpCompany from "../pages/auth/sign_up/company";
@@ -53,7 +53,7 @@ import Purchase from "../pages/my_page/purchase";
 import BottomNavBar from "../components/\bnavigation";
 import AddressModify from "../pages/my_page/address/modify";
 import AddressCreate from "../pages/my_page/address/create";
-import Price from "../pages/main/price";
+import Price from "../pages/main/sidebar/price";
 import BuyingCreate from "../pages/main/buying/create";
 import BuyingSubmit from "../pages/main/buying/submit";
 import BuyingType from "../pages/main/buying/type";
@@ -80,18 +80,17 @@ const AppRoutes = () => (
       {/* Public Routes */}
       {/* Protected Routes: 로그인 필요 */}
       <Route path="/" element={<Home />} />
-
+      {/* 검색 페이지 */}
       <Route path="/search" element={<Search />} />
+      {/* 스토어 페이지 */}
       <Route path="/store" element={<Store />} />
-      <Route path="/ship" element={<Ship />} />
-      <Route path="/buying" element={<Buying />} />
+      {/* 구매 페이지 */}
+
+      {/* 메인 페이지 */}
       <Route path="/buying/type" element={<BuyingType />} />
       <Route path="/buying/create" element={<BuyingCreate />} />
       <Route path="/buying/submit" element={<BuyingSubmit />} />
       <Route path="/buying/transfer_money" element={<BuyingTransfer />} />
-
-      <Route path="/service" element={<Service />} />
-      <Route path="/price" element={<Price />} />
       <Route path="/support" element={<Support />} />
       <Route path="/support/contact" element={<Contacts />} />
       <Route path="/support/notice" element={<Notice />} />
@@ -103,6 +102,12 @@ const AppRoutes = () => (
       <Route path="/shop/attendance" element={<Attendance />} />
       <Route path="/shop/hot_deal" element={<HotDeal />} />
       <Route path="/shop/new_arrival" element={<NewArrival />} />
+      {/* 사이드바 설명 페이지 */}
+      <Route path="/ship" element={<Ship />} />
+      <Route path="/buying" element={<Buying />} />
+      <Route path="/service" element={<Service />} />
+      <Route path="/price" element={<Price />} />
+
       {/* 인증 관련 Public Routes */}
       <Route path="/sign_in" element={<SignIn />} />
       <Route path="/sign_up" element={<SignUp />} />
@@ -113,7 +118,7 @@ const AppRoutes = () => (
       <Route path="/find_pw/change_pw" element={<ChangePw />} />
       <Route path="/find_pw/success" element={<PasswordSuccess />} />
       <Route path="/auth/redirect_url/google" element={<GoogleLogin />} />
-
+      {/* 마이페이지 */}
       <Route path="/my_page" element={<MyPage />} />
       <Route path="/my_page/point" element={<Point />} />
       <Route path="/my_page/balance" element={<Balance />} />

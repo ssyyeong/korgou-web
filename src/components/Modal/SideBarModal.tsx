@@ -53,11 +53,11 @@ const SideBarModal: React.FC<SideBarModalProps> = ({
   };
 
   const subLabelStyle = {
-    ml: "32px",
-    my: "10px",
     fontSize: "12px",
     color: "#282930",
     cursor: "pointer",
+    lineHeight: "130%",
+    fontWeight: 500,
   };
 
   return (
@@ -156,7 +156,7 @@ const SideBarModal: React.FC<SideBarModalProps> = ({
           }}
         >
           <img
-            src="/images/icon/side_bar/ship.svg"
+            src="/images/icon/side_bar/go_to_ship.svg"
             alt="logo"
             width={24}
             height={24}
@@ -170,7 +170,7 @@ const SideBarModal: React.FC<SideBarModalProps> = ({
           }}
         >
           <img
-            src="/images/icon/side_bar/note.svg"
+            src="/images/icon/side_bar/buing_it.svg"
             alt="logo"
             width={24}
             height={24}
@@ -198,12 +198,26 @@ const SideBarModal: React.FC<SideBarModalProps> = ({
           }}
         >
           <img
-            src="/images/icon/side_bar/tag.svg"
+            src="/images/icon/side_bar/price.svg"
             alt="logo"
             width={24}
             height={24}
           />
           <Typography sx={labelStyle}>Price</Typography>
+        </Box>
+        <Box
+          sx={menuStyle}
+          onClick={() => {
+            navigate("/membership");
+          }}
+        >
+          <img
+            src="/images/icon/side_bar/membership.svg"
+            alt="logo"
+            width={24}
+            height={24}
+          />
+          <Typography sx={labelStyle}>Membership</Typography>
         </Box>
         <Box
           sx={menuStyle}
@@ -226,7 +240,7 @@ const SideBarModal: React.FC<SideBarModalProps> = ({
             width={24}
             height={24}
           />
-          <Typography sx={labelStyle}>BLOG</Typography>
+          <Typography sx={labelStyle}>Blog</Typography>
         </Box>
         <Box
           sx={{
@@ -244,7 +258,7 @@ const SideBarModal: React.FC<SideBarModalProps> = ({
             }}
           >
             <img
-              src="/images/icon/side_bar/headset.svg"
+              src="/images/icon/side_bar/support.svg"
               alt="logo"
               width={24}
               height={24}
@@ -259,48 +273,92 @@ const SideBarModal: React.FC<SideBarModalProps> = ({
             </Typography>
           </Box>
 
-          <Typography
-            sx={subLabelStyle}
-            onClick={() => {
-              navigate("/support/notice");
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              gap: "8px",
+              ml: "32px",
+              my: "10px",
             }}
           >
-            Notice
-          </Typography>
-          <Typography
-            sx={subLabelStyle}
-            onClick={() => {
-              navigate("/support/contact");
+            <img
+              src="/images/icon/side_bar/ellipse.svg"
+              alt="logo"
+              width={5}
+              height={5}
+            />
+            <Typography
+              sx={subLabelStyle}
+              onClick={() => {
+                navigate("/support/faq");
+              }}
+            >
+              FAQ
+            </Typography>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              gap: "8px",
+              ml: "32px",
+              my: "10px",
             }}
           >
-            Contact US
-          </Typography>
-          <Typography
-            sx={subLabelStyle}
-            onClick={() => {
-              navigate("/support/faq");
+            <img
+              src="/images/icon/side_bar/ellipse.svg"
+              alt="logo"
+              width={5}
+              height={5}
+            />
+            <Typography
+              sx={subLabelStyle}
+              onClick={() => {
+                navigate("/support/contact");
+              }}
+            >
+              Contact US
+            </Typography>
+          </Box>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              gap: "8px",
+              ml: "32px",
+              my: "10px",
             }}
           >
-            FAQ
-          </Typography>
+            <img
+              src="/images/icon/side_bar/ellipse.svg"
+              alt="logo"
+              width={5}
+              height={5}
+            />
+            <Typography
+              sx={subLabelStyle}
+              onClick={() => {
+                navigate("/support/notice");
+              }}
+            >
+              Notice
+            </Typography>
+          </Box>
         </Box>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            py: "10px",
-            alignItems: "center",
-            gap: "8px",
-          }}
-        >
+        <Box sx={menuStyle}>
           <img
-            src="/images/icon/side_bar/comment.svg"
+            src="/images/icon/side_bar/review.svg"
             alt="logo"
             width={24}
             height={24}
           />
           <Typography sx={labelStyle}>Review</Typography>
         </Box>
+
         <Divider
           sx={{
             color: "#ECECED",

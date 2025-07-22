@@ -7,7 +7,9 @@ interface IBottomModalProps {
   handleClose: (reason: any) => void;
   title: any;
   btnText: string;
+  btnText2?: string;
   btnClick: () => void;
+  btnClick2?: () => void;
 }
 
 const BottomModal = (props: IBottomModalProps) => {
@@ -38,7 +40,7 @@ const BottomModal = (props: IBottomModalProps) => {
         <OriginButton
           fullWidth
           variant="contained"
-          color="#2E2F37"
+          color="primary"
           onClick={() => {
             props.btnClick();
           }}
@@ -47,8 +49,28 @@ const BottomModal = (props: IBottomModalProps) => {
               {props.btnText}
             </Typography>
           }
-          style={{ marginTop: "32px", width: "328px" }}
+          style={{
+            marginTop: "32px",
+            width: "328px",
+            borderRadius: "5px",
+          }}
         />
+        {props.btnText2 && (
+          <OriginButton
+            fullWidth
+            variant="contained"
+            color="#F5F5F5"
+            onClick={() => {
+              props.btnClick2();
+            }}
+            contents={
+              <Typography fontSize={16} fontWeight={700} color="#282930">
+                {props.btnText2}
+              </Typography>
+            }
+            style={{ marginTop: "11px", width: "328px", borderRadius: "5px" }}
+          />
+        )}
       </Box>
     </Modal>
   );

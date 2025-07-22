@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import { Box, Typography, TextField } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { useLocation, useNavigate } from "react-router-dom";
 import OriginButton from "../../../../components/Button/OriginButton";
 import Header from "../../../../components/Header/Header";
 import { useTranslation } from "react-i18next";
 import AppMemberController from "../../../../controller/AppMemberController";
-import TextFieldCustom from "../../../../components/TextField";
+import PasswordInput from "../../../../components/Input/PasswordInput";
 // 비밀번호 변경 페이지
 const ChangePw = () => {
   const navigate = useNavigate();
@@ -22,8 +22,6 @@ const ChangePw = () => {
       modelName: "AppMember",
       modelId: "app_member",
     });
-    console.log(email);
-    console.log(password);
 
     appMemberController
       .changePasswordByEmail({
@@ -42,14 +40,14 @@ const ChangePw = () => {
     <Box
       sx={{
         display: "flex",
-        width: "100%",
-        height: "100%",
-        alignItems: "center",
-        justifyContent: "center",
         flexDirection: "column",
+        justifyContent: "space-between", // 상단-하단 공간 분리
+        width: "100%",
+        height: "100vh", // 화면 전체 높이 사용
+        alignItems: "center",
+        boxSizing: "border-box",
       }}
     >
-      <Header title={t("auth.change_password.title")} />
       {/* 상단 콘텐츠 */}
       <Box
         sx={{
@@ -58,68 +56,114 @@ const ChangePw = () => {
           width: "100%",
         }}
       >
-        {/* 비밀번호 입력 */}
-        <Typography
+        <Header title="비밀번호 변경" />
+        <Box
           sx={{
-            fontSize: "14px",
-            fontWeight: 500,
-            color: "#333",
-            marginBottom: "8px",
-            marginTop: "20px",
+            display: "flex",
+            flexDirection: "column",
+            width: "100%",
           }}
         >
-          {t("auth.change_password.title")}
-        </Typography>
-        <TextFieldCustom
-          fullWidth
-          value={password}
-          type="password"
-          onChange={(e) => {
-            setPassword(e.target.value);
-          }}
-          sx={{ mb: "10px" }}
-          placeholder={t("common.field.password.placeholder")}
-          error={password.length < 7 && password.length > 0}
-          helperText={
-            password.length < 7 && password.length > 0
-              ? t("common.field.password.error")
-              : ""
-          }
-        />
-        <TextFieldCustom
-          fullWidth
-          value={rePassword}
-          type="password"
-          onChange={(e) => {
-            setRePassword(e.target.value);
-          }}
-          placeholder={t("common.field.password.confirm.placeholder")}
-          error={rePassword !== password}
-          helperText={
-            rePassword !== password ? t("common.field.password.error") : ""
-          }
-        />
+          <Typography
+            sx={{
+              fontSize: "30px",
+              fontWeight: 700,
+              mt: "50px",
+              color: "#282930",
+              lineHeight: "130%",
+              letterSpacing: "-0.9px",
+            }}
+          >
+            새로운 비밀번호를
+            <br />
+            입력해주세요.
+          </Typography>
+          <Typography
+            sx={{
+              fontSize: "14px",
+              fontWeight: 700,
+              color: "#A7AAB1",
+              mt: "15px",
+              mb: "50px",
+              lineHeight: "140%",
+              letterSpacing: "-0.14px",
+            }}
+          >
+            비밀번호는 8~20자의 영문 대문자, 소문자, 숫자
+            <br /> 특수문자 중 3가지 이상을 조합하여 설정해주세요.
+          </Typography>
 
-        {/* 변경하기 버튼 */}
-        <OriginButton
-          fullWidth
-          variant="contained"
-          onClick={() => {
-            chagnePassword();
-          }}
-          contents={
-            <Typography fontSize={16} sx={{ color: "white", fontWeight: 700 }}>
-              {t("auth.change_password.change_password")}
-            </Typography>
-          }
-          style={{
-            padding: "12px 0",
-            backgroundColor: "#3F6CBF", // 버튼 색상
-            borderRadius: "4px",
-            marginTop: "20px",
-          }}
-        />
+          {/* 첫 번째 비밀번호 입력 필드 */}
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+            }}
+          >
+            <PasswordInput
+              value={password}
+              onChange={setPassword}
+              placeholder="새로운 비밀번호"
+              helperText={
+                password && password.length >= 8 ? "안전한 비밀번호입니다." : ""
+              }
+              sx={{
+                backgroundColor: "#ECECEC",
+              }}
+            />
+          </Box>
+
+          {/* 두 번째 비밀번호 입력 필드 */}
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              mt: "16px",
+            }}
+          >
+            <PasswordInput
+              value={rePassword}
+              onChange={setRePassword}
+              placeholder="새로운 비밀번호 확인"
+              error={rePassword !== password && rePassword.length > 0}
+              helperText={
+                rePassword !== password && rePassword.length > 0
+                  ? "비밀번호가 일치하지 않습니다."
+                  : ""
+              }
+            />
+          </Box>
+        </Box>
       </Box>
+
+      {/* 하단 버튼 */}
+
+      <OriginButton
+        fullWidth
+        variant="contained"
+        onClick={() => {
+          chagnePassword();
+        }}
+        contents={
+          <Typography
+            sx={{
+              fontSize: "16px",
+              fontWeight: 600,
+              color: "white",
+            }}
+          >
+            변경하기
+          </Typography>
+        }
+        style={{
+          backgroundColor: "#3966AE",
+          borderRadius: "8px",
+          mb: "32px",
+          "&:hover": {
+            backgroundColor: "#3966AE",
+          },
+        }}
+      />
     </Box>
   );
 };

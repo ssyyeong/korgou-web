@@ -1,5 +1,4 @@
-import { Box, IconButton, Modal, Typography } from "@mui/material";
-import CloseOutlinedIcon from "@mui/icons-material/CloseOutlined";
+import { Box, Modal, Typography } from "@mui/material";
 
 import OriginButton from "../Button/OriginButton";
 import { useNavigate } from "react-router-dom";
@@ -29,25 +28,27 @@ const BuyingModal = (props: IGoToShipModalProps) => {
           pt: "20px",
           pb: "32px",
           px: "16px",
-          backgroundColor: "#F4D8E7",
+          backgroundColor: "#EBEFFA",
         }}
       >
-        <IconButton
+        <img
           onClick={() => props.setGoToShipModalOpen(false)}
-          sx={{
+          src="/images/icon/close_square.svg"
+          alt="close"
+          style={{
             width: "24px",
             height: "24px",
             alignSelf: "flex-end",
+            cursor: "pointer",
           }}
-        >
-          <CloseOutlinedIcon />
-        </IconButton>
+        />
 
-        <img src="/images/main/go_to_ship.svg" alt="service" />
+        <img src="/images/main/go_to_ship_modal.svg" alt="service" />
 
         <OriginButton
           fullWidth
           variant="contained"
+          color="#0E195B"
           onClick={() => {
             if (!isAuthenticated) {
               navigator("/sign_in");
@@ -60,7 +61,7 @@ const BuyingModal = (props: IGoToShipModalProps) => {
               Submit Order
             </Typography>
           }
-          style={{ padding: "16px 8px", mt: "16px" }}
+          style={{ mt: "16px" }}
         />
       </Box>
     </Modal>

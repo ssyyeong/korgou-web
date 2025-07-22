@@ -108,8 +108,9 @@ const SignUpCompany = () => {
       PRODUCT_TYPE: string;
       URL: string;
       CHANNEL: string;
-      INTRODUCE_FILE: string;
-      BUSINESS_REGISTRATION_FILE: string;
+      INTRODUCTION: string;
+      BANK_STATEMENT: string;
+      BUSINESS_REGISTRATION_CERTIFICATE: string;
       MEMBER_TYPE: string;
       TERMS_YN: string;
       PERSONAL_YN: string;
@@ -123,8 +124,9 @@ const SignUpCompany = () => {
       PRODUCT_TYPE: productType,
       URL: url,
       CHANNEL: channel,
-      INTRODUCE_FILE: JSON.stringify(introduceFile),
-      BUSINESS_REGISTRATION_FILE: JSON.stringify(businessRegistrationFile),
+      INTRODUCTION: introduceFile.FILE_URL,
+      BANK_STATEMENT: bankStatementFile.FILE_URL,
+      BUSINESS_REGISTRATION_CERTIFICATE: businessRegistrationFile.FILE_URL,
       MEMBER_TYPE: "COMPANY",
       TERMS_YN: isAgree1 ? "Y" : "N",
       PERSONAL_YN: isAgree2 ? "Y" : "N",
@@ -143,7 +145,6 @@ const SignUpCompany = () => {
       modelName: "AppMember",
       modelId: "app_member",
     });
-
     const response = await controller.signUp(data);
     if (response.data.status === 200) {
       navigate("/sign_up/success", {

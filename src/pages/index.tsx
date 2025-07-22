@@ -1,8 +1,8 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Divider, Typography } from "@mui/material";
 import React, { useEffect } from "react";
 import MainHeader from "../components/Header/MainHeader";
 import CalculatorModal from "../components/Modal/CalculatorModal";
-import BuyingModal from "../components/Modal/BuyingModal";
+import BuyingItModal from "../components/Modal/BuyingItModal";
 import SocialLink from "../components/SocialLink";
 import VideoCard from "../components/Video";
 import GoToShipModal from "../components/Modal/GoToShipModal";
@@ -76,7 +76,7 @@ const Home = () => {
           }}
         >
           <img
-            src="/images/main/go_to_ship_modal.svg"
+            src="/images/main/go_to_ship_btn.svg"
             alt="arrow"
             width={"119px"}
             height={"48px"}
@@ -84,7 +84,7 @@ const Home = () => {
             onClick={() => setGoToShipModalOpen(true)}
           />
           <img
-            src="/images/main/buying_it_modal.svg"
+            src="/images/main/buying_it_btn.svg"
             alt="arrow"
             width={"119px"}
             height={"48px"}
@@ -131,11 +131,11 @@ const Home = () => {
           }}
         />
       </Box>
+      {/* Step-by-step Essentials */}
       <Box
         sx={{
           display: "flex",
           flexDirection: "column",
-          justifyContent: "center",
           alignItems: "center",
         }}
       >
@@ -179,11 +179,100 @@ const Home = () => {
           title={"Guide for Assisted Purchase"}
           playButtonColor="#ab742e"
         />
-        <img src="/images/main/box3.svg" alt="logo" />
-        <img src="/images/main/box4.svg" alt="logo" />
-        <SocialLink mt="50px" />
-        <img src="/images/main/box6.svg" alt="logo" />
       </Box>
+      {/* Advantages */}
+      <img src="/images/main/advantages.svg" alt="logo" />
+      {/* Service */}
+      <img src="/images/main/service.svg" alt="logo" />
+      {/* Use of the service */}
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          padding: "50px 16px",
+          backgroundColor: "#F5F5F5",
+          width: "100%",
+        }}
+      >
+        <Typography
+          sx={{
+            fontSize: "24px",
+            fontWeight: 700,
+            color: "#282930",
+            lineHeight: "130%",
+            letterSpacing: "-0.24px",
+            textAlign: "center",
+          }}
+        >
+          Use of the service
+        </Typography>
+        <Typography
+          sx={{
+            fontSize: "14px",
+            fontWeight: 500,
+            color: "#61636C",
+            lineHeight: "130%",
+            letterSpacing: "-0.14px",
+            textAlign: "center",
+          }}
+        >
+          What are our customers saying?
+        </Typography>
+      </Box>
+      <Divider
+        sx={{
+          width: "100%",
+          color: "EBF0F7",
+          my: "50px",
+        }}
+      />
+      {/* KorGou Official */}
+
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          width: "100%",
+          gap: "4px",
+        }}
+      >
+        <Typography
+          sx={{
+            fontSize: "24px",
+            fontWeight: 700,
+            color: "#282930",
+            lineHeight: "130%",
+            letterSpacing: "-0.24px",
+          }}
+        >
+          KorGou Official
+        </Typography>
+        <Typography
+          sx={{
+            fontSize: "14px",
+            fontWeight: 500,
+            color: "#919298",
+            lineHeight: "130%",
+            letterSpacing: "-0.14px",
+          }}
+        >
+          Follow our social media channels to enjoy a variety
+          <br /> of K-entertainment and learn more about
+          <br />
+          our services!
+        </Typography>
+        <img
+          src="/images/main/thumbnail.svg"
+          alt="thumbnail"
+          style={{
+            width: "100%",
+            height: "auto",
+          }}
+        />
+      </Box>
+      <SocialLink mt="50px" />
+      <img src="/images/main/box6.svg" alt="logo" />
 
       {/* Go To Ship 모달 */}
       <GoToShipModal
@@ -191,7 +280,7 @@ const Home = () => {
         setGoToShipModalOpen={setGoToShipModalOpen}
       />
       {/* Buying it 모달 */}
-      <BuyingModal
+      <BuyingItModal
         buyingModalOpen={buyingModalOpen}
         setBuyingModalOpen={setBuyingModalOpen}
       />

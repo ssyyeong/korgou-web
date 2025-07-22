@@ -19,9 +19,9 @@ const SocialLink = (props: SocialLinkProps) => {
       <Typography
         sx={{
           color: "#919298",
-          fontSize: "18px",
+          fontSize: "12px",
           fontWeight: 700,
-          mb: "12px",
+          mb: "8px",
         }}
       >
         SOCIAL LINKS

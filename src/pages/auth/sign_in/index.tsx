@@ -1,9 +1,9 @@
-import React, { useEffect } from "react";
+import React from "react";
 
-import { Avatar, Box, Divider, TextField, Typography } from "@mui/material";
+import { Avatar, Box, Divider, Typography } from "@mui/material";
 
 import OriginButton from "../../../components/Button/OriginButton";
-import Input from "../../../components/Input";
+import CustomCheckbox from "../../../components/Button/CustomCheckbox";
 import SocialLogin from "../../../components/SocialLogin";
 import { useNavigate } from "react-router-dom";
 import BottomModal from "../../../components/Modal/BottomModal";
@@ -11,6 +11,7 @@ import AppMemberController from "../../../controller/AppMemberController";
 import { useAuth } from "../../../hooks/useAuth";
 import { useTranslation } from "react-i18next";
 import AlertModal from "../../../components/Modal/AlertModal";
+import TextFieldCustom from "../../../components/TextField";
 
 const SignIn = () => {
   const { t } = useTranslation();
@@ -91,7 +92,7 @@ const SignIn = () => {
   const btnClick = () => {
     setBottomModalOpen(false);
     navigate("/find_pw/email", {
-      state: { email, title: "임시 비밀번호 입력" },
+      state: { email: "thdudskdu123@gmail.com", title: "임시 비밀번호 입력" },
     });
   };
 
@@ -103,7 +104,6 @@ const SignIn = () => {
         height: "100%",
         minHeight: "100vh",
         alignItems: "center",
-        justifyContent: "center",
         flexDirection: "column",
       }}
     >
@@ -113,7 +113,7 @@ const SignIn = () => {
         style={{
           width: "117px",
           height: "25px",
-          marginTop: "83px",
+          marginTop: "99px",
           marginBottom: "41px",
         }}
       />
@@ -124,7 +124,7 @@ const SignIn = () => {
           width: "100%",
         }}
       >
-        <TextField
+        <TextFieldCustom
           fullWidth
           value={email}
           type="email"
@@ -136,13 +136,13 @@ const SignIn = () => {
             bgcolor: "white",
             fontSize: "16px",
             height: "48px",
-            mb: 2,
+            borderRadius: "1px",
+            marginBottom: "10px",
           }}
-          placeholder={t("common.field.email.placeholder")}
-          onKeyDown={onKeyDown}
+          placeholder={"이메일"}
         />
 
-        <TextField
+        <TextFieldCustom
           fullWidth
           value={password}
           type="password"
@@ -153,9 +153,9 @@ const SignIn = () => {
             fontSize: "16px",
             height: "48px",
             marginBottom: "20px",
+            borderRadius: "1px",
           }}
-          placeholder={t("common.field.password.placeholder")}
-          onKeyDown={onKeyDown}
+          placeholder={"비밀번호"}
         />
         <OriginButton
           fullWidth
@@ -167,7 +167,7 @@ const SignIn = () => {
               {t("auth.login.title")}
             </Typography>
           }
-          style={{ padding: "16px 8px", height: "48px" }}
+          style={{ padding: "16px 8px", height: "48px", borderRadius: "5px" }}
         />
         <Box
           sx={{
@@ -177,35 +177,45 @@ const SignIn = () => {
             alignItems: "center",
           }}
         >
-          <Input
-            type="checkbox"
-            value={isAutoLogin}
-            setValue={() => {
-              setIsAutoLogin(!isAutoLogin);
-            }}
-            label={t("auth.login.keep_signed")}
-            width={"130px"}
-            style={{ fontSize: "14px" }}
+          <CustomCheckbox
+            checked={isAutoLogin}
+            onChange={() => setIsAutoLogin(!isAutoLogin)}
+            label="로그인 유지"
           />
-
-          <Typography
-            variant="body2"
+          <Box
             sx={{
-              color: "#61636C",
-              cursor: "pointer",
-              fontSize: "12px",
-              fontWeight: 500,
-            }}
-            onClick={() => {
-              navigate("/find_pw");
+              flexDirection: "row",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
             }}
           >
-            {t("auth.login.forgot_password_link")} {">"}
-          </Typography>
+            <Typography
+              variant="body2"
+              sx={{
+                color: "#61636C",
+                cursor: "pointer",
+                fontSize: "12px",
+                fontWeight: 500,
+              }}
+              onClick={() => {
+                navigate("/find_pw/email", {
+                  state: { email: "", title: "이메일 인증" },
+                });
+              }}
+            >
+              FORGOT PASSWORD?
+            </Typography>
+            <img
+              src="/images/icon/arrow_right.svg"
+              alt="arrow_right"
+              style={{ width: "24px", height: "24px" }}
+            />
+          </Box>
         </Box>
         <Divider sx={{ color: "#ECECED" }} />
       </Box>
-      {/* <Box
+      <Box
         sx={{
           display: "flex",
           flexDirection: "column",
@@ -266,7 +276,7 @@ const SignIn = () => {
             }
           />
         </Box>
-      </Box> */}
+      </Box>
       <Divider
         sx={{
           width: "100%",
@@ -277,16 +287,16 @@ const SignIn = () => {
       <OriginButton
         fullWidth
         variant="contained"
-        color="#000"
+        color="primary"
         onClick={() => {
           navigate("/sign_up");
         }}
         contents={
           <Typography fontSize={16} fontWeight={700}>
-            {t("auth.signup.individual")}
+            개인 회원가입
           </Typography>
         }
-        style={{ height: "48px" }}
+        style={{ height: "48px", borderRadius: "5px" }}
       />
       <OriginButton
         fullWidth
@@ -295,10 +305,15 @@ const SignIn = () => {
         onClick={() => navigate("/sign_up/company")}
         contents={
           <Typography fontSize={16} fontWeight={700} color="#61636C">
-            {t("auth.signup.company")}
+            기업 회원가입
           </Typography>
         }
-        style={{ height: "48px", marginTop: "10px" }}
+        style={{
+          border: "1px solid #B1B2B6",
+          height: "48px",
+          marginTop: "10px",
+          borderRadius: "5px",
+        }}
       />
       <BottomModal
         title={
@@ -318,21 +333,24 @@ const SignIn = () => {
                 marginBottom: "24px",
               }}
             >
-              {t("auth.login.forgot_password.title")}
+              KORGOU 기존고객 로그인 인증
             </Typography>
             <Typography
               sx={{
                 fontSize: "14px",
-                fontWeight: 500,
-                color: "#282930",
+                color: "#A7AAB1",
                 textAlign: "center",
+                fontWeight: 700,
               }}
             >
-              {t("auth.login.forgot_password.description")}
+              기존 서비스에 가입하신 이메일로
+              <br /> 임시 비밀번호를 전송해드릴게요.
+              <br />
+              로그인 및 비밀번호 변경 후 계정 사용이 가능하십니다!
             </Typography>
           </Box>
         }
-        btnText={t("auth.login.forgot_password.button")}
+        btnText={"임시 비밀번호 발급받기"}
         bottomModalOpen={bottomModalOpen}
         setBottomModalOpen={setBottomModalOpen}
         handleClose={handleClose}
