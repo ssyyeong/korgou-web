@@ -71,14 +71,13 @@ const FilteringDate = (props: IfilteringDateProps) => {
           }}
           contents={
             <Typography fontSize={16} fontWeight={700} color="#ffffff">
-              {t("common.button.search")}
+              조회
             </Typography>
           }
           style={{
             marginTop: "0px",
-            width: "100px",
-            height: "40px",
-            borderRadius: "4px",
+            padding: "8px",
+            width: "88px",
           }}
         />
       </Box>

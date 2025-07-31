@@ -6,7 +6,7 @@ import OriginButton from "../../../components/Button/OriginButton";
 import CustomCheckbox from "../../../components/Button/CustomCheckbox";
 import SocialLogin from "../../../components/SocialLogin";
 import { useNavigate } from "react-router-dom";
-import BottomModal from "../../../components/Modal/BottomModal";
+import BottomModal from "../../../components/Modal/BottomModal/BottomModal";
 import AppMemberController from "../../../controller/AppMemberController";
 import { useAuth } from "../../../hooks/useAuth";
 import { useTranslation } from "react-i18next";

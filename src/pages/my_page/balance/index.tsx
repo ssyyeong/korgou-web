@@ -23,7 +23,7 @@ const Balance = () => {
     { value: "1month", label: t("common.period.recent.month") },
   ];
 
-  const { memberBalance, memberCode } = useAppMember();
+  const { memberBalance, memberId } = useAppMember();
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [dateType, setDateType] = useState(""); //날짜 필터링
@@ -33,27 +33,27 @@ const Balance = () => {
   useEffect(() => {
     //포인트 내역 조회
     const controller = new ControllerAbstractBase({
-      modelName: "Balance",
-      modelId: "balance",
+      modelName: "BalanceHistory",
+      modelId: "balance_history",
     });
 
     controller
       .findAll({
-        APP_MEMBER_IDENTIFICATION_CODE: memberCode,
+        APP_MEMBER_ID: memberId,
       })
       .then((res) => {
         setBalanceList(res.result.rows);
       });
-  }, [memberCode]);
+  }, [memberId]);
 
   const filteringBalance = (filter) => {
     const balanceController = new BalanceController({
-      modelName: "Balance",
-      modelId: "balance",
+      modelName: "BalanceHistory",
+      modelId: "balance_history",
     });
     balanceController
       .filtering({
-        APP_MEMBER_IDENTIFICATION_CODE: memberCode,
+        APP_MEMBER_ID: memberId,
         ...filter,
       })
       .then((res) => {
@@ -71,7 +71,7 @@ const Balance = () => {
         backgroundColor: "white",
       }}
     >
-      <Header title={t("my_page.balance")} />
+      <Header title={"발란스"} />
 
       {/* Section Title */}
       <Typography
@@ -81,7 +81,7 @@ const Balance = () => {
           mt: "16px",
         }}
       >
-        {t("balance.amount")}
+        보유 발란스
       </Typography>
       <Box
         sx={{

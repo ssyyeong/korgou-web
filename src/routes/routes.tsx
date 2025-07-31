@@ -63,6 +63,11 @@ import NewArrival from "../pages/shop/new_arrival";
 import GoogleLogin from "../pages/auth/redirect_url/google";
 import History from "../pages/my_page/history";
 import Coupon from "../pages/my_page/coupon";
+import DeliveryAddress from "../pages/store/delivery/address";
+import DeliveryService from "../pages/store/delivery/service";
+import DeliveryDeclaration from "../pages/store/delivery/declaration";
+import DeliveryCheck from "../pages/store/delivery/check";
+import Membership from "../pages/main/sidebar/membership";
 
 // 조건부로 BottomNavBar를 렌더링하는 컴포넌트
 const ConditionalBottomNavBar = () => {
@@ -84,6 +89,13 @@ const AppRoutes = () => (
       <Route path="/search" element={<Search />} />
       {/* 스토어 페이지 */}
       <Route path="/store" element={<Store />} />
+      <Route path="/store/delivery/address" element={<DeliveryAddress />} />
+      <Route path="/store/delivery/service" element={<DeliveryService />} />
+      <Route
+        path="/store/delivery/declaration"
+        element={<DeliveryDeclaration />}
+      />
+      <Route path="/store/delivery/check" element={<DeliveryCheck />} />
       {/* 구매 페이지 */}
 
       {/* 메인 페이지 */}
@@ -107,7 +119,7 @@ const AppRoutes = () => (
       <Route path="/buying" element={<Buying />} />
       <Route path="/service" element={<Service />} />
       <Route path="/price" element={<Price />} />
-
+      <Route path="/membership" element={<Membership />} />
       {/* 인증 관련 Public Routes */}
       <Route path="/sign_in" element={<SignIn />} />
       <Route path="/sign_up" element={<SignUp />} />

@@ -53,7 +53,7 @@ const BuyingModal = (props: IGoToShipModalProps) => {
             if (!isAuthenticated) {
               navigator("/sign_in");
             } else {
-              navigator("/ship");
+              navigator("/store");
             }
           }}
           contents={

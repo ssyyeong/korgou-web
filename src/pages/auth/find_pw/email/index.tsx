@@ -5,7 +5,7 @@ import { Box, Button, TextField, Typography } from "@mui/material";
 import OriginButton from "../../../../components/Button/OriginButton";
 import Header from "../../../../components/Header/Header";
 import { useLocation, useNavigate } from "react-router-dom";
-import BottomModal from "../../../../components/Modal/BottomModal";
+import BottomModal from "../../../../components/Modal/BottomModal/BottomModal";
 import { useTranslation } from "react-i18next";
 import AppMemberController from "../../../../controller/AppMemberController";
 import TextFieldCustom from "../../../../components/TextField";

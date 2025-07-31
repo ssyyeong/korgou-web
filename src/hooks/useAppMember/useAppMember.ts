@@ -26,12 +26,49 @@ const useAppMember = () => {
 
   const { accessToken, appMemberId } = useAuth();
 
+  //* 로컬 스토리지에서 유저 정보 가져오기
+  const getCachedUserData = (memberId: string) => {
+    try {
+      const cached = localStorage.getItem(`userData_${memberId}`);
+      if (cached) {
+        const parsed = JSON.parse(cached);
+        // 캐시된 데이터가 1시간 이내인지 확인
+        if (Date.now() - parsed.timestamp < 60 * 60 * 1000) {
+          return parsed.data;
+        }
+      }
+    } catch (error) {
+      console.error("캐시된 유저 정보 읽기 실패:", error);
+    }
+    return null;
+  };
+
+  //* 로컬 스토리지에 유저 정보 저장하기
+  const cacheUserData = (memberId: string, data: any) => {
+    try {
+      const cacheData = {
+        data,
+        timestamp: Date.now(),
+      };
+      localStorage.setItem(`userData_${memberId}`, JSON.stringify(cacheData));
+    } catch (error) {
+      console.error("유저 정보 캐시 저장 실패:", error);
+    }
+  };
+
   //* 유저 정보 가져오기
   useEffect(() => {
     const fetchUserData = async () => {
       try {
         if (!accessToken || !appMemberId) {
           setMemberData({});
+          return;
+        }
+
+        // 먼저 캐시된 데이터 확인
+        const cachedData = getCachedUserData(String(appMemberId));
+        if (cachedData) {
+          setMemberData(cachedData);
           return;
         }
 
@@ -45,7 +82,7 @@ const useAppMember = () => {
         });
 
         if (res?.result) {
-          setMemberData({
+          const userData = {
             code: Number(appMemberId),
             id: res.result.APP_MEMBER_ID,
             name: res.result.USER_NAME,
@@ -61,7 +98,11 @@ const useAppMember = () => {
             buyingItCount: res.result.BUYING_IT_COUNT || 0,
             birthday: res.result.BIRTHDAY || "",
             cartCount: res.result.CART_COUNT || 0,
-          });
+          };
+
+          setMemberData(userData);
+          // 캐시에 저장
+          cacheUserData(String(appMemberId), userData);
         }
       } catch (error) {
         console.error("유저 정보 로딩 실패:", error);

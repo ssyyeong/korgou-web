@@ -51,7 +51,7 @@ const BuyingItModal = (props: IBuyingItModalProps) => {
             if (!isAuthenticated) {
               navigator("/sign_in");
             } else {
-              navigator("/buying");
+              navigator("/buying/type");
             }
           }}
           contents={

@@ -16,10 +16,12 @@ import OriginButton from "../../../components/Button/OriginButton";
 import { useNavigate } from "react-router-dom";
 import { useBuying, ProductData } from "../../../contexts/BuyingContext";
 import { useTranslation } from "react-i18next";
+import { useAppMember } from "../../../hooks/useAppMember";
 
 const BuyingCreate: React.FC = () => {
   const navigation = useNavigate();
   const { t } = useTranslation();
+  const { memberCode } = useAppMember();
 
   // 전역 상태 사용
   const {
@@ -75,7 +77,14 @@ const BuyingCreate: React.FC = () => {
       }}
     >
       <Header title="Buying it" />
-      <Box sx={{ display: "flex", flexDirection: "column", mt: "20px" }}>
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          mt: "20px",
+          gap: "10px",
+        }}
+      >
         <Box sx={{ display: "flex", flexDirection: "row" }}>
           <Typography
             sx={{
@@ -86,7 +95,7 @@ const BuyingCreate: React.FC = () => {
               mb: "10px",
             }}
           >
-            {t("buying_it.shopping_auth")}
+            쇼핑몰 계정여부
           </Typography>
           <ToggleButtonGroup
             value={authYn}
@@ -121,16 +130,6 @@ const BuyingCreate: React.FC = () => {
             </ToggleButton>
           </ToggleButtonGroup>
         </Box>
-        <Divider
-          sx={{
-            color: "#ECECED",
-            position: "relative",
-            width: "calc(100% + 20px)",
-            my: "20px",
-            border: "5px solid #ECECED",
-            alignSelf: "center",
-          }}
-        />
 
         {authYn === "Y" ? (
           <Box sx={{ display: "flex", flexDirection: "column" }}>
@@ -317,14 +316,14 @@ const BuyingCreate: React.FC = () => {
       />
       {/* 배송지 설정 */}
       <Typography
-        sx={{ fontSize: "20px", fontWeight: 700, color: "#282930", mb: "10px" }}
+        sx={{ fontSize: "20px", fontWeight: 700, color: "#282930", mb: "20px" }}
       >
-        {t("buying_it.address")}
+        배송지 설정
       </Typography>
       <RadioGroup
         value={"warehouse"}
         onChange={(e) => {}}
-        sx={{ flexDirection: "row", gap: 2 }}
+        sx={{ flexDirection: "row", gap: "20px" }}
       >
         <FormControlLabel
           value="domestic"
@@ -332,19 +331,39 @@ const BuyingCreate: React.FC = () => {
             <Radio
               style={{
                 color: "#3966AE",
-                marginBottom: "30px",
               }}
             />
           }
           label={
-            <Box>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                width: "100%",
+              }}
+            >
               <Typography
-                sx={{ fontSize: "16px", color: "#282930", mb: "4px" }}
+                sx={{
+                  fontSize: "16px",
+                  color: "#282930",
+                  letterSpacing: "-0.16px",
+                  lineHeight: "130%",
+                  fontWeight: 700,
+                }}
               >
-                <strong>국내배송</strong>
+                국내배송
               </Typography>
-              <Typography sx={{ fontSize: "14px", color: "#282930" }}>
-                국내 주소로 배송받기
+              <Typography
+                sx={{
+                  fontSize: "16px",
+                  color: "#282930",
+                  letterSpacing: "-0.16px",
+                  lineHeight: "130%",
+                  fontWeight: 500,
+                }}
+              >
+                (한국주소)
               </Typography>
             </Box>
           }
@@ -355,19 +374,39 @@ const BuyingCreate: React.FC = () => {
             <Radio
               style={{
                 color: "#3966AE",
-                marginBottom: "30px",
               }}
             />
           }
           label={
-            <Box>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                width: "100%",
+              }}
+            >
               <Typography
-                sx={{ fontSize: "16px", color: "#282930", mb: "4px" }}
+                sx={{
+                  fontSize: "16px",
+                  color: "#282930",
+                  letterSpacing: "-0.16px",
+                  lineHeight: "130%",
+                  fontWeight: 700,
+                }}
               >
-                <strong>해외배송</strong>
+                해외배송
               </Typography>
-              <Typography sx={{ fontSize: "14px", color: "#282930" }}>
-                해외 주소로 배송받기
+              <Typography
+                sx={{
+                  fontSize: "16px",
+                  color: "#282930",
+                  letterSpacing: "-0.16px",
+                  lineHeight: "130%",
+                  fontWeight: 500,
+                }}
+              >
+                (단일사이트 주문 한정)
               </Typography>
             </Box>
           }
@@ -378,7 +417,6 @@ const BuyingCreate: React.FC = () => {
             <Radio
               style={{
                 color: "#3966AE",
-                marginBottom: "30px",
               }}
             />
           }
@@ -394,20 +432,45 @@ const BuyingCreate: React.FC = () => {
                 sx={{
                   fontSize: "16px",
                   color: "#282930",
-                  mb: "8px",
+                  letterSpacing: "-0.16px",
+                  lineHeight: "130%",
+                  fontWeight: 700,
                 }}
               >
-                <strong>{t("buying_it.address_type")}</strong>{" "}
-                {t("buying_it.address_type_description")}
+                창고 배송 (창고 보유상품과 합포장)
+                <br />
               </Typography>
-              <Typography
+              <Box
                 sx={{
-                  fontSize: "14px",
-                  color: "#282930",
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                  width: "100%",
                 }}
               >
-                {t("buying_it.address_detail")} <strong>C128405</strong>
-              </Typography>
+                <Typography
+                  sx={{
+                    fontSize: "14px",
+                    color: "#282930",
+                    letterSpacing: "-0.14px",
+                    lineHeight: "130%",
+                    fontWeight: 500,
+                  }}
+                >
+                  경기도 성남시 중원구 순환로 79 3층
+                </Typography>
+                <Typography
+                  sx={{
+                    fontSize: "14px",
+                    color: "#282930",
+                    letterSpacing: "-0.14px",
+                    lineHeight: "130%",
+                    fontWeight: 500,
+                  }}
+                >
+                  ({memberCode})
+                </Typography>
+              </Box>
             </Box>
           }
         />
@@ -426,7 +489,7 @@ const BuyingCreate: React.FC = () => {
       <Typography
         sx={{ fontSize: "20px", fontWeight: 700, color: "#282930", mb: "10px" }}
       >
-        {t("buying_it.address_request")}
+        구매 요청사항
       </Typography>
       <TextFieldCustom
         fullWidth
@@ -437,7 +500,7 @@ const BuyingCreate: React.FC = () => {
         }
         multiline
         rows={5}
-        placeholder={t("buying_it.address_request_placeholder")}
+        placeholder="구매 시 요청사항을 입력해주세요."
         sx={{ "& .MuiInputBase-root": { height: "160px" } }}
       />
 
@@ -453,17 +516,33 @@ const BuyingCreate: React.FC = () => {
       />
       {/* 품절 시 진행방식 */}
       <Typography
-        sx={{ fontSize: "20px", fontWeight: 700, color: "#282930", mb: "4px" }}
+        sx={{
+          fontSize: "20px",
+          mt: "20px",
+          fontWeight: 700,
+          color: "#282930",
+          mb: "4px",
+        }}
       >
-        {t("buying_it.proceee")}
+        품절 시 진행방식
       </Typography>
-      <Typography sx={{ fontSize: "12px", color: "#919298", mb: "20px" }}>
-        {t("buying_it.proceee_description")}
+      <Typography
+        sx={{
+          fontSize: "12px",
+          lineHeight: "130%",
+          color: "#919298",
+          mb: "20px",
+        }}
+      >
+        *요청 상품 중 품절된 상품이 발생했을때, 결제 처리 방법
       </Typography>
       <RadioGroup
         value={process}
         onChange={(e) => {
           setProcess(e.target.value);
+        }}
+        sx={{
+          gap: "10px",
         }}
       >
         <FormControlLabel
@@ -472,11 +551,21 @@ const BuyingCreate: React.FC = () => {
             <Radio
               style={{
                 color: "#3966AE",
-                marginBottom: "30px",
               }}
             />
           }
-          label={t("buying_it.proceee_option1")}
+          label={
+            <Typography
+              sx={{
+                fontSize: "16px",
+                letterSpacing: "-0.16px",
+                lineHeight: "130%",
+                fontWeight: 500,
+              }}
+            >
+              품절 상품을 건너뛰고 나머지 상품들만 결제 진행
+            </Typography>
+          }
         />
         <FormControlLabel
           value="stop"
@@ -487,7 +576,18 @@ const BuyingCreate: React.FC = () => {
               }}
             />
           }
-          label={t("buying_it.proceee_option2")}
+          label={
+            <Typography
+              sx={{
+                fontSize: "16px",
+                letterSpacing: "-0.16px",
+                lineHeight: "130%",
+                fontWeight: 500,
+              }}
+            >
+              주문서 처리를 중지
+            </Typography>
+          }
         />
       </RadioGroup>
       <Divider
@@ -514,7 +614,19 @@ const BuyingCreate: React.FC = () => {
             }}
           />
         }
-        label={t("terms.all")}
+        label={
+          <Typography
+            sx={{
+              fontSize: "16px",
+              color: "#282930",
+              letterSpacing: "-0.16px",
+              lineHeight: "130%",
+              fontWeight: 500,
+            }}
+          >
+            약관 전체 동의
+          </Typography>
+        }
         sx={{ fontSize: "16px", color: "#282930", mb: "24px" }}
       />
 
@@ -537,7 +649,7 @@ const BuyingCreate: React.FC = () => {
         }}
         contents={
           <Typography fontSize={16} fontWeight={700}>
-            {t("common.button.order_request")}
+            주문 요청{" "}
           </Typography>
         }
         style={{ padding: "16px 8px", mb: "8px", height: "48px" }}

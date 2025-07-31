@@ -45,6 +45,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   // 로그아웃 함수
   const logout = async () => {
+    // 유저 데이터 캐시 삭제
+    if (appMemberId) {
+      localStorage.removeItem(`userData_${appMemberId}`);
+    }
+
     await localStorage.removeItem("accessToken");
     await localStorage.removeItem("appMemberId");
     setAccessToken(null);

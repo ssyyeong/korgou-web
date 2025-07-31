@@ -54,71 +54,18 @@ const ProfileHeader = (props: any) => {
         flexDirection: "column",
         px: "16px",
         py: "12px",
-        backgroundColor: "#3966AE",
+        background:
+          "var(--gradient, linear-gradient(180deg, #7CADFF 1.88%, #204C95 51.57%))",
       }}
     >
-      {/* 오른쪽 아이콘 3개 */}
       <Box
         sx={{
           display: "flex",
           flexDirection: "row",
           alignItems: "center",
-          justifyContent: "right",
+          justifyContent: "space-between",
         }}
       >
-        <IconButton
-          color="info"
-          aria-label="alarm"
-          onClick={() => {
-            setAlarmOpen(true);
-          }}
-        >
-          <img
-            src="/images/icon/alarm_white.svg"
-            alt="logo"
-            width={"24px"}
-            height={"24px"}
-          />
-        </IconButton>
-        <Box sx={{ position: "relative", display: "inline-block" }}>
-          <IconButton
-            color="info"
-            aria-label="cart"
-            onClick={() => {
-              navigate("/my_page/cart");
-            }}
-          >
-            <img
-              src="/images/icon/cart.svg"
-              alt="logo"
-              width={"24px"}
-              height={"24px"}
-            />
-          </IconButton>
-          {props.memberCartCount > 0 && (
-            <Box
-              sx={{
-                position: "absolute",
-                top: 8,
-                right: 10,
-                transform: "translate(50%, -50%)",
-                background: "#222328",
-                color: "white",
-                borderRadius: "50%",
-                width: 20,
-                height: 20,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontWeight: 700,
-                fontSize: "12px",
-                zIndex: 1,
-              }}
-            >
-              {props.memberCartCount}
-            </Box>
-          )}
-        </Box>
         <IconButton color="info" aria-label="menu" onClick={toggleDrawer(true)}>
           <img
             src="/images/icon/side_bar_white.svg"
@@ -127,75 +74,151 @@ const ProfileHeader = (props: any) => {
             height={"24px"}
           />
         </IconButton>
+        {/* 오른쪽 아이콘 3개 */}
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+            justifyContent: "right",
+          }}
+        >
+          <IconButton
+            color="info"
+            aria-label="alarm"
+            onClick={() => {
+              setAlarmOpen(true);
+            }}
+          >
+            <img
+              src="/images/icon/alarm_white.svg"
+              alt="logo"
+              width={"24px"}
+              height={"24px"}
+            />
+          </IconButton>
+          <IconButton
+            color="info"
+            aria-label="menu"
+            onClick={toggleDrawer(true)}
+          >
+            <img
+              src="/images/icon/people_white.svg"
+              alt="logo"
+              width={"24px"}
+              height={"24px"}
+            />
+          </IconButton>
+          <Box sx={{ position: "relative", display: "inline-block" }}>
+            <IconButton
+              color="info"
+              aria-label="cart"
+              onClick={() => {
+                navigate("/my_page/cart");
+              }}
+            >
+              <img
+                src="/images/icon/cart.svg"
+                alt="logo"
+                width={"24px"}
+                height={"24px"}
+              />
+            </IconButton>
+            {props.memberCartCount > 0 && (
+              <Box
+                sx={{
+                  position: "absolute",
+                  top: 8,
+                  right: 10,
+                  transform: "translate(50%, -50%)",
+                  background: "#222328",
+                  color: "white",
+                  borderRadius: "50%",
+                  width: 20,
+                  height: 20,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  fontWeight: 700,
+                  fontSize: "12px",
+                  zIndex: 1,
+                }}
+              >
+                {props.memberCartCount}
+              </Box>
+            )}
+          </Box>
+        </Box>
       </Box>
       {/* 상단 프로필 정보 */}
       <Box
         sx={{
           display: "flex",
+          flexDirection: "row",
           justifyContent: "space-between",
-          alignItems: "center",
           mb: "16px",
         }}
       >
         <Box
           sx={{
             display: "flex",
-            alignItems: "center",
+          }}
+        >
+          <img src="/images/my_page/character.svg" alt="character" />
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "flex-end",
           }}
         >
           <img
-            src="/images/icon/my_page/badge.svg"
-            alt="badge"
-            style={{ width: "55px", height: "55px", marginRight: "12px" }}
+            src="/images/icon/my_page/pencil.svg"
+            alt="pencil"
+            style={{ cursor: "pointer", width: "26px", height: "26px" }}
+            onClick={() => {}} // TODO: 프로필 수정 페이지로 이동
           />
-          <Box>
+          <Typography
+            sx={{
+              fontSize: "20px",
+              fontWeight: 700,
+              lineHeight: "120%",
+              letterSpacing: "-0.2px",
+              textAlign: "right",
+              color: "white",
+              mt: "7px",
+            }}
+          >
+            INFLUENCER
+            <br /> BENAVIDES VALERIA
+          </Typography>
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              justifyContent: "flex-end",
+              mt: "6px",
+              borderRadius: "12px",
+              backgroundColor: "#425E9D",
+              padding: "3px 13px",
+            }}
+          >
             <Typography
               sx={{
+                fontSize: "14px",
+                fontWeight: 500,
+                lineHeight: "130%",
+                letterSpacing: "-0.14px",
+                textAlign: "right",
                 color: "white",
-                fontSize: "22px",
-                fontWeight: "bold",
-                lineHeight: "28px",
               }}
             >
-              influencer
+              DIAMOND
             </Typography>
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                alignItems: "center",
-                gap: "8px",
-              }}
-              onClick={() => navigate("/my_page/profile")}
-            >
-              <Typography
-                sx={{
-                  color: "#D9E2FF",
-                  fontSize: "14px",
-                  cursor: "pointer",
-                }}
-              >
-                {props.memberName}
-              </Typography>
-              <img
-                src="/images/icon/my_page/arrow.svg"
-                alt="arrow_right"
-                style={{ width: "16px", height: "16px", cursor: "pointer" }}
-              />
-            </Box>
           </Box>
         </Box>
-        <img
-          src="/images/icon/my_page/character.png"
-          alt="character"
-          style={{
-            width: "73px",
-            height: "90px",
-            position: "absolute",
-            right: "24px",
-            top: "50px",
-          }}
-        />
       </Box>
 
       {/* 등급 및 ID */}
@@ -254,15 +277,47 @@ const ProfileHeader = (props: any) => {
         </Box>
         <Divider sx={{ borderColor: "#ECECED", mb: "16px" }} />
 
-        <Typography
+        <Box
           sx={{
-            color: "#919298",
-            fontSize: "12px",
-            mb: "2px",
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
           }}
         >
-          MY free Korean Address
-        </Typography>
+          <Typography
+            sx={{
+              color: "#919298",
+              fontSize: "12px",
+              mb: "2px",
+            }}
+          >
+            MY free Korean Address
+          </Typography>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              borderRadius: "4px",
+              backgroundColor: "#282930",
+              padding: "2px 4px",
+              ml: "4px",
+              cursor: "pointer",
+            }}
+            onClick={() => {
+              props.setIsAddressModalOpen(true);
+            }}
+          >
+            <Typography
+              sx={{
+                fontSize: "10px",
+                color: "white",
+              }}
+            >
+              자세히
+            </Typography>
+          </Box>
+        </Box>
         <Box
           sx={{
             display: "flex",
@@ -390,7 +445,7 @@ const ProfileHeader = (props: any) => {
                         color: "white",
                       }}
                     >
-                      {t("common.button.charge")}
+                      충전
                     </Typography>
                   </Box>
                 )}
@@ -482,7 +537,7 @@ const ProfileHeader = (props: any) => {
                 color: "#61636C",
               }}
             >
-              {t("my_page.delivery_status")}
+              배송신청 현황
             </Typography>
             <Box
               sx={{
@@ -527,7 +582,7 @@ const ProfileHeader = (props: any) => {
               color: "#61636C",
             }}
           >
-            {t("my_page.purchase_status")}
+            구매대행 현황
           </Typography>
           <Box
             sx={{
@@ -550,42 +605,6 @@ const ProfileHeader = (props: any) => {
                 alignSelf: "center",
               }}
             />
-          </Box>
-        </Box>
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            alignItems: "center",
-            justifyContent: "space-between",
-            py: "8px",
-            pl: "8px",
-            cursor: "pointer",
-          }}
-          onClick={() => navigate("/support/notice")}
-        >
-          <Typography
-            sx={{
-              fontSize: "12px",
-              color: "#61636C",
-            }}
-          >
-            공지사항
-          </Typography>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-            }}
-          >
-            <KeyboardArrowRightOutlinedIcon
-              sx={{
-                width: " 16px",
-                height: "16px",
-                color: "#B1B2B6",
-                alignSelf: "center",
-              }}
-            />{" "}
           </Box>
         </Box>
       </Box>

@@ -29,6 +29,7 @@ const AddressModify = () => {
   const [contact, setContact] = useState("");
   const [addressMethod, setAddressMethod] = useState(1);
   const [addressMethodLabel, setAddressMethodLabel] = useState("");
+  const [type, setType] = useState("");
 
   useEffect(() => {
     if (!location.state) return;
@@ -38,8 +39,9 @@ const AddressModify = () => {
       modelId: "address",
     });
 
-    const { id } = location.state;
+    const { id, type } = location.state;
     setAddressId(id);
+    setType(type);
 
     controller
       .findOne({
@@ -93,7 +95,6 @@ const AddressModify = () => {
       modelName: "Address",
       modelId: "address",
     });
-    console.log("addressMethod", addressMethod);
 
     if (
       address === "" ||
@@ -127,7 +128,11 @@ const AddressModify = () => {
         ADDRESS_METHOD: addressMethodLabel,
       })
       .then((res) => {
-        navigator("/my_page/address");
+        if (type === "store") {
+          navigator("/store/delivery/address");
+        } else {
+          navigator("/my_page/address");
+        }
       });
   };
 

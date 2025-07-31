@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Box, Typography, Button, Grid2 } from "@mui/material";
 import Header from "../../../../components/Header/Header";
 import OriginButton from "../../../../components/Button/OriginButton";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import Input from "../../../../components/Input";
 import { countryList } from "../../../../configs/data/CountryConfig";
 import { countryNumberList } from "../../../../configs/data/CountryNumberConfig";
@@ -15,9 +15,11 @@ import { useAppMember } from "../../../../hooks/useAppMember";
 
 const AddressCreate = () => {
   const navigator = useNavigate();
+  const location = useLocation();
   const { t } = useTranslation();
 
   const [shippingMethodList, setShippingMethodList] = useState([]);
+  const [type, setType] = useState("");
   const [shippingType, setShippingType] = useState("FOREIGN");
   const [country, setCountry] = useState("");
   const [name, setName] = useState("");
@@ -31,9 +33,13 @@ const AddressCreate = () => {
   const [addressMethod, setAddressMethod] = useState(1);
   const [addressMethodLabel, setAddressMethodLabel] = useState("");
 
-  const { memberCode } = useAppMember();
+  const { memberCode, memberId } = useAppMember();
 
   useEffect(() => {
+    if (location.state?.type) {
+      setType(location.state.type);
+    }
+
     const controller = new ControllerAbstractBase({
       modelName: "Courier",
       modelId: "courier",
@@ -52,10 +58,10 @@ const AddressCreate = () => {
           });
         });
         setShippingMethodList(list);
-        setAddressMethod(list[0].value);
-        setAddressMethodLabel(list[0].label);
+        setAddressMethod(list[0]?.value);
+        setAddressMethodLabel(list[0]?.label);
       });
-  }, []);
+  }, [location.state]);
 
   const save = async () => {
     if (!memberCode) {
@@ -86,10 +92,10 @@ const AddressCreate = () => {
       });
       return;
     }
-    console.log(addressMethodLabel);
     controller
       .create({
         APP_MEMBER_IDENTIFICATION_CODE: memberCode,
+        APP_MEMBER_ID: memberId,
         SHIPPING_TYPE: shippingType,
         COUNTRY: country,
         NAME: name,
@@ -104,7 +110,11 @@ const AddressCreate = () => {
         COURIER_IDENTIFICATION_CODE: addressMethod,
       })
       .then((res) => {
-        navigator("/my_page/address");
+        if (type === "store") {
+          navigator("/store/delivery/address");
+        } else {
+          navigator("/my_page/address");
+        }
       });
   };
 

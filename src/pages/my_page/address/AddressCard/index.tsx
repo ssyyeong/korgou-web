@@ -1,15 +1,8 @@
 import React from "react";
-import {
-  Card,
-  CardContent,
-  Typography,
-  Button,
-  Checkbox,
-  Box,
-  Chip,
-} from "@mui/material";
+import { Card, CardContent, Typography, Box, Chip } from "@mui/material";
 import { useTranslation } from "react-i18next";
 import OriginButton from "../../../../components/Button/OriginButton";
+import CustomCheckbox from "../../../../components/Button/CustomCheckbox";
 interface AddressCardProps {
   item: any;
   name: string;
@@ -27,12 +20,14 @@ const AddressCard = (props: AddressCardProps) => {
     <Card
       sx={{
         mb: "10px",
-        backgroundColor: "#F5F5F5",
+        backgroundColor: "#F8FAFC",
         border: props.isDefault ? "1px solid #3966AE" : "1px solid #F5F5F5",
         borderRadius: "0px",
+        paddingX: "16px",
+        paddingTop: "16px",
       }}
     >
-      <CardContent>
+      <CardContent sx={{ padding: "0px" }}>
         <Box display="flex" justifyContent="space-between" alignItems="center">
           <Box display="flex" flexDirection="row" gap="8px" alignItems="center">
             <Typography
@@ -70,24 +65,16 @@ const AddressCard = (props: AddressCardProps) => {
             )}
           </Box>
           <Box display="flex" alignItems={"center"} gap="3px">
-            <Checkbox
+            <CustomCheckbox
               checked={props.isDefault}
               onChange={() => props.setIsDefault(!props.isDefault)}
-              sx={{
-                width: "16px",
-                height: "16px",
-                borderColor: props.isDefault ? "primary" : "#B1B2B6",
-              }}
-            />
-            <Typography
-              sx={{
+              label={t("delivery_address.default_delivery_address")}
+              labelStyle={{
                 fontSize: "12px",
                 fontWeight: 700,
                 color: props.isDefault ? "#3966AE" : "#282930",
               }}
-            >
-              {t("delivery_address.default_delivery_address")}
-            </Typography>
+            />
           </Box>
         </Box>
 
@@ -124,7 +111,7 @@ const AddressCard = (props: AddressCardProps) => {
             height: "24px",
             borderRadius: "4px",
             minWidth: "41px",
-            padding: "0px",
+            padding: "4px 10px",
             boxShadow: "none",
           }}
           onClick={() => {
@@ -132,7 +119,7 @@ const AddressCard = (props: AddressCardProps) => {
           }}
           contents={
             <Typography fontSize={12} color="#2E2F37">
-              {t("common.button.modify")}
+              수정
             </Typography>
           }
         />

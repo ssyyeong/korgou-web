@@ -8,6 +8,7 @@ interface AlertModalProps {
   contents?: any;
   button1?: any;
   button2?: any;
+  width?: string;
 }
 
 const AlertModal: React.FC<AlertModalProps> = ({
@@ -16,6 +17,7 @@ const AlertModal: React.FC<AlertModalProps> = ({
   contents,
   button1,
   button2,
+  width,
 }) => {
   return (
     <Modal open={open} onClose={onClose}>
@@ -25,7 +27,7 @@ const AlertModal: React.FC<AlertModalProps> = ({
           top: "50%",
           left: "49.5%",
           transform: "translate(-50%, -50%)",
-          width: 300,
+          width: width || "300px",
           bgcolor: "background.paper",
           boxShadow: 24,
           textAlign: "center",
@@ -87,18 +89,20 @@ const AlertModal: React.FC<AlertModalProps> = ({
             </Button>
           </Box>
         ) : (
-          <Button
-            variant="contained"
-            onClick={button1?.onClick}
-            fullWidth
-            sx={{
-              mt: "20px",
-              borderRadius: 0,
-              backgroundColor: button1?.color,
-            }}
-          >
-            {button1?.text}
-          </Button>
+          button1 && (
+            <Button
+              variant="contained"
+              onClick={button1?.onClick}
+              fullWidth
+              sx={{
+                mt: "20px",
+                borderRadius: 0,
+                backgroundColor: button1?.color,
+              }}
+            >
+              {button1?.text}
+            </Button>
+          )
         )}
       </Box>
     </Modal>

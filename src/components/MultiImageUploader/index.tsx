@@ -3,6 +3,10 @@ import { Delete as DeleteIcon } from "@mui/icons-material";
 import CameraAltOutlinedIcon from "@mui/icons-material/CameraAltOutlined";
 import { useTranslation } from "react-i18next";
 interface MultiImageUploaderProps {
+  width?: string;
+  height?: string;
+  backgroundColor?: string;
+  maxCount?: number;
   images: File[];
   setImages: (images: File[]) => void;
   handleRemoveImage: (index: number) => void;
@@ -13,14 +17,19 @@ const MultiImageUploader = (props: MultiImageUploaderProps) => {
   const { t } = useTranslation();
   return (
     <Box sx={{ display: "flex", flexWrap: "wrap", gap: 2, mt: 2 }}>
-      {props.images.map((image, index) => (
-        <Box key={index} sx={{ position: "relative" }}>
+      {props.images.slice(0, props.maxCount).map((image, index) => (
+        <Box
+          key={index}
+          sx={{
+            position: "relative",
+          }}
+        >
           <img
             src={URL.createObjectURL(image)}
             alt={`upload-${index}`}
             style={{
-              width: "100px",
-              height: "100px",
+              width: props.width || "100px",
+              height: props.height || "100px",
               borderRadius: "8px",
               objectFit: "cover",
             }}
@@ -46,8 +55,8 @@ const MultiImageUploader = (props: MultiImageUploaderProps) => {
       <Box
         component="label"
         sx={{
-          width: "100px",
-          height: "100px",
+          width: props.width || "100px",
+          height: props.height || "100px",
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
@@ -55,6 +64,7 @@ const MultiImageUploader = (props: MultiImageUploaderProps) => {
           border: "1px solid #ECECED",
           borderRadius: "8px",
           cursor: "pointer",
+          backgroundColor: props.backgroundColor || "transparent",
         }}
       >
         <CameraAltOutlinedIcon sx={{ color: "#B1B2B6" }} />
