@@ -16,9 +16,9 @@ const Purchase = () => {
   dayjs.locale("ko");
 
   const navigate = useNavigate();
-  const { memberCode } = useAppMember();
+  const { memberId } = useAppMember();
 
-  const [tab, setTab] = React.useState(0);
+  const [tab, setTab] = React.useState(1);
 
   const [filter, setFilter] = useState("전체");
 
@@ -69,7 +69,7 @@ const Purchase = () => {
     });
     buyingItController
       .filtering({
-        APP_MEMBER_IDENTIFICATION_CODE: memberCode,
+        APP_MEMBER_ID: memberId,
         ...filter,
       })
       .then((res) => {
@@ -100,7 +100,7 @@ const Purchase = () => {
 
   const fetchData = (filter) => {
     let option: any = {
-      APP_MEMBER_IDENTIFICATION_CODE: memberCode,
+      APP_MEMBER_ID: memberId,
     };
 
     if (filter !== t("purchase_status.all")) {
@@ -115,10 +115,10 @@ const Purchase = () => {
   };
 
   useEffect(() => {
-    if (memberCode) {
+    if (memberId) {
       fetchData(t("purchase_status.all"));
     }
-  }, [memberCode]);
+  }, [memberId]);
 
   return (
     <Box

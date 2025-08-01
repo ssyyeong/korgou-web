@@ -30,15 +30,17 @@ const CustomInput = React.forwardRef(({ value, onClick }: any, ref: any) => (
 ));
 const styles = {
   container: {
-    height: "48px",
     display: "flex",
     alignItems: "center",
-    border: "1px solid #ECECED",
-    borderRadius: "1px",
+    border: "1px solid #B1B2B6",
+    borderRadius: "5px",
     fontSize: "14px",
     cursor: "pointer",
     justifyContent: "center",
-    px: "8px",
+    px: "2px",
+    backgroundColor: "white",
+    minWidth: "100px",
+    minHeight: "40px",
   },
   customInput: {
     height: "100%", // 부모 컨테이너의 높이를 상속

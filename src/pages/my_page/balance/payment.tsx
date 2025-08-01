@@ -114,6 +114,7 @@ const Payment = () => {
             display: "flex",
             flexDirection: "row",
             mb: "20px",
+            gap: "4px",
           }}
         >
           <Typography
@@ -170,7 +171,7 @@ const Payment = () => {
                 </Typography>
               }
               style={{
-                height: "48px",
+                height: "40px",
                 border: `1px solid ${
                   paymentMethod === method ? "#282930" : "#B1B2B6"
                 }`,

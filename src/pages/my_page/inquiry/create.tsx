@@ -2,7 +2,7 @@ import { Box, Typography } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import Header from "../../../components/Header/Header";
 import OriginButton from "../../../components/Button/OriginButton";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Input from "../../../components/Input";
 import TextFieldCustom from "../../../components/TextField";
 import { useAppMember } from "../../../hooks/useAppMember";
@@ -13,7 +13,8 @@ import { useTranslation } from "react-i18next";
 
 const InquiryCreate = () => {
   const navigate = useNavigate();
-  const { memberCode } = useAppMember();
+  const { memberId } = useAppMember();
+  const { category } = useLocation().state;
 
   const [categoryList, setCategoryList] = useState([]);
   const [type, setType] = useState("");
@@ -57,13 +58,10 @@ const InquiryCreate = () => {
     try {
       // 업로드된 이미지 URL 리스트를 JSON 문자열로 변환하여 전달
       const res = await controller.create({
-        APP_MEMBER_IDENTIFICATION_CODE: memberCode,
+        APP_MEMBER_ID: memberId,
         QNA_BOARD_CATEGORY_IDENTIFICATION_CODE: type,
         TITLE: title,
-        // categoryList는 { value: string; label: string } 형태의 객체 배열이라고 가정
-        CATEGORY: categoryList.find(
-          (item: { value: string; label: string }) => item.value === type
-        )?.label,
+        CATEGORY: category,
         CONTENT: description,
         IMAGE_LIST: JSON.stringify(imageList),
       });

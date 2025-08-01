@@ -367,7 +367,7 @@ const ProfileHeader = (props: any) => {
             },
             { label: t("my_page.coupon"), value: props.memberCouponCount },
             {
-              label: t("my_page.point"),
+              label: "리워드",
               value: props.memberPoint.toLocaleString(),
             },
           ].map((item, index) => (
@@ -385,7 +385,7 @@ const ProfileHeader = (props: any) => {
                   ? () => {}
                   : item.label === t("my_page.coupon")
                   ? () => navigate("/my_page/coupon")
-                  : item.label === t("my_page.point")
+                  : item.label === "리워드"
                   ? () => navigate("/my_page/point")
                   : () => {}
               }

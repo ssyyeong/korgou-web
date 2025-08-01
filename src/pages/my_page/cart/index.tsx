@@ -12,7 +12,7 @@ import { useTranslation } from "react-i18next";
 const Cart = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { memberCode } = useAppMember();
+  const { memberId } = useAppMember();
   const { usd } = useExchange();
 
   const [tab, setTab] = React.useState(0);
@@ -77,7 +77,7 @@ const Cart = () => {
   const getCartList = () => {
     controller
       .findAll({
-        APP_MEMBER_IDENTIFICATION_CODE: memberCode,
+        APP_MEMBER_ID: memberId,
       })
       .then((res) => {
         setCartList(res.result.rows);

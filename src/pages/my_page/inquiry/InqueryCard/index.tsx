@@ -1,6 +1,7 @@
 import React from "react";
 import { Typography, Box, Divider } from "@mui/material";
 import KeyboardArrowRightOutlinedIcon from "@mui/icons-material/KeyboardArrowRightOutlined";
+import dayjs from "dayjs";
 
 interface InquiryCardProps {
   id: number;
@@ -8,6 +9,7 @@ interface InquiryCardProps {
   category: string;
   title: string;
   image?: string;
+  answer: boolean;
   onClick: (id: number) => void;
 }
 
@@ -20,7 +22,7 @@ const InquiryCard = (props: InquiryCardProps) => {
           flexDirection: "row",
           alignItems: "center",
           width: "100%",
-          padding: "16px",
+          padding: "10px",
           cursor: "pointer",
         }}
         onClick={() => {
@@ -32,10 +34,32 @@ const InquiryCard = (props: InquiryCardProps) => {
             display: "flex",
             flexDirection: "column",
             flexGrow: 1,
+            gap: "4px",
           }}
         >
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              backgroundColor: props.answer ? "#3966AE" : "#A7AAB1",
+              padding: "2px 8px",
+              width: "fit-content",
+              borderTopLeftRadius: "4px",
+              borderBottomRightRadius: "4px",
+            }}
+          >
+            {props.answer ? (
+              <Typography sx={{ fontSize: "12px", color: "white" }}>
+                답변완료
+              </Typography>
+            ) : (
+              <Typography sx={{ fontSize: "12px", color: "white" }}>
+                답변대기
+              </Typography>
+            )}
+          </Box>
           <Typography sx={{ fontSize: "12px", color: "#282930" }}>
-            {props.date}
+            {dayjs(props.date).format("YYYY-MM-DD HH:mm")}
           </Typography>
           <Typography sx={{ fontSize: "12px", color: "#919298" }}>
             {props.category}

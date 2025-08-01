@@ -50,19 +50,6 @@ const Store = () => {
     FREE_STORAGE_PERIOD: string;
   }
 
-  const ordersData: OrderItem[] = [
-    {
-      TRACKING_NUMBER: "P123123",
-      PACKAGE_ID: "P123123",
-      TYPE: "Box",
-      WEIGHT: 100,
-      CONTENTS: "product1",
-      STATUS: "Awaiting User Process",
-      CREATED_AT: new Date("2025-01-01T00:00:00"),
-      FREE_STORAGE_PERIOD: "2025-01-01",
-    },
-  ];
-
   const navigate = useNavigate();
 
   const [filter, setFilter] = useState(t("store.all"));
@@ -71,7 +58,7 @@ const Store = () => {
   const [dateType, setDateType] = useState(""); //날짜 필터링
   const [isAllChecked, setIsAllChecked] = useState(false);
 
-  const [orders] = useState<OrderItem[]>(ordersData);
+  const [orders, setOrders] = useState<OrderItem[]>([]);
   const [checkedOrders, setCheckedOrders] = useState<OrderItem[]>([]);
   const [selectedItem, setSelectedItem] = useState<OrderItem | null>(null);
 
@@ -158,16 +145,15 @@ const Store = () => {
   }, {} as { [key: string]: OrderItem[] });
 
   const disposalService = () => {
-    setDisposalModalOpen(true);
-    // if (
-    //   checkedOrders.find(
-    //     (order: any) => order.PHOTO_SERVICE_STATUS === "Not applied"
-    //   )
-    // ) {
-    //   setIsDisposalModalOpen(true);
-    // } else {
-    //   setBottomModalOpen(true);
-    // }
+    if (
+      checkedOrders.find(
+        (order: any) => order.PHOTO_SERVICE_STATUS === "Not applied"
+      )
+    ) {
+      setIsDisposalModalOpen(true);
+    } else {
+      setIsDisposalModalOpen(true);
+    }
   };
 
   return (

@@ -4,6 +4,7 @@ import dayjs from "dayjs";
 
 interface HistoryProps {
   item: any;
+  type: string;
 }
 
 const History = (props: HistoryProps) => {
@@ -12,6 +13,7 @@ const History = (props: HistoryProps) => {
       sx={{
         display: "flex",
         flexDirection: "column",
+        px: "16px",
       }}
     >
       <Box
@@ -19,11 +21,11 @@ const History = (props: HistoryProps) => {
           display: "flex",
           flexDirection: "column",
           pt: "8px",
-          pb: "10px",
-          borderBottom: "1px solid #ECECED",
+          pb: "20px",
+          borderBottom: "1px solid #B1B2B6",
         }}
       >
-        <Typography sx={{ fontSize: "12px", textAlign: "start" }}>
+        <Typography sx={{ fontSize: "12px", mb: "9px", textAlign: "start" }}>
           {dayjs(props.item.CREATED_AT).format("YY.MM.DD")}
         </Typography>
         <Box
@@ -39,47 +41,55 @@ const History = (props: HistoryProps) => {
               flexDirection: "row",
             }}
           >
-            <img
-              src="/images/icon/coin.svg"
-              alt="coin"
-              style={{ width: "36px", height: "36px" }}
-            />
+            {props.type === "balance" ? (
+              <img
+                src="/images/icon/balance.svg"
+                alt="balance"
+                style={{ width: "36px", height: "36px" }}
+              />
+            ) : (
+              <img
+                src="/images/icon/reward.svg"
+                alt="reward"
+                style={{ width: "36px", height: "36px" }}
+              />
+            )}
             <Box
               sx={{
                 display: "flex",
                 flexDirection: "column",
-                ml: "4px",
+                ml: "10px",
               }}
             >
               <Typography
                 sx={{
                   fontSize: "14px",
                   color: "#282930",
+                  fontWeight: 700,
                 }}
               >
                 {props.item.DESCRIPTION}
               </Typography>
-              {props.item.EXPIRATION_DATE && (
-                <Typography
-                  sx={{
-                    fontSize: "12px",
-                    color: "#61636C",
-                  }}
-                >
-                  {dayjs(props.item.EXPIRATION_DATE).format("YYYY-MM-DD")}까지
-                </Typography>
-              )}
+              <Typography
+                sx={{
+                  fontSize: "12px",
+                  color: "#61636C",
+                  fontWeight: 500,
+                }}
+              >
+                {props.item.ORDER_NUMBER}
+              </Typography>
             </Box>
           </Box>
-          {props.item.TYPE === "USED" ? (
+          {props.item.AMOUNT < 0 ? (
             <Typography
               sx={{
                 fontSize: "16px",
                 fontWeight: 700,
-                color: "#EB1F81",
+                color: "#61636C",
               }}
             >
-              -{props.item.AMOUNT} P
+              {props.item.AMOUNT} P
             </Typography>
           ) : (
             <Typography

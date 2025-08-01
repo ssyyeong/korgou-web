@@ -18,9 +18,11 @@ const Balance = () => {
   const navigate = useNavigate();
 
   const filterings = [
-    { value: "today", label: t("common.period.today") },
-    { value: "7days", label: t("common.period.recent.week") },
-    { value: "1month", label: t("common.period.recent.month") },
+    { value: "7days", label: "1주일" },
+    { value: "1month", label: "1개월" },
+    { value: "3month", label: "3개월" },
+    { value: "6month", label: "6개월" },
+    { value: "1year", label: "1년" },
   ];
 
   const { memberBalance, memberId } = useAppMember();
@@ -36,7 +38,6 @@ const Balance = () => {
       modelName: "BalanceHistory",
       modelId: "balance_history",
     });
-
     controller
       .findAll({
         APP_MEMBER_ID: memberId,
@@ -65,90 +66,131 @@ const Balance = () => {
     <Box
       sx={{
         display: "flex",
-        height: "100%",
-        width: "100%",
+        height: "100vh",
         flexDirection: "column",
-        backgroundColor: "white",
+        backgroundColor: "#F5F5F5",
       }}
     >
       <Header title={"발란스"} />
 
       {/* Section Title */}
-      <Typography
+      <Box
         sx={{
-          fontSize: "14px",
-          mb: "4px",
-          mt: "16px",
+          display: "flex",
+          flexDirection: "row",
+          gap: "4px",
+          backgroundColor: "white",
         }}
       >
-        보유 발란스
-      </Typography>
+        <Typography
+          sx={{
+            fontSize: "14px",
+            mb: "4px",
+            mt: "16px",
+            ml: "16px",
+          }}
+        >
+          보유 발란스
+        </Typography>
+        <img
+          src="/images/icon/question.svg"
+          alt="question"
+          style={{
+            marginTop: "10px",
+          }}
+        />
+      </Box>
+
       <Box
         sx={{
           display: "flex",
           flexDirection: "row",
           justifyContent: "space-between",
+          px: "16px",
+          backgroundColor: "white",
+          pb: "16px",
         }}
       >
-        <Typography
+        <Box
           sx={{
-            fontSize: "32px",
-            fontWeight: 700,
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
           }}
         >
-          {memberBalance} P
-        </Typography>
+          <Typography
+            sx={{
+              fontSize: "32px",
+              fontWeight: 700,
+              color: "#282930",
+            }}
+          >
+            {memberBalance}
+          </Typography>
+          <Typography
+            sx={{
+              fontSize: "32px",
+              color: "#3966AE",
+              fontWeight: 700,
+            }}
+          >
+            B
+          </Typography>
+        </Box>
         <OriginButton
-          fullWidth
           variant="contained"
           onClick={() => {
             navigate("/my_page/balance/payment");
           }}
           contents={
-            <Typography fontSize={14} color="#ffffff">
-              {t("common.button.charge")}
+            <Typography fontSize={14} color="white">
+              충전
             </Typography>
           }
           style={{
-            width: "57px",
+            width: "45px",
             height: "32px",
             borderRadius: "10px",
+            padding: "8px 10px",
+            marginTop: "10px",
           }}
         />
       </Box>
-      <Divider
+      <Box
         sx={{
-          color: "#ECECED",
-          borderWidth: "4px",
-          mb: "19px",
-          mt: "16px",
+          backgroundColor: "#F5F5F5",
+          display: "flex",
+          flexDirection: "column",
           position: "relative",
-          width: "calc(100% + 25px)",
-          left: -16,
-        }}
-      />
-
-      <FilteringDate
-        filterings={filterings}
-        dateType={dateType}
-        startDate={startDate}
-        endDate={endDate}
-        setDateType={setDateType}
-        setStartDate={setStartDate}
-        setEndDate={setEndDate}
-        onSearch={filteringBalance}
-      />
-      <Typography
-        sx={{
-          fontSize: "12px",
-          mt: "16px",
+          mt: "19px",
+          px: "5px",
+          py: "16px",
         }}
       >
-        {t("balance.balance_history")}
-      </Typography>
-      {balanceList.map((balance, index) => (
-        <History key={index} item={balance} />
-      ))}
+        <FilteringDate
+          filterings={filterings}
+          dateType={dateType}
+          startDate={startDate}
+          endDate={endDate}
+          setDateType={setDateType}
+          setStartDate={setStartDate}
+          setEndDate={setEndDate}
+          onSearch={filteringBalance}
+        />
+        <Typography
+          sx={{
+            fontSize: "12px",
+            mt: "16px",
+            ml: "16px",
+            mb: "28px",
+          }}
+        >
+          발란스 히스토리
+        </Typography>
+        {balanceList.map((balance, index) => (
+          <History key={index} item={balance} type="balance" />
+        ))}
+      </Box>
     </Box>
   );
 };

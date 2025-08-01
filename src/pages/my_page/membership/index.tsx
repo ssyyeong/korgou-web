@@ -163,7 +163,7 @@ const MemberShip = () => {
         sx={{
           display: "flex",
           flexDirection: "column",
-          gap: "16px",
+          gap: "8px",
           width: "100%",
           justifyContent: "center",
           mt: "24px",
@@ -228,7 +228,7 @@ const MemberShip = () => {
         sx={{
           display: "flex",
           flexDirection: "column",
-          gap: "16px",
+          gap: "8px",
           width: "100%",
           justifyContent: "center",
           mt: "24px",

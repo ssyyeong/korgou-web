@@ -21,6 +21,7 @@ const InquiryDetail = () => {
   const [answerDate, setAnswerDate] = React.useState("");
 
   useEffect(() => {
+    console.log(id);
     const controller = new ControllerAbstractBase({
       modelName: "QnaBoardQuestion",
       modelId: "qna_board_question",

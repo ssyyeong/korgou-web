@@ -12,12 +12,12 @@ import { useTranslation } from "react-i18next";
 
 const Inquiry = () => {
   const navigate = useNavigate();
-  const { memberCode } = useAppMember();
+  const { memberId } = useAppMember();
   const { t } = useTranslation();
   const [tab, setTab] = React.useState(0);
   const [categoryList, setCategoryList] = React.useState([]);
-  const [qnaAnswerBeforeList, setQnaAnswerBeforeList] = React.useState([]);
-  const [qnaAnswerAfterList, setQnaAnswerAfterList] = React.useState([]);
+  const [serviceList, setServiceList] = React.useState([]);
+  const [shopList, setShopList] = React.useState([]);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
     setTab(newValue);
@@ -46,22 +46,21 @@ const Inquiry = () => {
 
     controller
       .findAll({
-        APP_MEMBER_IDENTIFICATION_CODE: memberCode,
+        APP_MEMBER_ID: memberId,
       })
       .then((res) => {
+        console.log(res);
         const data = res.result.rows;
-        const answerBefore = data.filter(
-          (item: any) => item.QnaBoardAnswers.length === 0
+        const serviceList = data.filter(
+          (item: any) => item.CATEGORY === "Service"
         );
-        const answerAfter = data.filter(
-          (item: any) => item.QnaBoardAnswers.length > 0
-        );
+        const shopList = data.filter((item: any) => item.CATEGORY === "Shop");
 
-        setQnaAnswerBeforeList(answerBefore);
-        setQnaAnswerAfterList(answerAfter);
+        setServiceList(serviceList);
+        setShopList(shopList);
       });
     getCategoryList();
-  }, [memberCode]);
+  }, [memberId, tab]);
 
   const getCategoryList = () => {
     const categoryController = new ControllerAbstractBase({
@@ -93,7 +92,7 @@ const Inquiry = () => {
         alignItems: "center",
       }}
     >
-      <Header title={t("inquiry.title")} />
+      <Header title={"문의 관리"} />
       <Tabs
         value={tab}
         onChange={handleChange}
@@ -113,8 +112,8 @@ const Inquiry = () => {
           borderBottom: "1px solid #919298", // 탭 아래쪽 보더 설정
         }}
       >
-        <Tab label={t("inquiry.answer_completed")} />
-        <Tab label={t("inquiry.answer_waiting")} />
+        <Tab label={"Service"} />
+        <Tab label={"Shop"} />
       </Tabs>
 
       <TabPanel value={0} width="100%">
@@ -137,7 +136,7 @@ const Inquiry = () => {
           >
             <Typography sx={{ fontSize: "14px", color: "#282930", ml: "16px" }}>
               {t("common.field.count.count", {
-                count: qnaAnswerAfterList.length,
+                count: serviceList.length,
               })}
             </Typography>
             <OriginButton
@@ -145,14 +144,22 @@ const Inquiry = () => {
               variant="contained"
               color="#282930"
               onClick={() => {
-                navigate("/my_page/inquiry/create");
+                navigate("/my_page/inquiry/create", {
+                  state: {
+                    category: "Service",
+                  },
+                });
               }}
               contents={
                 <Typography fontSize={12} color="#ffffff">
-                  {t("inquiry_create.title")}
+                  문의 작성{" "}
                 </Typography>
               }
-              style={{ height: "24px", width: "80px" }}
+              style={{
+                height: "24px",
+                width: "fit-content",
+                padding: "4px 10px",
+              }}
             />
           </Box>
           <Divider
@@ -163,7 +170,7 @@ const Inquiry = () => {
               left: -15,
             }}
           />
-          {qnaAnswerAfterList.map((item: any) => {
+          {serviceList.map((item: any) => {
             const category = categoryList.filter(
               (category) =>
                 category.value === item.QNA_BOARD_CATEGORY_IDENTIFICATION_CODE
@@ -171,17 +178,20 @@ const Inquiry = () => {
 
             return (
               <InquiryCard
-                key={item.QNA_BOARD_QUESTION_CODE}
-                id={item.QNA_BOARD_QUESTION_CODE}
+                key={item.QNA_BOARD_QUESTION_IDENTIFICATION_CODE}
+                id={item.QNA_BOARD_QUESTION_IDENTIFICATION_CODE}
                 date={item.CREATED_AT}
                 category={category?.label}
-                title={item.title}
+                title={item.TITLE}
+                answer={item.QnaBoardAnswers.length > 0}
                 image={
                   JSON.parse(item.IMAGE_LIST).length > 0 &&
                   JSON.parse(item.IMAGE_LIST)[0].FILE_URL
                 }
                 onClick={(id: number) => {
-                  navigate(`/my_page/inquiry/${id}`);
+                  navigate(`/my_page/inquiry/detail`, {
+                    state: { id },
+                  });
                 }}
               />
             );
@@ -208,7 +218,7 @@ const Inquiry = () => {
           >
             <Typography sx={{ fontSize: "14px", color: "#282930", ml: "16px" }}>
               {t("common.field.count.count", {
-                count: qnaAnswerBeforeList.length,
+                count: shopList.length,
               })}
             </Typography>
             <OriginButton
@@ -216,7 +226,11 @@ const Inquiry = () => {
               variant="contained"
               color="#282930"
               onClick={() => {
-                navigate("/my_page/inquiry/create");
+                navigate("/my_page/inquiry/create", {
+                  state: {
+                    category: "Shop",
+                  },
+                });
               }}
               contents={
                 <Typography fontSize={12} color="#ffffff">
@@ -234,7 +248,7 @@ const Inquiry = () => {
               left: -15,
             }}
           />
-          {qnaAnswerBeforeList.map((item: any) => {
+          {shopList.map((item: any) => {
             const category = categoryList.filter(
               (category) =>
                 category.value === item.QNA_BOARD_CATEGORY_IDENTIFICATION_CODE
@@ -243,9 +257,10 @@ const Inquiry = () => {
               <InquiryCard
                 key={item.QNA_BOARD_QUESTION_IDENTIFICATION_CODE}
                 id={item.QNA_BOARD_QUESTION_IDENTIFICATION_CODE}
-                date={dayjs(item.CREATED_AT).format("YYYY-MM-DD HH:mm")}
+                date={item.CREATED_AT}
                 category={category?.label}
                 title={item.TITLE}
+                answer={item.QnaBoardAnswers.length > 0}
                 image={
                   JSON.parse(item.IMAGE_LIST).length > 0 &&
                   JSON.parse(item.IMAGE_LIST)[0].FILE_URL

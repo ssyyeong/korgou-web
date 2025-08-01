@@ -3,6 +3,37 @@ import { Box, Typography, Divider } from "@mui/material";
 import Header from "../../../../components/Header/Header";
 
 const MemberShipDetail = () => {
+  const membershipList = [
+    {
+      name: "DIAMOND",
+      sale: "35% 수수료 할인률",
+      description: "31건 이상 Or 5,010,000원 이상",
+      image: "/images/icon/diamond.svg",
+      color: "#54588E",
+    },
+    {
+      name: "GOLD",
+      sale: "30% 수수료 할인률",
+      description: "21~30건 Or 3,010,000 ~ 5,000,000원",
+      image: "/images/icon/gold.svg",
+      color: "#FFAA00",
+    },
+    {
+      name: "SILVER",
+      sale: "15% 수수료 할인률",
+      description: "11~20건 Or 1,010,000 ~ 3,000,000원",
+      image: "/images/icon/silver.svg",
+      color: "#9C9C9C",
+    },
+    {
+      name: "BRONZE",
+      sale: "5% 수수료 할인률",
+      description: "5~10건 Or 300,000 ~ 1,000,000원",
+      image: "/images/icon/bronze.svg",
+      color: "#EB1F81",
+    },
+  ];
+
   return (
     <Box
       sx={{
@@ -15,7 +46,7 @@ const MemberShipDetail = () => {
         alignContent: "center",
       }}
     >
-      <Header title="KORGOU 멤버십  안내" />
+      <Header title="KORGOU 멤버십 안내" />
       <Typography
         sx={{
           fontSize: "16px",
@@ -26,198 +57,79 @@ const MemberShipDetail = () => {
         회원등급 안내
       </Typography>
       {/* 컴포넌트화 필요 */}
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          backgroundColor: "#F8FAFC",
-          justifyContent: "center",
-          alignContent: "center",
-          borderRadius: "4px",
-          py: "20px",
-          px: "16px",
-          mb: "20px",
-        }}
-      >
+      {membershipList.map((membership) => (
         <Box
           sx={{
             display: "flex",
-            flexDirection: "row",
-            width: "100%",
+            flexDirection: "column",
+            backgroundColor: "#F8FAFC",
+            justifyContent: "center",
+            alignContent: "center",
+            borderRadius: "4px",
+            py: "20px",
+            px: "16px",
+            mb: "20px",
           }}
         >
-          <img
-            src="/images/icon/badge.svg"
-            alt="badge"
-            width={44}
-            height={44}
-          />
           <Box
             sx={{
               display: "flex",
-              flexDirection: "column",
+              flexDirection: "row",
               width: "100%",
             }}
           >
-            <Typography
+            <img src={membership.image} alt="badge" width={44} height={44} />
+            <Box
               sx={{
-                fontSize: "18px",
-                color: "#282930",
-                fontWeight: 700,
+                display: "flex",
+                flexDirection: "column",
+                width: "100%",
+                ml: "4px",
               }}
             >
-              influencer
-            </Typography>
-            <Typography
-              sx={{
-                fontSize: "16px",
-                color: "#282930",
-              }}
-            >
-              100만원 초과 구매시
-            </Typography>
+              <Typography
+                sx={{
+                  fontSize: "18px",
+                  color: membership.color,
+                  fontWeight: 700,
+                }}
+              >
+                {membership.name}
+              </Typography>
+              <Typography
+                sx={{
+                  fontSize: "16px",
+                  color: "#282930",
+                  fontWeight: 500,
+                }}
+              >
+                {membership.sale}
+              </Typography>
+            </Box>
           </Box>
-        </Box>
-        <Divider sx={{ color: "#ECECED", my: "10px" }} />
-        <Typography
-          sx={{
-            fontSize: "12px",
-            color: "#919298",
-          }}
-        >
-          · 무료배송 쿠폰 10장 지급 <br />· 생일바우처 50,000원 (20만원 이상
-          결제시) <br />· 딜리버리 서비스 이용권 2장 지급
-        </Typography>
-      </Box>
-
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          backgroundColor: "#F8FAFC",
-          justifyContent: "center",
-          alignContent: "center",
-          borderRadius: "4px",
-          py: "20px",
-          px: "16px",
-          mb: "20px",
-        }}
-      >
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            width: "100%",
-          }}
-        >
-          <img
-            src="/images/icon/badge.svg"
-            alt="badge"
-            width={44}
-            height={44}
-          />
-          <Box
+          <Divider sx={{ color: "#ECECED", my: "10px" }} />
+          <Typography
             sx={{
-              display: "flex",
-              flexDirection: "column",
-              width: "100%",
+              fontSize: "12px",
+              color: "#61636C",
+              fontWeight: 700,
             }}
           >
-            <Typography
-              sx={{
-                fontSize: "18px",
-                color: "#282930",
-                fontWeight: 700,
-              }}
-            >
-              VIP
-            </Typography>
-            <Typography
-              sx={{
-                fontSize: "16px",
-                color: "#282930",
-              }}
-            >
-              5만원 초과 ~ 100만원 이하 구매시{" "}
-            </Typography>
-          </Box>
-        </Box>
-        <Divider sx={{ color: "#ECECED", my: "10px" }} />
-        <Typography
-          sx={{
-            fontSize: "12px",
-            color: "#919298",
-          }}
-        >
-          · 무료배송 쿠폰 8장 지급 <br />· 생일바우처 30,000원 (20만원 이상
-          결제시) <br />· 딜리버리 서비스 이용권 1장 지급
-        </Typography>
-      </Box>
-      <Box
-        sx={{
-          display: "flex",
-          flexDirection: "column",
-          backgroundColor: "#F8FAFC",
-          justifyContent: "center",
-          alignContent: "center",
-          borderRadius: "4px",
-          py: "20px",
-          px: "16px",
-          mb: "20px",
-        }}
-      >
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            width: "100%",
-          }}
-        >
-          <img
-            src="/images/icon/badge.svg"
-            alt="badge"
-            width={44}
-            height={44}
-          />
-          <Box
+            {" "}
+            · 등급조건
+          </Typography>
+          <Typography
             sx={{
-              display: "flex",
-              flexDirection: "column",
-              width: "100%",
+              fontSize: "12px",
+              color: "#61636C",
+              fontWeight: 500,
+              ml: "6px",
             }}
           >
-            <Typography
-              sx={{
-                fontSize: "18px",
-                color: "#282930",
-                fontWeight: 700,
-              }}
-            >
-              PREMIUM
-            </Typography>
-            <Typography
-              sx={{
-                fontSize: "16px",
-                color: "#282930",
-              }}
-            >
-              20만원 초과 ~ 50만원 이하 구매시{" "}
-            </Typography>
-          </Box>
+            {membership.description}
+          </Typography>
         </Box>
-
-        <Divider sx={{ color: "#ECECED", my: "10px" }} />
-
-        <Typography
-          sx={{
-            fontSize: "12px",
-            color: "#919298",
-          }}
-        >
-          · 무료배송 쿠폰 5장 지급 <br />· 생일바우처 20,000원 (20만원 이상
-          결제시)
-        </Typography>
-      </Box>
+      ))}
     </Box>
   );
 };

@@ -1,29 +1,35 @@
 import React, { useEffect, useState } from "react";
-import { Box, Typography, Divider } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 
 import ControllerAbstractBase from "../../../controller/Controller";
-import PointController from "../../../controller/PointController";
+import BalanceController from "../../../controller/BalanceController";
 
 import { useAppMember } from "../../../hooks/useAppMember";
+
 import Header from "../../../components/Header/Header";
 import FilteringDate from "../../../components/FilteringDate";
 import History from "../../../components/List/History";
 import { useTranslation } from "react-i18next";
-const PointList = () => {
+import { useNavigate } from "react-router-dom";
+
+const Balance = () => {
   const { t } = useTranslation();
+  const navigate = useNavigate();
+
   const filterings = [
-    { value: "today", label: t("common.period.today") },
-    { value: "7days", label: t("common.period.recent.week") },
-    { value: "1month", label: t("common.period.recent.month") },
+    { value: "7days", label: "1주일" },
+    { value: "1month", label: "1개월" },
+    { value: "3month", label: "3개월" },
+    { value: "6month", label: "6개월" },
+    { value: "1year", label: "1년" },
   ];
 
-  const { memberPoint, memberCode } = useAppMember();
-
+  const { memberPoint, memberId } = useAppMember();
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
   const [dateType, setDateType] = useState(""); //날짜 필터링
 
-  const [pointList, setPointList] = useState([]);
+  const [rewardList, setRewardList] = useState([]);
 
   useEffect(() => {
     //포인트 내역 조회
@@ -31,28 +37,27 @@ const PointList = () => {
       modelName: "Point",
       modelId: "point",
     });
-
     controller
       .findAll({
-        APP_MEMBER_IDENTIFICATION_CODE: memberCode,
+        APP_MEMBER_ID: memberId,
       })
       .then((res) => {
-        setPointList(res.result.rows);
+        setRewardList(res.result.rows);
       });
-  }, [memberCode]);
+  }, [memberId]);
 
-  const filteringPoint = (filter) => {
-    const pointController = new PointController({
+  const filteringBalance = (filter) => {
+    const balanceController = new BalanceController({
       modelName: "Point",
       modelId: "point",
     });
-    pointController
+    balanceController
       .filtering({
-        APP_MEMBER_IDENTIFICATION_CODE: memberCode,
+        APP_MEMBER_ID: memberId,
         ...filter,
       })
       .then((res) => {
-        setPointList(res.data.result);
+        setRewardList(res.data.result);
       });
   };
 
@@ -60,68 +65,115 @@ const PointList = () => {
     <Box
       sx={{
         display: "flex",
-        height: "100%",
-        width: "100%",
+        height: "100vh",
         flexDirection: "column",
-        backgroundColor: "white",
+        backgroundColor: "#F5F5F5",
       }}
     >
-      <Header title={t("point.title")} />
+      <Header title={"리워드"} />
 
       {/* Section Title */}
-      <Typography
+      <Box
         sx={{
-          fontSize: "14px",
-          mb: "4px",
-          color: "#61636C",
+          display: "flex",
+          flexDirection: "row",
+          gap: "4px",
+          backgroundColor: "white",
         }}
       >
-        {t("point.amount")}
-      </Typography>
+        <Typography
+          sx={{
+            fontSize: "14px",
+            mb: "4px",
+            mt: "16px",
+            ml: "16px",
+          }}
+        >
+          보유 리워드
+        </Typography>
+        <img
+          src="/images/icon/question.svg"
+          alt="question"
+          style={{
+            marginTop: "10px",
+          }}
+        />
+      </Box>
 
-      <Typography
+      <Box
         sx={{
-          fontSize: "32px",
-          fontWeight: 700,
+          display: "flex",
+          flexDirection: "row",
+          justifyContent: "space-between",
+          px: "16px",
+          backgroundColor: "white",
+          pb: "16px",
         }}
       >
-        {memberPoint} P
-      </Typography>
-      <Divider
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "center",
+          }}
+        >
+          <Typography
+            sx={{
+              fontSize: "32px",
+              fontWeight: 700,
+              color: "#282930",
+            }}
+          >
+            {memberPoint}
+          </Typography>
+          <Typography
+            sx={{
+              fontSize: "32px",
+              color: "#EB1F81",
+              fontWeight: 700,
+            }}
+          >
+            R
+          </Typography>
+        </Box>
+      </Box>
+      <Box
         sx={{
-          color: "#ECECED",
-          borderWidth: "4px",
-          mb: "19px",
-          mt: "16px",
+          backgroundColor: "#F5F5F5",
+          display: "flex",
+          flexDirection: "column",
           position: "relative",
-          width: "calc(100% + 25px)",
-          left: -16,
-        }}
-      />
-
-      <FilteringDate
-        filterings={filterings}
-        dateType={dateType}
-        startDate={startDate}
-        endDate={endDate}
-        setDateType={setDateType}
-        setStartDate={setStartDate}
-        setEndDate={setEndDate}
-        onSearch={filteringPoint}
-      />
-      <Typography
-        sx={{
-          fontSize: "12px",
-          mt: "16px",
+          mt: "19px",
+          px: "5px",
+          py: "16px",
         }}
       >
-        {t("point.point_history")}
-      </Typography>
-      {pointList.map((point, index) => (
-        <History key={index} item={point} />
-      ))}
+        <FilteringDate
+          filterings={filterings}
+          dateType={dateType}
+          startDate={startDate}
+          endDate={endDate}
+          setDateType={setDateType}
+          setStartDate={setStartDate}
+          setEndDate={setEndDate}
+          onSearch={filteringBalance}
+        />
+        <Typography
+          sx={{
+            fontSize: "12px",
+            mt: "16px",
+            ml: "16px",
+            mb: "28px",
+          }}
+        >
+          리워드 히스토리
+        </Typography>
+        {rewardList.map((reward, index) => (
+          <History key={index} item={reward} type="reward" />
+        ))}
+      </Box>
     </Box>
   );
 };
 
-export default PointList;
+export default Balance;

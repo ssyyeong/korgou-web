@@ -64,10 +64,10 @@ const MyPage = () => {
     {
       path: "/images/icon/my_page/speaker.svg",
       title: "공지사항",
-      pathName: "/my_page/notice",
+      pathName: "/support",
       subItems: [
-        { title: "notice", pathName: "/my_page/notice" },
-        { title: "event", pathName: "/my_page/event" },
+        { title: "notice", pathName: "/support/notice" },
+        { title: "event", pathName: "/support/event" },
       ],
     },
     {
@@ -212,9 +212,7 @@ const MyPage = () => {
                     cursor: "pointer",
                   }}
                   onClick={() => {
-                    if (!item.subItems) {
-                      navigate(item.pathName);
-                    }
+                    navigate(item.pathName);
                   }}
                 >
                   <Box

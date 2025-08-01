@@ -21,9 +21,17 @@ const FilteringDate = (props: IfilteringDateProps) => {
         display: "flex",
         flexDirection: "column",
         width: "100%",
+        gap: "12px",
       }}
     >
-      <Box sx={{ display: "flex", gap: 1, flexDirection: "row", mb: "10px" }}>
+      <Box
+        sx={{
+          display: "flex",
+          gap: "8px",
+          flexDirection: "row",
+          flexWrap: "wrap",
+        }}
+      >
         {props.filterings.map((filter, index) => (
           <Button
             key={index}
@@ -35,6 +43,10 @@ const FilteringDate = (props: IfilteringDateProps) => {
               backgroundColor:
                 props.dateType === filter.value ? "#282930" : "white",
               height: "32px",
+              padding: "4px 10px",
+              width: "fit-content",
+              minWidth: "auto",
+              fontSize: "12px",
             }}
             onClick={() => {
               props.setDateType(filter.value);
@@ -78,6 +90,8 @@ const FilteringDate = (props: IfilteringDateProps) => {
             marginTop: "0px",
             padding: "8px",
             width: "88px",
+            borderRadius: "5px",
+            height: "40px",
           }}
         />
       </Box>
