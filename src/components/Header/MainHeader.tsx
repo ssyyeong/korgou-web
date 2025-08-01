@@ -214,6 +214,7 @@ const MainHeader = () => {
           countryList={countryList}
           isAuthenticated={isAuthenticated}
           navigate={navigate}
+          type="right"
         />
         {/* 알림 모달 */}
         <AlarmModal

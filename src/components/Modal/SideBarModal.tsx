@@ -23,6 +23,7 @@ interface SideBarModalProps {
   countryList: { value: string; label: string }[];
   isAuthenticated: boolean;
   navigate: any;
+  type?: "left" | "right";
 }
 
 const SideBarModal: React.FC<SideBarModalProps> = ({
@@ -33,6 +34,7 @@ const SideBarModal: React.FC<SideBarModalProps> = ({
   countryList,
   isAuthenticated,
   navigate,
+  type = "right",
 }) => {
   const { logout } = useAuth();
 
@@ -66,13 +68,15 @@ const SideBarModal: React.FC<SideBarModalProps> = ({
         sx={{
           position: "absolute",
           top: "50%",
-          left: "55%",
+          left: type === "left" ? "44%" : "55%",
           transform: "translate(-50%, -50%)",
           width: 180,
           height: "100%",
           bgcolor: "white",
-          borderTopLeftRadius: 50,
-          borderBottomLeftRadius: 50,
+          borderTopLeftRadius: type === "left" ? 0 : 50,
+          borderTopRightRadius: type === "left" ? 50 : 0,
+          borderBottomLeftRadius: type === "left" ? 0 : 50,
+          borderBottomRightRadius: type === "left" ? 50 : 0,
           pt: "20px",
           pb: "20px",
           px: "16px",

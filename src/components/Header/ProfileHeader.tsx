@@ -100,7 +100,9 @@ const ProfileHeader = (props: any) => {
           <IconButton
             color="info"
             aria-label="menu"
-            onClick={toggleDrawer(true)}
+            onClick={() => {
+              navigate("/my_page/profile");
+            }}
           >
             <img
               src="/images/icon/people_white.svg"
@@ -177,7 +179,9 @@ const ProfileHeader = (props: any) => {
             src="/images/icon/my_page/pencil.svg"
             alt="pencil"
             style={{ cursor: "pointer", width: "26px", height: "26px" }}
-            onClick={() => {}} // TODO: 프로필 수정 페이지로 이동
+            onClick={() => {
+              navigate("/my_page/profile");
+            }} // TODO: 프로필 수정 페이지로 이동
           />
           <Typography
             sx={{
@@ -617,6 +621,7 @@ const ProfileHeader = (props: any) => {
         countryList={countryList}
         isAuthenticated={isAuthenticated}
         navigate={navigate}
+        type="left"
       />
       {/* 알림 모달 */}
       <AlarmModal
