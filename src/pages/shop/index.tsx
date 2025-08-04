@@ -212,29 +212,118 @@ const Shop = () => {
           justifyContent: "center",
           alignItems: "center",
           marginTop: "13px",
-          gap: "16px",
+          gap: "20px",
         }}
       >
-        <img src="/images/icon/goods.svg" alt="logo" width={78} height={78} />
-        <img
-          src="/images/icon/album.svg"
-          alt="logo"
-          width={60}
-          height={60}
-          style={{
-            marginTop: "15px",
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "7px",
+            alignItems: "center",
+            justifyContent: "center",
           }}
-        />
-        <img src="/images/icon/food.svg" alt="logo" width={78} height={78} />
-        <img
-          src="/images/icon/living.svg"
-          alt="logo"
-          width={60}
-          height={60}
-          style={{
-            marginTop: "15px",
+        >
+          <img src="/images/icon/goods.svg" alt="logo" width={46} height={41} />
+          <Typography
+            sx={{
+              color: "#EB1F81",
+              fontSize: "12px",
+              fontWeight: 700,
+            }}
+          >
+            GOODS
+          </Typography>
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "7px",
+            alignItems: "center",
+            justifyContent: "center",
           }}
-        />
+        >
+          <img src="/images/icon/album.svg" alt="logo" width={46} height={41} />
+          <Typography
+            sx={{
+              color: "#EB1F81",
+              fontSize: "12px",
+              fontWeight: 700,
+            }}
+          >
+            ALBUM
+          </Typography>
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "7px",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <img
+            src="/images/icon/beauty.svg"
+            alt="logo"
+            width={46}
+            height={41}
+          />
+          <Typography
+            sx={{
+              color: "#EB1F81",
+              fontSize: "12px",
+              fontWeight: 700,
+            }}
+          >
+            BEAUTY
+          </Typography>
+        </Box>
+
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "7px",
+            alignItems: "center",
+            justifyContent: "center",
+          }}
+        >
+          <img src="/images/icon/food.svg" alt="logo" width={46} height={41} />
+          <Typography
+            sx={{
+              color: "#EB1F81",
+              fontSize: "12px",
+              fontWeight: 700,
+            }}
+          >
+            FOOD
+          </Typography>
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "7px",
+          }}
+        >
+          <img
+            src="/images/icon/living.svg"
+            alt="logo"
+            width={46}
+            height={41}
+          />
+          <Typography
+            sx={{
+              color: "#EB1F81",
+              fontSize: "12px",
+              fontWeight: 700,
+            }}
+          >
+            LIVING
+          </Typography>
+        </Box>
       </Box>
       {/* OPEN MARKET */}
       <Box
@@ -614,7 +703,6 @@ const Shop = () => {
           flexDirection: "column",
           justifyContent: "center",
           marginTop: "8px",
-          mb: "24px",
           backgroundColor: "#F5F5F5",
           padding: "16px",
         }}
@@ -749,6 +837,18 @@ const Shop = () => {
           </IconButton>
         </Box>
       </Box>
+      <img
+        src="/images/main/sign_up.svg"
+        alt="logo"
+        style={{
+          cursor: "pointer",
+          marginBottom: "30px",
+        }}
+        onClick={() => {
+          navigate("/signup");
+        }}
+      />
+
       {/* LIVE SHOP */}
       <Box
         sx={{

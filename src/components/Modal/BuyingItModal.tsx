@@ -29,7 +29,7 @@ const BuyingItModal = (props: IBuyingItModalProps) => {
           pt: "20px",
           pb: "32px",
           px: "16px",
-          backgroundColor: "#D1E2F4",
+          backgroundColor: "#EBEFFA",
         }}
       >
         <img
