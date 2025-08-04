@@ -1,5 +1,5 @@
-import { Box, Divider, Typography } from "@mui/material";
-import React, { useEffect } from "react";
+import { Box, Divider, Typography, Button } from "@mui/material";
+import React, { useEffect, useState } from "react";
 import MainHeader from "../components/Header/MainHeader";
 import CalculatorModal from "../components/Modal/CalculatorModal";
 import BuyingItModal from "../components/Modal/BuyingItModal";
@@ -23,6 +23,108 @@ const Home = () => {
   const [buyingModalOpen, setBuyingModalOpen] = React.useState(false);
   // 계산기 모달
   const [calculatorModalOpen, setCalculatorModalOpen] = React.useState(false);
+  // 카테고리 선택 상태
+  const [selectedCategory, setSelectedCategory] = useState("K-Pop");
+
+  // 카테고리별 이미지 데이터
+  const categoryImages = {
+    "K-Pop": [
+      {
+        image: "/images/logo/kpop/wibers.jpg",
+        type: "round",
+      },
+      {
+        image: "/images/logo/kpop/makestar.jpg",
+        type: "round",
+      },
+      {
+        image: "/images/logo/kpop/with_you.jpg",
+        type: "round",
+      },
+      {
+        image: "/images/logo/kpop/sound_wave.png",
+        type: "round",
+      },
+      {
+        image: "/images/logo/kpop/everline.jpg",
+        type: "square",
+      },
+      {
+        image: "/images/logo/kpop/ktown4u.png",
+        type: "square",
+      },
+      {
+        image: "/images/logo/kpop/apple_music.png",
+        type: "square",
+      },
+    ],
+    Beauty: [
+      {
+        image: "/images/logo/beauty/oliveyeong.png",
+        type: "round",
+      },
+      {
+        image: "/images/logo/beauty/amore.png",
+        type: "round",
+      },
+      {
+        image: "/images/logo/beauty/amuse.png",
+        type: "square",
+      },
+      {
+        image: "/images/logo/beauty/innisfree.png",
+        type: "square",
+      },
+      {
+        image: "/images/logo/beauty/fwee.png",
+        type: "square",
+      },
+    ],
+    Animation: [
+      {
+        image: "/images/logo/animation/beon.jpeg",
+        type: "round",
+      },
+      {
+        image: "/images/logo/animation/maple.jpg",
+        type: "round",
+      },
+      {
+        image: "/images/logo/animation/master_blue.jpeg",
+        type: "square",
+      },
+      {
+        image: "/images/logo/animation/mofen.jpg",
+        type: "square",
+      },
+      {
+        image: "/images/logo/animation/second_echo.jpg",
+        type: "square",
+      },
+    ],
+    "Etc.": [
+      {
+        image: "/images/logo/etc/coupang.png",
+        type: "square",
+      },
+      {
+        image: "/images/logo/etc/line.png",
+        type: "round",
+      },
+      {
+        image: "/images/logo/etc/gmarket.png",
+        type: "round",
+      },
+      {
+        image: "/images/logo/etc/chapsticks.png",
+        type: "square",
+      },
+      {
+        image: "/images/logo/etc/daiso.png",
+        type: "square",
+      },
+    ],
+  };
 
   useEffect(() => {
     getBannerList();
@@ -203,6 +305,7 @@ const Home = () => {
             lineHeight: "130%",
             letterSpacing: "-0.24px",
             textAlign: "center",
+            marginBottom: "8px",
           }}
         >
           Use of the service
@@ -219,6 +322,140 @@ const Home = () => {
         >
           What are our customers saying?
         </Typography>
+
+        {/* 카테고리 버튼들 */}
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            my: "24px",
+            justifyContent: "center",
+            flexWrap: "nowrap",
+          }}
+        >
+          {["K-Pop", "Beauty", "Animation", "Etc."].map((category, index) => (
+            <React.Fragment key={category}>
+              <Button
+                onClick={() => setSelectedCategory(category)}
+                sx={{
+                  fontSize: "12px",
+                  fontWeight: 700,
+                  color: selectedCategory === category ? "#0080EA" : "#706E6E",
+                  backgroundColor: "transparent",
+                  border: "none",
+                  cursor: "pointer",
+                  padding: "0",
+                  lineHeight: "130%",
+                  letterSpacing: "-0.12px",
+                  textTransform: "none",
+                }}
+              >
+                {category}
+              </Button>
+              {index < 3 && (
+                <Box
+                  sx={{
+                    width: "1px",
+                    height: "12px",
+                    backgroundColor: "#706E6E",
+                    mx: "10px",
+                  }}
+                />
+              )}
+            </React.Fragment>
+          ))}
+        </Box>
+
+        {/* 파트너 이미지들 */}
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "22px",
+            width: "100%",
+            maxWidth: "600px",
+            alignItems: "center",
+          }}
+        >
+          {/* Round 타입 이미지들 (위쪽) */}
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: "24px",
+              width: "100%",
+              justifyContent: "center",
+            }}
+          >
+            {categoryImages[selectedCategory as keyof typeof categoryImages]
+              ?.filter((partner) => partner.type === "round")
+              .map((partner, index) => (
+                <Box
+                  key={index}
+                  sx={{
+                    width: "54px",
+                    height: "54px",
+                    borderRadius: "50%",
+                    overflow: "hidden",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    backgroundColor: "#f5f5f5",
+                    flexShrink: 0,
+                  }}
+                >
+                  <img
+                    src={partner.image}
+                    alt={`partner-${index}`}
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                    }}
+                  />
+                </Box>
+              ))}
+          </Box>
+
+          {/* Square 타입 이미지들 (아래쪽) */}
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-around",
+              width: "100%",
+              maxWidth: "300px",
+              mt: "24px",
+            }}
+          >
+            {categoryImages[selectedCategory as keyof typeof categoryImages]
+              ?.filter((partner) => partner.type === "square")
+              .map((partner, index) => (
+                <Box
+                  key={index}
+                  sx={{
+                    height: "16px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    flexShrink: 0,
+                  }}
+                >
+                  <img
+                    src={partner.image}
+                    alt={`partner-${index}`}
+                    style={{
+                      maxWidth: "95px",
+                      maxHeight: "16px",
+                      width: "auto",
+                      height: "auto",
+                      objectFit: "contain",
+                    }}
+                  />
+                </Box>
+              ))}
+          </Box>
+        </Box>
       </Box>
       <Divider
         sx={{
