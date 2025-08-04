@@ -123,11 +123,12 @@ const MainHeader = () => {
           display: "flex",
           flexDirection: "row",
           alignItems: "center",
+          gap: "17px",
         }}
       >
-        <IconButton
-          color="info"
-          aria-label="account"
+        <img
+          src="/images/icon/alarm.svg"
+          alt="logo"
           onClick={() => {
             if (isAuthenticated) {
               setAlarmOpen(true);
@@ -135,30 +136,20 @@ const MainHeader = () => {
               navigate("/sign_in");
             }
           }}
-        >
-          <img
-            src="/images/icon/alarm.svg"
-            alt="logo"
-            width={"24px"}
-            height={"24px"}
-          />
-        </IconButton>
-        <IconButton color="info" aria-label="global" onClick={handleClick}>
-          <img
-            src="/images/icon/global.svg"
-            alt="logo"
-            width={"24px"}
-            height={"24px"}
-          />
-        </IconButton>
-        <IconButton color="info" aria-label="menu" onClick={toggleDrawer(true)}>
-          <img
-            src="/images/icon/side_bar/side_bar_gray.svg"
-            alt="logo"
-            width={"24px"}
-            height={"24px"}
-          />
-        </IconButton>
+          style={{ cursor: "pointer" }}
+        />
+        <img
+          src="/images/icon/global.svg"
+          alt="logo"
+          onClick={handleClick}
+          style={{ cursor: "pointer" }}
+        />
+        <img
+          src="/images/icon/side_bar/side_bar_gray.svg"
+          alt="logo"
+          onClick={toggleDrawer(true)}
+          style={{ cursor: "pointer" }}
+        />
         <Menu
           anchorEl={anchorEl}
           open={open}
