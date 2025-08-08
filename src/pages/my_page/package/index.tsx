@@ -9,8 +9,10 @@ import { useTranslation } from "react-i18next";
 import ControllerAbstractBase from "../../../controller/Controller";
 import { unidentifiedPackageCourierData } from "../../../configs/data/UnidentifiedPackageCourierConfig";
 import UnidentifiedPackageAuthModal from "../../../components/Modal/UnidentifiedPackageAuthModal";
+import { useNavigate } from "react-router-dom";
 
 const Package = () => {
+  const navigate = useNavigate();
   const { t } = useTranslation();
   const [courier, setCourier] = useState("");
   const [trackingNumber, setTrackingNumber] = useState("");
@@ -222,6 +224,20 @@ const Package = () => {
           }}
         />
       )}
+      <OriginButton
+        fullWidth
+        variant="contained"
+        color="#282930"
+        onClick={() => {
+          navigate("/my_page/package/history");
+        }}
+        contents={
+          <Typography fontSize={16} fontWeight={700}>
+            히스토리
+          </Typography>
+        }
+        style={{ marginTop: "16px", padding: "16px 8px", height: "48px" }}
+      />
       {unidentifiedPackageList.length > 0 && (
         <Box
           sx={{

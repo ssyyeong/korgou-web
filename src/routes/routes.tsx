@@ -70,6 +70,7 @@ import Membership from "../pages/main/sidebar/membership";
 import Order from "../pages/my_page/order";
 import Restock from "../pages/my_page/restock";
 import Recently from "../pages/my_page/recently";
+import PackageHistory from "../pages/my_page/package/history";
 
 // 조건부로 BottomNavBar를 렌더링하는 컴포넌트
 const ConditionalBottomNavBar = () => {
@@ -152,6 +153,7 @@ const AppRoutes = () => (
       <Route path="/my_page/address/create" element={<AddressCreate />} />
       <Route path="/my_page/address/modify" element={<AddressModify />} />
       <Route path="/my_page/package" element={<Package />} />
+      <Route path="/my_page/package/history" element={<PackageHistory />} />
       <Route path="/my_page/delivery" element={<Delivery />} />
       <Route path="/my_page/purchase" element={<Purchase />} />
       <Route path="/my_page/order" element={<Order />} />
