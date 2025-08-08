@@ -61,13 +61,15 @@ import BuyingTransfer from "../pages/main/buying/transfer_money";
 import ConfirmState from "../pages/my_page/purchase/status/confirm";
 import NewArrival from "../pages/shop/new_arrival";
 import GoogleLogin from "../pages/auth/redirect_url/google";
-import History from "../pages/my_page/history";
 import Coupon from "../pages/my_page/coupon";
 import DeliveryAddress from "../pages/store/delivery/address";
 import DeliveryService from "../pages/store/delivery/service";
 import DeliveryDeclaration from "../pages/store/delivery/declaration";
 import DeliveryCheck from "../pages/store/delivery/check";
 import Membership from "../pages/main/sidebar/membership";
+import Order from "../pages/my_page/order";
+import Restock from "../pages/my_page/restock";
+import Recently from "../pages/my_page/recently";
 
 // 조건부로 BottomNavBar를 렌더링하는 컴포넌트
 const ConditionalBottomNavBar = () => {
@@ -152,7 +154,9 @@ const AppRoutes = () => (
       <Route path="/my_page/package" element={<Package />} />
       <Route path="/my_page/delivery" element={<Delivery />} />
       <Route path="/my_page/purchase" element={<Purchase />} />
-      <Route path="/my_page/history" element={<History />} />
+      <Route path="/my_page/order" element={<Order />} />
+      <Route path="/my_page/restock" element={<Restock />} />
+      <Route path="/my_page/recently" element={<Recently />} />
       <Route path="/my_page/coupon" element={<Coupon />} />
       <Route
         path="/my_page/purchase/status/confirm"

@@ -34,7 +34,7 @@ const SocialLink = (props: SocialLinkProps) => {
         }}
       >
         <img
-          src="/images/icon/social/insta.svg"
+          src="/images/icon/social/insta.png"
           alt="logo"
           width={32}
           height={32}
@@ -44,7 +44,17 @@ const SocialLink = (props: SocialLinkProps) => {
           }}
         />
         <img
-          src="/images/icon/social/twitter.svg"
+          src="/images/icon/social/tictok.png"
+          alt="logo"
+          width={32}
+          height={32}
+          style={{ cursor: "pointer" }}
+          onClick={() => {
+            window.open("https://www.tiktok.com/@t.o.k.k__korgou");
+          }}
+        />
+        <img
+          src="/images/icon/social/x.png"
           alt="logo"
           width={32}
           height={32}
@@ -53,14 +63,15 @@ const SocialLink = (props: SocialLinkProps) => {
             window.open("https://x.com/kor_gou");
           }}
         />
+
         <img
-          src="/images/icon/social/tiktok.svg"
+          src="/images/icon/social/youtube.png"
           alt="logo"
           width={32}
           height={32}
           style={{ cursor: "pointer" }}
           onClick={() => {
-            window.open("https://www.tiktok.com/@t.o.k.k__korgou");
+            window.open("https://www.youtube.com/@KorGou_official");
           }}
         />
       </Box>

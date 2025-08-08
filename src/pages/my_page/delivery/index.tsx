@@ -7,6 +7,7 @@ import { useAppMember } from "../../../hooks/useAppMember";
 import ControllerAbstractBase from "../../../controller/Controller";
 import DeliveryCard from "./DeliveryCard";
 import Pagination from "../../../components/Pagination";
+import NoData from "../../../components/NoData";
 
 const Delivery = () => {
   const { t } = useTranslation();
@@ -208,31 +209,7 @@ const Delivery = () => {
             />
           ))
         ) : (
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "center",
-              alignItems: "center",
-              flexDirection: "column",
-              gap: "30px",
-              mt: "100px",
-            }}
-          >
-            <img
-              src="/images/main/character.svg"
-              alt="empty"
-              style={{ width: "135px", height: "169px" }}
-            />
-            <Typography
-              sx={{
-                fontSize: "14px",
-                color: "#B1B2B6",
-                fontWeight: 600,
-              }}
-            >
-              최근 일주일동안 배송신청 내역이 없습니다.
-            </Typography>
-          </Box>
+          <NoData text="최근 일주일동안 배송신청 내역이 없습니다." />
         )}
       </Box>
 

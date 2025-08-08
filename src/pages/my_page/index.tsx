@@ -49,7 +49,7 @@ const MyPage = () => {
     {
       path: "/images/icon/my_page/note.svg",
       title: "취소·반품·교환 내역",
-      pathName: "/my_page/history",
+      pathName: "/my_page/order",
     },
     {
       path: "/images/icon/my_page/alarm.svg",
