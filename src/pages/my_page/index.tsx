@@ -59,7 +59,7 @@ const MyPage = () => {
     {
       path: "/images/icon/my_page/search.svg",
       title: "최근 본 상품",
-      pathName: "/my_page/recent",
+      pathName: "/my_page/recently",
     },
     {
       path: "/images/icon/my_page/speaker.svg",
