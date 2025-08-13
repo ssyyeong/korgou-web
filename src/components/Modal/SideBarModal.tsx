@@ -107,42 +107,6 @@ const SideBarModal: React.FC<SideBarModalProps> = ({
           />
         </Box>
 
-        {/* 나라 선택 */}
-        <Select
-          value={country}
-          onChange={handleCountryChange}
-          fullWidth
-          sx={{
-            height: "40px",
-            mb: "16px",
-          }}
-          renderValue={(value) => {
-            const selectedCountry = countryList.find(
-              (item) => item.value === value
-            );
-            return (
-              <Box sx={{ display: "flex", alignItems: "center" }}>
-                <LanguageOutlinedIcon
-                  style={{
-                    width: "24px",
-                    height: "24px",
-                  }}
-                />
-                <Typography sx={{ ml: 1, color: "#282930" }}>
-                  {selectedCountry?.label}
-                </Typography>
-              </Box>
-            );
-          }}
-        >
-          {countryList.map((item) => (
-            <MenuItem key={item.value} value={item.value}>
-              <Typography variant="body1" sx={{ color: "#282930" }}>
-                {item.label}
-              </Typography>
-            </MenuItem>
-          ))}
-        </Select>
         <Divider
           sx={{
             color: "#ECECED",
