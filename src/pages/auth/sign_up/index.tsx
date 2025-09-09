@@ -21,11 +21,13 @@ const SignUp = () => {
 
   const [isSns, setIsSns] = React.useState(false);
   const [name, setName] = React.useState("");
+  const [phone, setPhone] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [passwordCheck, setPasswordCheck] = React.useState("");
   const [country, setCountry] = React.useState("");
   const [recommenderCode, setRecommenderCode] = React.useState("");
+  const [taxPayerNumber, setTaxPayerNumber] = React.useState("");
   const [isAllAgree, setIsAllAgree] = React.useState(false);
   const [isAgree1, setIsAgree1] = React.useState(false);
   const [isAgree2, setIsAgree2] = React.useState(false);
@@ -50,6 +52,13 @@ const SignUp = () => {
     mb: "8px",
   };
 
+  const optionTextStyle = {
+    fontSize: "14px",
+    ml: "4px",
+    mb: "8px",
+    color: "#919298",
+  };
+
   const signUp = async () => {
     const userData = await localStorage.getItem("USER_DATA");
     let user = null;
@@ -62,10 +71,12 @@ const SignUp = () => {
 
     let data: {
       USER_NAME: string;
+      PHONE: string;
       EMAIL: string;
       PASSWORD: string;
       COUNTRY: string;
       RECOMMEND_CODE: string;
+      TAX_PAYER_NUMBER: string;
       MEMBER_TYPE: string;
       TERMS_YN: string;
       PERSONAL_YN: string;
@@ -73,10 +84,12 @@ const SignUp = () => {
       APP_MEMBER_IDENTIFICATION_CODE?: string;
     } = {
       USER_NAME: name,
+      PHONE: phone,
       EMAIL: email,
       PASSWORD: password,
       COUNTRY: country,
       RECOMMEND_CODE: recommenderCode,
+      TAX_PAYER_NUMBER: taxPayerNumber,
       MEMBER_TYPE: "INDIVIDUAL",
       TERMS_YN: isAgree1 ? "Y" : "N",
       PERSONAL_YN: isAgree2 ? "Y" : "N",
@@ -153,6 +166,36 @@ const SignUp = () => {
           }}
           placeholder={t("common.field.name.placeholder")}
         />
+
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            gap: "1px",
+          }}
+        >
+          <Typography sx={textStyle}>{"연락처"}</Typography>
+          <Typography
+            sx={{
+              fontSize: "14px",
+              fontWeight: 700,
+              mb: "8px",
+              color: "#EB1F81",
+            }}
+          >
+            *
+          </Typography>
+        </Box>
+        <TextFieldCustom
+          fullWidth
+          value={phone}
+          type="phone"
+          onChange={(e) => {
+            setPhone(e.target.value);
+          }}
+          placeholder={"연락처를 입력해주세요."}
+        />
+
         {!isSns && (
           <>
             <EmailAuth setEmail={setEmail} email={email} />
@@ -202,9 +245,16 @@ const SignUp = () => {
           type="select"
           style={{ mb: "20px", maxHeight: "48px" }}
         />
-        <Typography sx={textStyle}>
-          {t("common.field.recommender_code.label")}
-        </Typography>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            gap: "1px",
+          }}
+        >
+          <Typography sx={textStyle}>{"추천인 코드"}</Typography>
+          <Typography sx={optionTextStyle}>{"(선택)"}</Typography>
+        </Box>
         <TextFieldCustom
           fullWidth
           value={recommenderCode}
@@ -214,7 +264,28 @@ const SignUp = () => {
           }}
           variant={"outlined"}
           sx={{ mb: 2, bgcolor: "white" }}
-          placeholder={t("common.field.recommender_code.placeholder")}
+          placeholder={"추천인 코드를 입력해주세요."}
+        />
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            gap: "1px",
+          }}
+        >
+          <Typography sx={textStyle}>{"관세납부자 번호 기재란"}</Typography>
+          <Typography sx={optionTextStyle}>{"(선택)"}</Typography>
+        </Box>
+        <TextFieldCustom
+          fullWidth
+          value={taxPayerNumber}
+          type="taxPayerNumber"
+          onChange={(e) => {
+            setTaxPayerNumber(e.target.value);
+          }}
+          variant={"outlined"}
+          sx={{ mb: 2, bgcolor: "white" }}
+          placeholder={"관세납부자 번호를 입력해주세요."}
         />
         <Box
           sx={{

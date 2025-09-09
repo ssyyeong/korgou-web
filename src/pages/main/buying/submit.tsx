@@ -20,7 +20,7 @@ const BuyingSubmit: React.FC = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const { t } = useTranslation();
-  const { memberCode } = useAppMember();
+  const { memberId } = useAppMember();
 
   // BuyingContext의 setter 함수들 사용
   const {
@@ -28,6 +28,7 @@ const BuyingSubmit: React.FC = () => {
     setShoppingMallUrl,
     setShoppingMallId,
     setShoppingMallPw,
+    setShoppingMallAmount,
     setDeliveryRequest,
     setProcess,
     setProductList,
@@ -38,6 +39,7 @@ const BuyingSubmit: React.FC = () => {
     shoppingMallUrl = "",
     shoppingMallId = "",
     shoppingMallPw = "",
+    shoppingMallAmount = "",
     deliveryRequest = "",
     process = "progress",
     productList = [],
@@ -57,14 +59,20 @@ const BuyingSubmit: React.FC = () => {
     });
     controller
       .create({
-        APP_MEMBER_IDENTIFICATION_CODE: memberCode,
+        APP_MEMBER_ID: memberId,
         BUYING_IT_ID: generateRandomCode(),
         SHOP_URL: shoppingMallUrl,
         SHOP_ID: shoppingMallId,
         SHOP_PASS: shoppingMallPw,
+        AMOUNT:
+          authYn === "Y"
+            ? shoppingMallAmount
+            : productList.reduce((acc, curr) => acc + curr.AMOUNT, 0),
         PRODUCT_LIST: JSON.stringify(productList),
         REQUEST: deliveryRequest,
         PROCESS: process,
+        STATUS: "Confirmation pending",
+        SERVICE_TYPE: authYn === "Y" ? "To be paid" : "Purchasing",
       })
       .then((res) => {
         // 제출 후 글로벌 상태 초기화
@@ -72,6 +80,7 @@ const BuyingSubmit: React.FC = () => {
         setShoppingMallUrl("");
         setShoppingMallId("");
         setShoppingMallPw("");
+        setShoppingMallAmount("");
         setDeliveryRequest("");
         setProcess("progress");
         setProductList([]);
@@ -165,6 +174,20 @@ const BuyingSubmit: React.FC = () => {
                 {shoppingMallPw}
               </Typography>
             </Box>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                justifyContent: "space-between",
+              }}
+            >
+              <Typography sx={{ fontSize: "14px", color: "#61636C" }}>
+                Amount
+              </Typography>
+              <Typography sx={{ fontSize: "14px", color: "#282930" }}>
+                {shoppingMallAmount}
+              </Typography>
+            </Box>
           </Box>
         ) : (
           <Box sx={{ display: "flex", flexDirection: "column", width: "100%" }}>
@@ -220,7 +243,7 @@ const BuyingSubmit: React.FC = () => {
                     }}
                   >
                     <Typography sx={{ fontSize: "14px", color: "#61636C" }}>
-                      QTY
+                      Quantity
                     </Typography>
                     <Typography sx={{ fontSize: "14px", color: "#282930" }}>
                       {product.QUANTITY}
@@ -234,10 +257,24 @@ const BuyingSubmit: React.FC = () => {
                     }}
                   >
                     <Typography sx={{ fontSize: "14px", color: "#61636C" }}>
-                      TOTAL
+                      Total
                     </Typography>
                     <Typography sx={{ fontSize: "14px", color: "#282930" }}>
-                      {product.QUANTITY} * {product.PRICE}
+                      {product.QUANTITY} * {product.AMOUNT}
+                    </Typography>
+                  </Box>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "row",
+                      justifyContent: "space-between",
+                    }}
+                  >
+                    <Typography sx={{ fontSize: "14px", color: "#61636C" }}>
+                      REMARK
+                    </Typography>
+                    <Typography sx={{ fontSize: "14px", color: "#282930" }}>
+                      {product.REMARK}
                     </Typography>
                   </Box>
                 </Box>

@@ -21,6 +21,7 @@ const SignUpCompany = () => {
 
   const [isSns, setIsSns] = React.useState(false);
   const [name, setName] = React.useState("");
+  const [phone, setPhone] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [passwordCheck, setPasswordCheck] = React.useState("");
@@ -101,6 +102,7 @@ const SignUpCompany = () => {
 
     let data: {
       USER_NAME: string;
+      PHONE: string;
       EMAIL: string;
       PASSWORD: string;
       BRAND_NAME: string;
@@ -117,6 +119,7 @@ const SignUpCompany = () => {
       APP_MEMBER_IDENTIFICATION_CODE?: string;
     } = {
       USER_NAME: name,
+      PHONE: phone,
       EMAIL: email,
       PASSWORD: password,
       BRAND_NAME: sellerName,
@@ -273,9 +276,7 @@ const SignUpCompany = () => {
             gap: "1px",
           }}
         >
-          <Typography sx={textStyle}>
-            {t("common.field.seller_name.label")}
-          </Typography>
+          <Typography sx={textStyle}>{"기업명"}</Typography>
           {essential}
         </Box>
 
@@ -286,7 +287,27 @@ const SignUpCompany = () => {
           onChange={(e) => {
             setSellerName(e.target.value);
           }}
-          placeholder={t("common.field.seller_name.placeholder")}
+          placeholder={"기업명을 입력해주세요."}
+        />
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            gap: "1px",
+          }}
+        >
+          <Typography sx={textStyle}>{"연락처"}</Typography>
+          {essential}
+        </Box>
+
+        <TextFieldCustom
+          fullWidth
+          value={phone}
+          type="phone"
+          onChange={(e) => {
+            setPhone(e.target.value);
+          }}
+          placeholder={"연락처를 입력해주세요."}
         />
 
         <Box

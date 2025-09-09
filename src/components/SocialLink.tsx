@@ -34,30 +34,24 @@ const SocialLink = (props: SocialLinkProps) => {
         }}
       >
         <img
-          src="/images/icon/social/insta.png"
+          src="/images/icon/social/insta.svg"
           alt="logo"
-          width={32}
-          height={32}
           style={{ cursor: "pointer" }}
           onClick={() => {
             window.open("https://www.instagram.com/korgou_official/");
           }}
         />
         <img
-          src="/images/icon/social/tictok.png"
+          src="/images/icon/social/tiktok.svg"
           alt="logo"
-          width={32}
-          height={32}
           style={{ cursor: "pointer" }}
           onClick={() => {
             window.open("https://www.tiktok.com/@t.o.k.k__korgou");
           }}
         />
         <img
-          src="/images/icon/social/x.png"
+          src="/images/icon/social/x.svg"
           alt="logo"
-          width={32}
-          height={32}
           style={{ cursor: "pointer" }}
           onClick={() => {
             window.open("https://x.com/kor_gou");
@@ -65,10 +59,8 @@ const SocialLink = (props: SocialLinkProps) => {
         />
 
         <img
-          src="/images/icon/social/youtube.png"
+          src="/images/icon/social/youtube.svg"
           alt="logo"
-          width={32}
-          height={32}
           style={{ cursor: "pointer" }}
           onClick={() => {
             window.open("https://www.youtube.com/@KorGou_official");

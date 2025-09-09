@@ -1,7 +1,7 @@
 import { Box } from "@mui/material";
 
-import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 import { useNavigate } from "react-router-dom";
+import MainHeader from "../../../components/Header/MainHeader";
 
 const Price = () => {
   const navigate = useNavigate();
@@ -19,27 +19,7 @@ const Price = () => {
         mb: "48px",
       }}
     >
-      <Box
-        sx={{
-          position: "absolute",
-          top: "10px",
-          left: "0px",
-          display: "flex",
-          alignItems: "center",
-        }}
-      >
-        <ArrowBackIosNewIcon
-          sx={{
-            cursor: "pointer",
-            color: "#B1B2B6",
-            width: "15px",
-            height: "15px",
-          }}
-          onClick={() => {
-            navigate(-1);
-          }}
-        />
-      </Box>
+      <MainHeader />
       <img src="/images/main/side_bar/price.svg" alt="service" width={360} />
     </Box>
   );

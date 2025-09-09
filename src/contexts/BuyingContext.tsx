@@ -5,8 +5,8 @@ export interface ProductData {
   URL: string;
   OPTION: string;
   QUANTITY: string;
-  PRICE: string;
-  REQUEST: string;
+  AMOUNT: string;
+  REMARK: string;
 }
 
 interface BuyingState {
@@ -14,13 +14,17 @@ interface BuyingState {
   shoppingMallUrl: string;
   shoppingMallId: string;
   shoppingMallPw: string;
+  shoppingMallAmount: string;
   deliveryRequest: string;
+  deliveryType: string;
   process: string;
   productList: ProductData[];
   setAuthYn: (value: string) => void;
   setShoppingMallUrl: (value: string) => void;
   setShoppingMallId: (value: string) => void;
   setShoppingMallPw: (value: string) => void;
+  setShoppingMallAmount: (value: string) => void;
+  setDeliveryType: (value: string) => void;
   setDeliveryRequest: (value: string) => void;
   setProcess: (value: string) => void;
   setProductList: (products: ProductData[]) => void;
@@ -35,6 +39,8 @@ export const BuyingProvider: React.FC<{ children: React.ReactNode }> = ({
   const [shoppingMallUrl, setShoppingMallUrl] = useState<string>("");
   const [shoppingMallId, setShoppingMallId] = useState<string>("");
   const [shoppingMallPw, setShoppingMallPw] = useState<string>("");
+  const [shoppingMallAmount, setShoppingMallAmount] = useState<string>("");
+  const [deliveryType, setDeliveryType] = useState<string>("domestic");
   const [deliveryRequest, setDeliveryRequest] = useState<string>("");
   const [process, setProcess] = useState<string>("progress");
   const [productList, setProductList] = useState<ProductData[]>([]);
@@ -46,6 +52,8 @@ export const BuyingProvider: React.FC<{ children: React.ReactNode }> = ({
         shoppingMallUrl,
         shoppingMallId,
         shoppingMallPw,
+        shoppingMallAmount,
+        deliveryType,
         deliveryRequest,
         process,
         productList,
@@ -53,6 +61,8 @@ export const BuyingProvider: React.FC<{ children: React.ReactNode }> = ({
         setShoppingMallUrl,
         setShoppingMallId,
         setShoppingMallPw,
+        setShoppingMallAmount,
+        setDeliveryType,
         setDeliveryRequest,
         setProcess,
         setProductList,

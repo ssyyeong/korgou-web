@@ -71,6 +71,9 @@ import Order from "../pages/my_page/order";
 import Restock from "../pages/my_page/restock";
 import Recently from "../pages/my_page/recently";
 import PackageHistory from "../pages/my_page/package/history";
+import AboutUs from "../pages/main/terms/about_us";
+import TermsOfService from "../pages/main/terms/terms_of_service";
+import PrivacyPolicy from "../pages/main/terms/privacy_policy";
 
 // 조건부로 BottomNavBar를 렌더링하는 컴포넌트
 const ConditionalBottomNavBar = () => {
@@ -164,6 +167,10 @@ const AppRoutes = () => (
         path="/my_page/purchase/status/confirm"
         element={<ConfirmState />}
       />
+      {/* 약관 페이지 */}
+      <Route path="/about" element={<AboutUs />} />
+      <Route path="/terms" element={<TermsOfService />} />
+      <Route path="/privacy" element={<PrivacyPolicy />} />
     </Routes>
     <ConditionalBottomNavBar />
   </Router>

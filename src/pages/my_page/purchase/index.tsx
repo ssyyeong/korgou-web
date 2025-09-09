@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import DropDown from "../../../components/Dropdown";
 import BuyingItItem from "./buyingItItem";
 import FilteringDate from "../../../components/FilteringDate";
+import Pagination from "../../../components/Pagination";
 import { useAppMember } from "../../../hooks/useAppMember";
 import ControllerAbstractBase from "../../../controller/Controller";
 import dayjs from "dayjs";
@@ -18,7 +19,7 @@ const Purchase = () => {
   const navigate = useNavigate();
   const { memberId } = useAppMember();
 
-  const [tab, setTab] = React.useState(1);
+  const [tab, setTab] = React.useState(0);
 
   const [filter, setFilter] = useState("전체");
 
@@ -28,6 +29,7 @@ const Purchase = () => {
 
   const [shopList, setShopList] = useState([]);
   const [buyingItList, setBuyingItList] = useState([]);
+  const [currentPage, setCurrentPage] = useState(1);
 
   const dateFilterings = [
     { value: "1month", label: t("common.period.recent.month") },
@@ -98,6 +100,10 @@ const Purchase = () => {
     fetchData(item);
   };
 
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
+
   const fetchData = (filter) => {
     let option: any = {
       APP_MEMBER_ID: memberId,
@@ -152,12 +158,101 @@ const Purchase = () => {
           borderBottom: "1px solid #919298", // 탭 아래쪽 보더 설정
         }}
       >
-        <Tab label="SHOP" />
         <Tab label="Buying it" />
+        <Tab label="SHOP" />
       </Tabs>
 
-      {/* SHOP 탭 */}
+      {/* Buying it 탭 */}
       <TabPanel value={0} width="100%">
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            width: "100%",
+            mt: "16px",
+          }}
+        >
+          <FilteringDate
+            filterings={dateFilterings}
+            dateType={dateType}
+            startDate={startDate}
+            endDate={endDate}
+            setDateType={setDateType}
+            setStartDate={setStartDate}
+            setEndDate={setEndDate}
+            onSearch={filteringPurchase}
+          />
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "space-between",
+            }}
+          >
+            <Typography
+              sx={{
+                fontSize: "12px",
+              }}
+            >
+              {t("purchase_status.purchase_status")}
+            </Typography>
+            <DropDown
+              items={filterings.map((filter) => filter.label)}
+              selectedItem={filter}
+              onSelect={handleClose}
+            />
+          </Box>
+
+          <Divider
+            sx={{
+              color: "#ECECED",
+              borderWidth: "1px",
+              my: "10px",
+              position: "relative",
+              width: "calc(100% + 30px)",
+              left: -15,
+            }}
+          />
+
+          {/* 날짜별로 그룹화된 구매 목록 */}
+          {(() => {
+            // 날짜별로 그룹화
+            const groupedByDate = buyingItList.reduce(
+              (groups: { [key: string]: any[] }, buyingIt) => {
+                const dateKey = dayjs(buyingIt.CREATED_AT).format("MM.DD(ddd)");
+                if (!groups[dateKey]) {
+                  groups[dateKey] = [];
+                }
+                groups[dateKey].push(buyingIt);
+                return groups;
+              },
+              {} as { [key: string]: any[] }
+            );
+
+            return Object.entries(groupedByDate).map(
+              ([date, items]: [string, any[]]) => (
+                <BuyingItItem
+                  key={date}
+                  date={date}
+                  items={items}
+                  filterings={filterings}
+                />
+              )
+            );
+          })()}
+
+          {/* 페이지네이션 */}
+          {buyingItList.length > 5 && (
+            <Pagination
+              currentPage={currentPage}
+              totalPages={Math.ceil(buyingItList.length / 5)}
+              onPageChange={handlePageChange}
+            />
+          )}
+        </Box>
+      </TabPanel>
+      {/* SHOP 탭 */}
+      <TabPanel value={1} width="100%">
         <Box
           sx={{
             display: "flex",
@@ -299,79 +394,6 @@ const Purchase = () => {
               left: -15,
             }}
           /> */}
-        </Box>
-      </TabPanel>
-
-      {/* Buying it 탭 */}
-      <TabPanel value={1} width="100%">
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            width: "100%",
-            mt: "16px",
-          }}
-        >
-          <FilteringDate
-            filterings={dateFilterings}
-            dateType={dateType}
-            startDate={startDate}
-            endDate={endDate}
-            setDateType={setDateType}
-            setStartDate={setStartDate}
-            setEndDate={setEndDate}
-            onSearch={filteringPurchase}
-          />
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-            }}
-          >
-            <Typography
-              sx={{
-                fontSize: "12px",
-              }}
-            >
-              {t("purchase_status.purchase_status")}
-            </Typography>
-            <DropDown
-              items={filterings.map((filter) => filter.label)}
-              selectedItem={filter}
-              onSelect={handleClose}
-            />
-          </Box>
-
-          <Divider
-            sx={{
-              color: "#ECECED",
-              borderWidth: "1px",
-              my: "10px",
-              position: "relative",
-              width: "calc(100% + 30px)",
-              left: -15,
-            }}
-          />
-          <Typography
-            sx={{
-              fontSize: "14px",
-            }}
-          >
-            {t("common.field.count.count", { count: buyingItList.length })}
-          </Typography>
-          {buyingItList.map((buyingIt) => (
-            <BuyingItItem
-              key={buyingIt.BUYING_IT_ID}
-              buyingItId={buyingIt.BUYING_IT_ID}
-              date={dayjs(buyingIt.CREATED_AT).format("MM.DD(ddd)")}
-              status={
-                filterings.filter(
-                  (filter) => filter.value === buyingIt.STATUS
-                )[0]?.label
-              }
-            />
-          ))}
         </Box>
       </TabPanel>
     </Box>

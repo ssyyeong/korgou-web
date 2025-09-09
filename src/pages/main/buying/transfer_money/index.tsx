@@ -11,7 +11,7 @@ import { useAppMember } from "../../../../hooks/useAppMember";
 const TransferMoney = () => {
   const navigate = useNavigate();
   const { t } = useTranslation();
-  const { memberCode } = useAppMember();
+  const { memberId } = useAppMember();
 
   const [bankName, setBankName] = useState("");
   const [bankNumber, setBankNumber] = useState("");
@@ -63,7 +63,7 @@ const TransferMoney = () => {
 
     controller
       .create({
-        APP_MEMBER_IDENTIFICATION_CODE: memberCode,
+        APP_MEMBER_ID: memberId,
         BANK_NAME: bankName,
         ACCOUNT_NUMBER: bankNumber,
         ACCOUNT_HOLDER: bankHolder,
