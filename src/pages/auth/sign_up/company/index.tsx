@@ -438,7 +438,7 @@ const SignUpCompany = () => {
               setIsAgree1(!isAllAgree);
               setIsAgree2(!isAllAgree);
             }}
-            label={t("terms.all")}
+            label={"전체 동의"}
             style={{ fontSize: "16px" }}
           />
           <Box
@@ -475,7 +475,7 @@ const SignUpCompany = () => {
                   fontWeight: 500,
                 }}
               >
-                {t("terms.required")}
+                {"(필수)"}
               </Typography>
               <Typography
                 sx={{
@@ -524,7 +524,7 @@ const SignUpCompany = () => {
                   fontWeight: 500,
                 }}
               >
-                {t("terms.required")}
+                {"(필수)"}
               </Typography>
               <Typography
                 sx={{

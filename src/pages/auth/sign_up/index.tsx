@@ -156,7 +156,25 @@ const SignUp = () => {
           height: "100%",
         }}
       >
-        <Typography sx={textStyle}>{t("common.field.name.label")}</Typography>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            gap: "1px",
+          }}
+        >
+          <Typography sx={textStyle}>{t("common.field.name.label")}</Typography>
+          <Typography
+            sx={{
+              fontSize: "14px",
+              fontWeight: 700,
+              mb: "8px",
+              color: "#EB1F81",
+            }}
+          >
+            *
+          </Typography>
+        </Box>
         <TextFieldCustom
           fullWidth
           value={name}
@@ -166,7 +184,6 @@ const SignUp = () => {
           }}
           placeholder={t("common.field.name.placeholder")}
         />
-
         <Box
           sx={{
             display: "flex",
@@ -199,9 +216,27 @@ const SignUp = () => {
         {!isSns && (
           <>
             <EmailAuth setEmail={setEmail} email={email} />
-            <Typography sx={textStyle}>
-              {t("common.field.password.label")}
-            </Typography>
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "row",
+                gap: "1px",
+              }}
+            >
+              <Typography sx={textStyle}>
+                {t("common.field.password.label")}
+              </Typography>
+              <Typography
+                sx={{
+                  fontSize: "14px",
+                  fontWeight: 700,
+                  mb: "8px",
+                  color: "#EB1F81",
+                }}
+              >
+                *
+              </Typography>
+            </Box>
             <TextFieldCustom
               fullWidth
               value={password}
@@ -235,12 +270,31 @@ const SignUp = () => {
             />
           </>
         )}
-        <Typography sx={textStyle}>
-          {t("common.field.country.label")}
-        </Typography>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            gap: "1px",
+          }}
+        >
+          <Typography sx={textStyle}>
+            {t("common.field.country.label")}
+          </Typography>
+          <Typography
+            sx={{
+              fontSize: "14px",
+              fontWeight: 700,
+              mb: "8px",
+              color: "#EB1F81",
+            }}
+          >
+            *
+          </Typography>
+        </Box>
         <Input
           dataList={countryList}
           value={country}
+          label={"Country"}
           setValue={setCountry}
           type="select"
           style={{ mb: "20px", maxHeight: "48px" }}
@@ -305,7 +359,7 @@ const SignUp = () => {
               setIsAgree2(!isAllAgree);
               setIsAgree3(!isAllAgree);
             }}
-            label={t("terms.all")}
+            label={"전체 동의"}
             style={{ fontSize: "16px" }}
           />
           <Box
@@ -342,7 +396,7 @@ const SignUp = () => {
                   fontWeight: 500,
                 }}
               >
-                {t("terms.required")}
+                {"(필수)"}
               </Typography>
               <Typography
                 sx={{
@@ -391,7 +445,7 @@ const SignUp = () => {
                   fontWeight: 500,
                 }}
               >
-                {t("terms.required")}
+                {"(필수)"}
               </Typography>
               <Typography
                 sx={{
@@ -434,13 +488,13 @@ const SignUp = () => {
               />
               <Typography
                 sx={{
-                  color: "#3966AE",
+                  color: "#2E2F37",
                   cursor: "pointer",
                   fontSize: "14px",
                   fontWeight: 500,
                 }}
               >
-                {t("terms.optional")}
+                {"(선택)"}
               </Typography>
               <Typography
                 sx={{

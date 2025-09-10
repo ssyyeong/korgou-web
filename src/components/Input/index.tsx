@@ -154,6 +154,23 @@ const Input = React.forwardRef(
             onChange={(e) => {
               props.setValue(e.target.value);
             }}
+            MenuProps={{
+              PaperProps: {
+                sx: {
+                  maxHeight: 200,
+                  width: "100%",
+                  maxWidth: "300px",
+                },
+              },
+              anchorOrigin: {
+                vertical: "bottom",
+                horizontal: "left",
+              },
+              transformOrigin: {
+                vertical: "top",
+                horizontal: "left",
+              },
+            }}
             {...props.additionalProps}
           >
             <MenuItem value="">
@@ -174,8 +191,9 @@ const Input = React.forwardRef(
                     sx={{
                       display: "flex",
                       alignItems: "center",
-                      width: "400px",
                       justifyContent: "flex-start",
+                      whiteSpace: "nowrap",
+                      minWidth: "fit-content",
                     }}
                   >
                     {item.label}
@@ -239,7 +257,11 @@ const Input = React.forwardRef(
               py: 0.5,
               borderRadius: "10px",
               backgroundColor:
-                props.label === "전체 동의" ? "#F8FAFC" : "white",
+                props.label === "전체 동의"
+                  ? props.value
+                    ? "#F8FAFC"
+                    : "white"
+                  : "white",
             }}
           >
             {typeof props.value === "boolean" ? (
