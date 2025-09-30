@@ -4,8 +4,8 @@ const unidentifiedPackageCourierData = [
     label: "CJ대한통운",
   },
   {
-    value: "CVSnet 편의점택배",
-    label: "CVSnet 편의점택배",
+    value: "편의점택배",
+    label: "편의점택배",
   },
   {
     value: "우체국택배",
@@ -16,28 +16,40 @@ const unidentifiedPackageCourierData = [
     label: "한진택배",
   },
   {
-    value: "KGL네트웍스",
-    label: "KGL네트웍스",
+    value: "쿠팡",
+    label: "쿠팡",
+  },
+  {
+    value: "올리브영",
+    label: "올리브영",
+  },
+  {
+    value: "대신택배",
+    label: "대신택배",
   },
   {
     value: "경동택배",
     label: "경동택배",
   },
   {
-    value: "동부택배",
-    label: "동부택배",
+    value: "롯데택배",
+    label: "롯데택배",
   },
   {
-    value: "GTX로지스",
-    label: "GTX로지스",
+    value: "로젠택배",
+    label: "로젠택배",
   },
   {
-    value: "일양로지스",
-    label: "일양로지스",
+    value: "합동택배",
+    label: "합동택배",
   },
   {
-    value: "고려택배",
-    label: "고려택배",
+    value: "현대택배",
+    label: "현대택배",
+  },
+  {
+    value: "기타",
+    label: "기타",
   },
 ];
 

@@ -23,6 +23,7 @@ const Package = () => {
     unidentifiedPackageAuthModalOpen,
     setUnidentifiedPackageAuthModalOpen,
   ] = useState(false);
+
   const handleSearch = () => {
     const controller = new ControllerAbstractBase({
       modelName: "UnidentifiedPackage",
@@ -31,7 +32,6 @@ const Package = () => {
 
     controller
       .findAll({
-        COURIER: courier,
         TRACKING_NUMBER: trackingNumber,
       })
       .then((res) => {

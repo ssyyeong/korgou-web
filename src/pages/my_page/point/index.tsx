@@ -144,7 +144,6 @@ const Balance = () => {
           flexDirection: "column",
           position: "relative",
           mt: "19px",
-          px: "5px",
           py: "16px",
         }}
       >

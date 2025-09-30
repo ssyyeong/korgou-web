@@ -63,22 +63,19 @@ const MyPage = () => {
     },
     {
       path: "/images/icon/my_page/speaker.svg",
-      title: "공지사항",
-      pathName: "/support",
+      title: "게시판",
+      pathName: "",
       subItems: [
-        { title: "notice", pathName: "/support/notice" },
-        { title: "event", pathName: "/support/event" },
+        { title: "공지사항", pathName: "/support/notice" },
+        { title: "문의관리", pathName: "/my_page/inquiry" },
+        { title: "리뷰관리", pathName: "/my_page/review" },
       ],
     },
     {
-      path: "/images/icon/my_page/calendar.svg",
-      title: "출석체크",
-      pathName: "/my_page/attendance",
-    },
-    {
-      path: "/images/icon/my_page/gift.svg",
-      title: "나의 선물함",
-      pathName: "/my_page/gift",
+      path: "/images/icon/my_page/speaker.svg",
+      title: "Event",
+      pathName: "",
+      subItems: [{ title: "출석체크", pathName: "/shop/attendance" }],
     },
     {
       path: "/images/icon/my_page/location.svg",
@@ -89,16 +86,6 @@ const MyPage = () => {
       path: "/images/icon/my_page/question.svg",
       title: "미확인 패키지",
       pathName: "/my_page/package",
-    },
-    {
-      path: "/images/icon/my_page/comment.svg",
-      title: "리뷰 관리",
-      pathName: "/my_page/review",
-    },
-    {
-      path: "/images/icon/my_page/headset.svg",
-      title: "문의 관리",
-      pathName: "/my_page/inquiry",
     },
     {
       path: "/images/icon/my_page/setting.svg",
@@ -212,7 +199,9 @@ const MyPage = () => {
                     cursor: "pointer",
                   }}
                   onClick={() => {
-                    navigate(item.pathName);
+                    if (item.pathName) {
+                      navigate(item.pathName);
+                    }
                   }}
                 >
                   <Box
