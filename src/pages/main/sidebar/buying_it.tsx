@@ -21,7 +21,7 @@ const Buying = () => {
         mb: "48px",
       }}
     >
-      <MainHeader />
+      <MainHeader pageName="home" />
       <img
         src="/images/main/side_bar/buying_it.svg"
         alt="service"

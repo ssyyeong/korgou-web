@@ -158,7 +158,7 @@ const Shop = () => {
         paddingBottom: "50px",
       }}
     >
-      <MainHeader />
+      <MainHeader pageName="shop" />
       <Box
         sx={{
           width: "100%",

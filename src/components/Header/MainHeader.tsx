@@ -10,7 +10,7 @@ import SideBarModal from "../Modal/SideBarModal";
 import ControllerAbstractBase from "../../controller/Controller";
 
 // 홈 화면 헤더
-const MainHeader = () => {
+const MainHeader = ({ pageName }: { pageName: string }) => {
   const navigate = useNavigate();
   const { i18n } = useTranslation();
   const { isAuthenticated } = useAuth();
@@ -123,21 +123,39 @@ const MainHeader = () => {
           display: "flex",
           flexDirection: "row",
           alignItems: "center",
-          gap: "17px",
+          gap: "16px",
         }}
       >
-        <img
-          src="/images/icon/alarm.svg"
-          alt="logo"
-          onClick={() => {
-            if (isAuthenticated) {
-              setAlarmOpen(true);
-            } else {
-              navigate("/sign_in");
-            }
-          }}
-          style={{ cursor: "pointer" }}
-        />
+        {pageName !== "shop" && (
+          <img
+            src="/images/icon/bell_gray.svg"
+            alt="logo"
+            width={24}
+            height={24}
+            onClick={() => {
+              if (isAuthenticated) {
+                setAlarmOpen(true);
+              } else {
+                navigate("/sign_in");
+              }
+            }}
+            style={{ cursor: "pointer", paddingTop: "2px" }}
+          />
+        )}
+        {pageName === "shop" && (
+          <img
+            src="/images/icon/people.svg"
+            alt="logo"
+            onClick={() => {
+              if (isAuthenticated) {
+                navigate("/my_page");
+              } else {
+                navigate("/sign_in");
+              }
+            }}
+            style={{ cursor: "pointer" }}
+          />
+        )}
         <img
           src="/images/icon/global.svg"
           alt="logo"

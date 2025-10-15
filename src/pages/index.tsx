@@ -156,7 +156,7 @@ const Home = () => {
         flexDirection: "column",
       }}
     >
-      <MainHeader />
+      <MainHeader pageName="home" />
       <Box
         sx={{
           position: "relative", // 이미지 컨테이너를 relative로 설정

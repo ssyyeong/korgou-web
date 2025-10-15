@@ -22,7 +22,7 @@ const Ship = () => {
         mb: "48px",
       }}
     >
-      <MainHeader />
+      <MainHeader pageName="home" />
       <img src="/images/main/side_bar/ship.svg" alt="service" width={360} />
     </Box>
   );
