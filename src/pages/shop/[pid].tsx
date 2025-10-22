@@ -22,7 +22,7 @@ import AlertModal from "../../components/Modal/AlertModal";
 const Detail = () => {
   const navigate = useNavigate();
   const { pid } = useParams();
-  const { memberCode } = useAppMember();
+  const { memberId } = useAppMember();
 
   const [product, setProduct] = useState(null);
   const [modalOpen, setModalOpen] = useState(false);
@@ -35,9 +35,8 @@ const Detail = () => {
     infinite:
       product?.IMAGE_LIST && JSON.parse(product?.IMAGE_LIST)?.length > 1,
     accessibility: true,
-    centerMode:
-      product?.IMAGE_LIST && JSON.parse(product?.IMAGE_LIST)?.length > 1,
-    centerPadding: "10px",
+    centerMode: false,
+    centerPadding: "0px",
     appendDots: (dots) => (
       <Box
         sx={{
@@ -49,7 +48,11 @@ const Detail = () => {
           justifyContent: "center",
         }}
       >
-        <ul style={{ margin: "0px", padding: "0px" }}> {dots} </ul>
+        <ul
+          style={{ margin: "0px", padding: "0px", display: "flex", gap: "7px" }}
+        >
+          {dots}
+        </ul>
       </Box>
     ),
     dotsClass: "slick-dots custom-dots",
@@ -70,6 +73,10 @@ const Detail = () => {
   }, [pid]);
 
   const addCart = () => {
+    if (!memberId) {
+      navigate("/sign_in");
+      return;
+    }
     const controller = new ControllerAbstractBase({
       modelName: "Cart",
       modelId: "cart",
@@ -77,7 +84,7 @@ const Detail = () => {
     controller
       .create({
         PRODUCT_IDENTIFICATION_CODE: pid,
-        APP_MEMBER_IDENTIFICATION_CODE: memberCode,
+        APP_MEMBER_ID: memberId,
       })
       .then((res) => {
         setModalOpen(true);
@@ -167,11 +174,11 @@ const Detail = () => {
                 }}
               >
                 <img
-                  src={src.FILE_URL}
+                  src={src}
                   alt="banner"
                   style={{
                     objectFit: "cover",
-                    width: "360px",
+                    width: "100%",
                     height: "365px",
                   }}
                 />
@@ -194,7 +201,7 @@ const Detail = () => {
             color: "#EB1F81",
           }}
         >
-          {product?.BRAND_NAME}
+          {product?.ProductBrand.BRAND_NAME}
         </Typography>
         <Typography
           sx={{
@@ -202,6 +209,9 @@ const Detail = () => {
             color: "#282930",
           }}
         >
+          {product?.LABEL !== "null" &&
+            product?.LABEL !== "" &&
+            "[" + product?.LABEL.toUpperCase() + "] "}{" "}
           {product?.PRODUCT_NAME}
         </Typography>
         <Box
@@ -239,7 +249,7 @@ const Detail = () => {
           borderWidth: "0.1px",
           mt: "16px",
           mb: "20px",
-          width: "100%",
+          width: "360px",
         }}
       />
 
@@ -273,7 +283,7 @@ const Detail = () => {
               color: "#282930",
             }}
           >
-            {product?.OPTIONS}
+            {product?.OPTION}
           </Typography>
         </Box>
         <Box
@@ -306,10 +316,30 @@ const Detail = () => {
             fontSize: "14px",
             color: "#919298",
             letterSpacing: "-0.18px",
+            mb: "24px",
           }}
         >
           배송정보 입력 배송 출발 이후 배송기간은 2~3일 소요됩니다.
         </Typography>
+      </Box>
+      <Box
+        sx={{
+          width: "360px",
+          display: "flex",
+          flexDirection: "column",
+        }}
+      >
+        {product?.CONTENT &&
+          product?.CONTENT &&
+          JSON.parse(product?.CONTENT)?.map((src, index) => (
+            <Box key={index} sx={{ display: "flex" }}>
+              <img
+                src={src}
+                alt="banner"
+                style={{ objectFit: "cover", width: "100%", height: "100%" }}
+              />
+            </Box>
+          ))}
       </Box>
       <Box
         sx={{
@@ -319,12 +349,14 @@ const Detail = () => {
           bottom: "48px",
           gap: "8px",
           py: "16px",
+          justifyContent: "center",
+          alignItems: "center",
           borderTop: "1px solid #ECECED",
           backgroundColor: "white",
+          width: "360px",
         }}
       >
         <OriginButton
-          fullWidth
           variant="outlined"
           onClick={() => {}}
           contents={
@@ -341,6 +373,9 @@ const Detail = () => {
             height: "48px",
             borderRadius: "8px",
             borderColor: "#ECECED",
+            padding: "0px",
+            minWidth: "48px",
+            maxWidth: "48px",
           }}
         />
         <OriginButton
@@ -360,6 +395,8 @@ const Detail = () => {
             width: "48px",
             borderRadius: "8px",
             borderColor: "#ECECED",
+            minWidth: "48px",
+            maxWidth: "48px",
           }}
         />
         <OriginButton
@@ -372,7 +409,7 @@ const Detail = () => {
               장바구니
             </Typography>
           }
-          style={{ width: "100px" }}
+          style={{ width: "104px", minWidth: "104px", maxWidth: "104px" }}
         />
         <OriginButton
           fullWidth
@@ -383,7 +420,7 @@ const Detail = () => {
               구매하기
             </Typography>
           }
-          style={{ width: "100px" }}
+          style={{ width: "104px", minWidth: "104px", maxWidth: "104px" }}
         />
       </Box>
       <AlertModal

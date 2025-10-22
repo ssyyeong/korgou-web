@@ -71,7 +71,7 @@ const CartCard = (props: CartCardProps) => {
         }}
       >
         <img
-          src={JSON.parse(cart.PRODUCT.THUMBNAIL)[0].FILE_URL}
+          src={JSON.parse(cart.PRODUCT.THUMBNAIL)[0]}
           alt="product"
           style={{
             width: "70px",

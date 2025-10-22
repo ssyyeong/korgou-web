@@ -11,6 +11,14 @@
 }
 
 .slick-dots.custom-dots li.slick-active button:before {
-  color: white; /* 활성 dot 색상 */
+  color: #3966ae; /* 활성 dot 색상 */
   opacity: 1; /* 활성 dot 투명도 */
+}
+
+.slick-dots.custom-dots li {
+  margin: 0 3.5px !important; /* dot 간격 7px (좌우 각각 3.5px) */
+}
+
+.slick-dots.custom-dots li button {
+  margin: 0 3.5px !important; /* button 간격 7px */
 }

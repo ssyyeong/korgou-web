@@ -50,8 +50,8 @@ const Item = (props: ItemProps) => {
 };
 
 const ItemCard = (props: any) => {
-  const { item, index } = props;
-  const thumbnail = JSON.parse(item.THUMBNAIL)[0].FILE_URL;
+  const { item } = props;
+  const thumbnail = JSON.parse(item.THUMBNAIL)[0];
 
   return (
     <Box
@@ -72,41 +72,15 @@ const ItemCard = (props: any) => {
           overflow: "hidden",
         }}
       >
-        <Box
-          sx={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            display: "flex",
-            backgroundColor: "#172845",
-            borderRadius: "8px 0 4px 0",
-            width: "35px",
-            height: "30px",
-            justifyContent: "center",
-            alignItems: "center",
-            zIndex: 1,
-          }}
-        >
-          <Typography
-            sx={{
-              color: "white",
-              fontSize: "16px",
-              fontWeight: "bold",
-            }}
-          >
-            {index + 1}
-          </Typography>
-        </Box>
-
-        {item.PRE_ORDER_YN === "Y" && (
+        {item.LABEL !== "null" && item.LABEL !== "" && (
           <Box
             sx={{
               position: "absolute",
               top: 0,
               right: 0,
               backgroundColor: "#EB1F81",
-              borderRadius: "0 8px 0 4px",
-              padding: "4px 8px",
+              borderRadius: "0 4px 0 4px",
+              padding: "2px 8px",
               zIndex: 1,
             }}
           >
@@ -117,7 +91,7 @@ const ItemCard = (props: any) => {
                 fontWeight: "bold",
               }}
             >
-              pre-order
+              {item.LABEL}
             </Typography>
           </Box>
         )}
@@ -149,13 +123,13 @@ const ItemCard = (props: any) => {
       <Box sx={{ mt: 1 }}>
         <Typography
           sx={{
-            color: "#EB1F81",
+            color: "black",
             fontSize: "12px",
             fontWeight: 700,
-            mb: 0.5,
+            mb: "8px",
           }}
         >
-          {item.BRAND_NAME}
+          {item.ProductBrand.BRAND_NAME}
         </Typography>
         <Typography
           sx={{
@@ -165,13 +139,16 @@ const ItemCard = (props: any) => {
             lineHeight: 1.2,
           }}
         >
+          {item.LABEL !== "null" &&
+            item.LABEL !== "" &&
+            "[" + item.LABEL.toUpperCase() + "] "}{" "}
           {item.PRODUCT_NAME}
         </Typography>
         <Box sx={{ display: "flex", alignItems: "center", gap: 0.5 }}>
           <Typography
             sx={{
               fontSize: "16px",
-              color: "#282930",
+              color: "#EB1F81",
               fontWeight: "bold",
             }}
           >
