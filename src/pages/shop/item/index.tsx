@@ -1,6 +1,6 @@
 import { Box, Grid2, Typography } from "@mui/material";
-import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
 import { useNavigate } from "react-router-dom";
+import LikeButton from "../../../components/LikeButton/LikeButton";
 
 interface ItemProps {
   itemList: any[];
@@ -110,12 +110,17 @@ const ItemCard = (props: any) => {
           }}
         />
 
-        <FavoriteOutlinedIcon
+        <LikeButton
+          productId={item.PRODUCT_IDENTIFICATION_CODE}
+          size="medium"
+          position="absolute"
           sx={{
-            position: "absolute",
-            right: 8,
-            bottom: 8,
-            color: "#41434E80",
+            right: 4,
+            bottom: 4,
+            backgroundColor: "rgba(255, 255, 255, 0.8)",
+            "&:hover": {
+              backgroundColor: "rgba(255, 255, 255, 0.9)",
+            },
           }}
         />
       </Box>

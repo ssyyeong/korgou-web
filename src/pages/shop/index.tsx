@@ -23,6 +23,7 @@ import SocialLink from "../../components/SocialLink";
 import { useNavigate } from "react-router-dom";
 import Item from "./item";
 import ControllerAbstractBase from "../../controller/Controller";
+import Footer from "../../components/Footer";
 
 const Shop = () => {
   //알림 목록
@@ -931,7 +932,7 @@ const Shop = () => {
       </Box>
       {/* SOCIAL LINKS */}
       <SocialLink />
-      <img src="/images/main/box6.svg" alt="logo" />
+      <Footer />
     </Box>
   );
 };

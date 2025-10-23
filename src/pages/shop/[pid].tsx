@@ -2,9 +2,8 @@ import { Box, Divider, IconButton, Typography, Tab, Tabs } from "@mui/material";
 
 import Header from "../../components/Header/Header";
 
-import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
 import ShareOutlinedIcon from "@mui/icons-material/ShareOutlined";
-import FavoriteOutlinedIcon from "@mui/icons-material/FavoriteOutlined";
+import LikeButton from "../../components/LikeButton/LikeButton";
 
 import { useNavigate, useParams } from "react-router-dom";
 import OriginButton from "../../components/Button/OriginButton";
@@ -27,7 +26,12 @@ import ImageController from "../../controller/ImageController";
 const Detail = () => {
   const navigate = useNavigate();
   const { pid } = useParams();
-  const { memberId } = useAppMember();
+  const {
+    memberId,
+    memberCartCount,
+    memberProductLikeList,
+    refreshMemberData,
+  } = useAppMember();
 
   const [product, setProduct] = useState(null);
   const [qnas, setQnas] = useState([]);
@@ -285,15 +289,46 @@ const Detail = () => {
                 height={"24px"}
               />
             </IconButton>
-            <IconButton
-              color="info"
-              aria-label="cart"
-              onClick={() => {
-                navigate("/my_page/cart");
-              }}
-            >
-              <ShoppingCartOutlinedIcon />
-            </IconButton>
+            <Box sx={{ position: "relative", display: "inline-block" }}>
+              <IconButton
+                color="info"
+                aria-label="cart"
+                onClick={() => {
+                  navigate("/my_page/cart");
+                }}
+              >
+                <img
+                  src="/images/icon/gray_cart.svg"
+                  alt="logo"
+                  width={"24px"}
+                  height={"24px"}
+                  style={{ cursor: "pointer" }}
+                />
+              </IconButton>
+              {memberCartCount > 0 && (
+                <Box
+                  sx={{
+                    position: "absolute",
+                    top: 8,
+                    right: 10,
+                    transform: "translate(50%, -50%)",
+                    background: "#222328",
+                    color: "white",
+                    borderRadius: "50%",
+                    width: 20,
+                    height: 20,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    fontWeight: 700,
+                    fontSize: "12px",
+                    zIndex: 1,
+                  }}
+                >
+                  {memberCartCount}
+                </Box>
+              )}
+            </Box>
           </Box>
         }
       />
@@ -583,28 +618,26 @@ const Detail = () => {
           width: "360px",
         }}
       >
-        <OriginButton
-          variant="outlined"
-          onClick={() => {}}
-          contents={
-            <FavoriteOutlinedIcon
-              sx={{
-                color: "#41434E80",
-                width: "24px",
-                height: "24px",
-              }}
-            />
-          }
-          style={{
+        <Box
+          sx={{
             width: "48px",
             height: "48px",
             borderRadius: "8px",
-            borderColor: "#ECECED",
-            padding: "0px",
-            minWidth: "48px",
-            maxWidth: "48px",
+            border: "1px solid #ECECED",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
           }}
-        />
+        >
+          <LikeButton
+            productId={pid}
+            size="large"
+            position="relative"
+            sx={{
+              padding: "0px",
+            }}
+          />
+        </Box>
         <OriginButton
           fullWidth
           variant="outlined"

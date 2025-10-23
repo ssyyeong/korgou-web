@@ -47,7 +47,7 @@ const QuantitySelector: React.FC<QuantitySelectorProps> = ({
         display="flex"
         alignItems="center"
         border="1px solid #ECECED"
-        borderRadius={1}
+        borderRadius="8px"
       >
         <Button
           onClick={handleDecrease}

@@ -22,9 +22,11 @@ const useAppMember = () => {
     buyingItCount?: number;
     birthday?: string;
     cartCount?: number;
+    productLikeList?: number[];
   }>({});
 
   const { accessToken, appMemberId } = useAuth();
+  const [refreshTrigger, setRefreshTrigger] = useState(0);
 
   //* 로컬 스토리지에서 유저 정보 가져오기
   const getCachedUserData = (memberId: string) => {
@@ -65,11 +67,14 @@ const useAppMember = () => {
           return;
         }
 
-        // 먼저 캐시된 데이터 확인
-        const cachedData = getCachedUserData(String(appMemberId));
-        if (cachedData) {
-          setMemberData(cachedData);
-          return;
+        // 먼저 캐시된 데이터 확인 (새로고침 트리거가 있을 때는 캐시 무시)
+        if (refreshTrigger === 0) {
+          const cachedData = getCachedUserData(String(appMemberId));
+          if (cachedData) {
+            setMemberData(cachedData);
+            return;
+          }
+        } else {
         }
 
         const controller = new ControllerAbstractBase({
@@ -80,7 +85,6 @@ const useAppMember = () => {
         const res = await controller.findOne({
           APP_MEMBER_IDENTIFICATION_CODE: appMemberId,
         });
-
         if (res?.result) {
           const userData = {
             code: Number(appMemberId),
@@ -98,8 +102,8 @@ const useAppMember = () => {
             buyingItCount: res.result.BUYING_IT_COUNT || 0,
             birthday: res.result.BIRTHDAY || "",
             cartCount: res.result.CART_COUNT || 0,
+            productLikeList: res.result.PRODUCT_LIKE_LIST || [],
           };
-
           setMemberData(userData);
           // 캐시에 저장
           cacheUserData(String(appMemberId), userData);
@@ -110,7 +114,14 @@ const useAppMember = () => {
     };
 
     fetchUserData();
-  }, [accessToken, appMemberId]);
+  }, [accessToken, appMemberId, refreshTrigger]);
+
+  //* 회원 데이터 새로고침 함수
+  const refreshMemberData = () => {
+    setRefreshTrigger((prev) => {
+      return prev + 1;
+    });
+  };
 
   return {
     memberCode: memberData.code,
@@ -128,6 +139,8 @@ const useAppMember = () => {
     memberBuyingItCount: memberData.buyingItCount,
     memberBirthday: memberData.birthday,
     memberCartCount: memberData.cartCount,
+    memberProductLikeList: memberData.productLikeList,
+    refreshMemberData,
   };
 };
 

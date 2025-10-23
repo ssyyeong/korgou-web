@@ -59,9 +59,16 @@ const CartCard = (props: CartCardProps) => {
             );
           }}
         />
-        <Typography>{cart.PRODUCT.BRAND_NAME}</Typography>
+        <Typography
+          sx={{
+            fontSize: "14px",
+            color: "#282930",
+          }}
+        >
+          KORGOU
+        </Typography>
       </Box>
-      <Divider sx={{ color: "#EBF0F7", my: "8px" }} />
+      <Divider sx={{ color: "#EBF0F7", mt: "8px", mb: "16px" }} />
 
       <Box
         sx={{
@@ -92,28 +99,52 @@ const CartCard = (props: CartCardProps) => {
           >
             {cart.PRODUCT.PRODUCT_NAME}
           </Typography>
-          <Typography
+          <Box
             sx={{
-              fontSize: "12px",
-              color: "#919298",
+              display: "flex",
+              flexDirection: "row",
             }}
           >
-            $
-            {(
-              Number(cart.PRODUCT.PRICE) / Number(usd.replace(/,/g, ""))
-            ).toFixed(2)}{" "}
-            / {cart.PRODUCT.PRICE.toLocaleString()}
-          </Typography>
+            <Typography
+              sx={{
+                fontSize: "14px",
+                color: "#282930",
+              }}
+            >
+              $
+              {(
+                Number(
+                  cart.PRODUCT.DISCOUNT_PRICE
+                    ? cart.PRODUCT.DISCOUNT_PRICE
+                    : cart.PRODUCT.PRICE
+                ) / Number(usd.replace(/,/g, ""))
+              ).toFixed(2)}{" "}
+              /{"  "}
+            </Typography>
+            <Typography
+              sx={{
+                fontSize: "14px",
+                color: "#919298",
+              }}
+            >
+              {"  "}
+              {cart.PRODUCT.DISCOUNT_PRICE
+                ? cart.PRODUCT.DISCOUNT_PRICE.toLocaleString()
+                : cart.PRODUCT.PRICE.toLocaleString()}
+            </Typography>
+          </Box>
         </Box>
-        <CloseIcon
-          sx={{
+        <img
+          src="/images/shop/close.svg"
+          alt="delete"
+          onClick={() => {
+            deleteCart(cart.CART_IDENTIFICATION_CODE);
+          }}
+          style={{
             cursor: "pointer",
             width: "16px",
             height: "16px",
-            color: "#41434E",
-          }}
-          onClick={() => {
-            deleteCart(cart.CART_IDENTIFICATION_CODE);
+            alignSelf: "center",
           }}
         />
       </Box>
@@ -133,7 +164,7 @@ const CartCard = (props: CartCardProps) => {
             color: "#282930",
           }}
         >
-          {cart.QUANTITY} / FREE
+          {cart.QUANTITY}개 / FREE
         </Typography>
 
         <QuantitySelector
