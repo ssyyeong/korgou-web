@@ -4,6 +4,7 @@ import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 import { useRef, useState } from "react";
 import OriginButton from "../Button/OriginButton";
 import NoData from "../NoData";
+import ReviewDetailModal from "../Modal/ReviewDetailModal";
 
 interface Review {
   REVIEW_IDENTIFICATION_CODE: number;
@@ -30,6 +31,8 @@ const ReviewList = ({
 }: ReviewListProps) => {
   const reviewSliderRef = useRef<HTMLDivElement>(null);
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [selectedReview, setSelectedReview] = useState<Review | null>(null);
+  const [reviewDetailModalOpen, setReviewDetailModalOpen] = useState(false);
 
   // 이미지가 있는 리뷰만 필터링
   const reviewsWithImages = reviews.filter((review) => {
@@ -46,6 +49,12 @@ const ReviewList = ({
   for (let i = 0; i < reviewsWithImages.length; i += 3) {
     groupedReviews.push(reviewsWithImages.slice(i, i + 3));
   }
+
+  // 리뷰 클릭 핸들러
+  const handleReviewClick = (review: Review) => {
+    setSelectedReview(review);
+    setReviewDetailModalOpen(true);
+  };
   const renderStars = (rating: number, size: number) => {
     return Array.from({ length: 5 }, (_, index) => (
       <img
@@ -194,6 +203,7 @@ const ReviewList = ({
                     {group.map((review) => (
                       <Box
                         key={review.REVIEW_IDENTIFICATION_CODE}
+                        onClick={() => handleReviewClick(review)}
                         sx={{
                           width: "105px",
                           height: "184px",
@@ -205,6 +215,10 @@ const ReviewList = ({
                           borderRadius: "0.5px",
                           border: "1px solid #F5F5F5",
                           alignItems: "center",
+                          cursor: "pointer",
+                          "&:hover": {
+                            backgroundColor: "#F8FAFC",
+                          },
                         }}
                       >
                         <Box
@@ -325,11 +339,16 @@ const ReviewList = ({
           {reviews.map((review) => (
             <Box
               key={review.REVIEW_IDENTIFICATION_CODE}
+              onClick={() => handleReviewClick(review)}
               sx={{
                 borderTop: "1px solid #F5F5F5",
                 borderBottom: "1px solid #F5F5F5",
                 pb: "16px",
                 pt: "10px",
+                cursor: "pointer",
+                "&:hover": {
+                  backgroundColor: "#F8FAFC",
+                },
               }}
             >
               <Box
@@ -425,6 +444,13 @@ const ReviewList = ({
           </IconButton>
         </Box>
       </Box>
+
+      {/* 리뷰 상세 모달 */}
+      <ReviewDetailModal
+        open={reviewDetailModalOpen}
+        onClose={() => setReviewDetailModalOpen(false)}
+        review={selectedReview}
+      />
     </Box>
   );
 };

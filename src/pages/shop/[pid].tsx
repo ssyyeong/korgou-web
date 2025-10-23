@@ -20,6 +20,9 @@ import { useAppMember } from "../../hooks/useAppMember";
 import AlertModal from "../../components/Modal/AlertModal";
 import ReviewList from "../../components/ReviewList";
 import QnAList from "../../components/QnAList";
+import ReviewWriteModal from "../../components/Modal/ReviewWriteModal";
+import QnAWriteModal from "../../components/Modal/QnAWriteModal";
+import ImageController from "../../controller/ImageController";
 
 const Detail = () => {
   const navigate = useNavigate();
@@ -29,9 +32,12 @@ const Detail = () => {
   const [product, setProduct] = useState(null);
   const [qnas, setQnas] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
+  const [reviewModalOpen, setReviewModalOpen] = useState(false);
+  const [qnaModalOpen, setQnaModalOpen] = useState(false);
   const [activeTab, setActiveTab] = useState(0);
   const [reviewPage, setReviewPage] = useState(1);
   const [qnaPage, setQnaPage] = useState(1);
+  const [message, setMessage] = useState("");
 
   const setting3 = {
     dots: true,
@@ -75,7 +81,19 @@ const Detail = () => {
       })
       .then((res) => {
         setProduct(res.result);
-        fetchQnas();
+      });
+
+    // Q&A 데이터 로드
+    const qnaController = new ControllerAbstractBase({
+      modelName: "ProductQna",
+      modelId: "product_qna",
+    });
+    qnaController
+      .findAll({
+        PRODUCT_IDENTIFICATION_CODE: pid,
+      })
+      .then((res) => {
+        setQnas(res.result.rows);
       });
   }, [pid]);
 
@@ -89,7 +107,6 @@ const Detail = () => {
         PRODUCT_IDENTIFICATION_CODE: pid,
       })
       .then((res) => {
-        console.log(res.result.rows);
         setQnas(res.result.rows);
       });
   };
@@ -109,6 +126,7 @@ const Detail = () => {
         APP_MEMBER_ID: memberId,
       })
       .then((res) => {
+        setMessage("장바구니에 추가되었습니다.");
         setModalOpen(true);
       });
   };
@@ -130,13 +148,104 @@ const Detail = () => {
       navigate("/sign_in");
       return;
     }
-    // Q&A 작성 페이지로 이동 (실제 구현에 따라 수정)
-    navigate(`/qna/create?productId=${pid}`);
+    setQnaModalOpen(true);
   };
 
   const handleWriteReview = () => {
-    // 리뷰 작성 페이지로 이동하거나 모달 열기
-    navigate("/my_page/review/create");
+    if (!memberId) {
+      navigate("/sign_in");
+      return;
+    }
+    setReviewModalOpen(true);
+  };
+
+  const handleReviewSubmit = async (reviewData: {
+    rating: number;
+    content: string;
+    images: File[];
+  }): Promise<void> => {
+    // 리뷰 작성 API 호출
+    const controller = new ControllerAbstractBase({
+      modelName: "Review",
+      modelId: "review",
+    });
+
+    // images 배열은 File 객체들이 들어있다고 가정
+    const uploadPromises: Promise<string>[] = reviewData.images.map(
+      (image: File): Promise<string> => {
+        const imageController = new ImageController({});
+        const formData = new FormData();
+        formData.append("file", image, image.name);
+
+        // uploadImage의 반환값 타입은 상황에 맞게 수정해야 함 (여기서는 any 사용)
+        return imageController
+          .uploadImage(formData)
+          .then((res: any): string => {
+            const imageUrl: string = res.data.result[0];
+            return imageUrl;
+          });
+      }
+    );
+
+    // 모든 이미지 업로드가 완료될 때까지 기다림
+    const imageList: string[] = await Promise.all(uploadPromises);
+
+    controller
+      .create({
+        PRODUCT_IDENTIFICATION_CODE: pid,
+        APP_MEMBER_ID: memberId,
+        SCOPE: reviewData.rating,
+        CONTENT: reviewData.content,
+        IMAGE_LIST: JSON.stringify(imageList),
+      })
+      .then((res) => {
+        setReviewModalOpen(false);
+        setMessage("리뷰가 등록되었습니다.");
+        setModalOpen(true);
+        // 상품 정보 다시 불러오기
+        const productController = new ControllerAbstractBase({
+          modelName: "Product",
+          modelId: "product",
+        });
+        productController
+          .findOne({
+            PRODUCT_IDENTIFICATION_CODE: pid,
+          })
+          .then((res) => {
+            setProduct(res.result);
+          });
+      })
+      .catch((error) => {
+        setMessage("리뷰 등록에 실패했습니다.");
+        setModalOpen(true);
+        console.error(error);
+      });
+  };
+
+  const handleQnASubmit = (qnaData: { content: string }) => {
+    // 문의 작성 API 호출
+    const controller = new ControllerAbstractBase({
+      modelName: "ProductQna",
+      modelId: "product_qna",
+    });
+
+    controller
+      .create({
+        PRODUCT_IDENTIFICATION_CODE: pid,
+        APP_MEMBER_ID: memberId,
+        CONTENT: qnaData.content,
+      })
+      .then((res) => {
+        setMessage("문의가 등록되었습니다.");
+        setModalOpen(true);
+        // Q&A 목록 다시 불러오기
+        fetchQnas();
+      })
+      .catch((error) => {
+        setMessage("문의 등록에 실패했습니다.");
+        setModalOpen(true);
+        console.error(error);
+      });
   };
 
   return (
@@ -561,7 +670,7 @@ const Detail = () => {
                 color: "#61636C",
               }}
             >
-              장바구니에 추가되었습니다.
+              {message}
             </Typography>
           </Box>
         }
@@ -572,6 +681,22 @@ const Detail = () => {
           },
           color: "#282930",
         }}
+      />
+
+      {/* 리뷰 작성 모달 */}
+      <ReviewWriteModal
+        open={reviewModalOpen}
+        onClose={() => setReviewModalOpen(false)}
+        onSubmit={handleReviewSubmit}
+        productName={product?.PRODUCT_NAME}
+      />
+
+      {/* 문의 작성 모달 */}
+      <QnAWriteModal
+        open={qnaModalOpen}
+        onClose={() => setQnaModalOpen(false)}
+        onSubmit={handleQnASubmit}
+        productName={product?.PRODUCT_NAME}
       />
     </Box>
   );
