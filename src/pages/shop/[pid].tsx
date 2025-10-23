@@ -1,4 +1,4 @@
-import { Box, Divider, IconButton, Typography } from "@mui/material";
+import { Box, Divider, IconButton, Typography, Tab, Tabs } from "@mui/material";
 
 import Header from "../../components/Header/Header";
 
@@ -18,6 +18,8 @@ import "../../assets/css/dot.css";
 
 import { useAppMember } from "../../hooks/useAppMember";
 import AlertModal from "../../components/Modal/AlertModal";
+import ReviewList from "../../components/ReviewList";
+import QnAList from "../../components/QnAList";
 
 const Detail = () => {
   const navigate = useNavigate();
@@ -25,7 +27,11 @@ const Detail = () => {
   const { memberId } = useAppMember();
 
   const [product, setProduct] = useState(null);
+  const [qnas, setQnas] = useState([]);
   const [modalOpen, setModalOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState(0);
+  const [reviewPage, setReviewPage] = useState(1);
+  const [qnaPage, setQnaPage] = useState(1);
 
   const setting3 = {
     dots: true,
@@ -69,8 +75,24 @@ const Detail = () => {
       })
       .then((res) => {
         setProduct(res.result);
+        fetchQnas();
       });
   }, [pid]);
+
+  const fetchQnas = () => {
+    const controller = new ControllerAbstractBase({
+      modelName: "ProductQna",
+      modelId: "product_qna",
+    });
+    controller
+      .findAll({
+        PRODUCT_IDENTIFICATION_CODE: pid,
+      })
+      .then((res) => {
+        console.log(res.result.rows);
+        setQnas(res.result.rows);
+      });
+  };
 
   const addCart = () => {
     if (!memberId) {
@@ -89,6 +111,32 @@ const Detail = () => {
       .then((res) => {
         setModalOpen(true);
       });
+  };
+
+  const handleTabChange = (event: React.SyntheticEvent, newValue: number) => {
+    setActiveTab(newValue);
+  };
+
+  const handleReviewPageChange = (page: number) => {
+    setReviewPage(page);
+  };
+
+  const handleQnaPageChange = (page: number) => {
+    setQnaPage(page);
+  };
+
+  const handleWriteQnA = () => {
+    if (!memberId) {
+      navigate("/sign_in");
+      return;
+    }
+    // Q&A 작성 페이지로 이동 (실제 구현에 따라 수정)
+    navigate(`/qna/create?productId=${pid}`);
+  };
+
+  const handleWriteReview = () => {
+    // 리뷰 작성 페이지로 이동하거나 모달 열기
+    navigate("/my_page/review/create");
   };
 
   return (
@@ -322,6 +370,7 @@ const Detail = () => {
           배송정보 입력 배송 출발 이후 배송기간은 2~3일 소요됩니다.
         </Typography>
       </Box>
+      {/* 탭 섹션 */}
       <Box
         sx={{
           width: "360px",
@@ -329,17 +378,86 @@ const Detail = () => {
           flexDirection: "column",
         }}
       >
-        {product?.CONTENT &&
-          product?.CONTENT &&
-          JSON.parse(product?.CONTENT)?.map((src, index) => (
-            <Box key={index} sx={{ display: "flex" }}>
-              <img
-                src={src}
-                alt="banner"
-                style={{ objectFit: "cover", width: "100%", height: "100%" }}
-              />
+        <Tabs
+          value={activeTab}
+          onChange={handleTabChange}
+          variant="fullWidth"
+          sx={{
+            cursor: "pointer",
+            "& .MuiTabs-indicator": {
+              backgroundColor: "#000000",
+              height: "2px",
+            },
+            "& .MuiTab-root": {
+              color: "#282930",
+              fontSize: "16px",
+              fontWeight: 500,
+              textTransform: "none",
+              padding: "8px 0",
+            },
+            "& .MuiTab-root.Mui-selected": {
+              color: "#282930",
+              fontWeight: 700,
+            },
+          }}
+        >
+          <Tab label="상세정보" />
+          <Tab label={`리뷰 ${product?.Reviews?.length || 0}`} />
+          <Tab label="Q&A" />
+        </Tabs>
+
+        {/* 탭 내용 */}
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+          }}
+        >
+          {activeTab === 0 && (
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+              }}
+            >
+              {product?.CONTENT &&
+                JSON.parse(product?.CONTENT)?.map((src, index) => (
+                  <Box key={index} sx={{ display: "flex" }}>
+                    <img
+                      src={src}
+                      alt="상품 상세 이미지"
+                      style={{
+                        objectFit: "cover",
+                        width: "100%",
+                        height: "100%",
+                      }}
+                    />
+                  </Box>
+                ))}
             </Box>
-          ))}
+          )}
+
+          {activeTab === 1 && (
+            <ReviewList
+              reviews={product?.Reviews || []}
+              currentPage={reviewPage}
+              totalPages={Math.ceil((product?.Reviews?.length || 0) / 5)}
+              onPageChange={handleReviewPageChange}
+              onWriteReview={handleWriteReview}
+            />
+          )}
+
+          {activeTab === 2 && (
+            <QnAList
+              qnas={qnas || []}
+              currentPage={qnaPage}
+              totalPages={Math.ceil((qnas?.length || 0) / 10)}
+              onPageChange={handleQnaPageChange}
+              onWriteQnA={handleWriteQnA}
+            />
+          )}
+        </Box>
       </Box>
       <Box
         sx={{

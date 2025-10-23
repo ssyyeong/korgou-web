@@ -5,6 +5,7 @@ import {
   Route,
   useLocation,
 } from "react-router-dom";
+import ScrollToTop from "../components/ScrollToTop";
 
 // 페이지 컴포넌트들
 import Home from "../pages";
@@ -87,6 +88,7 @@ const ConditionalBottomNavBar = () => {
 
 const AppRoutes = () => (
   <Router>
+    <ScrollToTop />
     <Routes>
       {/* Public Routes */}
       {/* Protected Routes: 로그인 필요 */}
