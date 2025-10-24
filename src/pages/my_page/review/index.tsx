@@ -4,6 +4,7 @@ import OriginButton from "../../../components/Button/OriginButton";
 import Header from "../../../components/Header/Header";
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import NoData from "../../../components/NoData";
 
 const Review = () => {
   const { t } = useTranslation();
@@ -74,6 +75,8 @@ const Review = () => {
             width: "100%",
           }}
         >
+          <NoData text="리뷰 작성 가능한 상품이 없습니다." />
+
           {/* <Box
             sx={{
               display: "flex",
@@ -176,9 +179,9 @@ const Review = () => {
             display: "flex",
             flexDirection: "column",
             width: "100%",
-            p: "16px",
           }}
         >
+          <NoData text="리뷰 내역이 없습니다." />
           {/* <Box
             sx={{
               display: "flex",

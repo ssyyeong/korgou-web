@@ -9,6 +9,7 @@ import { useAppMember } from "../../../hooks/useAppMember";
 import InquiryCard from "./InqueryCard";
 import dayjs from "dayjs";
 import { useTranslation } from "react-i18next";
+import NoData from "../../../components/NoData";
 
 const Inquiry = () => {
   const navigate = useNavigate();
@@ -49,7 +50,6 @@ const Inquiry = () => {
         APP_MEMBER_ID: memberId,
       })
       .then((res) => {
-        console.log(res);
         const data = res.result.rows;
         const serviceList = data.filter(
           (item: any) => item.CATEGORY === "Service"
@@ -170,32 +170,36 @@ const Inquiry = () => {
               left: -15,
             }}
           />
-          {serviceList.map((item: any) => {
-            const category = categoryList.filter(
-              (category) =>
-                category.value === item.QNA_BOARD_CATEGORY_IDENTIFICATION_CODE
-            )[0];
+          {serviceList.length > 0 ? (
+            serviceList.map((item: any) => {
+              const category = categoryList.filter(
+                (category) =>
+                  category.value === item.QNA_BOARD_CATEGORY_IDENTIFICATION_CODE
+              )[0];
 
-            return (
-              <InquiryCard
-                key={item.QNA_BOARD_QUESTION_IDENTIFICATION_CODE}
-                id={item.QNA_BOARD_QUESTION_IDENTIFICATION_CODE}
-                date={item.CREATED_AT}
-                category={category?.label}
-                title={item.TITLE}
-                answer={item.QnaBoardAnswers.length > 0}
-                image={
-                  JSON.parse(item.IMAGE_LIST).length > 0 &&
-                  JSON.parse(item.IMAGE_LIST)[0].FILE_URL
-                }
-                onClick={(id: number) => {
-                  navigate(`/my_page/inquiry/detail`, {
-                    state: { id },
-                  });
-                }}
-              />
-            );
-          })}
+              return (
+                <InquiryCard
+                  key={item.QNA_BOARD_QUESTION_IDENTIFICATION_CODE}
+                  id={item.QNA_BOARD_QUESTION_IDENTIFICATION_CODE}
+                  date={item.CREATED_AT}
+                  category={category?.label}
+                  title={item.TITLE}
+                  answer={item.QnaBoardAnswers.length > 0}
+                  image={
+                    JSON.parse(item.IMAGE_LIST).length > 0 &&
+                    JSON.parse(item.IMAGE_LIST)[0].FILE_URL
+                  }
+                  onClick={(id: number) => {
+                    navigate(`/my_page/inquiry/detail`, {
+                      state: { id },
+                    });
+                  }}
+                />
+              );
+            })
+          ) : (
+            <NoData text="문의 내역이 없습니다." />
+          )}
         </Box>
       </TabPanel>
       <TabPanel value={1} width="100%">
@@ -234,10 +238,14 @@ const Inquiry = () => {
               }}
               contents={
                 <Typography fontSize={12} color="#ffffff">
-                  {t("inquiry_create.title")}
+                  문의 작성{" "}
                 </Typography>
               }
-              style={{ height: "24px", width: "80px" }}
+              style={{
+                height: "24px",
+                width: "fit-content",
+                padding: "4px 10px",
+              }}
             />
           </Box>
           <Divider
@@ -248,31 +256,35 @@ const Inquiry = () => {
               left: -15,
             }}
           />
-          {shopList.map((item: any) => {
-            const category = categoryList.filter(
-              (category) =>
-                category.value === item.QNA_BOARD_CATEGORY_IDENTIFICATION_CODE
-            )[0];
-            return (
-              <InquiryCard
-                key={item.QNA_BOARD_QUESTION_IDENTIFICATION_CODE}
-                id={item.QNA_BOARD_QUESTION_IDENTIFICATION_CODE}
-                date={item.CREATED_AT}
-                category={category?.label}
-                title={item.TITLE}
-                answer={item.QnaBoardAnswers.length > 0}
-                image={
-                  JSON.parse(item.IMAGE_LIST).length > 0 &&
-                  JSON.parse(item.IMAGE_LIST)[0].FILE_URL
-                }
-                onClick={(id: number) => {
-                  navigate(`/my_page/inquiry/detail`, {
-                    state: { id },
-                  });
-                }}
-              />
-            );
-          })}
+          {shopList.length > 0 ? (
+            shopList.map((item: any) => {
+              const category = categoryList.filter(
+                (category) =>
+                  category.value === item.QNA_BOARD_CATEGORY_IDENTIFICATION_CODE
+              )[0];
+              return (
+                <InquiryCard
+                  key={item.QNA_BOARD_QUESTION_IDENTIFICATION_CODE}
+                  id={item.QNA_BOARD_QUESTION_IDENTIFICATION_CODE}
+                  date={item.CREATED_AT}
+                  category={category?.label}
+                  title={item.TITLE}
+                  answer={item.QnaBoardAnswers.length > 0}
+                  image={
+                    JSON.parse(item.IMAGE_LIST).length > 0 &&
+                    JSON.parse(item.IMAGE_LIST)[0].FILE_URL
+                  }
+                  onClick={(id: number) => {
+                    navigate(`/my_page/inquiry/detail`, {
+                      state: { id },
+                    });
+                  }}
+                />
+              );
+            })
+          ) : (
+            <NoData text="문의 내역이 없습니다." />
+          )}
         </Box>
       </TabPanel>
     </Box>

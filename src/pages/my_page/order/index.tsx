@@ -69,7 +69,7 @@ const Order = () => {
         ...filter,
       })
       .then((res) => {
-        setOrderList(res.data.result);
+        setOrderList(res.result.rows.map((order) => order.data));
       });
   };
 
@@ -104,6 +104,7 @@ const Order = () => {
         (item) => item.label === filter
       )[0].value;
     }
+    console.log(option);
 
     controller.findAll(option).then((res) => {
       setOrderList(res.result.rows);
@@ -112,7 +113,7 @@ const Order = () => {
 
   useEffect(() => {
     if (memberId) {
-      fetchData(t("purchase_status.all"));
+      // fetchData(t("purchase_status.all"));
     }
   }, [memberId]);
 
@@ -218,7 +219,9 @@ const Order = () => {
               quantity={order.QUANTITY}
               productName={order.PRODUCT_NAME}
               productImage={order.PRODUCT_IMAGE}
-              price={`${order.PRICE.toLocaleString()}원`}
+              price={
+                order.PRICE ? `${order.PRICE?.toLocaleString()}원` : "26,400원"
+              }
               options={order.OPTIONS}
             />
           ))}
@@ -293,7 +296,7 @@ const Order = () => {
               productName={order.PRODUCT_NAME || "[해외직배송]셀퓨전시 선크림"}
               productImage={order.PRODUCT_IMAGE || "/images/main/product.svg"}
               price={
-                order.PRICE ? `${order.PRICE.toLocaleString()}원` : "26,400원"
+                order.PRICE ? `${order.PRICE?.toLocaleString()}원` : "26,400원"
               }
               options={order.OPTIONS || "상세 옵션"}
             />
