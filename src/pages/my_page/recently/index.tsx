@@ -1,64 +1,55 @@
-import { Box, Tab, Tabs, Typography, Checkbox, Button } from "@mui/material";
+import { Box, Typography, Button, Divider } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import Header from "../../../components/Header/Header";
-import { useNavigate } from "react-router-dom";
 import { useAppMember } from "../../../hooks/useAppMember";
-import ControllerAbstractBase from "../../../controller/Controller";
-import dayjs from "dayjs";
-import "dayjs/locale/ko";
 import Pagination from "../../../components/Pagination";
 import NoData from "../../../components/NoData";
-import { useTranslation } from "react-i18next";
 import CustomCheckbox from "../../../components/Button/CustomCheckbox";
+import { useNavigate } from "react-router-dom";
+import ControllerAbstractBase from "../../../controller/Controller";
 
 const Recently = () => {
-  const { t } = useTranslation();
-  dayjs.locale("ko");
-
-  const navigate = useNavigate();
-  const { memberId } = useAppMember();
-
-  const [tab, setTab] = React.useState(1); // "대기 중" 탭이 기본 선택
+  const { memberProductRecentList, refreshMemberData } = useAppMember();
 
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
-  const [recentlyList, setRecentlyList] = useState([]);
+  const [recentlyList, setRecentlyList] = useState<any[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(5);
+  const itemsPerPage = 3;
 
-  const controller = new ControllerAbstractBase({
-    modelName: "RecentlyViewed",
-    modelId: "recently_viewed",
-  });
-
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    setTab(newValue);
-  };
-
-  const TabPanel = (props: any) => {
-    const { children, value, index, ...other } = props;
-
-    return (
-      <Typography
-        component="div"
-        role="tabpanel"
-        hidden={value !== tab}
-        {...other}
-      >
-        {value === tab && <Box>{children}</Box>}
-      </Typography>
-    );
-  };
+  useEffect(() => {
+    setRecentlyList(memberProductRecentList);
+  }, [memberProductRecentList]);
 
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
 
-  // 전체 선택/해제
-  const handleSelectAll = (checked: boolean) => {
-    if (checked) {
-      setSelectedItems(recentlyList.map((item) => item.id));
+  // 페이지네이션 로직
+  const totalPages = Math.ceil((recentlyList?.length || 0) / itemsPerPage);
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const endIndex = startIndex + itemsPerPage;
+  const currentItems = recentlyList?.slice(startIndex, endIndex) || [];
+
+  // 전체 선택/해제 (현재 페이지의 아이템들)
+  const handleSelectAll = () => {
+    const currentItemIds = currentItems.map(
+      (item) => item.PRODUCT_RECENT_IDENTIFICATION_CODE
+    );
+    const isAllCurrentPageSelected = currentItemIds.every((id) =>
+      selectedItems.includes(id)
+    );
+
+    if (isAllCurrentPageSelected) {
+      // 현재 페이지 아이템들 선택 해제
+      setSelectedItems(
+        selectedItems.filter((id) => !currentItemIds.includes(id))
+      );
     } else {
-      setSelectedItems([]);
+      // 현재 페이지 아이템들 선택
+      setSelectedItems([
+        ...selectedItems,
+        ...currentItemIds.filter((id) => !selectedItems.includes(id)),
+      ]);
     }
   };
 
@@ -72,30 +63,26 @@ const Recently = () => {
   };
 
   // 삭제 버튼 클릭
-  const handleDelete = () => {
-    if (selectedItems.length > 0) {
-      setRecentlyList(
-        recentlyList.filter((item) => !selectedItems.includes(item.id))
-      );
-      setSelectedItems([]);
+  const handleDelete = async () => {
+    const controller = new ControllerAbstractBase({
+      modelName: "ProductRecent",
+      modelId: "product_recent",
+    });
+
+    try {
+      await controller
+        .delete({
+          PRODUCT_RECENT_IDENTIFICATION_CODE: selectedItems,
+        })
+        .then((res) => {
+          setSelectedItems([]);
+          refreshMemberData();
+          setRecentlyList(memberProductRecentList);
+        });
+    } catch (error) {
+      console.error(error);
     }
   };
-
-  // 탭별 아이템 필터링
-  const getFilteredItems = () => {
-    switch (tab) {
-      case 0: // 전체
-        return recentlyList;
-      case 1: // 대기 중
-        return recentlyList.filter((item) => item.status === "waiting");
-      default:
-        return recentlyList;
-    }
-  };
-
-  const filteredItems = getFilteredItems();
-
-  useEffect(() => {}, []);
 
   return (
     <Box
@@ -111,139 +98,71 @@ const Recently = () => {
       }}
     >
       <Header title="최근 본 상품" />
-      <Tabs
-        value={tab}
-        onChange={handleChange}
-        aria-label="Recently Tabs"
-        centered
-        variant="fullWidth"
+
+      <Box
         sx={{
-          position: "relative",
-          width: "360px",
-          "& .MuiTabs-indicator": {
-            backgroundColor: "#282930",
-            height: 2,
-          },
-          "& .MuiTab-root.Mui-selected": {
-            color: "#282930",
-          },
-          borderBottom: "1px solid #919298",
+          display: "flex",
+          flexDirection: "column",
+          width: "100%",
         }}
       >
-        <Tab label="전체" />
-        <Tab label="대기 중" />
-      </Tabs>
-
-      {/* 전체 탭 */}
-      <TabPanel value={0} width="100%">
+        {/* 전체 선택 및 삭제 버튼 */}
         <Box
           sx={{
             display: "flex",
-            flexDirection: "column",
+            justifyContent: "space-between",
+            alignItems: "center",
             width: "100%",
+            mb: "10px",
           }}
         >
-          {/* 전체 선택 및 삭제 버튼 */}
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              width: "100%",
-            }}
-          >
-            <Box sx={{ display: "flex", alignItems: "center" }}>
-              <CustomCheckbox
-                checked={selectedItems.length === filteredItems.length}
-                onChange={() => handleSelectAll(true)}
-                label="전체 선택"
-              />
-            </Box>
-            <Button
-              onClick={handleDelete}
-              disabled={selectedItems.length === 0}
-              sx={{
-                color: "#3966AE",
-                fontSize: "14px",
-                textTransform: "none",
-                "&:disabled": {
-                  color: "#919298",
-                },
-              }}
-            >
-              삭제
-            </Button>
-          </Box>
-
-          {filteredItems.map((item) => (
-            <RecentlyItem
-              key={item.id}
-              item={item}
-              selected={selectedItems.includes(item.id)}
-              onSelect={(checked) => handleSelectItem(item.id, checked)}
-            />
-          ))}
-          {filteredItems.length === 0 && (
-            <NoData text="최근 본 상품이 없습니다." />
-          )}
-        </Box>
-      </TabPanel>
-
-      {/* 대기 중 탭 */}
-      <TabPanel value={1} width="100%">
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            width: "100%",
-          }}
-        >
-          {/* 전체 선택 및 삭제 버튼 */}
-          <Box
-            sx={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-              width: "100%",
-            }}
-          >
+          <Box sx={{ display: "flex", alignItems: "center" }}>
             <CustomCheckbox
-              checked={selectedItems.length === filteredItems.length}
-              onChange={() => handleSelectAll(true)}
+              checked={
+                currentItems.length > 0 &&
+                currentItems.every((item) =>
+                  selectedItems.includes(
+                    item.PRODUCT_RECENT_IDENTIFICATION_CODE
+                  )
+                )
+              }
+              onChange={handleSelectAll}
               label="전체 선택"
             />
-            <Button
-              onClick={handleDelete}
-              disabled={selectedItems.length === 0}
-              sx={{
-                color: "#3966AE",
-                fontSize: "14px",
-                textTransform: "none",
-                "&:disabled": {
-                  color: "#919298",
-                },
-              }}
-            >
-              삭제
-            </Button>
           </Box>
-
-          {filteredItems.map((item) => (
-            <RecentlyItem
-              key={item.id}
-              item={item}
-              selected={selectedItems.includes(item.id)}
-              onSelect={(checked) => handleSelectItem(item.id, checked)}
-            />
-          ))}
-          {filteredItems.length === 0 && (
-            <NoData text="최근 본 상품이 없습니다." />
-          )}
+          <Button
+            onClick={handleDelete}
+            disabled={selectedItems.length === 0}
+            sx={{
+              color: "#919298",
+              fontSize: "12px",
+              textTransform: "none",
+              fontWeight: 500,
+            }}
+          >
+            삭제
+          </Button>
         </Box>
-      </TabPanel>
+
+        {currentItems.map((item) => (
+          <RecentlyItem
+            key={item.PRODUCT_RECENT_IDENTIFICATION_CODE}
+            item={item}
+            selected={selectedItems.includes(
+              item.PRODUCT_RECENT_IDENTIFICATION_CODE
+            )}
+            onSelect={(checked) =>
+              handleSelectItem(item.PRODUCT_RECENT_IDENTIFICATION_CODE, checked)
+            }
+          />
+        ))}
+        {recentlyList?.length === 0 && (
+          <NoData text="최근 본 상품이 없습니다." />
+        )}
+      </Box>
 
       {/* 페이지네이션 - 데이터가 있을 때만 표시 */}
-      {filteredItems.length > 3 && (
+      {totalPages > 1 && (
         <Pagination
           currentPage={currentPage}
           totalPages={totalPages}
@@ -257,31 +176,43 @@ const Recently = () => {
 // 최근 본 상품 아이템 컴포넌트
 interface IRecentlyItemProps {
   item: {
-    id: string;
-    orderNumber: string;
-    productName: string;
-    productImage: string;
-    options: string;
-    price: string;
+    PRODUCT_RECENT_IDENTIFICATION_CODE: number;
+    PRODUCT_IDENTIFICATION_CODE: number;
+    Product: {
+      THUMBNAIL: string;
+      PRODUCT_NAME: string;
+      OPTION: string;
+      PRICE: number;
+      DISCOUNT_PRICE: number;
+    };
   };
   selected: boolean;
   onSelect: (checked: boolean) => void;
 }
 
 const RecentlyItem = ({ item, selected, onSelect }: IRecentlyItemProps) => {
+  const navigate = useNavigate();
+
   return (
     <Box
       sx={{
         display: "flex",
         flexDirection: "column",
         width: "100%",
-        pb: "10px",
+        pb: "27px",
         gap: "12px",
-        borderTop: "1px solid #ECECED",
         backgroundColor: "white",
       }}
     >
-      {/* 첫 번째 줄: 체크박스 + 주문번호 + 상세보기 */}
+      <Divider
+        sx={{
+          color: "#ECECED",
+          width: "calc(100% + 30px)",
+          position: "relative",
+          left: -15,
+        }}
+      />
+      {/* 첫 번째 줄: 체크박스 + 상세보기 */}
       <Box
         sx={{
           display: "flex",
@@ -292,25 +223,32 @@ const RecentlyItem = ({ item, selected, onSelect }: IRecentlyItemProps) => {
           py: "10px",
         }}
       >
-        {/* 체크박스와 주문번호 */}
-        <Box sx={{ display: "flex", alignItems: "center", gap: "8px" }}>
-          <CustomCheckbox
-            checked={selected}
-            onChange={() => onSelect(selected)}
-            label={`주문번호 ${item.orderNumber}`}
-          />
-        </Box>
+        {/* 체크박스 */}
+        <CustomCheckbox
+          checked={selected}
+          onChange={() => onSelect(!selected)}
+          label=""
+        />
 
         {/* 상세보기 */}
-        <Typography
+        <Box
+          onClick={() => {
+            navigate(`/shop/detail/${item.PRODUCT_IDENTIFICATION_CODE}`);
+          }}
           sx={{
-            fontSize: "12px",
-            color: "#919298",
             cursor: "pointer",
           }}
         >
-          상세보기 {">"}
-        </Typography>
+          <Typography
+            sx={{
+              fontSize: "12px",
+              color: "#919298",
+              cursor: "pointer",
+            }}
+          >
+            상세보기 {">"}
+          </Typography>
+        </Box>
       </Box>
 
       {/* 두 번째 줄: 상품 이미지 + 정보 + 가격 */}
@@ -318,16 +256,17 @@ const RecentlyItem = ({ item, selected, onSelect }: IRecentlyItemProps) => {
         sx={{
           display: "flex",
           flexDirection: "row",
-          gap: "12px",
+          gap: "8px",
+          alignItems: "flex-start",
         }}
       >
         {/* 상품 이미지 */}
         <img
-          src={item.productImage}
+          src={JSON.parse(item.Product.THUMBNAIL)[0]}
           alt="product"
           style={{
-            width: "60px",
-            height: "60px",
+            width: "70px",
+            height: "70px",
             borderRadius: "4px",
             objectFit: "cover",
           }}
@@ -350,7 +289,7 @@ const RecentlyItem = ({ item, selected, onSelect }: IRecentlyItemProps) => {
               lineHeight: "1.3",
             }}
           >
-            {item.productName}
+            {item.Product.PRODUCT_NAME}
           </Typography>
           <Typography
             sx={{
@@ -358,7 +297,7 @@ const RecentlyItem = ({ item, selected, onSelect }: IRecentlyItemProps) => {
               color: "#919298",
             }}
           >
-            {item.options}
+            {item.Product.OPTION}
           </Typography>
         </Box>
 
@@ -367,11 +306,14 @@ const RecentlyItem = ({ item, selected, onSelect }: IRecentlyItemProps) => {
           sx={{
             fontSize: "14px",
             color: "#282930",
-            fontWeight: 700,
-            alignSelf: "flex-end",
+            fontWeight: 500,
+            alignSelf: "center",
           }}
         >
-          {item.price}
+          {item.Product.DISCOUNT_PRICE !== 0
+            ? item.Product.DISCOUNT_PRICE.toLocaleString()
+            : item.Product.PRICE.toLocaleString()}
+          원
         </Typography>
       </Box>
     </Box>

@@ -23,6 +23,7 @@ const useAppMember = () => {
     birthday?: string;
     cartCount?: number;
     productLikeList?: number[];
+    productRecentList?: number[];
   }>({});
 
   const { accessToken, appMemberId } = useAuth();
@@ -103,6 +104,7 @@ const useAppMember = () => {
             birthday: res.result.BIRTHDAY || "",
             cartCount: res.result.CART_COUNT || 0,
             productLikeList: res.result.PRODUCT_LIKE_LIST || [],
+            productRecentList: res.result.PRODUCT_RECENT_LIST || [],
           };
           setMemberData(userData);
           // 캐시에 저장
@@ -140,6 +142,7 @@ const useAppMember = () => {
     memberBirthday: memberData.birthday,
     memberCartCount: memberData.cartCount,
     memberProductLikeList: memberData.productLikeList,
+    memberProductRecentList: memberData.productRecentList,
     refreshMemberData,
   };
 };

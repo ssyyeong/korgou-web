@@ -24,10 +24,13 @@ import { useNavigate } from "react-router-dom";
 import Item from "./item";
 import ControllerAbstractBase from "../../controller/Controller";
 import Footer from "../../components/Footer";
+import { useAppMember } from "../../hooks/useAppMember";
 
 const Shop = () => {
   //알림 목록
   const [alarmList, setAlarmList] = React.useState<any>([]);
+  const { memberId, memberProductRecentList, refreshMemberData } =
+    useAppMember();
 
   const settings = {
     dots: true,
@@ -766,9 +769,9 @@ const Shop = () => {
             }}
           >
             <Box display="flex" width={"100%"}>
-              {reviewConfig.map((review) => {
+              {reviewConfig.map((review, index) => {
                 return (
-                  <Box display={"flex"} minWidth={"300px"}>
+                  <Box key={index} display={"flex"} minWidth={"300px"}>
                     <Box
                       display={"flex"}
                       textAlign={"left"}

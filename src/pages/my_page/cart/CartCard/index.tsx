@@ -1,5 +1,4 @@
 import { Box, Checkbox, Divider, Typography } from "@mui/material";
-import CloseIcon from "@mui/icons-material/Close";
 import { useExchange } from "../../../../hooks/useExchange";
 import QuantitySelector from "./QuantitySelector";
 import TextFieldCustom from "../../../../components/TextField";

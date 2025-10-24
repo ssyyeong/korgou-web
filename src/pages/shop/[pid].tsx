@@ -7,7 +7,7 @@ import LikeButton from "../../components/LikeButton/LikeButton";
 
 import { useNavigate, useParams } from "react-router-dom";
 import OriginButton from "../../components/Button/OriginButton";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback, useRef } from "react";
 import ControllerAbstractBase from "../../controller/Controller";
 
 import Slider from "react-slick"; // react-slick import 추가
@@ -22,6 +22,7 @@ import QnAList from "../../components/QnAList";
 import ReviewWriteModal from "../../components/Modal/ReviewWriteModal";
 import QnAWriteModal from "../../components/Modal/QnAWriteModal";
 import ImageController from "../../controller/ImageController";
+import RecentView from "../../components/RecentView";
 
 const Detail = () => {
   const navigate = useNavigate();
@@ -29,7 +30,7 @@ const Detail = () => {
   const {
     memberId,
     memberCartCount,
-    memberProductLikeList,
+    memberProductRecentList,
     refreshMemberData,
   } = useAppMember();
 
@@ -42,6 +43,7 @@ const Detail = () => {
   const [reviewPage, setReviewPage] = useState(1);
   const [qnaPage, setQnaPage] = useState(1);
   const [message, setMessage] = useState("");
+  const hasAddedToRecent = useRef(false);
 
   const setting3 = {
     dots: true,
@@ -75,6 +77,9 @@ const Detail = () => {
   };
 
   useEffect(() => {
+    // pid가 변경될 때마다 hasAddedToRecent 리셋
+    hasAddedToRecent.current = false;
+
     const controller = new ControllerAbstractBase({
       modelName: "Product",
       modelId: "product",
@@ -100,6 +105,51 @@ const Detail = () => {
         setQnas(res.result.rows);
       });
   }, [pid]);
+
+  const setRecentView = useCallback(
+    async (productId: string) => {
+      // memberProductRecentList가 아직 로드되지 않았거나, memberId가 없으면 리턴
+      if (!memberId || memberProductRecentList === undefined) {
+        return;
+      }
+      // 이미 최근 본 상품 목록에 있는지 확인
+      if (
+        memberProductRecentList?.some(
+          (item: any) => item.PRODUCT_IDENTIFICATION_CODE === Number(productId)
+        )
+      ) {
+        console.log("이미 최근 본 상품 목록에 있습니다.");
+        return;
+      }
+
+      const controller = new ControllerAbstractBase({
+        modelName: "ProductRecent",
+        modelId: "product_recent",
+      });
+      controller
+        .create({
+          APP_MEMBER_ID: memberId,
+          PRODUCT_IDENTIFICATION_CODE: productId,
+        })
+        .then(async (res) => {
+          await refreshMemberData();
+        });
+    },
+    [memberId, memberProductRecentList, refreshMemberData]
+  );
+
+  // memberProductRecentList가 로드된 후에 setRecentView 호출 (한 번만)
+  useEffect(() => {
+    if (
+      memberProductRecentList !== undefined &&
+      pid &&
+      !hasAddedToRecent.current
+    ) {
+      setRecentView(pid);
+      hasAddedToRecent.current = true;
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [memberProductRecentList, pid]);
 
   const fetchQnas = () => {
     const controller = new ControllerAbstractBase({
@@ -603,6 +653,25 @@ const Detail = () => {
           )}
         </Box>
       </Box>
+
+      {/* RECENT VIEW 섹션 */}
+      {memberProductRecentList?.length > 0 && (
+        <RecentView
+          products={memberProductRecentList?.map((recentView: any) => ({
+            PRODUCT_IDENTIFICATION_CODE:
+              recentView?.PRODUCT_IDENTIFICATION_CODE,
+            BRAND_NAME:
+              recentView?.Product?.ProductBrand?.BRAND_NAME || "브랜드명",
+            LABEL: recentView?.Product?.LABEL || "",
+            THUMBNAIL: recentView?.Product?.IMAGE_LIST || "[]",
+            PRODUCT_NAME: recentView?.Product?.PRODUCT_NAME || "",
+            SUB_CONTENT: recentView?.Product?.SUB_CONTENT || "",
+            PRICE: recentView?.Product?.PRICE || 0,
+            DISCOUNT_PRICE: recentView?.Product?.DISCOUNT_PRICE || 0,
+          }))}
+        />
+      )}
+
       <Box
         sx={{
           display: "flex",
