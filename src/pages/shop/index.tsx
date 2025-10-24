@@ -219,7 +219,7 @@ const Shop = () => {
           flexDirection: "row",
           justifyContent: "center",
           alignItems: "center",
-          marginTop: "13px",
+          my: "40px",
           gap: "20px",
         }}
       >
@@ -341,7 +341,6 @@ const Shop = () => {
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "center",
-          marginTop: "24px",
         }}
       >
         <Box

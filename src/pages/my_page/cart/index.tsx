@@ -9,10 +9,11 @@ import CartCard from "./CartCard";
 import { useExchange } from "../../../hooks/useExchange";
 import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import { useTranslation } from "react-i18next";
+import NoData from "../../../components/NoData";
 const Cart = () => {
   const { t } = useTranslation();
   const navigate = useNavigate();
-  const { memberId } = useAppMember();
+  const { memberId, refreshMemberData } = useAppMember();
   const { usd } = useExchange();
 
   const [tab, setTab] = React.useState(0);
@@ -25,6 +26,12 @@ const Cart = () => {
     React.useState(0);
   const [selectedCartCommission, setSelectedCartCommission] = React.useState(0);
   const [selectedCartTotal, setSelectedCartTotal] = React.useState(0);
+
+  // 드래그 스크롤을 위한 상태
+  const [isDragging, setIsDragging] = React.useState(false);
+  const [startX, setStartX] = React.useState(0);
+  const [scrollLeft, setScrollLeft] = React.useState(0);
+  const scrollRef = React.useRef<HTMLDivElement>(null);
 
   const controller = new ControllerAbstractBase({
     modelName: "Cart",
@@ -96,6 +103,7 @@ const Cart = () => {
         setSelectedCartDeliveryFee(0);
         setSelectedCartCommission(0);
         setSelectedCartTotal(0);
+        refreshMemberData();
       });
   };
 
@@ -140,6 +148,49 @@ const Cart = () => {
         );
       });
   };
+
+  // 드래그 스크롤 이벤트 핸들러들
+  const handleMouseDown = (e: React.MouseEvent) => {
+    if (!scrollRef.current) return;
+    e.preventDefault();
+    setIsDragging(true);
+    setStartX(e.pageX - scrollRef.current.offsetLeft);
+    setScrollLeft(scrollRef.current.scrollLeft);
+  };
+
+  const handleMouseLeave = () => {
+    setIsDragging(false);
+  };
+
+  const handleMouseUp = () => {
+    setIsDragging(false);
+  };
+
+  const handleMouseMove = React.useCallback(
+    (e: React.MouseEvent) => {
+      if (!isDragging || !scrollRef.current) return;
+      e.preventDefault();
+
+      const x = e.pageX - scrollRef.current.offsetLeft;
+      const walk = (x - startX) * 1.5;
+      const currentScrollLeft = scrollRef.current.scrollLeft;
+      const newScrollLeft = currentScrollLeft - walk;
+
+      // 스크롤 범위를 자연스럽게 제한 (무한스크롤 방지)
+      const maxScrollLeft =
+        scrollRef.current.scrollWidth - scrollRef.current.clientWidth;
+
+      // 경계에서 완전히 멈추도록 처리
+      if (newScrollLeft < 0) {
+        scrollRef.current.scrollLeft = 0;
+      } else if (newScrollLeft > maxScrollLeft) {
+        scrollRef.current.scrollLeft = maxScrollLeft;
+      } else {
+        scrollRef.current.scrollLeft = newScrollLeft;
+      }
+    },
+    [isDragging, startX]
+  );
 
   return (
     <Box
@@ -236,8 +287,10 @@ const Cart = () => {
                 <OriginButton
                   variant="text"
                   onClick={() => {
-                    setSelectedCartList(
-                      selectedCartList.filter((cart) => cartList.includes(cart))
+                    deleteCart(
+                      selectedCartList.map(
+                        (cart) => cart.CART_IDENTIFICATION_CODE
+                      )
                     );
                   }}
                   contents={
@@ -467,28 +520,83 @@ const Cart = () => {
                 mt: "100px",
               }}
             >
-              <Typography
+              <NoData text="장바구니에 담긴 상품이 없습니다." />
+
+              {/* 추천 상품 카드들 */}
+              <Box
+                ref={scrollRef}
+                onMouseDown={handleMouseDown}
+                onMouseLeave={handleMouseLeave}
+                onMouseUp={handleMouseUp}
+                onMouseMove={handleMouseMove}
                 sx={{
-                  fontSize: "16px",
-                  color: "#282930",
+                  display: "flex",
+                  gap: "12px",
+                  mt: "75px",
                   mb: "20px",
+                  width: "100%",
+                  overflowX: "auto", // 가로 스크롤 활성화
+                  overflowY: "hidden", // 세로 스크롤 숨김
+                  padding: "0 16px",
+                  cursor: isDragging ? "grabbing" : "grab", // 드래그 상태에 따른 커서 변경
+                  userSelect: "none", // 텍스트 선택 방지
+                  // 성능 최적화
+                  willChange: "scroll-position", // 브라우저에게 스크롤 최적화 힌트
+                  transform: "translateZ(0)", // 하드웨어 가속 활성화
+                  backfaceVisibility: "hidden", // 3D 변환 최적화
+                  // 스크롤바 숨기기
+                  "&::-webkit-scrollbar": {
+                    display: "none",
+                  },
+                  scrollbarWidth: "none", // Firefox
+                  msOverflowStyle: "none", // IE/Edge
                 }}
               >
-                장바구니에 담긴 상품이 없습니다.
-              </Typography>
+                {[1, 2, 3].map((index) => (
+                  <Box
+                    key={index}
+                    sx={{
+                      minWidth: "128px",
+                      height: "104px",
+                      backgroundColor: "#f8f9fa",
+                      borderRadius: "8px",
+                      position: "relative",
+                      cursor: "pointer",
+                      overflow: "hidden",
+                      flexShrink: 0, // 카드가 줄어들지 않도록
+                      // 성능 최적화
+                      willChange: "transform",
+                      transform: "translateZ(0)",
+                      backfaceVisibility: "hidden",
+                    }}
+                    onClick={() => navigate("/shop/best")}
+                  >
+                    <img
+                      src="/images/shop/recommend_product.svg"
+                      alt="recommend product"
+                      style={{
+                        width: "100%",
+                        height: "100%",
+                        objectFit: "cover",
+                      }}
+                    />
+                  </Box>
+                ))}
+              </Box>
+
               <OriginButton
                 fullWidth
                 variant="contained"
                 color="primary"
                 onClick={() => {
-                  navigate("/shop/best");
+                  navigate("/shop");
                 }}
                 contents={
-                  <Typography fontSize={16} color="#ffffff">
+                  <Typography fontSize={16} color="#ffffff" fontWeight={700}>
                     추천 상품 보러가기
                   </Typography>
                 }
-                style={{ height: "48px", width: "160px" }}
+                style={{ height: "48px" }}
               />
             </Box>
           )}
@@ -512,26 +620,83 @@ const Cart = () => {
               mt: "100px",
             }}
           >
-            <Typography
+            <NoData text="장바구니에 담긴 상품이 없습니다." />
+
+            {/* 추천 상품 카드들 */}
+            <Box
+              ref={scrollRef}
+              onMouseDown={handleMouseDown}
+              onMouseLeave={handleMouseLeave}
+              onMouseUp={handleMouseUp}
+              onMouseMove={handleMouseMove}
               sx={{
-                fontSize: "16px",
-                color: "#282930",
+                display: "flex",
+                gap: "12px",
+                mt: "75px",
                 mb: "20px",
+                width: "100%",
+                overflowX: "auto", // 가로 스크롤 활성화
+                overflowY: "hidden", // 세로 스크롤 숨김
+                padding: "0 16px",
+                cursor: isDragging ? "grabbing" : "grab", // 드래그 상태에 따른 커서 변경
+                userSelect: "none", // 텍스트 선택 방지
+                // 성능 최적화
+                willChange: "scroll-position", // 브라우저에게 스크롤 최적화 힌트
+                transform: "translateZ(0)", // 하드웨어 가속 활성화
+                backfaceVisibility: "hidden", // 3D 변환 최적화
+                // 스크롤바 숨기기
+                "&::-webkit-scrollbar": {
+                  display: "none",
+                },
+                scrollbarWidth: "none", // Firefox
+                msOverflowStyle: "none", // IE/Edge
               }}
             >
-              장바구니에 담긴 상품이 없습니다.
-            </Typography>
+              {[1, 2, 3].map((index) => (
+                <Box
+                  key={index}
+                  sx={{
+                    minWidth: "128px",
+                    height: "104px",
+                    backgroundColor: "#f8f9fa",
+                    borderRadius: "8px",
+                    position: "relative",
+                    cursor: "pointer",
+                    overflow: "hidden",
+                    flexShrink: 0, // 카드가 줄어들지 않도록
+                    // 성능 최적화
+                    willChange: "transform",
+                    transform: "translateZ(0)",
+                    backfaceVisibility: "hidden",
+                  }}
+                  onClick={() => navigate("/shop/best")}
+                >
+                  <img
+                    src="/images/shop/recommend_product.svg"
+                    alt="recommend product"
+                    style={{
+                      width: "100%",
+                      height: "100%",
+                      objectFit: "cover",
+                    }}
+                  />
+                </Box>
+              ))}
+            </Box>
+
             <OriginButton
               fullWidth
               variant="contained"
               color="primary"
-              onClick={() => {}}
+              onClick={() => {
+                navigate("/shop/best");
+              }}
               contents={
-                <Typography fontSize={16} color="#ffffff">
+                <Typography fontSize={16} color="#ffffff" fontWeight={700}>
                   추천 상품 보러가기
                 </Typography>
               }
-              style={{ height: "48px", width: "160px" }}
+              style={{ height: "48px" }}
             />
           </Box>
         </Box>
