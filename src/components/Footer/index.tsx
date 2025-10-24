@@ -11,7 +11,7 @@ const Footer: React.FC = () => {
         backgroundColor: "#F8FAFC",
         padding: "40px 16px",
         gap: "40px",
-        mb: "40px",
+        pb: "40px",
       }}
     >
       {/* Company Info - Top Center */}

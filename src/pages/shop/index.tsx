@@ -76,10 +76,13 @@ const Shop = () => {
   };
 
   const settings2 = {
-    dots: true,
+    dots: false,
     infinite: true,
     arrows: false,
     slidesToShow: 1, // 한 번에 한 슬라이드만 완전히 표시
+    beforeChange: (current: number, next: number) => {
+      setBenefitIndex(next);
+    },
   };
 
   const setting3 = {
@@ -109,6 +112,7 @@ const Shop = () => {
   const [banner, setBanner] = React.useState([]);
   const benefit = ["쇼핑혜택", "쇼핑혜택", "쇼핑혜택"];
   const [benefitIndex, setBenefitIndex] = React.useState(0);
+  const sliderRef = React.useRef<Slider>(null);
 
   const [newArrival, setNewArrival] = React.useState([]);
   const [bestProduct, setBestProduct] = React.useState([]);
@@ -159,7 +163,7 @@ const Shop = () => {
         alignItems: "center",
         justifyContent: "center",
         flexDirection: "column",
-        paddingBottom: "50px",
+        paddingBottom: "40px",
       }}
     >
       <MainHeader pageName="shop" />
@@ -603,7 +607,7 @@ const Shop = () => {
       >
         <Typography
           sx={{
-            color: "#2E2F37",
+            color: "#282930",
             fontSize: "20px",
             fontWeight: 700,
             alignSelf: "flex-start",
@@ -612,38 +616,16 @@ const Shop = () => {
         >
           KORGOU BENEFIT
         </Typography>
-        <Box
-          sx={{
-            display: "flex",
-            mb: "8px",
-          }}
-        >
-          {benefit.map((item, index) => (
-            <Chip
-              key={index}
-              label={item}
-              clickable
-              variant="outlined"
-              sx={{
-                marginRight: "8px",
-                borderRadius: "32px",
-                border: "1px solid #B1B2B6",
-                color: benefitIndex === index ? "white" : "#61636C",
-                backgroundColor: benefitIndex === index ? "#3966AE" : "white",
-              }}
-              onClick={() => {
-                setBenefitIndex(index);
-              }}
-            />
-          ))}
-        </Box>
+
         <Box
           sx={{
             width: "100%",
             maxWidth: 600, // 슬라이더의 최대 너비
+            position: "relative",
+            mb: "40px",
           }}
         >
-          <Slider {...settings2}>
+          <Slider ref={sliderRef} {...settings2}>
             {images2.map((src, index) => (
               <Box
                 key={index}
@@ -660,44 +642,62 @@ const Shop = () => {
                   src={src}
                   alt="banner"
                   style={{
-                    objectFit: "cover", // 이미지가 영역에 맞게 확대되거나 축소되어 잘림
+                    objectFit: "fill", // 이미지가 영역에 맞게 확대되거나 축소되어 잘림
                     width: "328px",
-                    height: "152px",
+                    height: "180px",
+                    cursor: "pointer",
                   }}
                 />
               </Box>
             ))}
           </Slider>
+
+          {/* 네비게이션 버튼 */}
+          <Box
+            sx={{
+              position: "absolute",
+              bottom: "10px",
+              right: "10px",
+              display: "flex",
+              alignItems: "center",
+              gap: "4px",
+            }}
+          >
+            <img
+              src="/images/icon/slide_arrow_left.svg"
+              alt="logo"
+              width={16}
+              height={16}
+              style={{
+                cursor: "pointer",
+              }}
+              onClick={() => {
+                sliderRef.current?.slickPrev();
+              }}
+            />
+            <Typography
+              sx={{
+                fontSize: "12px",
+                color: "#282930",
+                fontWeight: "500",
+              }}
+            >
+              {benefitIndex + 1}/{images2.length}
+            </Typography>
+            <img
+              src="/images/icon/slide_arrow_right.svg"
+              alt="logo"
+              width={16}
+              height={16}
+              style={{
+                cursor: "pointer",
+              }}
+              onClick={() => {
+                sliderRef.current?.slickNext();
+              }}
+            />
+          </Box>
         </Box>
-      </Box>
-      <Box
-        sx={{
-          display: "flex",
-          width: "100%",
-          flexDirection: "column",
-          justifyContent: "center",
-          alignItems: "flex-start",
-          marginTop: "8px",
-          mb: "24px",
-        }}
-      >
-        <Typography
-          sx={{
-            color: "#282930",
-            fontSize: "18px",
-            fontWeight: 700,
-          }}
-        >
-          쇼핑혜택 대제목
-        </Typography>
-        <Typography
-          sx={{
-            color: "#61636C",
-            fontSize: "14px",
-          }}
-        >
-          혜택 한줄 내용
-        </Typography>
       </Box>
       {/* BEST REVIEW */}
       <Box
@@ -706,7 +706,6 @@ const Shop = () => {
           width: "100%",
           flexDirection: "column",
           justifyContent: "center",
-          marginTop: "8px",
           backgroundColor: "#F5F5F5",
           padding: "16px",
         }}
@@ -720,23 +719,7 @@ const Shop = () => {
         >
           BEST REVIEW
         </Typography>
-        <Divider
-          sx={{
-            width: "100%",
-            color: "#ECECED",
-            mb: "16px",
-          }}
-        />
-        <Typography
-          sx={{
-            color: "#282930",
-            fontSize: "14px",
-            fontWeight: 700,
-            textAlign: "center",
-          }}
-        >
-          CUSTOMER REVIEW
-        </Typography>
+
         <Box display="flex" justifyContent="center" alignContent="center">
           <IconButton
             sx={{
@@ -841,17 +824,18 @@ const Shop = () => {
           </IconButton>
         </Box>
       </Box>
-      <img
-        src="/images/main/sign_up.svg"
-        alt="logo"
-        style={{
-          cursor: "pointer",
-          marginBottom: "30px",
-        }}
-        onClick={() => {
-          navigate("/signup");
-        }}
-      />
+      {!memberId && (
+        <img
+          src="/images/main/sign_up.svg"
+          alt="logo"
+          style={{
+            cursor: "pointer",
+          }}
+          onClick={() => {
+            navigate("/sign_up");
+          }}
+        />
+      )}
 
       {/* LIVE SHOP */}
       <Box
@@ -861,14 +845,16 @@ const Shop = () => {
           flexDirection: "column",
           justifyContent: "center",
           mb: "24px",
+          mt: "30px",
         }}
       >
         <Typography
           sx={{
             color: "#282930",
-            fontSize: "18px",
+            fontSize: "20px",
             fontWeight: 700,
             textAlign: "start",
+            mb: "8px",
           }}
         >
           LIVE SHOP
