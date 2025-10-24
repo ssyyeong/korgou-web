@@ -13,6 +13,7 @@ import CustomCheckbox from "../../components/Button/CustomCheckbox";
 import AlertModal from "../../components/Modal/AlertModal";
 import DeliveryRequestModal from "../../components/Modal/DeliveryRequestModal";
 import DisposalBottomModal from "../../components/Modal/BottomModal/DisposalBottomModal";
+import NoData from "../../components/NoData";
 
 const Store = () => {
   const { t } = useTranslation();
@@ -246,47 +247,51 @@ const Store = () => {
             mt: "10px",
           }}
         >
-          {Object.keys(groupedOrders).map((date) => (
-            <Box
-              key={date}
-              sx={{
-                display: "flex",
-                flexDirection: "column",
-              }}
-            >
+          {Object.keys(groupedOrders).length > 0 ? (
+            Object.keys(groupedOrders).map((date) => (
               <Box
+                key={date}
                 sx={{
                   display: "flex",
-                  backgroundColor: "#ECECED",
-                  position: "relative",
-                  width: "328px",
-                  alignSelf: "center",
-                  padding: "5px 16px",
+                  flexDirection: "column",
                 }}
               >
-                <Typography
+                <Box
                   sx={{
-                    fontSize: "12px",
-                    color: "#282930",
-                    fontWeight: 500,
-                    lineHeight: "130%",
-                    letterSpacing: "-0.14px",
+                    display: "flex",
+                    backgroundColor: "#ECECED",
+                    position: "relative",
+                    width: "328px",
+                    alignSelf: "center",
+                    padding: "5px 16px",
                   }}
                 >
-                  {date} ({getKoreanDay(safeParseDate(date))})
-                </Typography>
+                  <Typography
+                    sx={{
+                      fontSize: "12px",
+                      color: "#282930",
+                      fontWeight: 500,
+                      lineHeight: "130%",
+                      letterSpacing: "-0.14px",
+                    }}
+                  >
+                    {date} ({getKoreanDay(safeParseDate(date))})
+                  </Typography>
+                </Box>
+                {groupedOrders[date].map((order) => (
+                  <StoreCard
+                    key={order.TRACKING_NUMBER}
+                    item={order}
+                    isChecked={checkedOrders.includes(order)}
+                    onCheckboxChange={handleCheckboxChange}
+                    onClick={() => handleItemClick(order)}
+                  />
+                ))}
               </Box>
-              {groupedOrders[date].map((order) => (
-                <StoreCard
-                  key={order.TRACKING_NUMBER}
-                  item={order}
-                  isChecked={checkedOrders.includes(order)}
-                  onCheckboxChange={handleCheckboxChange}
-                  onClick={() => handleItemClick(order)}
-                />
-              ))}
-            </Box>
-          ))}
+            ))
+          ) : (
+            <NoData text="도착완료 물건이 없습니다." />
+          )}
         </Box>
       </Box>
       <Box

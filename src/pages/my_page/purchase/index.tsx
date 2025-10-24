@@ -12,6 +12,7 @@ import dayjs from "dayjs";
 import "dayjs/locale/ko";
 import BuyingItController from "../../../controller/BuyingItController";
 import { useTranslation } from "react-i18next";
+import NoData from "../../../components/NoData";
 const Purchase = () => {
   const { t } = useTranslation();
   dayjs.locale("ko");
@@ -229,15 +230,19 @@ const Purchase = () => {
               {} as { [key: string]: any[] }
             );
 
-            return Object.entries(groupedByDate).map(
-              ([date, items]: [string, any[]]) => (
-                <BuyingItItem
-                  key={date}
-                  date={date}
-                  items={items}
-                  filterings={filterings}
-                />
+            return Object.entries(groupedByDate).length > 0 ? (
+              Object.entries(groupedByDate).map(
+                ([date, items]: [string, any[]]) => (
+                  <BuyingItItem
+                    key={date}
+                    date={date}
+                    items={items}
+                    filterings={filterings}
+                  />
+                )
               )
+            ) : (
+              <NoData text="구매 내역이 없습니다." />
             );
           })()}
 
@@ -394,6 +399,8 @@ const Purchase = () => {
               left: -15,
             }}
           /> */}
+
+          <NoData text="구매 내역이 없습니다." />
         </Box>
       </TabPanel>
     </Box>

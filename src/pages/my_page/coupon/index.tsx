@@ -3,6 +3,7 @@ import { Box, Typography, Tabs, Tab, Paper } from "@mui/material";
 import Header from "../../../components/Header/Header";
 import ControllerAbstractBase from "../../../controller/Controller";
 import { useAppMember } from "../../../hooks/useAppMember";
+import NoData from "../../../components/NoData";
 
 const CouponPage = () => {
   const [tab, setTab] = useState(1); // 0: 보유쿠폰, 1: 완료쿠폰
@@ -79,40 +80,44 @@ const CouponPage = () => {
       <Box
         sx={{ display: "flex", flexDirection: "column", px: 2, width: "100%" }}
       >
-        {couponList.map((coupon, idx) => (
-          <Paper
-            key={coupon.id + idx}
-            elevation={0}
-            sx={{
-              borderRadius: 3,
-              p: 2,
-              mb: 2,
-              boxShadow: "0 2px 12px 0 rgba(0,0,0,0.06)",
-            }}
-          >
-            <Typography
-              sx={{ color: "#2563EB", fontWeight: 700, fontSize: 20, mb: 1 }}
-            >
-              {coupon.title}
-            </Typography>
-            <Typography sx={{ color: "#61636C", fontSize: 14, mb: 2 }}>
-              유효기간 {coupon.expire}
-            </Typography>
-            <Box
+        {couponList.length > 0 ? (
+          couponList.map((coupon, idx) => (
+            <Paper
+              key={coupon.id + idx}
+              elevation={0}
               sx={{
-                bgcolor: "#F1F2F4",
-                borderRadius: 1,
-                py: 2,
-                textAlign: "center",
-                color: "#919298",
-                fontWeight: 700,
-                fontSize: 18,
+                borderRadius: 3,
+                p: 2,
+                mb: 2,
+                boxShadow: "0 2px 12px 0 rgba(0,0,0,0.06)",
               }}
             >
-              {coupon.status}
-            </Box>
-          </Paper>
-        ))}
+              <Typography
+                sx={{ color: "#2563EB", fontWeight: 700, fontSize: 20, mb: 1 }}
+              >
+                {coupon.title}
+              </Typography>
+              <Typography sx={{ color: "#61636C", fontSize: 14, mb: 2 }}>
+                유효기간 {coupon.expire}
+              </Typography>
+              <Box
+                sx={{
+                  bgcolor: "#F1F2F4",
+                  borderRadius: 1,
+                  py: 2,
+                  textAlign: "center",
+                  color: "#919298",
+                  fontWeight: 700,
+                  fontSize: 18,
+                }}
+              >
+                {coupon.status}
+              </Box>
+            </Paper>
+          ))
+        ) : (
+          <NoData text="보유 쿠폰이 없습니다." />
+        )}
       </Box>
       {/* 페이지네이션 */}
       {couponList.length > 0 && (
