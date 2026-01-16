@@ -1,11 +1,8 @@
 import { Box } from "@mui/material";
 
-import { useNavigate } from "react-router-dom";
 import MainHeader from "../../../components/Header/MainHeader";
 
 const Price = () => {
-  const navigate = useNavigate();
-
   return (
     <Box
       sx={{
@@ -19,7 +16,7 @@ const Price = () => {
         mb: "48px",
       }}
     >
-      <MainHeader pageName="home" />
+      <MainHeader pageName="home" showBackButton={true} />
       <img src="/images/main/side_bar/price.svg" alt="service" width={360} />
     </Box>
   );

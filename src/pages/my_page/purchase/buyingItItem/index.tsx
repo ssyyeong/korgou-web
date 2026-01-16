@@ -1,8 +1,8 @@
 // BuyingItItem.tsx
 import React from "react";
 import { Box, Divider, Typography } from "@mui/material";
-import { useTranslation } from "react-i18next";
 import dayjs from "dayjs";
+import { useNavigate } from "react-router-dom";
 
 interface IBuyingItItemProps {
   date: string;
@@ -11,14 +11,23 @@ interface IBuyingItItemProps {
 }
 
 const BuyingItItem = ({ date, items, filterings }: IBuyingItItemProps) => {
-  const { t } = useTranslation();
+  const navigate = useNavigate();
 
-  const statusLabel = (status?: string) =>
-    filterings.find((f) => f.value === status)?.label ??
-    t("purchase_status.paid");
+  const statusLabel = (status?: string) => {
+    if (status === "Confirmation pending") return "확인 대기중";
+    if (status === "Confirmed, payment pending")
+      return "확인 완료, 결제 대기중";
+    if (status === "Paid") return "결제 완료";
+    if (status === "Completed") return "배송중";
+    if (status === "Hold") return "대기";
+    if (status === "Confirmation failed") return "확인 실패";
+    if (status === "Refund completed") return "환불 완료";
+    if (status === "Cancelled") return "취소";
+    return "";
+  };
 
   const statusColor = (status?: string) =>
-    status === "Completed" ? "#282930" : "#3966AE";
+    status === "Completed" ? "#282930" : "#919298";
 
   const toWon = (v?: number | string) =>
     `${Number(v ?? 0).toLocaleString("ko-KR")}원`;
@@ -79,6 +88,13 @@ const BuyingItItem = ({ date, items, filterings }: IBuyingItItemProps) => {
                     alignItems: "center",
                     mb: "8px",
                   }}
+                  onClick={() => {
+                    navigate(`/my_page/purchase/status/confirm`, {
+                      state: {
+                        id: item.BUYING_IT_IDENTIFICATION_CODE,
+                      },
+                    });
+                  }}
                 >
                   <Typography
                     sx={{ fontSize: 14, color: "#282930", fontWeight: 600 }}
@@ -112,7 +128,7 @@ const BuyingItItem = ({ date, items, filterings }: IBuyingItItemProps) => {
                 {/* 금액 2행 */}
                 <Box sx={{ display: "grid", rowGap: "4px" }}>
                   <Box
-                    sx={{ display: "flex", justifyContent: "space-between" }}
+                    sx={{ display: "flex", gap: "20px", alignItems: "center" }}
                   >
                     <Typography
                       sx={{ fontSize: 14, fontWeight: 700, color: "#282930" }}
@@ -124,7 +140,7 @@ const BuyingItItem = ({ date, items, filterings }: IBuyingItItemProps) => {
                     </Typography>
                   </Box>
                   <Box
-                    sx={{ display: "flex", justifyContent: "space-between" }}
+                    sx={{ display: "flex", gap: "20px", alignItems: "center" }}
                   >
                     <Typography
                       sx={{ fontSize: 14, fontWeight: 700, color: "#282930" }}
@@ -166,6 +182,14 @@ const BuyingItItem = ({ date, items, filterings }: IBuyingItItemProps) => {
                     justifyContent: "space-between",
                     alignItems: "center",
                     mb: "6px",
+                    cursor: "pointer",
+                  }}
+                  onClick={() => {
+                    navigate(`/my_page/purchase/status/confirm`, {
+                      state: {
+                        id: item.BUYING_IT_IDENTIFICATION_CODE,
+                      },
+                    });
                   }}
                 >
                   <Typography
@@ -240,7 +264,7 @@ const BuyingItItem = ({ date, items, filterings }: IBuyingItItemProps) => {
                   <Typography
                     sx={{
                       fontSize: 14,
-                      fontWeight: 500,
+                      fontWeight: 700,
                       color: statusColor(item.STATUS),
                     }}
                   >

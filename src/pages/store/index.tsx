@@ -5,6 +5,7 @@ import OriginButton from "../../components/Button/OriginButton";
 import DropDown from "../../components/Dropdown";
 import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
+import { useAppMember } from "../../hooks/useAppMember";
 import FilteringDate from "../../components/FilteringDate";
 import StoreCard from "./storeCard";
 import { format } from "date-fns";
@@ -14,6 +15,7 @@ import AlertModal from "../../components/Modal/AlertModal";
 import DeliveryRequestModal from "../../components/Modal/DeliveryRequestModal";
 import DisposalBottomModal from "../../components/Modal/BottomModal/DisposalBottomModal";
 import NoData from "../../components/NoData";
+import ControllerAbstractBase from "../../controller/Controller";
 
 const Store = () => {
   const { t } = useTranslation();
@@ -41,17 +43,26 @@ const Store = () => {
   ];
 
   interface OrderItem {
+    PACKAGE_IDENTIFICATION_CODE: number;
     PACKAGE_ID: string;
     TRACKING_NUMBER: string;
     TYPE: string;
     WEIGHT: number;
     CONTENTS: string;
     STATUS: string;
-    CREATED_AT: Date;
-    FREE_STORAGE_PERIOD: string;
+    CREATED_AT?: Date;
+    FREE_STORAGE_PERIOD: Date | string;
+    PHOTO_SERVICE_STATUS?: string;
+    DISPOSAL_SERVICE_STATUS?: string;
+    SHOP_URL?: string;
+    COURIER_COMPANY?: string;
+    STORAGE_FEE?: number;
+    REMARK?: string;
+    COMMENT?: string;
   }
 
   const navigate = useNavigate();
+  const { memberId } = useAppMember();
 
   const [filter, setFilter] = useState(t("store.all"));
   const [startDate, setStartDate] = useState(new Date());
@@ -93,7 +104,96 @@ const Store = () => {
     }
   });
 
-  const filteringStore = (filter) => {};
+  // 데이터 가져오기
+  useEffect(() => {
+    if (!memberId) return;
+
+    const controller = new ControllerAbstractBase({
+      modelName: "Package",
+      modelId: "package",
+    });
+
+    const fetchPackages = async () => {
+      try {
+        const option: any = {
+          APP_MEMBER_ID: memberId,
+        };
+
+        // 상태 필터 적용
+        if (filter !== t("store.all")) {
+          const selectedFilter = filterings.find((f) => f.label === filter);
+          if (selectedFilter) {
+            option.STATUS = selectedFilter.value;
+          }
+        }
+
+        const res = await controller.findAll(option);
+        if (res?.result?.rows) {
+          const packages = res.result.rows.map((pkg: any) => ({
+            ...pkg,
+            CREATED_AT: pkg.CREATED_AT
+              ? new Date(pkg.CREATED_AT)
+              : pkg.FREE_STORAGE_PERIOD
+              ? new Date(pkg.FREE_STORAGE_PERIOD)
+              : new Date(),
+          }));
+          setOrders(packages);
+        }
+      } catch (error) {
+        console.error("Error fetching packages:", error);
+      }
+    };
+
+    fetchPackages();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [memberId, filter]);
+
+  const filteringStore = (filter) => {
+    // 날짜 필터링 로직
+    if (!memberId) return;
+
+    const controller = new ControllerAbstractBase({
+      modelName: "Package",
+      modelId: "package",
+    });
+
+    const option: any = {
+      APP_MEMBER_ID: memberId,
+    };
+
+    // 날짜 필터 적용
+    if (dateType && startDate && endDate) {
+      option.START_DATE = format(startDate, "yyyy-MM-dd");
+      option.END_DATE = format(endDate, "yyyy-MM-dd");
+    }
+
+    // 상태 필터 적용
+    if (filter !== t("store.all")) {
+      const selectedFilter = filterings.find((f) => f.label === filter);
+      if (selectedFilter) {
+        option.STATUS = selectedFilter.value;
+      }
+    }
+
+    controller
+      .findAll(option)
+      .then((res) => {
+        if (res?.result?.rows) {
+          const packages = res.result.rows.map((pkg: any) => ({
+            ...pkg,
+            CREATED_AT: pkg.CREATED_AT
+              ? new Date(pkg.CREATED_AT)
+              : pkg.FREE_STORAGE_PERIOD
+              ? new Date(pkg.FREE_STORAGE_PERIOD)
+              : new Date(),
+          }));
+          setOrders(packages);
+        }
+      })
+      .catch((error) => {
+        console.error("Error filtering packages:", error);
+      });
+  };
 
   const handleClose = (item: string) => {
     if (item) setFilter(item);
@@ -109,11 +209,28 @@ const Store = () => {
 
   const handleCheckboxChange = (item: OrderItem) => {
     setCheckedOrders((prevChecked) =>
-      prevChecked.includes(item)
-        ? prevChecked.filter((order) => order.PACKAGE_ID !== item.PACKAGE_ID)
+      prevChecked.some(
+        (order) =>
+          order.PACKAGE_IDENTIFICATION_CODE === item.PACKAGE_IDENTIFICATION_CODE
+      )
+        ? prevChecked.filter(
+            (order) =>
+              order.PACKAGE_IDENTIFICATION_CODE !==
+              item.PACKAGE_IDENTIFICATION_CODE
+          )
         : [...prevChecked, item]
     );
   };
+
+  // 전체 선택/해제
+  useEffect(() => {
+    if (isAllChecked) {
+      setCheckedOrders([...orders]);
+    } else {
+      setCheckedOrders([]);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isAllChecked, orders.length]);
 
   // 아이템 클릭 시 모달 열기
   const handleItemClick = (item: OrderItem) => {
@@ -138,10 +255,15 @@ const Store = () => {
   };
 
   const groupedOrders = orders.reduce((acc, order) => {
-    if (!acc[format(order.CREATED_AT, "yy.MM.dd")]) {
-      acc[format(order.CREATED_AT, "yy.MM.dd")] = [];
+    const date = order.CREATED_AT
+      ? format(order.CREATED_AT, "yy.MM.dd")
+      : order.FREE_STORAGE_PERIOD
+      ? format(new Date(order.FREE_STORAGE_PERIOD), "yy.MM.dd")
+      : format(new Date(), "yy.MM.dd");
+    if (!acc[date]) {
+      acc[date] = [];
     }
-    acc[format(order.CREATED_AT, "yy.MM.dd")].push(order);
+    acc[date].push(order);
     return acc;
   }, {} as { [key: string]: OrderItem[] });
 
@@ -280,9 +402,15 @@ const Store = () => {
                 </Box>
                 {groupedOrders[date].map((order) => (
                   <StoreCard
-                    key={order.TRACKING_NUMBER}
+                    key={
+                      order.PACKAGE_IDENTIFICATION_CODE || order.TRACKING_NUMBER
+                    }
                     item={order}
-                    isChecked={checkedOrders.includes(order)}
+                    isChecked={checkedOrders.some(
+                      (checked) =>
+                        checked.PACKAGE_IDENTIFICATION_CODE ===
+                        order.PACKAGE_IDENTIFICATION_CODE
+                    )}
                     onCheckboxChange={handleCheckboxChange}
                     onClick={() => handleItemClick(order)}
                   />
@@ -511,7 +639,21 @@ const Store = () => {
       <DeliveryRequestModal
         open={isDeliveryRequestModalOpen}
         onClose={() => setIsDeliveryRequestModalOpen(false)}
-        selectedItems={orders.filter((order) => checkedOrders.includes(order))}
+        selectedItems={checkedOrders.map((order) => ({
+          PACKAGE_ID: order.PACKAGE_ID,
+          TRACKING_NUMBER: order.TRACKING_NUMBER,
+          TYPE: order.TYPE,
+          WEIGHT: order.WEIGHT,
+          CONTENTS: order.CONTENTS,
+          STATUS: order.STATUS,
+          CREATED_AT: order.CREATED_AT || new Date(),
+          FREE_STORAGE_PERIOD:
+            typeof order.FREE_STORAGE_PERIOD === "string"
+              ? order.FREE_STORAGE_PERIOD
+              : order.FREE_STORAGE_PERIOD
+              ? format(order.FREE_STORAGE_PERIOD as Date, "yyyy-MM-dd")
+              : "",
+        }))}
         onConfirm={() => {
           // 배송 요청 로직
           setIsDeliveryRequestModalOpen(false);

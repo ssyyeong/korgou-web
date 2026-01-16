@@ -19,7 +19,7 @@ const Service = () => {
         mb: "48px",
       }}
     >
-      <MainHeader pageName="home" />
+      <MainHeader pageName="home" showBackButton={true} />
       <img src="/images/main/side_bar/service.svg" alt="service" width={360} />
     </Box>
   );

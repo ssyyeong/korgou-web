@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { IconButton, MenuItem, Box, Typography, Menu } from "@mui/material";
+import { MenuItem, Box, Typography, Menu } from "@mui/material";
+import ArrowBackIosNewIcon from "@mui/icons-material/ArrowBackIosNew";
 
 import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -10,7 +11,13 @@ import SideBarModal from "../Modal/SideBarModal";
 import ControllerAbstractBase from "../../controller/Controller";
 
 // 홈 화면 헤더
-const MainHeader = ({ pageName }: { pageName: string }) => {
+const MainHeader = ({
+  pageName,
+  showBackButton = false,
+}: {
+  pageName: string;
+  showBackButton?: boolean;
+}) => {
   const navigate = useNavigate();
   const { i18n } = useTranslation();
   const { isAuthenticated } = useAuth();
@@ -108,13 +115,32 @@ const MainHeader = ({ pageName }: { pageName: string }) => {
         p: "16px",
       }}
     >
-      {/* 왼쪽 로고 */}
+      {/* 왼쪽 로고 또는 뒤로가기 버튼 */}
       <Box sx={{ display: "flex", alignItems: "center" }}>
-        <img
-          src="/images/logo/logo.svg" // 로고 이미지 경로를 수정하세요
-          alt="Logo"
-          style={{ height: "20px", width: "92px" }}
-        />
+        {showBackButton ? (
+          <Box
+            onClick={() => navigate(-1)}
+            sx={{
+              cursor: "pointer",
+              display: "flex",
+              alignItems: "center",
+            }}
+          >
+            <ArrowBackIosNewIcon
+              sx={{
+                color: "#B1B2B6",
+                width: "20px",
+                height: "20px",
+              }}
+            />
+          </Box>
+        ) : (
+          <img
+            src="/images/logo/logo.svg"
+            alt="Logo"
+            style={{ height: "20px", width: "92px" }}
+          />
+        )}
       </Box>
 
       {/* 오른쪽 아이콘 3개 */}

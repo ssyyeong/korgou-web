@@ -100,7 +100,6 @@ const StoreCard = (props: OrderCardProps) => {
               display: "flex",
               flexDirection: "column",
               ml: "4px",
-              justifyContent: "center",
               gap: "4px",
             }}
           >
@@ -116,28 +115,24 @@ const StoreCard = (props: OrderCardProps) => {
                 sx={{
                   display: "flex",
                   flexDirection: "row",
-                  padding: "2px 4px",
                   alignItems: "center",
-                  gap: "2px",
                   backgroundColor: "#EBF0F7",
+                  padding: "2px 4px",
                   borderRadius: "4px",
                 }}
               >
                 <img
-                  src={
-                    props.item.TYPE === "Box"
-                      ? "/images/icon/store/box.svg"
-                      : props.item.TYPE === "Envelope"
-                      ? "/images/icon/store/envelope.svg"
-                      : "/images/icon/store/other.svg"
-                  }
-                  alt="box"
+                  src={"/images/icon/store/box.svg"}
+                  alt="product"
+                  style={{ width: "20px", height: "20px" }}
                 />
                 <Typography
                   sx={{
                     fontSize: "10px",
                     color: "#3966AE",
                     fontWeight: 500,
+                    lineHeight: "130%",
+                    letterSpacing: "-0.14px",
                   }}
                 >
                   {props.item.TYPE}
@@ -155,6 +150,7 @@ const StoreCard = (props: OrderCardProps) => {
                 {props.item.TRACKING_NUMBER}
               </Typography>
             </Box>
+
             <Typography
               sx={{
                 fontSize: "12px",
