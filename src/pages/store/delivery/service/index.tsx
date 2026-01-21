@@ -11,7 +11,7 @@ import Input from "../../../../components/Input";
 import { useAppMember } from "../../../../hooks/useAppMember";
 import ControllerAbstractBase from "../../../../controller/Controller";
 import OriginButton from "../../../../components/Button/OriginButton";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import CustomCheckbox from "../../../../components/Button/CustomCheckbox";
 import TextFieldCustom from "../../../../components/TextField";
 
@@ -24,7 +24,14 @@ interface DeliveryService {
 
 const DeliveryService = () => {
   const navigator = useNavigate();
+  const location = useLocation();
   const { memberCode } = useAppMember();
+
+  // 이전 페이지에서 받은 주소 정보
+  const [addressId, setAddressId] = useState<string | null>(null);
+  const [shippingType, setShippingType] = useState<"international" | "domestic" | null>(null);
+  const [directAddress, setDirectAddress] = useState<any>(null);
+  const [deliveryCompanyFromAddress, setDeliveryCompanyFromAddress] = useState<string | null>(null);
 
   // 총 계 (상품 / 무게) - 실제로는 이전 페이지에서 받아와야 함
   const [totalItems, setTotalItems] = useState(2);
@@ -52,8 +59,26 @@ const DeliveryService = () => {
   const [selectedCompanyGuide, setSelectedCompanyGuide] = useState("");
 
   useEffect(() => {
+    // 이전 페이지에서 전달받은 데이터 처리
+    if (location.state) {
+      const { addressId, shippingType, directAddress, deliveryCompany } = location.state;
+      if (addressId) {
+        setAddressId(addressId);
+      }
+      if (shippingType) {
+        setShippingType(shippingType);
+        // 해외배송이고 직접 입력인 경우 배송사 설정
+        if (shippingType === "international" && deliveryCompany) {
+          setDeliveryCompanyFromAddress(deliveryCompany);
+          setSelectedDeliveryCompany(deliveryCompany);
+        }
+      }
+      if (directAddress) {
+        setDirectAddress(directAddress);
+      }
+    }
     fetchDeliveryCompanyList();
-  }, []);
+  }, [location.state]);
 
   const fetchDeliveryCompanyList = async () => {
     const controller = new ControllerAbstractBase({
@@ -100,8 +125,21 @@ const DeliveryService = () => {
   };
 
   const handleNext = () => {
-    // 다음 단계로 이동
-    navigator("/store/delivery/next-step");
+    // 다음 단계로 이동 (모든 선택된 값 포함)
+    navigator("/store/delivery/declaration", {
+      state: {
+        addressId,
+        shippingType,
+        directAddress,
+        deliveryCompany: selectedDeliveryCompany || deliveryCompanyFromAddress,
+        processingMethod,
+        shippingInsurance,
+        compactPackaging,
+        otherRequests,
+        totalItems,
+        totalWeight,
+      },
+    });
   };
 
   const handleCancel = () => {
@@ -463,7 +501,7 @@ const DeliveryService = () => {
         >
           <OriginButton
             variant="outlined"
-            onClick={() => {}}
+            onClick={handleCancel}
             contents={
               <Typography
                 sx={{
@@ -485,7 +523,7 @@ const DeliveryService = () => {
           />
           <OriginButton
             variant="contained"
-            onClick={() => {}}
+            onClick={handleNext}
             fullWidth
             contents={
               <Typography

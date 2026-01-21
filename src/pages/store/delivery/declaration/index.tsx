@@ -12,7 +12,7 @@ import Input from "../../../../components/Input";
 import { useAppMember } from "../../../../hooks/useAppMember";
 import ControllerAbstractBase from "../../../../controller/Controller";
 import OriginButton from "../../../../components/Button/OriginButton";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import TextFieldCustom from "../../../../components/TextField";
 import MultiImageUploader from "../../../../components/MultiImageUploader";
 
@@ -26,7 +26,11 @@ interface DeclarationItem {
 
 const DeliveryDeclaration = () => {
   const navigator = useNavigate();
+  const location = useLocation();
   const { memberCode } = useAppMember();
+
+  // 이전 페이지에서 받은 모든 데이터
+  const [previousData, setPreviousData] = useState<any>(null);
 
   // 저장된 신고서 목록
   const [savedItems, setSavedItems] = useState<DeclarationItem[]>([]);
@@ -42,6 +46,13 @@ const DeliveryDeclaration = () => {
 
   // 폼 표시 모드 (true: 폼 표시, false: 목록만 표시)
   const [showForm, setShowForm] = useState(true);
+
+  useEffect(() => {
+    // 이전 페이지에서 전달받은 데이터 저장
+    if (location.state) {
+      setPreviousData(location.state);
+    }
+  }, [location.state]);
 
   const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(event.target.files || []);
@@ -114,8 +125,13 @@ const DeliveryDeclaration = () => {
       alert("최소 하나의 신고서를 작성해주세요.");
       return;
     }
-    // 다음 단계로 이동
-    navigator("/store/delivery/next-step");
+    // 다음 단계로 이동 (이전 페이지의 모든 데이터 + 신고서 데이터 포함)
+    navigator("/store/delivery/check", {
+      state: {
+        ...previousData, // 이전 페이지들에서 받은 모든 데이터
+        declarationItems: savedItems, // 신고서 목록
+      },
+    });
   };
 
   const handleCancel = () => {
@@ -595,7 +611,7 @@ const DeliveryDeclaration = () => {
         >
           <OriginButton
             variant="outlined"
-            onClick={() => {}}
+            onClick={handleCancel}
             contents={
               <Typography
                 sx={{
@@ -617,7 +633,9 @@ const DeliveryDeclaration = () => {
           />
           <OriginButton
             variant="contained"
-            onClick={() => {}}
+            onClick={() => {
+              handleNext();
+            }}
             fullWidth
             contents={
               <Typography

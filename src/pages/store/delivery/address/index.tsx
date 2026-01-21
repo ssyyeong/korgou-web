@@ -33,7 +33,7 @@ interface Address {
 const DeliveryAddress = () => {
   const navigator = useNavigate();
   const location = useLocation();
-  const { memberCode } = useAppMember();
+  const { memberCode, memberId } = useAppMember();
 
   const [addressType, setAddressType] = useState<"select" | "direct">("select");
   const [shippingType, setShippingType] = useState<
@@ -47,7 +47,12 @@ const DeliveryAddress = () => {
   useEffect(() => {
     fetchAddressList();
     fetchDeliveryCompanyList();
-  }, [memberCode, location.pathname]);
+  }, [memberCode, location.pathname, memberId]);
+
+  // 배송 타입이 변경되면 선택된 주소 초기화
+  useEffect(() => {
+    setSelectedAddress("");
+  }, [shippingType]);
 
   const fetchAddressList = async () => {
     const controller = new ControllerAbstractBase({
@@ -55,21 +60,49 @@ const DeliveryAddress = () => {
       modelId: "address",
     });
 
+    console.log(memberId);
+
     controller
       .findAll({
-        APP_MEMBER_IDENTIFICATION_CODE: memberCode,
+        APP_MEMBER_ID: memberId,
       })
       .then((res) => {
-        // 임시 주소 데이터 추가
-        const tempAddress = {
-          id: "temp-001",
-          name: "김철수",
-          type: "domestic" as const,
-          address: "서울특별시 강남구 테헤란로 123, 456호",
-          phone: "010-1234-5678",
-          isSelected: false,
-        };
-        setAddressList([tempAddress, ...res.result.rows]);
+        console.log(res.result.rows);
+        // 데이터베이스에서 가져온 주소를 매핑
+        const mappedAddresses = res.result.rows.map((addr: any) => {
+          // 주소 문자열 구성
+          let fullAddress = addr.ADDRESS || "";
+          if (addr.DETAILED_ADDRESS) {
+            fullAddress += `, ${addr.DETAILED_ADDRESS}`;
+          }
+          if (addr.CITY) {
+            fullAddress += `, ${addr.CITY}`;
+          }
+          if (addr.PROVINCE) {
+            fullAddress += `, ${addr.PROVINCE}`;
+          }
+          if (addr.POSTAL_CODE) {
+            fullAddress = `[${addr.POSTAL_CODE}] ${fullAddress}`;
+          }
+          if (addr.COUNTRY) {
+            fullAddress += `, ${addr.COUNTRY}`;
+          }
+
+          // 전화번호 문자열 구성
+          const phoneNumber = addr.COUNTRY_NUMBER 
+            ? `${addr.COUNTRY_NUMBER}+ ${addr.CONTACT}`.replace(/(\d)(\d{3})(\d{4})/, "$1 $2 $3 $4")
+            : addr.CONTACT || "";
+
+          return {
+            id: addr.ADDRESS_IDENTIFICATION_CODE?.toString() || addr.id,
+            name: addr.NAME || "",
+            type: addr.SHIPPING_TYPE === "FOREIGN" ? "international" : "domestic",
+            address: fullAddress,
+            phone: phoneNumber,
+            isSelected: false,
+          };
+        });
+        setAddressList(mappedAddresses);
       });
   };
 
@@ -251,7 +284,10 @@ const DeliveryAddress = () => {
               variant={
                 shippingType === "international" ? "contained" : "outlined"
               }
-              onClick={() => setShippingType("international")}
+              onClick={() => {
+                setShippingType("international");
+                setSelectedAddress(""); // 타입 변경 시 선택 초기화
+              }}
               sx={{
                 flex: 1,
                 height: "48px",
@@ -268,7 +304,10 @@ const DeliveryAddress = () => {
             </Button>
             <Button
               variant={shippingType === "domestic" ? "contained" : "outlined"}
-              onClick={() => setShippingType("domestic")}
+              onClick={() => {
+                setShippingType("domestic");
+                setSelectedAddress(""); // 타입 변경 시 선택 초기화
+              }}
               sx={{
                 flex: 1,
                 height: "48px",
@@ -697,7 +736,7 @@ const DeliveryAddress = () => {
               </Typography>
             )}
         </Box>
-        {addressType === "direct" && (
+        {addressType === "direct" && shippingType === "international" && (
           <Box
             sx={{
               display: "flex",
@@ -784,7 +823,26 @@ const DeliveryAddress = () => {
           />
           <OriginButton
             variant="contained"
-            onClick={() => {}}
+            onClick={() => {
+              // 배송지 선택 모드일 때 선택한 주소 ID 전달
+              if (addressType === "select" && selectedAddress) {
+                navigator("/store/delivery/service", {
+                  state: {
+                    addressId: selectedAddress,
+                    shippingType: shippingType,
+                  },
+                });
+              } else if (addressType === "direct") {
+                // 직접 입력 모드일 때 입력한 주소 정보 전달
+                navigator("/store/delivery/service", {
+                  state: {
+                    directAddress: directForm,
+                    shippingType: shippingType,
+                    deliveryCompany: shippingType === "international" ? deliveryCompany : null,
+                  },
+                });
+              }
+            }}
             fullWidth
             contents={
               <Typography

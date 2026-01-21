@@ -8,10 +8,12 @@ import ControllerAbstractBase from "../../../controller/Controller";
 import DeliveryCard from "./DeliveryCard";
 import Pagination from "../../../components/Pagination";
 import NoData from "../../../components/NoData";
+import { useNavigate } from "react-router-dom";
 
 const Delivery = () => {
   const { t } = useTranslation();
   const { memberId } = useAppMember();
+  const navigator = useNavigate();
 
   const filterings = [
     { value: "7days", label: "1주일" },
@@ -51,8 +53,10 @@ const Delivery = () => {
   };
 
   const handleCardClick = (id: string) => {
-    console.log("Card clicked:", id);
-    // 상세 페이지로 이동하는 로직 추가
+    // 상세 페이지로 이동 (FORWARD_IDENTIFICATION_CODE 전달)
+    navigator(`/my_page/delivery/detail`, {
+      state: { forwardIdentificationCode: id },
+    });
   };
 
   const handleCancel = (id: string) => {
@@ -177,7 +181,7 @@ const Delivery = () => {
           forwardList.map((item: any, index: number) => (
             <DeliveryCard
               key={item.id || index}
-              id={item.FORWARD_ID || `P${item.id}`}
+              id={item.FORWARD_ID}
               date={item.CREATED_AT || item.created_at}
               status={item.STATUS || "신청완료"}
               packageType={
@@ -205,7 +209,9 @@ const Delivery = () => {
               onCancel={() => handleCancel(item.id || item.FORWARD_ID)}
               onTrack={() => handleTrack(item.id || item.FORWARD_ID)}
               onReview={() => handleReview(item.id || item.FORWARD_ID)}
-              onClick={handleCardClick}
+              onClick={() => {
+                handleCardClick(item.FORWARD_IDENTIFICATION_CODE);
+              }}
             />
           ))
         ) : (

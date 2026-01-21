@@ -17,6 +17,9 @@ interface IPhotoBottomModalProps {
   ) => void;
   charCount: number;
   maxCharCount: number;
+  notes?: string;
+  handleNotesChange?: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handlePhotoServiceRequest: () => void;
 }
 
 const PhotoBottomModal = (props: IPhotoBottomModalProps) => {
@@ -28,8 +31,7 @@ const PhotoBottomModal = (props: IPhotoBottomModalProps) => {
             display: "flex",
             flexDirection: "column",
             justifyContent: "center",
-            p: "24px 16px 0 16px",
-            gap: "20px",
+            p: "24px",
           }}
         >
           <IconButton
@@ -37,7 +39,7 @@ const PhotoBottomModal = (props: IPhotoBottomModalProps) => {
             sx={{
               position: "absolute",
               right: "16px",
-              top: "16px",
+              top: "24px",
               color: "#B1B2B6",
             }}
           >
@@ -48,6 +50,7 @@ const PhotoBottomModal = (props: IPhotoBottomModalProps) => {
             sx={{
               display: "flex",
               alignItems: "center",
+              justifyContent: "center",
               mb: "16px",
             }}
           >
@@ -58,7 +61,7 @@ const PhotoBottomModal = (props: IPhotoBottomModalProps) => {
                 color: "#282930",
               }}
             >
-              디스포절&스플릿 서비스
+              프리미엄포토서비스
             </Typography>
           </Box>
 
@@ -74,7 +77,7 @@ const PhotoBottomModal = (props: IPhotoBottomModalProps) => {
                 display: "flex",
                 justifyContent: "space-between",
                 alignItems: "center",
-                mb: "12px",
+                mb: "10px",
                 cursor: "pointer",
               }}
               onClick={() =>
@@ -97,7 +100,7 @@ const PhotoBottomModal = (props: IPhotoBottomModalProps) => {
                     : "rotate(0deg)",
                   transition: "transform 0.3s",
                   color: "#B1B2B6",
-                  fontSize: "20px",
+                  fontSize: "24px",
                 }}
               />
             </Box>
@@ -117,6 +120,7 @@ const PhotoBottomModal = (props: IPhotoBottomModalProps) => {
                       sx={{
                         fontSize: "12px",
                         color: "#61636C",
+                        fontWeight: 500,
                       }}
                     >
                       패키지번호 {order.PACKAGE_ID}
@@ -143,6 +147,7 @@ const PhotoBottomModal = (props: IPhotoBottomModalProps) => {
                         fontSize: "14px",
                         color: "#282930",
                         fontWeight: 500,
+                        mr: "2px",
                       }}
                     >
                       무게(g)
@@ -166,6 +171,7 @@ const PhotoBottomModal = (props: IPhotoBottomModalProps) => {
             sx={{
               display: "flex",
               flexDirection: "column",
+              mt: "20px",
             }}
           >
             <Typography
@@ -213,6 +219,7 @@ const PhotoBottomModal = (props: IPhotoBottomModalProps) => {
             sx={{
               display: "flex",
               flexDirection: "column",
+              mt: "10px",
             }}
           >
             <Typography
@@ -237,7 +244,7 @@ const PhotoBottomModal = (props: IPhotoBottomModalProps) => {
               sx={{
                 display: "flex",
                 flexDirection: "column",
-                mb: "32px",
+                mb: "10px",
               }}
             >
               <Typography
@@ -253,6 +260,41 @@ const PhotoBottomModal = (props: IPhotoBottomModalProps) => {
               </Typography>
             </Box>
           </Box>
+
+          {/* 비고 */}
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              mt: "10px",
+            }}
+          >
+            <Typography
+              sx={{
+                fontSize: "16px",
+                fontWeight: 700,
+                color: "#282930",
+                mb: "10px",
+              }}
+            >
+              비고
+            </Typography>
+            <TextFieldCustom
+              fullWidth
+              value={props.notes || ""}
+              onChange={props.handleNotesChange || (() => {})}
+              placeholder="비고를 작성 해주세요."
+              sx={{
+                mb: "32px",
+                "& .MuiInputBase-root": {
+                  border: "1px solid #ECECED",
+                  borderRadius: "1px",
+                  height: "60px",
+                },
+              }}
+              placeholderFontSize="16px"
+            />
+          </Box>
         </Box>
       }
       bottomModalOpen={props.bottomModalOpen}
@@ -264,7 +306,7 @@ const PhotoBottomModal = (props: IPhotoBottomModalProps) => {
       }}
       btnText={"요청하기"}
       btnClick={() => {
-        props.setBottomModalOpen(false);
+        props.handlePhotoServiceRequest();
       }}
     />
   );

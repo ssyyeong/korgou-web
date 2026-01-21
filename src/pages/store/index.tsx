@@ -16,6 +16,8 @@ import DeliveryRequestModal from "../../components/Modal/DeliveryRequestModal";
 import DisposalBottomModal from "../../components/Modal/BottomModal/DisposalBottomModal";
 import NoData from "../../components/NoData";
 import ControllerAbstractBase from "../../controller/Controller";
+import PhotoBottomModal from "../../components/Modal/BottomModal/PhotoBottomModal";
+import PhotoServiceImageModal from "../../components/Modal/PhotoServiceImageModal";
 
 const Store = () => {
   const { t } = useTranslation();
@@ -42,6 +44,11 @@ const Store = () => {
     { value: "Foward Done", label: t("store.foward_done") },
   ];
 
+  const controller = new ControllerAbstractBase({
+    modelName: "Package",
+    modelId: "package",
+  });
+
   interface OrderItem {
     PACKAGE_IDENTIFICATION_CODE: number;
     PACKAGE_ID: string;
@@ -54,6 +61,8 @@ const Store = () => {
     FREE_STORAGE_PERIOD: Date | string;
     PHOTO_SERVICE_STATUS?: string;
     DISPOSAL_SERVICE_STATUS?: string;
+    PHOTO_SERVICE_IMAGE_LIST?: string | string[];
+    PHOTO_SERVICE_UNBOXING_VIDEO_REMARK?: string;
     SHOP_URL?: string;
     COURIER_COMPANY?: string;
     STORAGE_FEE?: number;
@@ -78,11 +87,14 @@ const Store = () => {
   const [otherRequests, setOtherRequests] = useState("");
   const [charCount, setCharCount] = useState(0);
   const maxCharCount = 400;
+  const [notes, setNotes] = useState("");
   const [isConfirmed, setIsConfirmed] = useState(false);
-
+const [images, setImages] = useState<File[]>([]);
   // 모달 관련
   //제품 상세 모달
   const [detailModalOpen, setDetailModalOpen] = useState(false);
+  //포토서비스 모달
+  const [photoServiceModalOpen, setPhotoServiceModalOpen] = useState(false);
   //디스포절 불가 alert 모달
   const [isDisposalModalOpen, setIsDisposalModalOpen] = useState(false);
   //디스포절 BottomModal
@@ -95,6 +107,21 @@ const Store = () => {
     useState(false);
   //포토서비스 완료 모달
   const [photoCompleteModalOpen, setPhotoCompleteModalOpen] = useState(false);
+  //반품 요청 완료 모달
+  const [returnCompleteModalOpen, setReturnCompleteModalOpen] = useState(false);
+  //포토서비스 이미 신청된 항목 경고 모달
+  const [photoServiceAlreadyAppliedModalOpen, setPhotoServiceAlreadyAppliedModalOpen] = useState(false);
+  //디스포절 이미 신청된 항목 경고 모달
+  const [disposalAlreadyAppliedModalOpen, setDisposalAlreadyAppliedModalOpen] = useState(false);
+  //포토서비스 이미지 모달
+  const [photoServiceImageModalOpen, setPhotoServiceImageModalOpen] = useState(false);
+  const [selectedPhotoServiceItem, setSelectedPhotoServiceItem] = useState<OrderItem | null>(null);
+  //포토서비스 혼합 선택 경고 모달 (이미 신청된 것과 신청 안 된 것 섞임)
+  const [photoServiceMixedSelectionModalOpen, setPhotoServiceMixedSelectionModalOpen] = useState(false);
+  //디스포절 혼합 선택 경고 모달
+  const [disposalMixedSelectionModalOpen, setDisposalMixedSelectionModalOpen] = useState(false);
+  //반품 신청된 항목 선택 시 경고 모달
+  const [returnRequestedModalOpen, setReturnRequestedModalOpen] = useState(false);
 
   const { isAuthenticated } = useAuth();
 
@@ -108,54 +135,44 @@ const Store = () => {
   useEffect(() => {
     if (!memberId) return;
 
-    const controller = new ControllerAbstractBase({
-      modelName: "Package",
-      modelId: "package",
-    });
-
-    const fetchPackages = async () => {
-      try {
-        const option: any = {
-          APP_MEMBER_ID: memberId,
-        };
-
-        // 상태 필터 적용
-        if (filter !== t("store.all")) {
-          const selectedFilter = filterings.find((f) => f.label === filter);
-          if (selectedFilter) {
-            option.STATUS = selectedFilter.value;
-          }
-        }
-
-        const res = await controller.findAll(option);
-        if (res?.result?.rows) {
-          const packages = res.result.rows.map((pkg: any) => ({
-            ...pkg,
-            CREATED_AT: pkg.CREATED_AT
-              ? new Date(pkg.CREATED_AT)
-              : pkg.FREE_STORAGE_PERIOD
-              ? new Date(pkg.FREE_STORAGE_PERIOD)
-              : new Date(),
-          }));
-          setOrders(packages);
-        }
-      } catch (error) {
-        console.error("Error fetching packages:", error);
-      }
-    };
-
     fetchPackages();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [memberId, filter]);
 
+  const fetchPackages = async () => {
+    try {
+      const option: any = {
+        APP_MEMBER_ID: memberId,
+      };
+
+      // 상태 필터 적용
+      if (filter !== t("store.all")) {
+        const selectedFilter = filterings.find((f) => f.label === filter);
+        if (selectedFilter) {
+          option.STATUS = selectedFilter.value;
+        }
+      }
+
+      const res = await controller.findAll(option);
+      if (res?.result?.rows) {
+        const packages = res.result.rows.map((pkg: any) => ({
+          ...pkg,
+          CREATED_AT: pkg.CREATED_AT
+            ? new Date(pkg.CREATED_AT)
+            : pkg.FREE_STORAGE_PERIOD
+            ? new Date(pkg.FREE_STORAGE_PERIOD)
+            : new Date(),
+        }));
+        setOrders(packages);
+      }
+    } catch (error) {
+      console.error("Error fetching packages:", error);
+    }
+  };
+
   const filteringStore = (filter) => {
     // 날짜 필터링 로직
     if (!memberId) return;
-
-    const controller = new ControllerAbstractBase({
-      modelName: "Package",
-      modelId: "package",
-    });
 
     const option: any = {
       APP_MEMBER_ID: memberId,
@@ -207,19 +224,138 @@ const Store = () => {
     setCharCount(value.length);
   };
 
-  const handleCheckboxChange = (item: OrderItem) => {
-    setCheckedOrders((prevChecked) =>
-      prevChecked.some(
-        (order) =>
-          order.PACKAGE_IDENTIFICATION_CODE === item.PACKAGE_IDENTIFICATION_CODE
-      )
-        ? prevChecked.filter(
-            (order) =>
-              order.PACKAGE_IDENTIFICATION_CODE !==
-              item.PACKAGE_IDENTIFICATION_CODE
-          )
-        : [...prevChecked, item]
+  const handleNotesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setNotes(e.target.value);
+  };
+
+  const handlePhotoServiceRequest = () => {
+    const updatePromises = checkedOrders.map((order) =>
+      controller.update({
+        PACKAGE_IDENTIFICATION_CODE: order.PACKAGE_IDENTIFICATION_CODE,
+        PHOTO_SERVICE_STATUS: "Already applied",
+        PHOTO_SERVICE_REQUEST: otherRequests,
+        PHOTO_SERVICE_REMARK: notes,
+      }).catch((error) => {
+        console.error("Error updating package:", error);
+        throw error;
+      })
     );
+
+    Promise.all(updatePromises)
+      .then(() => {
+        setPhotoServiceModalOpen(false);
+        setCheckedOrders([]);
+        setOtherRequests("");
+        setNotes("");
+        setPhotoCompleteModalOpen(true);
+        fetchPackages();
+      })
+      .catch((error) => {
+        console.error("Error updating packages:", error);
+      });
+  };
+
+  const handleCheckboxChange = (item: OrderItem) => {
+    const isCurrentlyChecked = checkedOrders.some(
+      (order) =>
+        order.PACKAGE_IDENTIFICATION_CODE === item.PACKAGE_IDENTIFICATION_CODE
+    );
+
+    // 체크 해제하는 경우
+    if (isCurrentlyChecked) {
+      setCheckedOrders((prevChecked) =>
+        prevChecked.filter(
+          (order) =>
+            order.PACKAGE_IDENTIFICATION_CODE !==
+            item.PACKAGE_IDENTIFICATION_CODE
+        )
+      );
+      return;
+    }
+
+    // 체크하는 경우 - 검증 로직
+    const newCheckedOrders = [...checkedOrders, item];
+
+    // 반품 신청된 항목인지 확인
+    const returnRequestedOrders = newCheckedOrders.filter(
+      (order) => order.STATUS === "Return/Exchange application"
+    );
+
+    if (returnRequestedOrders.length > 0) {
+      setReturnRequestedModalOpen(true);
+      return;
+    }
+
+    // 포토 서비스 상태 확인
+    const notAppliedOrders = newCheckedOrders.filter(
+      (order) =>
+        !order.PHOTO_SERVICE_STATUS ||
+        order.PHOTO_SERVICE_STATUS === "Not applied"
+    );
+    const alreadyAppliedOrders = newCheckedOrders.filter(
+      (order) => order.PHOTO_SERVICE_STATUS === "Already applied"
+    );
+    const disposalAlreadyAppliedOrders = newCheckedOrders.filter(
+      (order) => order.DISPOSAL_SERVICE_STATUS === "Already applied"
+    );
+
+    // 포토 서비스: 이미 신청된 항목과 신청 안 된 항목이 섞여있는 경우
+    if (notAppliedOrders.length > 0 && alreadyAppliedOrders.length > 0) {
+      setPhotoServiceMixedSelectionModalOpen(true);
+      return;
+    }
+
+    // 디스포절: 이미 신청된 항목과 신청 안 된 항목이 섞여있는 경우
+    if (
+      notAppliedOrders.length > 0 &&
+      disposalAlreadyAppliedOrders.length > 0
+    ) {
+      setDisposalMixedSelectionModalOpen(true);
+      return;
+    }
+
+    // 검증 통과 - 체크 허용
+    setCheckedOrders(newCheckedOrders);
+  };
+
+  // 이미지 업로드 핸들러
+  const handleImageUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
+    if (event.target.files) {
+      const newImages = Array.from(event.target.files);
+      setImages((prev) => [...prev, ...newImages]);
+    }
+  };
+
+  // 이미지 삭제 핸들러
+  const handleRemoveImage = (index: number) => {
+    setImages((prev) => prev.filter((_, i) => i !== index));
+  };
+
+  const handleDisposalRequest = () => {
+    const updatePromises = checkedOrders.map((order) =>
+      controller.update({
+        PACKAGE_IDENTIFICATION_CODE: order.PACKAGE_IDENTIFICATION_CODE,
+        DISPOSAL_SERVICE_STATUS: "Confirmation pending",
+        DISPOSAL_SERVICE_NOTE: notes,
+        DISPOSAL_SERVICE_IMAGES: JSON.stringify(images),
+      }).catch((error) => {
+        console.error("Error updating package:", error);
+        throw error;
+      })
+    );
+
+    Promise.all(updatePromises)
+      .then(() => {
+        setDisposalModalOpen(false);
+        setCheckedOrders([]);
+        setNotes("");
+        setImages([]);
+        setDisposalCompleteModalOpen(true);
+        fetchPackages();
+      })
+      .catch((error) => {
+        console.error("Error updating packages:", error);
+      });
   };
 
   // 전체 선택/해제
@@ -267,7 +403,77 @@ const Store = () => {
     return acc;
   }, {} as { [key: string]: OrderItem[] });
 
+  // 포토 서비스 신청 전 확인
+  const handlePhotoServiceClick = () => {
+    if (checkedOrders.length === 0) return;
+
+    // 반품 신청된 항목이 있는지 확인
+    const returnRequestedOrders = checkedOrders.filter(
+      (order: any) => order.STATUS === "Return/Exchange application"
+    );
+
+    if (returnRequestedOrders.length > 0) {
+      setReturnRequestedModalOpen(true);
+      return;
+    }
+
+    // 이미 포토 서비스가 신청된 항목이 있는지 확인 (이미지 보기용)
+    const alreadyAppliedOrders = checkedOrders.filter(
+      (order: any) =>
+        order.PHOTO_SERVICE_STATUS === "Already applied" ||
+        order.PHOTO_SERVICE_STATUS === "Successful"
+    );
+
+    // 신청 안 된 항목이 있는지 확인
+    const notAppliedOrders = checkedOrders.filter(
+      (order: any) =>
+        !order.PHOTO_SERVICE_STATUS ||
+        order.PHOTO_SERVICE_STATUS === "Not applied"
+    );
+
+    // 이미 신청된 항목만 선택된 경우 이미지 모달 표시
+    if (alreadyAppliedOrders.length > 0 && notAppliedOrders.length === 0) {
+      // 첫 번째 항목의 이미지를 표시
+      setSelectedPhotoServiceItem(alreadyAppliedOrders[0]);
+      setPhotoServiceImageModalOpen(true);
+      return;
+    }
+
+    // 신청 안 된 항목과 이미 신청된 항목이 섞여있는 경우
+    if (alreadyAppliedOrders.length > 0 && notAppliedOrders.length > 0) {
+      setPhotoServiceMixedSelectionModalOpen(true);
+      return;
+    }
+
+    // 신청 안 된 항목만 있는 경우 신청 모달 표시
+    setPhotoServiceModalOpen(true);
+  };
+
+  // 디스포절 신청 전 확인
   const disposalService = () => {
+    if (checkedOrders.length === 0) return;
+
+    // 반품 신청된 항목이 있는지 확인
+    const returnRequestedOrders = checkedOrders.filter(
+      (order: any) => order.STATUS === "Return/Exchange application"
+    );
+
+    if (returnRequestedOrders.length > 0) {
+      setReturnRequestedModalOpen(true);
+      return;
+    }
+
+    // 이미 디스포절이 신청된 항목이 있는지 확인
+    const alreadyAppliedOrders = checkedOrders.filter(
+      (order: any) => order.DISPOSAL_SERVICE_STATUS === "Already applied"
+    );
+
+    if (alreadyAppliedOrders.length > 0) {
+      setDisposalAlreadyAppliedModalOpen(true);
+      return;
+    }
+
+    // 포토 서비스가 신청되지 않은 항목이 있는지 확인
     if (
       checkedOrders.find(
         (order: any) => order.PHOTO_SERVICE_STATUS === "Not applied"
@@ -275,8 +481,40 @@ const Store = () => {
     ) {
       setIsDisposalModalOpen(true);
     } else {
-      setIsDisposalModalOpen(true);
+      setDisposalModalOpen(true);
     }
+  };
+
+  const handleReturnRequest = () => {
+    // 반품 신청된 항목이 있는지 확인
+    const returnRequestedOrders = checkedOrders.filter(
+      (order: any) => order.STATUS === "Return/Exchange application"
+    );
+
+    if (returnRequestedOrders.length > 0) {
+      setReturnRequestedModalOpen(true);
+      return;
+    }
+
+    const updatePromises = checkedOrders.map((order) =>
+      controller.update({
+        PACKAGE_IDENTIFICATION_CODE: order.PACKAGE_IDENTIFICATION_CODE,
+        STATUS: "Return/Exchange application",
+      }).catch((error) => {
+        console.error("Error updating package:", error);
+        throw error;
+      })
+    );
+
+    Promise.all(updatePromises)
+      .then(() => {
+        setCheckedOrders([]);
+        setReturnCompleteModalOpen(true);
+        fetchPackages();
+      })
+      .catch((error) => {
+        console.error("Error updating packages:", error);
+      });
   };
 
   return (
@@ -428,7 +666,6 @@ const Store = () => {
           flexDirection: "column",
           position: "fixed",
           bottom: "48px",
-          width: "360",
           height: "120px",
           backgroundColor: "white",
         }}
@@ -442,7 +679,7 @@ const Store = () => {
         >
           <OriginButton
             variant="outlined"
-            onClick={() => {}}
+            onClick={handlePhotoServiceClick}
             contents={
               <Box
                 sx={{
@@ -452,7 +689,7 @@ const Store = () => {
                 }}
               >
                 <Typography fontSize={16} fontWeight={700} color="#61636C">
-                  {t("store.photo_service")}
+                 포토 서비스
                 </Typography>
                 <img src={"/images/icon/store/camera.svg"} alt="camera" />
               </Box>
@@ -498,7 +735,11 @@ const Store = () => {
         >
           <OriginButton
             variant="outlined"
-            onClick={() => {}}
+            onClick={() => {
+              if (checkedOrders.length > 0) {
+                handleReturnRequest();
+              }
+            }}
             contents={
               <Box
                 sx={{
@@ -523,6 +764,16 @@ const Store = () => {
             color="#3966AE"
             onClick={() => {
               if (checkedOrders.length > 0) {
+                // 반품 신청된 항목이 있는지 확인
+                const returnRequestedOrders = checkedOrders.filter(
+                  (order: any) => order.STATUS === "Return/Exchange application"
+                );
+
+                if (returnRequestedOrders.length > 0) {
+                  setReturnRequestedModalOpen(true);
+                  return;
+                }
+
                 setIsDeliveryRequestModalOpen(true);
               }
             }}
@@ -630,7 +881,7 @@ const Store = () => {
                 textAlign: "left",
               }}
             >
-              디스포절 서비스를 이용시, 포토서비스 신청 후 이용 가능합니다.
+              디스포절 서비스를 이용시,<br /> 포토서비스 신청 후 이용 가능합니다.
             </Typography>
           </Box>
         }
@@ -655,9 +906,24 @@ const Store = () => {
               : "",
         }))}
         onConfirm={() => {
-          // 배송 요청 로직
           setIsDeliveryRequestModalOpen(false);
+          navigate("/store/delivery/address");
         }}
+      />
+      {/* 포토서비스 bottomModal */}
+      <PhotoBottomModal
+        bottomModalOpen={photoServiceModalOpen}
+        setBottomModalOpen={setPhotoServiceModalOpen}
+        checkedOrders={checkedOrders}
+        isProductExpanded={isProductExpanded}
+        setIsProductExpanded={setIsProductExpanded}
+        otherRequests={otherRequests}
+        handleOtherRequestsChange={handleOtherRequestsChange}
+        charCount={charCount}
+        maxCharCount={maxCharCount}
+        notes={notes}
+        handleNotesChange={handleNotesChange}
+        handlePhotoServiceRequest={handlePhotoServiceRequest}
       />
       {/* 디즈포절 bottomModal */}
       <DisposalBottomModal
@@ -672,6 +938,11 @@ const Store = () => {
         maxCharCount={maxCharCount}
         isConfirmed={isConfirmed}
         setIsConfirmed={setIsConfirmed}
+        images={images}
+        setImages={setImages}
+        handleRemoveImage={handleRemoveImage}
+        handleImageUpload={handleImageUpload}
+        handleDisposalRequest={handleDisposalRequest}
       />
       {/* 디스포절 완료 모달 */}
       <AlertModal
@@ -779,6 +1050,201 @@ const Store = () => {
                 업데이트 이후 창고현황 에서 확인 가능합니다.
               </Typography>
             </Box>
+          </Box>
+        }
+      />
+      {/* 반품 요청 완료 모달 */}
+      <AlertModal
+        open={returnCompleteModalOpen}
+        onClose={() => {
+          setReturnCompleteModalOpen(false);
+        }}
+        contents={
+          <Box
+            sx={{
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+              pt: "20px",
+              pb: "30px",
+            }}
+          >
+            <Box
+              sx={{
+                display: "flex",
+                flexDirection: "column",
+                alignItems: "center",
+                gap: "10px",
+                mb: "20px",
+              }}
+            >
+              <Typography
+                sx={{
+                  fontSize: "18px",
+                  color: "#282930",
+                  fontWeight: 700,
+                }}
+              >
+                반품 요청이 완료되었습니다
+              </Typography>
+              <Typography
+                sx={{
+                  fontSize: "14px",
+                  color: "#61636C",
+                  fontWeight: 500,
+                  lineHeight: "130%",
+                  letterSpacing: "-0.14px",
+                  textAlign: "center",
+                }}
+              >
+                업데이트 이후 창고현황 에서 확인 가능합니다.
+              </Typography>
+            </Box>
+          </Box>
+        }
+      />
+      {/* 포토 서비스 이미지 모달 */}
+      <PhotoServiceImageModal
+        open={photoServiceImageModalOpen}
+        onClose={() => {
+          setPhotoServiceImageModalOpen(false);
+          setSelectedPhotoServiceItem(null);
+        }}
+        images={selectedPhotoServiceItem?.PHOTO_SERVICE_IMAGE_LIST || undefined}
+        remark={selectedPhotoServiceItem?.PHOTO_SERVICE_UNBOXING_VIDEO_REMARK || undefined}
+      />
+      {/* 포토 서비스 이미 신청된 항목 경고 모달 */}
+      <AlertModal
+        open={photoServiceAlreadyAppliedModalOpen}
+        onClose={() => {
+          setPhotoServiceAlreadyAppliedModalOpen(false);
+        }}
+        button1={{
+          text: "확인",
+          color: "#282930",
+          onClick: () => setPhotoServiceAlreadyAppliedModalOpen(false),
+        }}
+        contents={
+          <Box sx={{ display: "flex", flexDirection: "column", mt: "20px" }}>
+            <Typography
+              sx={{
+                fontSize: "18px",
+                color: "#282930",
+                fontWeight: 500,
+                mb: "20px",
+                textAlign: "left",
+              }}
+            >
+              선택한 항목 중 이미 포토 서비스가 신청된 항목이 있습니다.
+            </Typography>
+          </Box>
+        }
+      />
+      {/* 포토 서비스 혼합 선택 경고 모달 */}
+      <AlertModal
+        open={photoServiceMixedSelectionModalOpen}
+        onClose={() => {
+          setPhotoServiceMixedSelectionModalOpen(false);
+        }}
+        button1={{
+          text: "확인",
+          color: "#282930",
+          onClick: () => setPhotoServiceMixedSelectionModalOpen(false),
+        }}
+        contents={
+          <Box sx={{ display: "flex", flexDirection: "column", mt: "20px" }}>
+            <Typography
+              sx={{
+                fontSize: "18px",
+                color: "#282930",
+                fontWeight: 500,
+                mb: "20px",
+                textAlign: "center",
+              }}
+            >
+              포토 서비스를 신청하지 않은 항목과 <br />이미 신청된 항목을 <br />함께 선택할 수 없습니다.
+            </Typography>
+          </Box>
+        }
+      />
+      {/* 디스포절 이미 신청된 항목 경고 모달 */}
+      <AlertModal
+        open={disposalAlreadyAppliedModalOpen}
+        onClose={() => {
+          setDisposalAlreadyAppliedModalOpen(false);
+        }}
+        button1={{
+          text: "확인",
+          color: "#282930",
+          onClick: () => setDisposalAlreadyAppliedModalOpen(false),
+        }}
+        contents={
+          <Box sx={{ display: "flex", flexDirection: "column", mt: "20px" }}>
+            <Typography
+              sx={{
+                fontSize: "18px",
+                color: "#282930",
+                fontWeight: 500,
+                mb: "20px",
+                textAlign: "left",
+              }}
+            >
+              선택한 항목 중 이미 디스포절이 신청된 항목이 있습니다.
+            </Typography>
+          </Box>
+        }
+      />
+      {/* 디스포절 혼합 선택 경고 모달 */}
+      <AlertModal
+        open={disposalMixedSelectionModalOpen}
+        onClose={() => {
+          setDisposalMixedSelectionModalOpen(false);
+        }}
+        button1={{
+          text: "확인",
+          color: "#282930",
+          onClick: () => setDisposalMixedSelectionModalOpen(false),
+        }}
+        contents={
+          <Box sx={{ display: "flex", flexDirection: "column", mt: "20px" }}>
+            <Typography
+              sx={{
+                fontSize: "18px",
+                color: "#282930",
+                fontWeight: 500,
+                mb: "20px",
+                textAlign: "left",
+              }}
+            >
+              디스포절을 신청하지 않은 항목과 이미 신청된 항목을 함께 선택할 수 없습니다.
+            </Typography>
+          </Box>
+        }
+      />
+      {/* 반품 신청된 항목 선택 시 경고 모달 */}
+      <AlertModal
+        open={returnRequestedModalOpen}
+        onClose={() => {
+          setReturnRequestedModalOpen(false);
+        }}
+        button1={{
+          text: "확인",
+          color: "#282930",
+          onClick: () => setReturnRequestedModalOpen(false),
+        }}
+        contents={
+          <Box sx={{ display: "flex", flexDirection: "column", mt: "20px" }}>
+            <Typography
+              sx={{
+                fontSize: "18px",
+                color: "#282930",
+                fontWeight: 500,
+                mb: "20px",
+                textAlign: "center",
+              }}
+            >
+              반품 신청된 항목은<br />다른 서비스를 이용할 수 없습니다.
+            </Typography>
           </Box>
         }
       />

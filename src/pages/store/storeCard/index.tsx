@@ -35,7 +35,6 @@ const StoreCard = (props: OrderCardProps) => {
       return props.item.FREE_STORAGE_PERIOD;
     }
   };
-
   const dday = calculateDday(props.item.FREE_STORAGE_PERIOD);
 
   return (
@@ -226,7 +225,7 @@ const StoreCard = (props: OrderCardProps) => {
             />
           ) : (
             <img
-              src="/images/icon/store/photo_service.svg"
+              src="/images/icon/store/service_request.svg"
               alt="product"
               style={{ width: "16px", height: "16px" }}
             />

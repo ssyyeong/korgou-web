@@ -21,6 +21,11 @@ interface IDisposalBottomModalProps {
   maxCharCount: number;
   isConfirmed: boolean;
   setIsConfirmed: (value: boolean) => void;
+  images: File[];
+  setImages: (images: File[]) => void;
+  handleRemoveImage: (index: number) => void;
+  handleImageUpload: (event: React.ChangeEvent<HTMLInputElement>) => void;
+  handleDisposalRequest: () => void;
 }
 
 const DisposalBottomModal = (props: IDisposalBottomModalProps) => {
@@ -245,10 +250,10 @@ const DisposalBottomModal = (props: IDisposalBottomModalProps) => {
               }}
             >
               <MultiImageUploader
-                images={[]}
-                setImages={() => {}}
-                handleRemoveImage={() => {}}
-                handleImageUpload={() => {}}
+                images={props.images}
+                setImages={props.setImages}
+                handleRemoveImage={props.handleRemoveImage}
+                handleImageUpload={props.handleImageUpload}
                 width="70px"
                 height="70px"
                 maxCount={5}
@@ -346,8 +351,7 @@ const DisposalBottomModal = (props: IDisposalBottomModalProps) => {
       }}
       btnText={"요청하기"}
       btnClick={() => {
-        // 요청 처리 로직
-        props.setBottomModalOpen(false);
+        props.handleDisposalRequest();
       }}
     />
   );

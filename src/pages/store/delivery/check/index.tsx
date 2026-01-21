@@ -15,6 +15,8 @@ import OriginButton from "../../../../components/Button/OriginButton";
 import { KeyboardArrowUp } from "@mui/icons-material";
 import CustomCheckbox from "../../../../components/Button/CustomCheckbox";
 import AlertModal from "../../../../components/Modal/AlertModal";
+import ControllerAbstractBase from "../../../../controller/Controller";
+import { useAppMember } from "../../../../hooks/useAppMember";
 
 interface DeliveryCheckData {
   // 상품 정보
@@ -52,6 +54,7 @@ interface DeliveryCheckData {
 const DeliveryCheck = () => {
   const navigator = useNavigate();
   const location = useLocation();
+  const { memberId, memberCode } = useAppMember();
   const [modalOpen, setModalOpen] = useState(false);
   // 체크박스 상태
   const [isConfirmed, setIsConfirmed] = useState(false);
@@ -59,53 +62,226 @@ const DeliveryCheck = () => {
   // 상품 정보 확장 상태
   const [isProductExpanded, setIsProductExpanded] = useState(false);
 
-  // 실제로는 이전 페이지들에서 전달받은 데이터를 사용해야 함
-  // 현재는 임시 데이터로 구현
+  // 이전 페이지에서 받은 데이터
+  const [previousData, setPreviousData] = useState<any>(null);
+  const [addressData, setAddressData] = useState<any>(null);
+
+  // 이전 페이지들에서 전달받은 실제 데이터 사용
   const [deliveryData, setDeliveryData] = useState<DeliveryCheckData>({
-    totalItems: 2,
-    totalWeight: 1980,
-    products: [
-      {
-        receiptNumber: "012345",
-        productName: "[해외배송] 셀퓨전시 선크림",
-        weight: 1230,
-      },
-      {
-        receiptNumber: "012346",
-        productName: "[해외배송] 셀퓨전시 선크림",
-        weight: 750,
-      },
-    ],
-    deliveryCompany: "DHL",
+    totalItems: 0,
+    totalWeight: 0,
+    products: [],
+    deliveryCompany: "",
     processingMethod: "일반",
-    additionalServices: [
-      { name: "프리미엄 재포장", price: 4000 },
-      { name: "배송보험", price: 15000 },
-      { name: "원박스 제거", price: 5000 },
-    ],
-    otherRequests: "요청사항에 대한 내용이 노출됩니다.",
-    country: "South Korea",
-    recipientName: "KIM SOMI",
-    address: "{상세주소}, {주}, {도시}, {우편번호}",
-    phoneNumber: "82+ 10 1223 5678",
-    declarationItems: [
-      {
-        contents: "화장품",
-        quantity: "3",
-        amount: "USD 150",
-      },
-    ],
+    additionalServices: [],
+    otherRequests: "",
+    country: "",
+    recipientName: "",
+    address: "",
+    phoneNumber: "",
+    declarationItems: [],
   });
 
-  const handleSubmit = () => {
+  useEffect(() => {
+    // 이전 페이지에서 전달받은 데이터 처리
+    if (location.state) {
+      setPreviousData(location.state);
+      
+      // 배송지 정보 가져오기
+      if (location.state.addressId) {
+        fetchAddressData(location.state.addressId);
+      } else if (location.state.directAddress) {
+        // 직접 입력한 주소 정보 사용
+        setAddressData(location.state.directAddress);
+      }
+
+      // deliveryData 업데이트
+      const additionalServices = [];
+      if (location.state.compactPackaging) {
+        additionalServices.push({ name: "Compact Packaging", price: 30000 });
+      }
+      if (location.state.shippingInsurance) {
+        additionalServices.push({ name: "배송 보험", price: 20000 });
+      }
+
+      // 패키지 정보 가져오기 (location.state.packages가 있으면 사용)
+      const products = location.state.packages
+        ? location.state.packages.map((pkg: any) => ({
+            receiptNumber: pkg.PACKAGE_ID || pkg.PACKAGE_IDENTIFICATION_CODE || "",
+            productName: pkg.CONTENTS || pkg.TYPE || "",
+            weight: pkg.WEIGHT || 0,
+          }))
+        : [];
+
+      setDeliveryData({
+        totalItems: location.state.totalItems || 0,
+        totalWeight: location.state.totalWeight || 0,
+        products,
+        deliveryCompany: location.state.deliveryCompany || "",
+        processingMethod: location.state.processingMethod === "priority" ? "우선 처리" : "일반",
+        additionalServices,
+        otherRequests: location.state.otherRequests || "",
+        country: "",
+        recipientName: "",
+        address: "",
+        phoneNumber: "",
+        declarationItems: location.state.declarationItems || [],
+      });
+    }
+  }, [location.state]);
+
+  useEffect(() => {
+    // addressData가 로드되면 deliveryData 업데이트
+    if (addressData && !previousData?.directAddress) {
+      let fullAddress = addressData.ADDRESS || "";
+      if (addressData.DETAILED_ADDRESS) {
+        fullAddress += `, ${addressData.DETAILED_ADDRESS}`;
+      }
+      if (addressData.CITY) {
+        fullAddress += `, ${addressData.CITY}`;
+      }
+      if (addressData.PROVINCE) {
+        fullAddress += `, ${addressData.PROVINCE}`;
+      }
+      if (addressData.POSTAL_CODE) {
+        fullAddress = `[${addressData.POSTAL_CODE}] ${fullAddress}`;
+      }
+      if (addressData.COUNTRY) {
+        fullAddress += `, ${addressData.COUNTRY}`;
+      }
+
+      const phoneNumber = addressData.COUNTRY_NUMBER 
+        ? `${addressData.COUNTRY_NUMBER}+ ${addressData.CONTACT}`
+        : addressData.CONTACT || "";
+
+      setDeliveryData((prev) => ({
+        ...prev,
+        country: addressData.COUNTRY || "",
+        recipientName: addressData.NAME || "",
+        address: fullAddress,
+        phoneNumber,
+      }));
+    } else if (previousData?.directAddress) {
+      // 직접 입력한 주소 정보
+      const direct = previousData.directAddress;
+      let fullAddress = direct.address || "";
+      if (direct.detailAddress) {
+        fullAddress += `, ${direct.detailAddress}`;
+      }
+      if (direct.city) {
+        fullAddress += `, ${direct.city}`;
+      }
+      if (direct.province) {
+        fullAddress += `, ${direct.province}`;
+      }
+      if (direct.postalCode) {
+        fullAddress = `[${direct.postalCode}] ${fullAddress}`;
+      }
+      if (direct.country) {
+        fullAddress += `, ${direct.country}`;
+      }
+
+      const phoneNumber = direct.phonePrefix 
+        ? `${direct.phonePrefix}+ ${direct.phoneNumber}`
+        : direct.phoneNumber || "";
+
+      setDeliveryData((prev) => ({
+        ...prev,
+        country: direct.country || "",
+        recipientName: direct.name || "",
+        address: fullAddress,
+        phoneNumber,
+      }));
+    }
+  }, [addressData, previousData]);
+
+  const fetchAddressData = async (addressId: string) => {
+    const controller = new ControllerAbstractBase({
+      modelName: "Address",
+      modelId: "address",
+    });
+
+    controller
+      .findOne({
+        ADDRESS_IDENTIFICATION_CODE: addressId,
+      })
+      .then((res) => {
+        setAddressData(res.result);
+      })
+      .catch((error) => {
+        console.error("주소 정보 가져오기 오류:", error);
+      });
+  };
+
+  // 랜덤 코드 생성 함수
+  const generateRandomCode = (): string => {
+    const prefix = "F1000";
+    const randomNumber = Math.floor(100000 + Math.random() * 900000); // 6자리 숫자 생성
+    return `${prefix}${randomNumber}`;
+  };
+
+  const handleSubmit = async () => {
     if (!isConfirmed) {
       alert("배송요청 내용을 확인해주세요.");
       return;
     }
 
-    // 배송 요청 처리
-    alert("배송 요청이 완료되었습니다.");
-    navigator("/store/delivery/complete");
+    if (!previousData) {
+      alert("데이터를 불러오는 중입니다. 잠시 후 다시 시도해주세요.");
+      return;
+    }
+
+    if (!memberId) {
+      alert("로그인 후 이용해주세요.");
+      return;
+    }
+
+    const controller = new ControllerAbstractBase({
+      modelName: "Forward",
+      modelId: "forward",
+    });
+
+    try {
+      // Forward 모델 스키마에 맞게 데이터 매핑
+      const forwardData: any = {
+        ADDRESS_IDENTIFICATION_CODE: previousData.addressId || null,
+        APP_MEMBER_ID: memberId,
+        FORWARD_ID: generateRandomCode(),
+        PACKAGE_LIST: JSON.stringify(deliveryData.products), // 패키지 목록은 나중에 업데이트 가능
+        STATUS: "Application pending", // 초기 상태
+        REQUIREMENT: previousData.otherRequests || null,
+        WEIGHT: previousData.totalWeight || 0,
+        PROCESSING: previousData.processingMethod === "priority" ? "Priority" : "Normal",
+        PREMIUM_REPACKING_YN: previousData.compactPackaging ? "Y" : "N",
+        INSURANCE: previousData.shippingInsurance ? 20000 : null,
+        PROCESSING_FEE: previousData.processingMethod === "priority" ? 6000 : 3000,
+        PROCESSING_FEE_DISCOUNT: 0,
+        DECLARATION: previousData.declarationItems 
+          ? JSON.stringify(previousData.declarationItems)
+          : null,
+        REMARK: previousData.otherRequests || null,
+        PRINT_YN: "N",
+      };
+
+      // 총 비용 계산 (나중에 서버에서 계산할 수도 있음)
+      let totalFee = 0;
+      if (previousData.shippingInsurance) totalFee += 20000;
+      if (previousData.compactPackaging) totalFee += 30000;
+      forwardData.TOTAL_FEE = totalFee;
+
+      // 서버에 데이터 생성
+      const response = await controller.create(forwardData);
+      
+      // 성공 시 모달 표시 (모달 닫을 때 창고현황 페이지로 이동)
+      if (response) {
+        setModalOpen(true);
+      } else {
+        alert("배송 요청 처리 중 오류가 발생했습니다.");
+      }
+    } catch (error) {
+      console.error("배송 요청 처리 오류:", error);
+      alert("배송 요청 처리 중 오류가 발생했습니다.");
+    }
   };
 
   const handleCancel = () => {
@@ -780,6 +956,7 @@ const DeliveryCheck = () => {
         open={modalOpen}
         onClose={() => {
           setModalOpen(false);
+          navigator("/store");
         }}
         contents={
           <Box

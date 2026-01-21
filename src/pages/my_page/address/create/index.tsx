@@ -83,7 +83,7 @@ const AddressCreate = () => {
       postalCode === "" ||
       countryNumber === "" ||
       contact === "" ||
-      addressMethod === 0
+      (shippingType === "FOREIGN" && addressMethod === 0)
     ) {
       toast.error("모든 항목을 입력해주세요.", {
         position: "top-center",
@@ -340,63 +340,65 @@ const AddressCreate = () => {
             </>
           )}
         </Box>
-        {/* 배송 수단 */}
-        <Box
-          display="flex"
-          flexDirection="column"
-          justifyContent="center"
-          width="100%"
-          gap="10px"
-        >
-          <Typography
-            sx={{
-              fontSize: "20px",
-              fontWeight: 700,
-            }}
+        {/* 배송 수단 - 해외배송일 때만 표시 */}
+        {shippingType === "FOREIGN" && (
+          <Box
+            display="flex"
+            flexDirection="column"
+            justifyContent="center"
+            width="100%"
+            gap="10px"
           >
-            {t("forward_request1.delivery_method")}
-          </Typography>
-          <Grid2
-            container
-            spacing={2}
-            sx={{
-              gap: "8px",
-            }}
-          >
-            {shippingMethodList.map((item, index) => (
-              <Grid2 size={6} key={index}>
-                <Button
-                  fullWidth
-                  variant={
-                    addressMethod === item.value ? "contained" : "outlined"
-                  }
-                  onClick={() => {
-                    setAddressMethod(item.value);
-                    setAddressMethodLabel(item.label);
-                  }}
-                  style={{
-                    padding: "8px 16px",
-                    borderRadius: "1px",
-                    borderColor:
-                      addressMethod === item.value ? "#282930" : "61636C",
-                    backgroundColor:
-                      addressMethod === item.value ? "#282930" : "white",
-                  }}
-                >
-                  <Typography
-                    fontSize={16}
-                    fontWeight={700}
-                    sx={{
-                      color: addressMethod === item.value ? "white" : "#61636C",
+            <Typography
+              sx={{
+                fontSize: "20px",
+                fontWeight: 700,
+              }}
+            >
+              {t("forward_request1.delivery_method")}
+            </Typography>
+            <Grid2
+              container
+              spacing={2}
+              sx={{
+                gap: "8px",
+              }}
+            >
+              {shippingMethodList.map((item, index) => (
+                <Grid2 size={6} key={index}>
+                  <Button
+                    fullWidth
+                    variant={
+                      addressMethod === item.value ? "contained" : "outlined"
+                    }
+                    onClick={() => {
+                      setAddressMethod(item.value);
+                      setAddressMethodLabel(item.label);
+                    }}
+                    style={{
+                      padding: "8px 16px",
+                      borderRadius: "1px",
+                      borderColor:
+                        addressMethod === item.value ? "#282930" : "61636C",
+                      backgroundColor:
+                        addressMethod === item.value ? "#282930" : "white",
                     }}
                   >
-                    {item.label}
-                  </Typography>
-                </Button>
-              </Grid2>
-            ))}
-          </Grid2>
-        </Box>
+                    <Typography
+                      fontSize={16}
+                      fontWeight={700}
+                      sx={{
+                        color: addressMethod === item.value ? "white" : "#61636C",
+                      }}
+                    >
+                      {item.label}
+                    </Typography>
+                  </Button>
+                </Grid2>
+              ))}
+            </Grid2>
+          </Box>
+        )}
 
         <OriginButton
           fullWidth
