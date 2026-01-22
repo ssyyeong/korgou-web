@@ -217,12 +217,6 @@ const StoreCard = (props: OrderCardProps) => {
               alt="product"
               style={{ width: "16px", height: "16px" }}
             />
-          ) : props.item.PHOTO_SERVICE_STATUS === "Count failed" ? (
-            <img
-              src="/images/icon/store/photo_service_cancel.svg"
-              alt="product"
-              style={{ width: "16px", height: "16px" }}
-            />
           ) : (
             <img
               src="/images/icon/store/service_request.svg"
