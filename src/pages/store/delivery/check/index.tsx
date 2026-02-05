@@ -86,7 +86,7 @@ const DeliveryCheck = () => {
     // 이전 페이지에서 전달받은 데이터 처리
     if (location.state) {
       setPreviousData(location.state);
-      
+
       // 배송지 정보 가져오기
       if (location.state.addressId) {
         fetchAddressData(location.state.addressId);
@@ -107,7 +107,8 @@ const DeliveryCheck = () => {
       // 패키지 정보 가져오기 (location.state.packages가 있으면 사용)
       const products = location.state.packages
         ? location.state.packages.map((pkg: any) => ({
-            receiptNumber: pkg.PACKAGE_ID || pkg.PACKAGE_IDENTIFICATION_CODE || "",
+            receiptNumber:
+              pkg.PACKAGE_ID || pkg.PACKAGE_IDENTIFICATION_CODE || "",
             productName: pkg.CONTENTS || pkg.TYPE || "",
             weight: pkg.WEIGHT || 0,
           }))
@@ -118,7 +119,8 @@ const DeliveryCheck = () => {
         totalWeight: location.state.totalWeight || 0,
         products,
         deliveryCompany: location.state.deliveryCompany || "",
-        processingMethod: location.state.processingMethod === "priority" ? "우선 처리" : "일반",
+        processingMethod:
+          location.state.processingMethod === "priority" ? "우선 처리" : "일반",
         additionalServices,
         otherRequests: location.state.otherRequests || "",
         country: "",
@@ -150,7 +152,7 @@ const DeliveryCheck = () => {
         fullAddress += `, ${addressData.COUNTRY}`;
       }
 
-      const phoneNumber = addressData.COUNTRY_NUMBER 
+      const phoneNumber = addressData.COUNTRY_NUMBER
         ? `${addressData.COUNTRY_NUMBER}+ ${addressData.CONTACT}`
         : addressData.CONTACT || "";
 
@@ -181,7 +183,7 @@ const DeliveryCheck = () => {
         fullAddress += `, ${direct.country}`;
       }
 
-      const phoneNumber = direct.phonePrefix 
+      const phoneNumber = direct.phonePrefix
         ? `${direct.phonePrefix}+ ${direct.phoneNumber}`
         : direct.phoneNumber || "";
 
@@ -240,23 +242,25 @@ const DeliveryCheck = () => {
       modelName: "Forward",
       modelId: "forward",
     });
-
+    console.log("deliveryData", deliveryData);
     try {
       // Forward 모델 스키마에 맞게 데이터 매핑
       const forwardData: any = {
         ADDRESS_IDENTIFICATION_CODE: previousData.addressId || null,
         APP_MEMBER_ID: memberId,
         FORWARD_ID: generateRandomCode(),
-        PACKAGE_LIST: JSON.stringify(deliveryData.products), // 패키지 목록은 나중에 업데이트 가능
+        PACKAGE_LIST: JSON.stringify(deliveryData.products.map((p) => p.receiptNumber)), // 패키지 ID만 전달
         STATUS: "Application pending", // 초기 상태
         REQUIREMENT: previousData.otherRequests || null,
         WEIGHT: previousData.totalWeight || 0,
-        PROCESSING: previousData.processingMethod === "priority" ? "Priority" : "Normal",
+        PROCESSING:
+          previousData.processingMethod === "priority" ? "Priority" : "Normal",
         PREMIUM_REPACKING_YN: previousData.compactPackaging ? "Y" : "N",
         INSURANCE: previousData.shippingInsurance ? 20000 : null,
-        PROCESSING_FEE: previousData.processingMethod === "priority" ? 6000 : 3000,
+        PROCESSING_FEE:
+          previousData.processingMethod === "priority" ? 6000 : 3000,
         PROCESSING_FEE_DISCOUNT: 0,
-        DECLARATION: previousData.declarationItems 
+        DECLARATION: previousData.declarationItems
           ? JSON.stringify(previousData.declarationItems)
           : null,
         REMARK: previousData.otherRequests || null,
@@ -271,7 +275,7 @@ const DeliveryCheck = () => {
 
       // 서버에 데이터 생성
       const response = await controller.create(forwardData);
-      
+
       // 성공 시 모달 표시 (모달 닫을 때 창고현황 페이지로 이동)
       if (response) {
         setModalOpen(true);
@@ -290,7 +294,7 @@ const DeliveryCheck = () => {
 
   const totalServicePrice = deliveryData.additionalServices.reduce(
     (sum, service) => sum + service.price,
-    0
+    0,
   );
 
   return (

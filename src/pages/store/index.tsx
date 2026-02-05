@@ -907,7 +907,21 @@ const [images, setImages] = useState<File[]>([]);
         }))}
         onConfirm={() => {
           setIsDeliveryRequestModalOpen(false);
-          navigate("/store/delivery/address");
+          const packages = checkedOrders.map((order) => ({
+            PACKAGE_ID: order.PACKAGE_ID,
+            PACKAGE_IDENTIFICATION_CODE: order.PACKAGE_IDENTIFICATION_CODE,
+            TYPE: order.TYPE,
+            WEIGHT: order.WEIGHT ?? 0,
+            CONTENTS: order.CONTENTS,
+          }));
+          const totalWeight = packages.reduce((sum, p) => sum + (p.WEIGHT || 0), 0);
+          navigate("/store/delivery/address", {
+            state: {
+              packages,
+              totalItems: packages.length,
+              totalWeight,
+            },
+          });
         }}
       />
       {/* 포토서비스 bottomModal */}

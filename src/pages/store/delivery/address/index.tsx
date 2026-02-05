@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   Box,
   Typography,
@@ -44,23 +44,22 @@ const DeliveryAddress = () => {
   const [deliveryCompanyList, setDeliveryCompanyList] = useState<any[]>([]);
   const [deliveryCompany, setDeliveryCompany] = useState("DHL");
 
+  // 배송사 목록은 마운트 시 한 번만 로드
   useEffect(() => {
-    fetchAddressList();
     fetchDeliveryCompanyList();
-  }, [memberCode, location.pathname, memberId]);
+  }, []);
 
   // 배송 타입이 변경되면 선택된 주소 초기화
   useEffect(() => {
     setSelectedAddress("");
   }, [shippingType]);
 
-  const fetchAddressList = async () => {
+  const fetchAddressList = useCallback(async () => {
+    if (!memberId) return;
     const controller = new ControllerAbstractBase({
       modelName: "Address",
       modelId: "address",
     });
-
-    console.log(memberId);
 
     controller
       .findAll({
@@ -89,14 +88,18 @@ const DeliveryAddress = () => {
           }
 
           // 전화번호 문자열 구성
-          const phoneNumber = addr.COUNTRY_NUMBER 
-            ? `${addr.COUNTRY_NUMBER}+ ${addr.CONTACT}`.replace(/(\d)(\d{3})(\d{4})/, "$1 $2 $3 $4")
+          const phoneNumber = addr.COUNTRY_NUMBER
+            ? `${addr.COUNTRY_NUMBER}+ ${addr.CONTACT}`.replace(
+                /(\d)(\d{3})(\d{4})/,
+                "$1 $2 $3 $4",
+              )
             : addr.CONTACT || "";
 
           return {
             id: addr.ADDRESS_IDENTIFICATION_CODE?.toString() || addr.id,
             name: addr.NAME || "",
-            type: addr.SHIPPING_TYPE === "FOREIGN" ? "international" : "domestic",
+            type:
+              addr.SHIPPING_TYPE === "FOREIGN" ? "international" : "domestic",
             address: fullAddress,
             phone: phoneNumber,
             isSelected: false,
@@ -104,7 +107,13 @@ const DeliveryAddress = () => {
         });
         setAddressList(mappedAddresses);
       });
-  };
+  }, [memberId]);
+
+  // 주소 목록은 memberId가 있을 때만 한 번 로드
+  useEffect(() => {
+    if (!memberId) return;
+    fetchAddressList();
+  }, [memberId, fetchAddressList]);
 
   const fetchDeliveryCompanyList = async () => {
     const controller = new ControllerAbstractBase({
@@ -828,6 +837,7 @@ const DeliveryAddress = () => {
               if (addressType === "select" && selectedAddress) {
                 navigator("/store/delivery/service", {
                   state: {
+                    ...(location.state || {}),
                     addressId: selectedAddress,
                     shippingType: shippingType,
                   },
@@ -836,9 +846,11 @@ const DeliveryAddress = () => {
                 // 직접 입력 모드일 때 입력한 주소 정보 전달
                 navigator("/store/delivery/service", {
                   state: {
+                    ...(location.state || {}),
                     directAddress: directForm,
                     shippingType: shippingType,
-                    deliveryCompany: shippingType === "international" ? deliveryCompany : null,
+                    deliveryCompany:
+                      shippingType === "international" ? deliveryCompany : null,
                   },
                 });
               }

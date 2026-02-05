@@ -61,7 +61,7 @@ const DeliveryService = () => {
   useEffect(() => {
     // 이전 페이지에서 전달받은 데이터 처리
     if (location.state) {
-      const { addressId, shippingType, directAddress, deliveryCompany } = location.state;
+      const { addressId, shippingType, directAddress, deliveryCompany, totalItems: stateTotalItems, totalWeight: stateTotalWeight } = location.state as any;
       if (addressId) {
         setAddressId(addressId);
       }
@@ -76,6 +76,9 @@ const DeliveryService = () => {
       if (directAddress) {
         setDirectAddress(directAddress);
       }
+      // 창고(store)에서 넘어온 패키지/총계가 있으면 사용
+      if (stateTotalItems != null) setTotalItems(stateTotalItems);
+      if (stateTotalWeight != null) setTotalWeight(stateTotalWeight);
     }
     fetchDeliveryCompanyList();
   }, [location.state]);
@@ -125,9 +128,11 @@ const DeliveryService = () => {
   };
 
   const handleNext = () => {
-    // 다음 단계로 이동 (모든 선택된 값 포함)
+    // 다음 단계로 이동 (모든 선택된 값 포함, 이전 단계 state 유지)
+    const stateFromAddress = (location.state || {}) as any;
     navigator("/store/delivery/declaration", {
       state: {
+        ...stateFromAddress,
         addressId,
         shippingType,
         directAddress,
@@ -138,6 +143,7 @@ const DeliveryService = () => {
         otherRequests,
         totalItems,
         totalWeight,
+        packages: stateFromAddress.packages ?? [],
       },
     });
   };
